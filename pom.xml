@@ -7,6 +7,11 @@
   <artifactId>AcademicEvents</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
+  <modules>
+    <module>persistencia</module>
+    <module>controllers</module>
+    <module>ui</module>
+  </modules>
 
   <name>AcademicEvents</name>
   <!-- FIXME change it to the project's website -->
@@ -54,17 +59,6 @@
           <version>3.3.0</version>
         </plugin>
         <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.4.2</version>
-          <configuration>
-            <archive>
-              <manifest>
-                <mainClass>br.upe.UserInterface.App</mainClass>
-              </manifest>
-            </archive>
-          </configuration>
-        </plugin>
-        <plugin>
           <artifactId>maven-install-plugin</artifactId>
           <version>3.1.2</version>
         </plugin>
@@ -81,13 +75,9 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.6.1</version>
         </plugin>
+
       </plugins>
     </pluginManagement>
   </build>
 
-  <modules>
-    <module>persistencia</module>
-    <module>controllers</module>
-    <module>ui</module>
-  </modules>
 </project>
