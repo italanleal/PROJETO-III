@@ -59,7 +59,7 @@
           <configuration>
             <archive>
               <manifest>
-                <mainClass>br.upe.Main</mainClass>
+                <mainClass>br.upe.UserInterface.App</mainClass>
               </manifest>
             </archive>
           </configuration>
