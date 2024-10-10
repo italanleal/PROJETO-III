@@ -10,7 +10,7 @@
   <modules>
     <module>persistencia</module>
     <module>controllers</module>
-    <module>ui</module>
+    <module>interface</module>
   </modules>
 
   <name>AcademicEvents</name>
@@ -77,9 +77,7 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.6.1</version>
         </plugin>
-
       </plugins>
     </pluginManagement>
   </build>
-
 </project>
