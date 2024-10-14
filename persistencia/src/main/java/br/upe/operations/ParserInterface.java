@@ -8,120 +8,198 @@ import java.util.Date;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public interface ParserInterface {
+    Logger logger = Logger.getLogger(ParserInterface.class.getName());
+
     static <T> String validadeString(T str) {
-        if (str == null){
+        if (str == null) {
             return "";
         }
         return str.toString();
     }
 
-    static Submission parseSubmission(String rawInput){
-        if(rawInput.isEmpty()) return null;
+    static Submission parseSubmission(String rawInput) {
+        if (rawInput.isEmpty()) return null;
 
         Submission newSubmission = new Submission();
         Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
         Matcher matcher = pattern.matcher(rawInput);
 
         if (matcher.matches()) {
-            if(!matcher.group(1).isEmpty()) newSubmission.setUuid(UUID.fromString(matcher.group(1)));
-            if(!matcher.group(1).isEmpty()) newSubmission.setDescritor(matcher.group(3));
-            if(!matcher.group(1).isEmpty()) newSubmission.setEventUuid(UUID.fromString(matcher.group(5)));
-            if(!matcher.group(1).isEmpty()) newSubmission.setUserUuid(UUID.fromString(matcher.group(7)));
-            if(!matcher.group(1).isEmpty()) newSubmission.setDate(Date.from(Instant.parse(matcher.group(9))));
+            try {
+                if (!matcher.group(1).isEmpty()) newSubmission.setUuid(UUID.fromString(matcher.group(1)));
+                if (!matcher.group(3).isEmpty()) newSubmission.setDescritor(matcher.group(3));
+                if (!matcher.group(5).isEmpty()) newSubmission.setEventUuid(UUID.fromString(matcher.group(5)));
+                if (!matcher.group(7).isEmpty()) newSubmission.setUserUuid(UUID.fromString(matcher.group(7)));
+                if (!matcher.group(9).isEmpty()) newSubmission.setDate(Date.from(Instant.parse(matcher.group(9))));
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Erro ao parsear Submission: ", e);
+                return null;
+            }
         } else {
+            logger.log(Level.WARNING, "Formato inválido para Submission: {}", rawInput);
             return null;
         }
 
         return newSubmission;
     }
-    static User parseUser(String rawInput){
-        if(rawInput.isEmpty()) {
+
+    static User parseUser(String rawInput) {
+        if (rawInput.isEmpty()) {
             return null;
-        };
-
-        Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
-        Matcher matcher = pattern.matcher(rawInput);
-        User newUser;
-
-        if(matcher.matches() && matcher.group(9).equals("true")){
-            newUser = new AdminUser();
-            ((AdminUser)newUser).setEvents(new ArrayList<GreatEvent>());
-            newUser.setSubscriptions(new ArrayList<>());
-        } else {
-            newUser = new CommomUser();
-            newUser.setSubscriptions(new ArrayList<>());
         }
 
-        if(matcher.matches()){
-            if(!matcher.group(1).isEmpty()) newUser.setUuid(UUID.fromString(matcher.group(1)));
-            if(!matcher.group(3).isEmpty()) newUser.setEmail(matcher.group(3));
-            if(!matcher.group(5).isEmpty()) newUser.setPassword(matcher.group(5));
-            if(!matcher.group(7).isEmpty()) newUser.setName(matcher.group(7));
-            for (String subscription : matcher.group(11).split(",")){
-                if(!subscription.isEmpty()) newUser.addSubscription(SubscriptionCRUD.returnSubscription(UUID.fromString(subscription)));
-            }
-            if(newUser instanceof AdminUser userHandler){
-                for (String event : matcher.group(13).split(",")){
-                    if(!event.isEmpty())userHandler.addEvent(EventCRUD.returnEvent(UUID.fromString(event)));
-                }
-            }
-        } else {
-            System.out.println("we do not get metch");
+        Matcher matcher = compilePattern(rawInput);
+        if (!matcher.matches()) {
+            logger.log(Level.WARNING, "Não pegou um match: {}", rawInput);
+            return null;
+        }
+
+        User newUser = createUser(matcher);
+        try {
+            setUserAttributes(newUser, matcher);
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Erro ao definir atributos do usuário: ", e);
             return null;
         }
         return newUser;
     }
-    static Subscription parseSubscription(String rawInput){
-        if(rawInput.isEmpty()) return null;
+
+    private static Matcher compilePattern(String rawInput) {
+        Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
+        return pattern.matcher(rawInput);
+    }
+
+    private static User createUser(Matcher matcher) {
+        User newUser;
+        if (matcher.group(9).equals("true")) {
+            newUser = new AdminUser();
+            ((AdminUser) newUser).setEvents(new ArrayList<>());
+        } else {
+            newUser = new CommomUser();
+        }
+        newUser.setSubscriptions(new ArrayList<>());
+        return newUser;
+    }
+
+    private static void setUserAttributes(User user, Matcher matcher) {
+        try {
+            if (!matcher.group(1).isEmpty()) user.setUuid(UUID.fromString(matcher.group(1)));
+            if (!matcher.group(3).isEmpty()) user.setEmail(matcher.group(3));
+            if (!matcher.group(5).isEmpty()) user.setPassword(matcher.group(5));
+            if (!matcher.group(7).isEmpty()) user.setName(matcher.group(7));
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Erro ao definir atributos do usuário: ", e);
+        }
+
+        addSubscriptions(user, matcher.group(11));
+
+        if (user instanceof AdminUser userHandler) {
+            addEvents(userHandler, matcher.group(13));
+        }
+    }
+
+    private static void addSubscriptions(User user, String subscriptions) {
+        for (String subscription : subscriptions.split(",")) {
+            if (!subscription.isEmpty()) {
+                try {
+                    user.addSubscription(SubscriptionCRUD.returnSubscription(UUID.fromString(subscription)));
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "Erro ao adicionar assinatura: ", e);
+                }
+            }
+        }
+    }
+
+    private static void addEvents(AdminUser userHandler, String events) {
+        for (String event : events.split(",")) {
+            if (!event.isEmpty()) {
+                try {
+                    userHandler.addEvent(EventCRUD.returnEvent(UUID.fromString(event)));
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "Erro ao adicionar evento: ", e);
+                }
+            }
+        }
+    }
+
+    static Subscription parseSubscription(String rawInput) {
+        if (rawInput.isEmpty()) return null;
 
         Subscription newSubscription = new Subscription();
         Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
 
         Matcher matcher = pattern.matcher(rawInput);
-        if(matcher.matches()){
-            if(!matcher.group(1).isEmpty()) newSubscription.setUuid(UUID.fromString(matcher.group(1)));
-            if(!matcher.group(3).isEmpty()) newSubscription.setSessionUuid(UUID.fromString(matcher.group(3)));
-            if(!matcher.group(5).isEmpty()) newSubscription.setUserUuid(UUID.fromString(matcher.group(5)));
-            if(!matcher.group(7).isEmpty()) newSubscription.setDate(Date.from(Instant.parse(matcher.group(7))));
+        if (matcher.matches()) {
+            try {
+                if (!matcher.group(1).isEmpty()) newSubscription.setUuid(UUID.fromString(matcher.group(1)));
+                if (!matcher.group(3).isEmpty()) newSubscription.setSessionUuid(UUID.fromString(matcher.group(3)));
+                if (!matcher.group(5).isEmpty()) newSubscription.setUserUuid(UUID.fromString(matcher.group(5)));
+                if (!matcher.group(7).isEmpty()) newSubscription.setDate(Date.from(Instant.parse(matcher.group(7))));
+            } catch (Exception e) {
+                logger.log(Level.SEVERE, "Erro ao parsear Subscription: ", e);
+                return null;
+            }
         } else {
+            logger.log(Level.WARNING, "Formato inválido para Subscription: {}", rawInput);
             return null;
         }
 
         return newSubscription;
     }
 
-    static Session parseSession(String rawInput){
-        if(rawInput.isEmpty()) return null;
+    static Session parseSession(String rawInput) {
+        if (rawInput.isEmpty()) return null;
 
         Session newSession = new Session();
         newSession.setSubscriptions(new ArrayList<>());
 
-        Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
-        Matcher matcher = pattern.matcher(rawInput);
+        Matcher matcher = compilePattern(rawInput);
+        if (!matcher.matches()) {
+            logger.log(Level.WARNING, "Formato inválido para Session: {}", rawInput);
+            return null;
+        }
 
-        if(matcher.matches()) {
-            if(!matcher.group(1).isEmpty()) newSession.setUuid(UUID.fromString(matcher.group(1)));
-            if(!matcher.group(3).isEmpty()) newSession.setEventUuid(UUID.fromString(matcher.group(3)));
-            if(!matcher.group(5).isEmpty()) newSession.setDescritor(matcher.group(5));
-            if(!matcher.group(7).isEmpty()) newSession.setStartDate(Date.from(Instant.parse(matcher.group(7))));
-            if(!matcher.group(9).isEmpty()) newSession.setEndDate(Date.from(Instant.parse(matcher.group(9))));
-
-            String subscriptions = matcher.group(11);
-
-            for(String uuid : subscriptions.split(",")){
-                if(!uuid.isEmpty()) newSession.addSubscription(SubscriptionCRUD.returnSubscription(UUID.fromString(uuid)));
-            }
-        } else {
+        try {
+            setSessionAttributes(newSession, matcher);
+            addSubscriptions(newSession, matcher.group(11));
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Erro ao parsear Session: ", e);
             return null;
         }
 
         return newSession;
     }
 
-    static GreatEvent parseEvent(String rawInput){
-        if(rawInput.isEmpty()) {
+    private static void setSessionAttributes(Session session, Matcher matcher) {
+        try {
+            if (!matcher.group(1).isEmpty()) session.setUuid(UUID.fromString(matcher.group(1)));
+            if (!matcher.group(3).isEmpty()) session.setEventUuid(UUID.fromString(matcher.group(3)));
+            if (!matcher.group(5).isEmpty()) session.setDescritor(matcher.group(5));
+            if (!matcher.group(7).isEmpty()) session.setStartDate(Date.from(Instant.parse(matcher.group(7))));
+            if (!matcher.group(9).isEmpty()) session.setEndDate(Date.from(Instant.parse(matcher.group(9))));
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Erro ao definir atributos da sessão: ", e);
+        }
+    }
+
+    private static void addSubscriptions(Session session, String subscriptions) {
+        for (String uuid : subscriptions.split(",")) {
+            if (!uuid.isEmpty()) {
+                try {
+                    session.addSubscription(SubscriptionCRUD.returnSubscription(UUID.fromString(uuid)));
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "Erro ao adicionar assinatura à sessão: ", e);
+                }
+            }
+        }
+    }
+
+    static GreatEvent parseEvent(String rawInput) {
+        if (rawInput.isEmpty()) {
             return null;
         }
 
@@ -129,30 +207,57 @@ public interface ParserInterface {
         newEvent.setSubmissions(new ArrayList<>());
         newEvent.setSessions(new ArrayList<>());
 
-        Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
-        Matcher matcher = pattern.matcher(rawInput);
-
-        if(matcher.matches()) {
-            if(!matcher.group(1).isEmpty()) newEvent.setUuid(UUID.fromString(matcher.group(1)));
-            if(!matcher.group(3).isEmpty()) newEvent.setDescritor(matcher.group(3));
-            if(!matcher.group(5).isEmpty()) newEvent.setDirector(matcher.group(5));
-            if(!matcher.group(7).isEmpty()) newEvent.setStartDate(Date.from(Instant.parse(matcher.group(7))));
-            if(!matcher.group(9).isEmpty()) newEvent.setEndDate(Date.from(Instant.parse(matcher.group(9))));
-
-
-            String sessions = matcher.group(11);
-
-            for(String uuid : sessions.split(",")){
-                if(!uuid.isEmpty()) newEvent.addSession(SessionCRUD.returnSession(UUID.fromString(uuid)));
-            }
-
-            String submissions = matcher.group(13);
-            for(String uuid : submissions.split(",")){
-                if(!uuid.isEmpty()) newEvent.addSubmission(SubmissionCRUD.returnSubmission(UUID.fromString(uuid)));
-            }
-        } else {
+        Matcher matcher = compilePattern(rawInput);
+        if (!matcher.matches()) {
+            logger.log(Level.WARNING, "Formato inválido para GreatEvent: {}", rawInput);
             return null;
         }
+
+        try {
+            setEventAttributes(newEvent, matcher);
+            addSessions(newEvent, matcher.group(11));
+            addSubmissions(newEvent, matcher.group(13));
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Erro ao parsear GreatEvent: ", e);
+            return null;
+        }
+
         return newEvent;
+    }
+
+    private static void setEventAttributes(GreatEvent event, Matcher matcher) {
+        try {
+            if (!matcher.group(1).isEmpty()) event.setUuid(UUID.fromString(matcher.group(1)));
+            if (!matcher.group(3).isEmpty()) event.setDescritor(matcher.group(3));
+            if (!matcher.group(5).isEmpty()) event.setDirector(matcher.group(5));
+            if (!matcher.group(7).isEmpty()) event.setStartDate(Date.from(Instant.parse(matcher.group(7))));
+            if (!matcher.group(9).isEmpty()) event.setEndDate(Date.from(Instant.parse(matcher.group(9))));
+        } catch (Exception e) {
+            logger.log(Level.SEVERE, "Erro ao definir atributos do evento: ", e);
+        }
+    }
+
+    private static void addSessions(GreatEvent event, String sessions) {
+        for (String uuid : sessions.split(",")) {
+            if (!uuid.isEmpty()) {
+                try {
+                    event.addSession(SessionCRUD.returnSession(UUID.fromString(uuid)));
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "Erro ao adicionar sessão ao evento: ", e);
+                }
+            }
+        }
+    }
+
+    private static void addSubmissions(GreatEvent event, String submissions) {
+        for (String uuid : submissions.split(",")) {
+            if (!uuid.isEmpty()) {
+                try {
+                    event.addSubmission(SubmissionCRUD.returnSubmission(UUID.fromString(uuid)));
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "Erro ao adicionar submissão ao evento: ", e);
+                }
+            }
+        }
     }
 }

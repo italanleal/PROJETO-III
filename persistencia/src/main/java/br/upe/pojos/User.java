@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.UUID;
 
 public abstract class User {
-    protected boolean isAdmin;
     protected String name;
     protected String password;
     protected String email;

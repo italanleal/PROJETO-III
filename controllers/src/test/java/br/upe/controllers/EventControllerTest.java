@@ -1,34 +1,16 @@
 package br.upe.controllers;
 
-import br.upe.controllers.EventController;
-import br.upe.pojos.AdminUser;
+import br.upe.operations.EventCRUD;
+import br.upe.operations.SubmissionCRUD;
 import br.upe.pojos.GreatEvent;
 import br.upe.pojos.Submission;
-import br.upe.pojos.User;
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
 
 public class EventControllerTest {
-
-    private EventController eventController;
-    private StateController stateController;
-    private CRUDController crudController;
-
-    @Before
-    public void setUp() {
-        StateController state = new StateController();
-        CRUDController crud = new CRUDController();
-
-        AuthController auth = new AuthController(state, crud);
-        EventController event = new EventController(state, crud);
-        SubmissionController sub = new SubmissionController(state, crud);
-    }
-
     @Test
     public void testCreateNewEvent() {
         StateController state = new StateController();
@@ -43,7 +25,7 @@ public class EventControllerTest {
 
         assertTrue(result);
         assertNotNull(state.getCurrentEvent());
-        assertNotNull(crud.eventCRUD.returnEvent(state.getCurrentEvent().getUuid()));
+        assertNotNull(EventCRUD.returnEvent(state.getCurrentEvent().getUuid()));
     }
 
     // atualizar o diretor tem a mesma formatação de atualizar o descritor
@@ -62,13 +44,13 @@ public class EventControllerTest {
         assertTrue(createResult);
         assertNotNull(state.getCurrentEvent());
 
-        GreatEvent createdEvent = crud.eventCRUD.returnEvent(state.getCurrentEvent().getUuid());
+        GreatEvent createdEvent = EventCRUD.returnEvent(state.getCurrentEvent().getUuid());
         assertNotNull(createdEvent);
         assertEquals("Original Event", createdEvent.getDescritor());
 
         event.updateEventDescritor("ATUALIZADO Event Descritor");
 
-        GreatEvent updatedEvent = crud.eventCRUD.returnEvent(state.getCurrentEvent().getUuid());
+        GreatEvent updatedEvent = EventCRUD.returnEvent(state.getCurrentEvent().getUuid());
         assertNotNull(updatedEvent);
         assertEquals("ATUALIZADO Event Descritor", updatedEvent.getDescritor());
 
@@ -89,7 +71,7 @@ public class EventControllerTest {
         Date newStartDate = new Date();
         event.updateEventStartDate(newStartDate);
 
-        GreatEvent updatedEvent = crud.eventCRUD.returnEvent(state.getCurrentEvent().getUuid());
+        GreatEvent updatedEvent = EventCRUD.returnEvent(state.getCurrentEvent().getUuid());
         assertNotNull(updatedEvent);
         assertEquals(newStartDate, updatedEvent.getStartDate());
 
@@ -110,7 +92,7 @@ public class EventControllerTest {
         Date newEndDate = new Date(new Date().getTime() + 10000000L);
         event.updateEventEndDate(newEndDate);
 
-        GreatEvent updatedEvent = crud.eventCRUD.returnEvent(state.getCurrentEvent().getUuid());
+        GreatEvent updatedEvent = EventCRUD.returnEvent(state.getCurrentEvent().getUuid());
         assertNotNull(updatedEvent);
         assertEquals(newEndDate, updatedEvent.getEndDate());
 
@@ -136,7 +118,7 @@ public class EventControllerTest {
         String submissionDescritor = "Algorítmo genético para análise de subgrupo";
         event.addEventSubmission(submissionDescritor);
 
-        Collection<Submission> submissions = crud.submissionCRUD.returnSubmission();
+        Collection<Submission> submissions = SubmissionCRUD.returnSubmission();
         assertNotNull(submissions);
         assertTrue("A submissão deve estar presente na coleção de submissões.",
                 submissions.stream()
@@ -144,7 +126,7 @@ public class EventControllerTest {
                                 sub.getUserUuid().equals(state.getCurrentUser().getUuid()) &&
                                 sub.getEventUuid().equals(state.getCurrentEvent().getUuid())));
 
-        GreatEvent eventRetrieved = crud.eventCRUD.returnEvent(state.getCurrentEvent().getUuid());
+        GreatEvent eventRetrieved = EventCRUD.returnEvent(state.getCurrentEvent().getUuid());
         assertNotNull(eventRetrieved);
         assertTrue("O evento deve conter a submissão adicionada.",
                 eventRetrieved.getSubmissions().stream()
@@ -165,7 +147,8 @@ public class EventControllerTest {
         auth.login("jackinho@upe.br", "security");
 
         event.createNewEvent("Evento Teste1", "Diretor Teste2");
-        GreatEvent createdEvent = crud.eventCRUD.returnEvent(state.getCurrentEvent().getUuid());
+        GreatEvent createdEvent = EventCRUD.returnEvent(state.getCurrentEvent().getUuid());
+        assertNotNull("O evento criado é nulo.", createdEvent);
         UUID eventUuid = createdEvent.getUuid();
 
         event.changeCurrentEvent(eventUuid);
@@ -190,7 +173,8 @@ public class EventControllerTest {
         auth.login("jackinho@upe.br", "security");
 
         event.createNewEvent("Evento Teste1", "Diretor Teste2");
-        GreatEvent createdEvent = crud.eventCRUD.returnEvent(state.getCurrentEvent().getUuid());
+        GreatEvent createdEvent = EventCRUD.returnEvent(state.getCurrentEvent().getUuid());
+        assertNotNull("O evento criado é nulo.", createdEvent);
         UUID eventUuid = createdEvent.getUuid();
 
         event.changeCurrentEvent(eventUuid);

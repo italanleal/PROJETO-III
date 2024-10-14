@@ -3,19 +3,17 @@ package operations;
 import br.upe.operations.SubscriptionCRUD;
 import br.upe.pojos.Subscription;
 import org.junit.jupiter.api.*;
-
 import java.io.*;
 import java.nio.file.*;
 import java.time.*;
 import java.util.*;
-//import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class SubscriptionCRUDTest {
+class SubscriptionCRUDTest {
     private SubscriptionCRUD subscriptionCRUD;
-    private final String filePath = ".\\state\\subscriptions.csv";
+    private final String filePath  = ".\\state\\subscriptions.csv";
 
     @BeforeAll
     public void setup() {
@@ -28,13 +26,8 @@ public class SubscriptionCRUDTest {
         Files.createFile(Paths.get(filePath));
     }
 
-    @AfterAll
-    public void tearDown() throws IOException {
-        //deleteDirectoryRecursively(Paths.get(".\\state"));
-    }
-
     @Test
-    public void testCreateSubscription() throws IOException {
+    void testCreateSubscription() throws IOException {
         Subscription subscription = new Subscription();
         subscription.setUuid(UUID.randomUUID());
         subscription.setSessionUuid(UUID.randomUUID());
@@ -44,11 +37,11 @@ public class SubscriptionCRUDTest {
 
         List<String> lines = Files.readAllLines(Paths.get(filePath));
         assertEquals(1, lines.size());
-        assertTrue(lines.get(0).contains(subscription.getUuid().toString()));
+        assertTrue(lines.getFirst().contains(subscription.getUuid().toString()));
     }
 
     @Test
-    public void testDeleteSubscription() throws IOException {
+    void testDeleteSubscription() throws IOException {
         UUID uuidToDelete = UUID.randomUUID();
         Subscription subscription1 = new Subscription();
         subscription1.setUuid(uuidToDelete);
@@ -67,11 +60,11 @@ public class SubscriptionCRUDTest {
 
         List<String> lines = Files.readAllLines(Paths.get(filePath));
         assertEquals(1, lines.size());
-        assertFalse(lines.get(0).contains(uuidToDelete.toString()));
+        assertFalse(lines.getFirst().contains(uuidToDelete.toString()));
     }
 
     @Test
-    public void testUpdateSubscription() throws IOException {
+    void testUpdateSubscription() throws IOException {
         UUID uuidToUpdate = UUID.randomUUID();
         Subscription original = new Subscription();
         original.setUuid(uuidToUpdate);
@@ -89,11 +82,11 @@ public class SubscriptionCRUDTest {
 
         List<String> lines = Files.readAllLines(Paths.get(filePath));
         assertEquals(1, lines.size());
-        assertTrue(lines.get(0).contains(updated.getDate().toInstant().toString()));
+        assertTrue(lines.getFirst().contains(updated.getDate().toInstant().toString()));
     }
 
     @Test
-    public void testReturnSubscriptionByUuid() {
+    void testReturnSubscriptionByUuid() {
         UUID uuidToReturn = UUID.randomUUID();
         Subscription subscription = new Subscription();
         subscription.setUuid(uuidToReturn);
@@ -108,7 +101,7 @@ public class SubscriptionCRUDTest {
     }
 
     @Test
-    public void testReturnAllSubscriptions() {
+    void testReturnAllSubscriptions() {
         Subscription subscription1 = new Subscription();
         subscription1.setUuid(UUID.randomUUID());
         subscription1.setSessionUuid(UUID.randomUUID());
@@ -125,19 +118,4 @@ public class SubscriptionCRUDTest {
         Collection<Subscription> subscriptions = SubscriptionCRUD.returnSubscription();
         assertEquals(2, subscriptions.size());
     }
-// Provavelmente vai virar um de teste
-//    private void deleteDirectoryRecursively(Path path) throws IOException {
-//        if (Files.exists(path)) {
-//            try (Stream<Path> paths = Files.walk(path)) {
-//                paths.sorted(Comparator.reverseOrder())
-//                        .forEach(file -> {
-//                            try {
-//                                Files.delete(file);
-//                            } catch (IOException e) {
-//                                e.printStackTrace();
-//                            }
-//                        });
-//            }
-//        }
-//    }
 }

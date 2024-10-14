@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class SubmissionCRUDTest {
 
     private SubmissionCRUD submissionCRUD;
+    private Submission submission; // Usar a mesma submissão em vários testes
 
     @BeforeAll
     public static void clearFiles() {
@@ -23,19 +24,20 @@ public class SubmissionCRUDTest {
     @BeforeEach
     public void setUp() {
         submissionCRUD = new SubmissionCRUD();
-    }
 
-    @Test
-    public void testCreateSubmission() {
-        Submission submission = new Submission();
+        // Criar uma submissão que pode ser reutilizada em outros testes
+        submission = new Submission();
         UUID submissionUuid = UUID.randomUUID();
         submission.setUuid(submissionUuid);
         submission.setEventUuid(UUID.randomUUID());
         submission.setUserUuid(UUID.randomUUID());
         submission.setDate(new Date());
         submissionCRUD.createSubmission(submission);
+    }
 
-        Submission retrievedSubmission = SubmissionCRUD.returnSubmission(submissionUuid);
+    @Test
+    void testCreateSubmission() {
+        Submission retrievedSubmission = SubmissionCRUD.returnSubmission(submission.getUuid());
         assertNotNull(retrievedSubmission, "A submissão retornada não deve ser nula.");
         assertEquals(submission.getUuid(), retrievedSubmission.getUuid(), "O UUID da submissão deve ser igual ao esperado.");
         assertEquals(submission.getEventUuid(), retrievedSubmission.getEventUuid(), "O UUID do evento deve ser igual ao esperado.");
@@ -44,25 +46,17 @@ public class SubmissionCRUDTest {
     }
 
     @Test
-    public void testUpdateSubmission() {
-        Submission submission = new Submission();
-        UUID submissionUuid = UUID.randomUUID();
-        submission.setUuid(submissionUuid);
-        submission.setEventUuid(UUID.randomUUID());
-        submission.setUserUuid(UUID.randomUUID());
-        submission.setDate(new Date());
-        submissionCRUD.createSubmission(submission);
-
+    void testUpdateSubmission() {
         // Atualiza a submissão com novos dados
         Submission updatedSubmission = new Submission();
-        updatedSubmission.setUuid(submissionUuid);
+        updatedSubmission.setUuid(submission.getUuid());
         updatedSubmission.setEventUuid(UUID.randomUUID()); // Novo UUID para o evento
         updatedSubmission.setUserUuid(UUID.randomUUID()); // Novo UUID para o usuário
         updatedSubmission.setDate(new Date(System.currentTimeMillis() + 1000000)); // Atualiza a data
 
-        submissionCRUD.updateSubmission(submissionUuid, updatedSubmission);
+        submissionCRUD.updateSubmission(submission.getUuid(), updatedSubmission);
 
-        Submission retrievedSubmission = SubmissionCRUD.returnSubmission(submissionUuid);
+        Submission retrievedSubmission = SubmissionCRUD.returnSubmission(submission.getUuid());
         assertNotNull(retrievedSubmission, "A submissão retornada não deve ser nula.");
         assertEquals(updatedSubmission.getUuid(), retrievedSubmission.getUuid(), "O UUID da submissão deve ser igual ao esperado.");
         assertEquals(updatedSubmission.getEventUuid(), retrievedSubmission.getEventUuid(), "O UUID do evento deve ser igual ao esperado.");
@@ -71,39 +65,18 @@ public class SubmissionCRUDTest {
     }
 
     @Test
-    public void testDeleteSubmission() {
-        Submission submission = new Submission();
-        UUID submissionUuid = UUID.randomUUID();
-        submission.setUuid(submissionUuid);
-        submission.setEventUuid(UUID.randomUUID());
-        submission.setUserUuid(UUID.randomUUID());
-        submission.setDate(new Date());
-        submissionCRUD.createSubmission(submission);
-
-        submissionCRUD.deleteSubmission(submissionUuid);
-        Submission removedSubmission = SubmissionCRUD.returnSubmission(submissionUuid);
+    void testDeleteSubmission() {
+        submissionCRUD.deleteSubmission(submission.getUuid());
+        Submission removedSubmission = SubmissionCRUD.returnSubmission(submission.getUuid());
         assertNull(removedSubmission, "A submissão removida deve ser nula.");
     }
 
     @Test
-    public void testReturnSubmission() {
-
-        Submission submission = new Submission();
-        UUID submissionUuid = UUID.randomUUID();
-        submission.setUuid(submissionUuid);
-        submission.setEventUuid(UUID.randomUUID());
-        submission.setUserUuid(UUID.randomUUID());
-        submission.setDate(new Date());
-        submissionCRUD.createSubmission(submission);
-
-
-        Submission retrievedSubmission = SubmissionCRUD.returnSubmission(submissionUuid);
-
-
+    void testReturnSubmission() {
+        Submission retrievedSubmission = SubmissionCRUD.returnSubmission(submission.getUuid());
         assertNotNull(retrievedSubmission, "A submissão retornada não deve ser nula.");
         assertEquals(submission.getUuid(), retrievedSubmission.getUuid(), "O UUID da submissão deve ser igual ao esperado.");
-        assertEquals(submission.getEventUuid(), retrievedSubmission.getEventUuid(), "O UUID do evento deve ser igual ao esperado.");
-        assertEquals(submission.getUserUuid(), retrievedSubmission.getUserUuid(), "O UUID do usuário deve ser igual ao esperado.");
         assertEquals(submission.getDate(), retrievedSubmission.getDate(), "A data deve ser igual ao esperado.");
+        assertInstanceOf(Submission.class, retrievedSubmission, "O objeto retornado deve ser uma instância de Submission.");
     }
 }

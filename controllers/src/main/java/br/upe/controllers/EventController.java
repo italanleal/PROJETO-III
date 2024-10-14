@@ -1,5 +1,6 @@
 package br.upe.controllers;
 
+import br.upe.operations.EventCRUD;
 import br.upe.pojos.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -73,14 +74,14 @@ public class EventController {
         crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), eventHandler);
     }
     public void changeCurrentEvent(UUID eventUuid){
-        stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(eventUuid));
+        stateController.setCurrentEvent(EventCRUD.returnEvent(eventUuid));
     }
     public void closeCurrentEvent(){
         stateController.setCurrentEvent(null);
     }
 
     public Collection<GreatEvent> getAllEvents() {
-        return crudController.eventCRUD.returnEvent();
+        return EventCRUD.returnEvent();
     }
 
     public Collection<GreatEvent> getAllEventsByUser() {

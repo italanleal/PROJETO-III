@@ -34,12 +34,11 @@ public class AuthControllerTest {
 
         // Assert
         assertTrue(result);
-        User user = (User) stateController.getCurrentUser(); // Casting para User
+        User user = stateController.getCurrentUser(); // Casting para User
         assertNotNull(user);
         assertEquals(email, user.getEmail());
-        assertEquals(hashedPassword, user.getPassword()); // Verifica se o hash armazenado é o correto
+        assertEquals(hashedPassword, user.getPassword());  // Verifica se o hash armazenado é o correto
     }
-
 
     @Test
     public void testCreateNewUser_UserAlreadyExists() {
@@ -103,7 +102,7 @@ public class AuthControllerTest {
 
         // Assert
         assertTrue(result);
-        User user = (User) stateController.getCurrentUser();
+        User user = stateController.getCurrentUser();
         assertNotNull(user);
     }
 
