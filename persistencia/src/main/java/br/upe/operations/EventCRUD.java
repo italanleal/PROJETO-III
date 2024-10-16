@@ -1,6 +1,5 @@
 package br.upe.operations;
 
-// Importa as classes necessárias para trabalhar com eventos, arquivos e logging
 import br.upe.pojos.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.logging.Logger;
 // Gerencia operações de CRUD para eventos, estendendo BaseCRUD
 public class EventCRUD extends BaseCRUD {
     private static final Logger logger = Logger.getLogger(EventCRUD.class.getName());
-    private static final String FILE_PATH = ".\\state\\event.csv";
+    private static final String FILE_PATH = ".\\state\\events.csv";
 
     // Construtor que chama o construtor da classe base (BaseCRUD)
     public EventCRUD() { super(); }
@@ -45,7 +44,6 @@ public class EventCRUD extends BaseCRUD {
         }
     }
 
-    // Método para excluir um evento com base no UUID do evento
     public void deleteEvent(UUID eventUuid) {
         File inputFile = new File(FILE_PATH);
         File tempFile = new File(".\\state\\temp_events.csv");
@@ -68,17 +66,19 @@ public class EventCRUD extends BaseCRUD {
             // Verifica se o arquivo original foi excluído
             if (!inputFile.delete()) {
                 logger.log(Level.SEVERE, "Erro ao excluir o arquivo original de eventos.");
+            } else {
+                logger.log(Level.INFO, "Arquivo original excluído com sucesso");
             }
 
             // Renomeia o arquivo temporário para o nome do arquivo original
             if (!tempFile.renameTo(inputFile)) {
                 logger.log(Level.SEVERE, "Erro ao renomear o arquivo temporário para o arquivo original.");
+            } else {
+                logger.log(Level.INFO, "Arquivo temporário renomeado com sucesso");
             }
-
         } catch (Exception e) {
             // Registra uma mensagem de erro caso ocorra algum problema ao excluir o evento
-            logger.log(Level.SEVERE, "Erro ao excluir o evento: {}", eventUuid);
-            logger.log(Level.SEVERE, "Erro: ", e);
+            logger.log(Level.SEVERE, "Erro ao excluir o evento: {0}", new Object[]{e.getMessage()});
         }
     }
 

@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class QueryState {
-    private static final String FILE_PATH = ".\\state\\event.csv";
+    private static final String FILE_PATH = ".\\state\\users.csv";
 
     public static UUID userFromEmail(String email) {
         String rawUser = "";

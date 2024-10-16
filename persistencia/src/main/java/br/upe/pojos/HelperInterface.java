@@ -20,7 +20,7 @@ public interface HelperInterface {
         for (Method getter : methods) {
             try {
                 if (!HelperInterface.isGetter(getter)) {
-                    logger.log(Level.WARNING, "Method {0} is not a valid getter.", getter.getName());
+                    continue;
                 }
 
                 Object value = getter.invoke(source);
@@ -29,14 +29,13 @@ public interface HelperInterface {
                 }
 
                 for (Method setter : methods) {
-                    if (setter.getName().equals(HelperInterface.getSetterName(getter.getName()))) {
-                        setter.invoke(destination, value);
+                    if (setter.getName().equals(HelperInterface.getSetterName(getter.getName())) && setter.getParameterCount() == 1 && setter.getParameterTypes()[0].isAssignableFrom(getter.getReturnType())) {
+                        setter.invoke(destination, value); // Invoca o setter no objeto destination com o valor do getter
                         break;
                     }
                 }
             } catch (Exception e) {
-                logger.log(Level.SEVERE, "Error while checking out: {0}", source.getClass().getName());
-                logger.log(Level.SEVERE, e.getMessage(), e);
+                logger.log(Level.SEVERE, "Error while checking out: {0}, ERRO: {1}", new Object[]{source.getClass().getName(), e.getMessage()});
             }
         }
     }

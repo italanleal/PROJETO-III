@@ -4,12 +4,30 @@ import br.upe.pojos.User;
 import br.upe.operations.HasherInterface;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static org.junit.Assert.*;
 
 public class AuthControllerTest {
     private AuthController authController;
     private StateController stateController;
     private CRUDController crudController;
+    static Logger logger = Logger.getLogger(AuthControllerTest.class.getName());
+
+    @BeforeAll
+    public static void clearFiles() {
+        try (BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\users.csv"))) {
+            buffer.write(""); // Limpa o conteúdo do arquivo users.csv
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, e.getMessage(), e);
+        }
+    }
 
     @Before
     public void setUp() {
@@ -24,7 +42,7 @@ public class AuthControllerTest {
         stateController = new StateController();
         crudController = new CRUDController();
         authController = new AuthController(stateController, crudController);
-        String email = "test@example.com";
+        String email = "test@teste1.com";
         String password = "password123";
         String hashedPassword = HasherInterface.hash(password);
 
@@ -60,7 +78,7 @@ public class AuthControllerTest {
         crudController = new CRUDController();
         authController = new AuthController(stateController, crudController);
         // Arrange
-        String email = "admin@example.com";
+        String email = "admin@teste2.com";
         String password = "admin123";
         String hashedPassword = HasherInterface.hash(password);
 

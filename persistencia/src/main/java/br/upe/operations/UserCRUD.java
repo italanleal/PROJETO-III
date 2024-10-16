@@ -3,7 +3,6 @@ package br.upe.operations;
 import java.io.*;
 import br.upe.pojos.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.UUID;
 import java.util.logging.Logger;
 import java.util.logging.Level;
@@ -96,33 +95,10 @@ public class UserCRUD extends BaseCRUD {
                 }
             }
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Erro de IO ao tentar recuperar o usuário: {0}", userUUID);
-            logger.log(Level.SEVERE, e.getMessage(), e);
+            logger.log(Level.SEVERE, "Erro de IO ao tentar recuperar o usuário: {0}, ERRO: {1}", new Object[]{userUUID, e.getMessage()});
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Erro inesperado ao recuperar o usuário: {0}", userUUID);
-            logger.log(Level.SEVERE, e.getMessage(), e);
+            logger.log(Level.SEVERE, "Erro inesperado ao recuperar o usuário com id: {0}, ERRO: {1}", new Object[]{userUUID, e.getMessage()});
         }
-
         return null;
-    }
-
-    public Collection<User> returnUser() {
-        Collection<User> users = new ArrayList<>();
-        try (BufferedReader buffer = new BufferedReader(new FileReader(FILE_PATH))) {
-            while (buffer.ready()) {
-                String line = buffer.readLine();
-                if (!line.isEmpty()) {
-                    users.add(ParserInterface.parseUser(line));
-                }
-            }
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Erro de IO ao tentar recuperar os usuários.");
-            logger.log(Level.SEVERE, e.getMessage(), e);
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Erro inesperado ao recuperar os usuários.");
-            logger.log(Level.SEVERE, e.getMessage(), e);
-        }
-
-        return users;
     }
 }

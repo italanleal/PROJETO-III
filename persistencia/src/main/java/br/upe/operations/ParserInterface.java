@@ -51,10 +51,11 @@ public interface ParserInterface {
         if (rawInput.isEmpty()) {
             return null;
         }
+        Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
+        Matcher matcher = pattern.matcher(rawInput);
 
-        Matcher matcher = compilePattern(rawInput);
         if (!matcher.matches()) {
-            logger.log(Level.WARNING, "Não pegou um match: {}", rawInput);
+            logger.log(Level.WARNING, "Não pegou um match: {0}", rawInput);
             return null;
         }
 
@@ -66,11 +67,6 @@ public interface ParserInterface {
             return null;
         }
         return newUser;
-    }
-
-    private static Matcher compilePattern(String rawInput) {
-        Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
-        return pattern.matcher(rawInput);
     }
 
     private static User createUser(Matcher matcher) {
@@ -157,9 +153,11 @@ public interface ParserInterface {
         Session newSession = new Session();
         newSession.setSubscriptions(new ArrayList<>());
 
-        Matcher matcher = compilePattern(rawInput);
+        Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
+        Matcher matcher = pattern.matcher(rawInput);
+
         if (!matcher.matches()) {
-            logger.log(Level.WARNING, "Formato inválido para Session: {}", rawInput);
+            logger.log(Level.WARNING, "Formato inválido para Session: {0}", rawInput);
             return null;
         }
 
@@ -207,9 +205,11 @@ public interface ParserInterface {
         newEvent.setSubmissions(new ArrayList<>());
         newEvent.setSessions(new ArrayList<>());
 
-        Matcher matcher = compilePattern(rawInput);
+        Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
+        Matcher matcher = pattern.matcher(rawInput);
+
         if (!matcher.matches()) {
-            logger.log(Level.WARNING, "Formato inválido para GreatEvent: {}", rawInput);
+            logger.log(Level.WARNING, "Formato inválido para GreatEvent: {0}", rawInput);
             return null;
         }
 
