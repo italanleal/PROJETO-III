@@ -84,15 +84,19 @@ public class SessionController {
         stateController.setCurrentSession(null);
     }
 
-    public Collection<Session> getAllEventSessions(UUID eventUuid){
+    public Collection<Session> getAllEventSessions(UUID eventUuid) {
         Collection<Session> sessions = crudController.sessionCRUD.returnSession();
         Collection<Session> filtered = new ArrayList<>();
 
-        for(Session session: sessions){
-            if(session!= null){
-                if(session.getEventUuid().toString().equals(eventUuid.toString())) filtered.add(session);
+        for (Session session : sessions) {
+            if (session != null && session.getEventUuid().toString().equals(eventUuid.toString())) {
+                filtered.add(session);
             }
         }
+
         return filtered;
     }
+
 }
+
+
