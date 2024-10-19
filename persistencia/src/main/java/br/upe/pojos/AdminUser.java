@@ -1,10 +1,17 @@
 package br.upe.pojos;
 
+import br.upe.operations.EventCRUD;
+import br.upe.operations.SubscriptionCRUD;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AdminUser extends User {
+    private final boolean isAdmin = true;
     private Collection<GreatEvent> events;
 
     public void setEmail(String email) {
@@ -47,7 +54,7 @@ public class AdminUser extends User {
 
     public void setEvents(Collection<GreatEvent> events){this.events = events;}
     public boolean isAdmin() {
-        return true;
+        return isAdmin;
     }
 
     public void addSubscriptions(Subscription subscription) {this.subscriptions.add(subscription);}

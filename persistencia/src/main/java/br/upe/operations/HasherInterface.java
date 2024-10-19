@@ -1,14 +1,10 @@
 package br.upe.operations;
 
 import java.security.MessageDigest;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.security.NoSuchAlgorithmException;
 
 public interface HasherInterface {
-   Logger logger = Logger.getLogger(HasherInterface.class.getName());
     static String hash(String message) {
-        String messageHash = "";
         try {
             // Create MessageDigest instance for SHA-256
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -23,11 +19,9 @@ public interface HasherInterface {
             }
 
             // Return the hashed password
-            messageHash = sb.toString();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error hashing message", e);
+            return sb.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
-
-        return messageHash;
     }
 }

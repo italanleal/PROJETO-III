@@ -7,19 +7,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
-import java.util.logging.Logger;
-import java.util.logging.Level;
 
 
 public class EventCRUD extends BaseCRUD {
-    private static final Logger logger = Logger.getLogger(EventCRUD.class.getName());
-
     public EventCRUD(){ super(); }
 
-    private static final String EVENTS_PATH = ".\\state\\subscriptions.csv";
-
     public void createEvent(GreatEvent event){
-        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(EVENTS_PATH, true))){
+        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\events.csv", true))){
             buffer.write(ParserInterface.validadeString(event.getUuid()) + ";");
             buffer.write(ParserInterface.validadeString(event.getDescritor()) + ";");
             buffer.write(ParserInterface.validadeString(event.getDirector()) + ";");
@@ -37,46 +31,35 @@ public class EventCRUD extends BaseCRUD {
             buffer.write(";");
 
             buffer.newLine();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error creating subscription", e);
-        }
+        } catch (Exception e) {}
     }
     public void deleteEvent(UUID eventUuid){
         ArrayList<String> fileCopy = new ArrayList<>();
-        try(BufferedReader buffer = new BufferedReader(new FileReader(EVENTS_PATH))){
+        try(BufferedReader buffer = new BufferedReader(new FileReader(".\\state\\events.csv"))){
             while(buffer.ready()){
                 fileCopy.add(buffer.readLine());
             }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error reading subscriptions file for deletion", e);
-        }
+        } catch (Exception e) {}
 
-        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(EVENTS_PATH))){
+        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\events.csv"))){
             for(String line: fileCopy){
                 if(line.contains(eventUuid.toString())) continue;
                 buffer.write(line);
                 buffer.newLine();
             }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error writing subscriptions file after deletion", e);
-        }
+        } catch (Exception e) {}
     }
 
     public void updateEvent(UUID eventUuid, GreatEvent source) {
 
-        GreatEvent existingEvent = returnEvent(eventUuid);
-
-        if (existingEvent == null) {
-            logger.log(Level.WARNING, "Event not found for UUID: {0}", eventUuid);
-            return;
-        }
+        GreatEvent event = returnEvent(eventUuid);
         deleteEvent(eventUuid);
-        HelperInterface.checkout(source, existingEvent);
-        createEvent(existingEvent);
+        HelperInterface.checkout(source, event);
+        createEvent(event);
     }
 
     public static GreatEvent returnEvent(UUID eventUuid){
-        try(BufferedReader buffer = new BufferedReader(new FileReader(EVENTS_PATH))){
+        try(BufferedReader buffer = new BufferedReader(new FileReader(".\\state\\events.csv"))){
             while(buffer.ready()){
                 String line = buffer.readLine();
                 if(line.contains(eventUuid.toString())) {
@@ -84,15 +67,13 @@ public class EventCRUD extends BaseCRUD {
                 }
 
             }
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, e, () -> "Error reading event for UUID: " + eventUuid);
-        }
+        } catch (Exception e) {}
 
         return null;
     }
     public static Collection<GreatEvent> returnEvent(){
         Collection<GreatEvent> events = new ArrayList<>();
-        try(BufferedReader buffer = new BufferedReader(new FileReader(EVENTS_PATH))){
+        try(BufferedReader buffer = new BufferedReader(new FileReader(".\\state\\events.csv"))){
             while(buffer.ready()){
                 String line = buffer.readLine();
                 if(!line.isEmpty()) {
@@ -100,9 +81,7 @@ public class EventCRUD extends BaseCRUD {
 
                 }
             }
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error reading events", e);
-        }
+        } catch (Exception e) {}
 
         return events;
     }
