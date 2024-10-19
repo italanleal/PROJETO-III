@@ -8,6 +8,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CommomUser extends User {
+    protected final boolean isAdmin = false;
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -41,5 +43,5 @@ public class CommomUser extends User {
     public void setSubscriptions(Collection<Subscription> subscriptions) {
         this.subscriptions = subscriptions;
     }
-    public boolean isAdmin() { return false; }
+    public boolean isAdmin() { return isAdmin; }
 }
