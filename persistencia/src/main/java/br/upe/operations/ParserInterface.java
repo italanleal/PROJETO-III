@@ -39,7 +39,7 @@ public interface ParserInterface {
     static User parseUser(String rawInput){
         if(rawInput.isEmpty()) {
             return null;
-        };
+        }
 
         Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
         Matcher matcher = pattern.matcher(rawInput);
