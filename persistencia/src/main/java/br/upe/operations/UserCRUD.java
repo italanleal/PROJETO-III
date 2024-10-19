@@ -7,12 +7,19 @@ import br.upe.pojos.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserCRUD extends BaseCRUD {
+
+    private static final Logger logger = Logger.getLogger(UserCRUD.class.getName());
+
     public UserCRUD(){ super(); }
 
+    private static final String PATH_USERS = ".\\state\\users.csv";
+
     public void createUser(User user){
-        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\users.csv", true))){
+        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(PATH_USERS, true))){
             buffer.write(ParserInterface.validadeString(user.getUuid()) + ";");
             buffer.write(ParserInterface.validadeString(user.getEmail()) + ";");
             buffer.write(ParserInterface.validadeString(user.getPassword()) + ";");
@@ -33,29 +40,29 @@ public class UserCRUD extends BaseCRUD {
 
             buffer.newLine();
         } catch (Exception e) {
-            System.out.println("Erro ao escrever arquivo em: " + this.getClass());
+            logger.log(Level.SEVERE, e, () -> "Erro ao escrever arquivo em: " + this.getClass().getName());
         }
     }
 
     public void deleteUser(UUID userUUID){
         ArrayList<String> fileCopy = new ArrayList<>();
 
-        try(BufferedReader buffer = new BufferedReader(new FileReader(".\\state\\users.csv"))){
+        try(BufferedReader buffer = new BufferedReader(new FileReader(PATH_USERS))){
             while(buffer.ready()){
                 fileCopy.add(buffer.readLine());
             }
         } catch (Exception e) {
-            System.out.println("Erro ao ler arquivo em: " + this.getClass());
+            logger.log(Level.SEVERE, e, () -> "Erro ao ler arquivo em: " + this.getClass().getName());
         }
 
-        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\users.csv"))){
+        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(PATH_USERS))){
             for(String line: fileCopy){
                 if(line.contains(userUUID.toString())) continue;
                 buffer.write(line);
                 buffer.newLine();
             }
         } catch (Exception e) {
-            System.out.println("Erro ao escrever arquivo em: " + this.getClass());
+            logger.log(Level.SEVERE, e, () -> "Erro ao escrever arquivo em: " + this.getClass().getName());
         }
     }
 
@@ -67,7 +74,7 @@ public class UserCRUD extends BaseCRUD {
     }
 
     public static User returnUser(UUID userUUID){
-        try(BufferedReader buffer = new BufferedReader(new FileReader(".\\state\\users.csv"))){
+        try(BufferedReader buffer = new BufferedReader(new FileReader(PATH_USERS))){
             while(buffer.ready()){
                 String line = buffer.readLine();
                 if(line.contains(userUUID.toString())) {
@@ -75,7 +82,7 @@ public class UserCRUD extends BaseCRUD {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Erro ao ler arquivo em: UserCRUD");
+            logger.log(Level.SEVERE, "Erro ao ler arquivo em: UserCRUD", e);
         }
 
         return null;
@@ -84,7 +91,7 @@ public class UserCRUD extends BaseCRUD {
     public Collection<User> returnUser(){
         Collection<User> users = new ArrayList<>();
 
-        try(BufferedReader buffer = new BufferedReader(new FileReader(".\\state\\users.csv"))){
+        try(BufferedReader buffer = new BufferedReader(new FileReader(PATH_USERS))){
             while(buffer.ready()){
                 String line = buffer.readLine();
                 if(!line.isEmpty()){
@@ -92,7 +99,7 @@ public class UserCRUD extends BaseCRUD {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Erro ao ler arquivo em: UserCRUD");
+            logger.log(Level.SEVERE, "Erro ao ler arquivo em: UserCRUD", e);
         }
 
         return users;
