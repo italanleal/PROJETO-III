@@ -1,8 +1,11 @@
 package br.upe.pojos;
 
 import java.lang.reflect.Method;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public interface HelperInterface {
+    Logger logger = Logger.getLogger(HelperInterface.class.getName());
 
     static boolean isGetter(Method method) {
         return method.getName().startsWith("get") && method.getParameterCount() == 0 && !void.class.equals(method.getReturnType());
@@ -16,10 +19,13 @@ public interface HelperInterface {
         Method[] methods = source.getClass().getMethods();
         for (Method getter : methods) {
             try{
-                if (!HelperInterface.isGetter(getter)) continue;
+                Object value = null;
+                if (HelperInterface.isGetter(getter)) {
+                    value = getter.invoke(source);
+                }
+                if (value == null ) continue;
 
-                Object value = getter.invoke(source);
-                if (value == null) continue;
+                getter.invoke(source);
 
                 for (Method setter : methods) {
                     if (setter.getName().equals(HelperInterface.getSetterName(getter.getName()))) {
@@ -28,8 +34,7 @@ public interface HelperInterface {
                     }
                 }
             } catch (Exception e) {
-                System.out.println("Error while checkouting: " + source.getClass().getName() );
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "Error at checkout source:destination", e);
             }
         }
     }
