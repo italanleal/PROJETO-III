@@ -53,10 +53,14 @@ public class SubscriptionCRUD extends BaseCRUD {
     }
 
     public void updateSubscription(UUID subscriptionUuid, Subscription source){
-        Subscription subscription = returnSubscription(subscriptionUuid);
+        Subscription existingSubscription = returnSubscription(subscriptionUuid);
+        if (existingSubscription == null) {
+            logger.log(Level.WARNING, "Subscription not found for UUID: {0}", subscriptionUuid);
+            return;
+        }
         deleteSubscription(subscriptionUuid);
-        HelperInterface.checkout(source, subscription);
-        createSubscription(subscription);
+        HelperInterface.checkout(source, existingSubscription);
+        createSubscription(existingSubscription);
     }
 
     public static Subscription returnSubscription(UUID subscriptionUuid){
