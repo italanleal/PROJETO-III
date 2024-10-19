@@ -4,10 +4,12 @@ import java.io.File;
 
 public class BaseCRUD {
     public BaseCRUD() {
-        try {
-            File d = new File(".\\state");
-            while (!d.exists()) d.mkdirs();
-        } catch (Exception e) {
+        File d = new File(".\\state");
+        if (!d.exists()) {
+            boolean mkdirs;
+            do {
+                 mkdirs = d.mkdir();
+            } while(!mkdirs);
         }
     }
 }
