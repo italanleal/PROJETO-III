@@ -51,8 +51,9 @@ public interface ParserInterface {
         User newUser;
 
         if(matcher.matches() && matcher.group(9).equals("true")){
-            newUser = new AdminUser();
-            ((AdminUser)newUser).setEvents(new ArrayList<GreatEvent>());
+
+            newUser = KeeperInterface.createAdminUser();
+            ((AdminUser)newUser).setEvents(new ArrayList<>());
             newUser.setSubscriptions(new ArrayList<>());
         } else {
             newUser = new CommomUser();

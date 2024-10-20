@@ -9,16 +9,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class SessionControllerTest {
+class SessionControllerTest {
 
 
     @Test
-    public void testCreateNewSession() {
+    void testCreateNewSession() {
         StateController state = new StateController();
         CRUDController crud = new CRUDController();
         AuthController auth = new AuthController(state, crud);
@@ -43,7 +44,7 @@ public class SessionControllerTest {
     }
 
     @Test
-    public void testUpdateSessionDescritor() {
+    void testUpdateSessionDescritor() {
         // Configuração inicial
         StateController state = new StateController();
         CRUDController crud = new CRUDController();
@@ -70,50 +71,10 @@ public class SessionControllerTest {
         auth.logout();
     }
 
-    //@Test
-    /*public void testAddSessionsSubscription() {
 
-        StateController state = new StateController();
-        CRUDController crud = new CRUDController();
-        AuthController auth = new AuthController(state, crud);
-        EventController event = new EventController(state, crud);
-        SubscriptionController subscription = new SubscriptionController(state, crud);
-        SessionController session = new SessionController(state, crud);
-
-        auth.createNewAdmin("administrator.test@upe.br", "adminpassword");
-        auth.login("adminitrator.test@upe.br", "adminpassword");
-        event.createNewEvent("testess", "Diretor 19");
-
-
-        session.createNewSession("Sessão Teste");
-
-        auth.logout();
-
-        auth.createNewUser("user.test@upe.br", "userpassword");
-        auth.login("user.test@upe.br", "userpassword");
-        session.addSessionsSubscription("ssASA", "TESTE");
-        crud.sessionCRUD.returnSession(state.getCurrentSession().getUuid());
-
-        auth.logout();
-
-        // Recuperar a sessão atualizada
-        Session updatedSession = crud.sessionCRUD.updateSession(sessionUuid);
-        assertNotNull(updatedSession);
-        assertTrue(updatedSession.getSubscriptions().stream()
-                        .anyMatch(sub -> sub.getUserUuid().equals(state.getCurrentUser().getUuid()) &&
-                                sub.getSessionUuid().equals(sessionUuid)));
-
-        // Verificar se a assinatura foi associada ao usuário
-        User currentUser = crud.userCRUD.returnUser(state.getCurrentUser().getUuid());
-        assertNotNull(currentUser);
-        assertTrue(currentUser.getSubscriptions().stream()
-                        .anyMatch(sub -> sub.getSessionUuid().equals(sessionUuid)));
-
-        auth.logout();
-    }*/
 
     @Test
-    public void testChangeCurrentSession() {
+    void testChangeCurrentSession() {
         StateController state = new StateController();
         CRUDController crud = new CRUDController();
         AuthController auth = new AuthController(state, crud);
@@ -128,14 +89,11 @@ public class SessionControllerTest {
         boolean eventCreated = event.createNewEvent("Evento Teste 1", "Diretor Teste 1");
         assertTrue(eventCreated);
 
-        Date startDate1 = new Date();
-        Date endDate1 = new Date(startDate1.getTime() + 3600000L); // Uma hora depois
         boolean sessionCreated1 = session.createNewSession("Sessão Teste 1");
         assertTrue(sessionCreated1);
 
-        Date startDate2 = new Date(startDate1.getTime() + 7200000L); // Duas horas depois
-        Date endDate2 = new Date(startDate2.getTime() + 3600000L); // Uma hora depois
         boolean sessionCreated2 = session.createNewSession("Sessão Teste 2");
+
         assertTrue(sessionCreated2);
 
         // Mudar para a segunda sessão
@@ -149,8 +107,9 @@ public class SessionControllerTest {
         // Logout do administrador
         auth.logout();
     }
+
     @Test
-    public void testCloseCurrentSession() {
+    void testCloseCurrentSession() {
         StateController state = new StateController();
         CRUDController crud = new CRUDController();
         AuthController auth = new AuthController(state, crud);
@@ -163,8 +122,6 @@ public class SessionControllerTest {
         boolean eventCreated = event.createNewEvent("Evento Teste 2", "Diretor Teste 2");
         assertTrue(eventCreated);
 
-        Date startDate = new Date();
-        Date endDate = new Date(startDate.getTime() + 3600000L); // Uma hora depois
         boolean sessionCreated = session.createNewSession("Sessão Teste 3");
         assertTrue(sessionCreated);
 
@@ -177,84 +134,4 @@ public class SessionControllerTest {
         auth.logout();
     }
 
-
 }
-//   /* @Test
-//    public void testUpdateSessionStartDate() {
-//        StateController state = new StateController();
-//        CRUDController crud = new CRUDController();
-//        AuthController auth = new AuthController(state, crud);
-//        EventController event = new EventController(state, crud);
-//        SessionController session = new SessionController(state, crud);
-//
-//        // Criar e autenticar um administrador
-//        auth.createNewAdmin("admin@example.com", "adminpassword");
-//        auth.login("admin@example.com", "adminpassword");
-//
-//        // Criar um evento
-//        Date eventStartDate = new Date(new Date().getTime() - 86400000L); // Data de início do evento um dia no passado
-//        event.createNewEvent("Evento Teste", "Diretor Teste");
-//        event.updateEventStartDate(eventStartDate);
-//
-//        // Criar uma sessão
-//        session.createNewSession("Sessão Teste");
-//        Date sessionStartDate = new Date(String.valueOf(state.getCurrentEvent().getStartDate().after(eventStartDate)));
-//        // Atualizar a data de início da sessão
-//        boolean updateResult = session.updateSessionStartDate(sessionStartDate);
-//
-//        // Recuperar a sessão atualizada
-//        Session updatedSession = crud.sessionCRUD.returnSession(state.getCurrentSession().getUuid());
-//
-//        // Verificar se a atualização foi bem-sucedida
-//        assertNotNull(updatedSession, "A sessão atualizada não deve ser nula.");
-//        assertEquals(sessionStartDate, updatedSession.getStartDate(), "A data de início da sessão deve ser atualizada.");
-//        assertTrue(updateResult, "A atualização da data de início da sessão deve ser bem-sucedida.");
-//
-//        // Logout do administrador
-//        auth.logout();
-//    }*/
-
-
-
-
-
-
-
-//    @Test
-//    public void testUpdateSessionStartDate() {
-//        StateController state = new StateController();
-//        CRUDController crud = new CRUDController();
-//        AuthController auth = new AuthController(state, crud);
-//        EventController event = new EventController(state, crud);
-//        SessionController session = new SessionController(state, crud);
-//
-//        // Criação de um administrador e login
-//        auth.createNewAdmin("cristovao@upe.br", "pwneed2");
-//        auth.login("cristovao@upe.br", "pwneed2");
-//
-//        // Criar um evento
-//        boolean eventCreated = event.createNewEvent("Evento 2", "Diretor 2");
-//        assertTrue("O evento deve ser criado com sucesso.", eventCreated);
-//
-//        // Criar uma data de início inicial para a sessão
-//        Date initialStartDate = new Date(new Date().getTime() - 10000000L); // 10 milhões de milissegundos no passado
-//        boolean sessionCreated = session.createNewSession("Sessão 2", initialStartDate);
-//        assertTrue("A sessão deve ser criada com sucesso.", sessionCreated);
-//
-//        // Definir nova data de início
-//        Date newStartDate = new Date(new Date().getTime() + 10000000L); // 10 milhões de milissegundos no futuro
-//        boolean updated = session.updateSessionStartDate(newStartDate);
-//
-//        // Verificar se a atualização foi bem-sucedida
-//        assertTrue("A data de início da sessão deveria ter sido atualizada.", updated);
-//
-//        // Obter a sessão atualizada
-//        Session updatedSession = crud.sessionCRUD.returnSession(state.getCurrentSession().getUuid());
-//        assertNotNull("A sessão atualizada não deve ser nula.", updatedSession);
-//
-//        // Verificar se a data de início foi atualizada corretamente
-//        assertEquals("A data de início da sessão não foi atualizada corretamente.", newStartDate, updatedSession.getStartDate());
-//
-//        auth.logout();
-//    }
-

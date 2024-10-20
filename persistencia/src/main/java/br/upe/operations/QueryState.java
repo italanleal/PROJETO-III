@@ -18,7 +18,7 @@ public class QueryState {
             while(buffer.ready()){
                 String line = buffer.readLine();
                 if(line.contains(email)) {
-                    rawUser  = line;
+                    rawUser = line;
                     break;
                 }
             }

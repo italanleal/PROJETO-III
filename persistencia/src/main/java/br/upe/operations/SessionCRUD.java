@@ -15,9 +15,9 @@ public class SessionCRUD extends BaseCRUD {
 
     private static final Logger logger = Logger.getLogger(SessionCRUD.class.getName());
 
-    public SessionCRUD(){ super(); }
-
     private static final String SESSION_PATH = ".\\state\\sessions.csv";
+    public SessionCRUD(){ super(SESSION_PATH); }
+
 
     public void createSession(Session session){
         try(BufferedWriter buffer = new BufferedWriter(new FileWriter(SESSION_PATH, true))){
