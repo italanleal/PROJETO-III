@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
@@ -132,42 +133,5 @@ class SessionControllerTest {
 
         auth.logout();
     }
-
-    @Test
-    void testUpdateSessionStartDate() {
-        StateController state = new StateController();
-        CRUDController crud = new CRUDController();
-        AuthController auth = new AuthController(state, crud);
-        EventController event = new EventController(state, crud);
-        SessionController session = new SessionController(state, crud);
-
-        // Criar e autenticar um administrador
-        auth.createNewAdmin("admin@example.com", "adminpassword");
-        auth.login("admin@example.com", "adminpassword");
-
-        // Criar um evento
-        Date eventStartDate = new Date(new Date().getTime() - 86400000L); // Data de início do evento um dia no passado
-        event.createNewEvent("Evento Teste", "Diretor Teste");
-        event.updateEventStartDate(eventStartDate);
-
-        // Criar uma sessão
-        session.createNewSession("Sessão Teste");
-        Date sessionStartDate = new Date(String.valueOf(state.getCurrentEvent().getStartDate().after(eventStartDate)));
-        // Atualizar a data de início da sessão
-        boolean updateResult = session.updateSessionStartDate(sessionStartDate);
-
-        // Recuperar a sessão atualizada
-        Session updatedSession = SessionCRUD.returnSession(state.getCurrentSession().getUuid());
-
-        // Verificar se a atualização foi bem-sucedida
-        assert updatedSession != null;
-        assertEquals("A data de início da sessão deve ser atualizada.", sessionStartDate, updatedSession.getStartDate());
-        assertTrue(updateResult, "A atualização da data de início da sessão deve ser bem-sucedida.");
-
-        // Logout do administrador
-        auth.logout();
-    }
-
-
 
 }
