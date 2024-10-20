@@ -1,10 +1,7 @@
 package br.upe.pojos;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Subscription {
 

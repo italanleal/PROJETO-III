@@ -12,10 +12,10 @@ import java.util.logging.Logger;
 public class SubscriptionCRUD extends BaseCRUD {
 
     private static final Logger logger = Logger.getLogger(SubscriptionCRUD.class.getName());
-
-    public SubscriptionCRUD(){ super(); }
-
+  
     private static final String SUBSCRIPTIONS_PATH = ".\\state\\subscriptions.csv";
+    public SubscriptionCRUD(){ super(SUBSCRIPTIONS_PATH); }
+
 
     public void createSubscription(Subscription subscription){
         try(BufferedWriter buffer = new BufferedWriter(new FileWriter(SUBSCRIPTIONS_PATH, true))){
@@ -53,10 +53,14 @@ public class SubscriptionCRUD extends BaseCRUD {
     }
 
     public void updateSubscription(UUID subscriptionUuid, Subscription source){
-        Subscription subscription = returnSubscription(subscriptionUuid);
+        Subscription existingSubscription = returnSubscription(subscriptionUuid);
+        if (existingSubscription == null) {
+            logger.log(Level.WARNING, "Subscription not found for UUID: {0}", subscriptionUuid);
+            return;
+        }
         deleteSubscription(subscriptionUuid);
-        HelperInterface.checkout(source, subscription);
-        createSubscription(subscription);
+        HelperInterface.checkout(source, existingSubscription);
+        createSubscription(existingSubscription);
     }
 
     public static Subscription returnSubscription(UUID subscriptionUuid){
