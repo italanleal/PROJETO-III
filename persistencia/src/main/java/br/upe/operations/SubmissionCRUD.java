@@ -12,10 +12,10 @@ import java.util.logging.Logger;
 public class SubmissionCRUD extends BaseCRUD {
 
     private static final Logger logger = Logger.getLogger(SubmissionCRUD.class.getName());
-
-    public SubmissionCRUD() { super(); }
-
     private static final String SUBMISSIONS_PATH = ".\\state\\submissions.csv";
+
+    public SubmissionCRUD() { super(SUBMISSIONS_PATH); }
+
 
     public void createSubmission(Submission submission) {
         try(BufferedWriter buffer = new BufferedWriter(new FileWriter(SUBMISSIONS_PATH, true))) {

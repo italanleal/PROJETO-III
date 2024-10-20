@@ -14,9 +14,9 @@ import java.util.logging.Level;
 public class EventCRUD extends BaseCRUD {
     private static final Logger logger = Logger.getLogger(EventCRUD.class.getName());
 
-    public EventCRUD(){ super(); }
+    private static final String EVENTS_PATH = ".\\state\\events.csv";
+    public EventCRUD(){ super(EVENTS_PATH); }
 
-    private static final String EVENTS_PATH = ".\\state\\subscriptions.csv";
 
     public void createEvent(GreatEvent event){
         try(BufferedWriter buffer = new BufferedWriter(new FileWriter(EVENTS_PATH, true))){
