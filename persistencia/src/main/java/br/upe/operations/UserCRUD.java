@@ -17,7 +17,6 @@ public class UserCRUD extends BaseCRUD {
 
     public UserCRUD(){ super(PATH_USERS); }
 
-
     public void createUser(User user){
         try(BufferedWriter buffer = new BufferedWriter(new FileWriter(PATH_USERS, true))){
             buffer.write(ParserInterface.validadeString(user.getUuid()) + ";");

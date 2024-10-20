@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class SubscriptionCRUD extends BaseCRUD {
 
     private static final Logger logger = Logger.getLogger(SubscriptionCRUD.class.getName());
-
+  
     private static final String SUBSCRIPTIONS_PATH = ".\\state\\subscriptions.csv";
     public SubscriptionCRUD(){ super(SUBSCRIPTIONS_PATH); }
 
