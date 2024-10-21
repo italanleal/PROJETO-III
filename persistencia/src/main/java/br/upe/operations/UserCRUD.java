@@ -25,9 +25,12 @@ public class UserCRUD extends BaseCRUD {
             buffer.write(ParserInterface.validadeString(user.getName()) + ";");
             buffer.write(ParserInterface.validadeString(user.isAdmin()) + ";");
 
-            for (Subscription sub : user.getSubscriptions()){
-                buffer.write(ParserInterface.validadeString(sub.getUuid()) + ",");
+            if(!user.getSubscriptions().isEmpty()){
+                for (Subscription sub : user.getSubscriptions()){
+                    buffer.write(ParserInterface.validadeString(sub.getUuid()) + ",");
+                }
             }
+
             buffer.write(";");
             if (user instanceof AdminUser userHandler){
                 for (GreatEvent event : userHandler.getEvents()){
