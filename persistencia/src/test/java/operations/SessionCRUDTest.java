@@ -1,5 +1,6 @@
 package operations;
 
+import br.upe.operations.CRUDInterface;
 import br.upe.operations.SessionCRUD;
 import br.upe.operations.SubscriptionCRUD;
 import br.upe.pojos.Session;
@@ -40,8 +41,8 @@ class SessionCRUDTest {
 
     @BeforeEach
     public void setUp() {
-        sessionCRUD = new SessionCRUD();
-        subscriptionCRUD = new SubscriptionCRUD();
+        sessionCRUD = CRUDInterface.newSessionCRUD();
+        subscriptionCRUD = CRUDInterface.newSubscriptionCRUD();
     }
 
     @Test
