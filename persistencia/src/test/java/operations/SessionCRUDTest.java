@@ -181,4 +181,47 @@ class SessionCRUDTest {
         assertEquals(1, retrievedSubscriptions.size(), "A lista de subscrições deve conter um item.");
         assertEquals(subscription.getUuid(), retrievedSubscriptions.getFirst().getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
     }
+
+    @Test
+    void testReturnAllSessions() {
+        // Criar e salvar uma subscrição
+        Subscription subscription = new Subscription();
+        UUID subscriptionUuid = UUID.randomUUID();
+        subscription.setUuid(subscriptionUuid);
+        subscription.setSessionUuid(UUID.randomUUID());
+        subscription.setUserUuid(UUID.randomUUID());
+        subscription.setDate(new Date());
+        subscriptionCRUD.createSubscription(subscription);
+
+        // Criar e salvar uma sessão
+        Session session = new Session();
+        UUID sessionUuid = UUID.randomUUID();
+        session.setUuid(sessionUuid);
+        session.setEventUuid(UUID.randomUUID());
+        session.setDescritor("Session for Return Test");
+        session.setStartDate(new Date());
+        session.setEndDate(new Date());
+        session.setSubscriptions(Collections.singletonList(subscription)); // session shares the same subscription
+        sessionCRUD.createSession(session);
+
+        Session session1 = new Session();
+        session1.setUuid(UUID.randomUUID());
+        session1.setEventUuid(UUID.randomUUID());
+        session1.setDescritor("Session1 for Return Test");
+        session1.setStartDate(new Date());
+        session1.setEndDate(new Date());
+        session1.setSubscriptions(Collections.singletonList(subscription)); // session1 also shares the same subscription
+        sessionCRUD.createSession(session1);
+
+        // Retrieve all sessions
+        Collection<Session> retrievedSessions = SessionCRUD.returnSession();
+        assertNotNull(retrievedSessions, "As sessões retornadas não devem ser nulas.");
+        assertEquals(2, retrievedSessions.size(), "A lista de sessões deve conter dois itens.");
+
+        // Check subscriptions for the first session
+        Collection<Subscription> retrievedSubscriptions = retrievedSessions.iterator().next().getSubscriptions();
+        assertNotNull(retrievedSubscriptions, "A lista de subscrições não deve ser nula.");
+        assertEquals(1, retrievedSubscriptions.size(), "A lista de subscrições deve conter um item.");
+    }
+
 }
