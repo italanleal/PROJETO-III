@@ -7,7 +7,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class LoginController {
-    public Label statusLabel;
+    @FXML
+    Label statusLabel;
+    @FXML
+    Label warningLabel;
     @FXML
     TextField emailField;
     @FXML
@@ -22,15 +25,15 @@ public class LoginController {
     private void login() throws IOException {
         String email = emailField.getText();
         String password = passwordField.getText();
-
+        warningLabel.setText("");
         boolean isLogged = false;
         if(!email.isEmpty() && !password.isEmpty()){
             isLogged = AppStateController.authController.login(email, password);
         }
         if(isLogged){
-            statusLabel.setText("logged in");
+            App.setRoot("home");
         } else {
-            statusLabel.setText("logged out");
+            warningLabel.setText("Couldn't log in");
         }
     }
 }
