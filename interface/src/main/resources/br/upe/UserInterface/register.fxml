@@ -17,6 +17,7 @@
             <Button id="registerButton" fx:id="registerButton" mnemonicParsing="false" onAction="#register" prefHeight="26.0" prefWidth="102.0" text="register" />
          </children>
       </VBox>
+      <Label id="warningLabel" fx:id="warningLabel"/>
         <Hyperlink id="registerLink" fx:id="loginLink" onAction="#switchToLogin" text="login" />
     </children>
     <padding>

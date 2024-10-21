@@ -3,9 +3,12 @@ package br.upe.UserInterface;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class RegisterController {
+    @FXML
+    Label warningLabel;
     @FXML
     TextField emailField;
     @FXML
@@ -15,6 +18,7 @@ public class RegisterController {
 
     @FXML
     private void register() throws IOException {
+        warningLabel.setText("");
         String email = emailField.getText();
         String password = passwordField.getText();
 
@@ -28,6 +32,7 @@ public class RegisterController {
         }
 
         if(isCreated) switchToLogin();
+        else warningLabel.setText("Couldn't register");
     }
 
     @FXML
