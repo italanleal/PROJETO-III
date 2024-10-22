@@ -18,18 +18,19 @@ public class SubmissionCRUD extends BaseCRUD {
     public SubmissionCRUD() { super(SUBMISSIONS_PATH); }
 
     public void createSubmission(Submission submission) {
-        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(SUBMISSIONS_PATH, true))) {
+        try (BufferedWriter buffer = new BufferedWriter(new FileWriter(SUBMISSIONS_PATH, true))) {
             buffer.write(ParserInterface.validadeString(submission.getUuid()) + ";");
             buffer.write(ParserInterface.validadeString(submission.getDescritor()) + ";");
             buffer.write(ParserInterface.validadeString(submission.getEventUuid()) + ";");
             buffer.write(ParserInterface.validadeString(submission.getUserUuid()) + ";");
-            buffer.write((submission.getDate() != null ? ParserInterface.validadeString(submission.getDate().toInstant()): "") + ";");
+            buffer.write((submission.getDate() != null ? ParserInterface.validadeString(submission.getDate().toInstant().toString()) : "") + ";");
 
             buffer.newLine();
-        } catch(Exception e) {
+        } catch (Exception e) {
             logger.log(Level.SEVERE, "Error creating submission", e);
         }
     }
+
 
     public void deleteSubmission(UUID submissionUuid) {
         ArrayList<String> fileCopy = new ArrayList<>();
