@@ -15,6 +15,8 @@ public interface HelperInterface {
         return "set" + getterName.substring(3);
     }
 
+
+
     static <T> void checkout(T source, T destination){
         Method[] methods = source.getClass().getMethods();
         for (Method getter : methods) {
