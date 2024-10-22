@@ -17,7 +17,6 @@
          </children>
       </VBox>
       <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;"/>
-      <Label id="statusLabel" fx:id="statusLabel" />
       <Hyperlink id="registerLink" fx:id="registerLink" onAction="#switchToRegister" text="register account" />
    </children>
    <padding>

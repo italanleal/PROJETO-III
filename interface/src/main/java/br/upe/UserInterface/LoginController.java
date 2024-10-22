@@ -1,6 +1,8 @@
 package br.upe.UserInterface;
 
 import java.io.IOException;
+
+import br.upe.pojos.AdminUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -31,7 +33,11 @@ public class LoginController {
             isLogged = AppStateController.authController.login(email, password);
         }
         if(isLogged){
-            App.setRoot("home");
+            if(AppStateController.stateController.getCurrentUser() instanceof AdminUser){
+                App.setRoot("homeAdmin");
+            } else {
+                App.setRoot("homeUser");
+            }
         } else {
             warningLabel.setText("Couldn't log in");
         }
