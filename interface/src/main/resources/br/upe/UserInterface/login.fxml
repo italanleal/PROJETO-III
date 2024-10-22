@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.UserInterface.LoginController">
+   <children>
+      <Label text="Login page" />
+      <VBox prefHeight="88.0" prefWidth="86.0">
+         <children>
+            <Label prefHeight="18.0" prefWidth="149.0" text="email" />
+            <TextField id="emailField" fx:id="emailField" promptText="type your email" />
+            <Label prefHeight="18.0" prefWidth="102.0" text="password" />
+            <TextField id="passwordField" fx:id="passwordField" promptText="type your password" />
+            <Button id="loginButton" fx:id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="13.0" prefWidth="100.0" text="login" />
+         </children>
+      </VBox>
+      <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;"/>
+      <Hyperlink id="registerLink" fx:id="registerLink" onAction="#switchToRegister" text="register account" />
+   </children>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</VBox>
