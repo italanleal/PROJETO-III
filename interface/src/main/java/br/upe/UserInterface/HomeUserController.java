@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 
-public class HomeController {
+public class HomeUserController {
     @FXML
     Label userEmail;
 
