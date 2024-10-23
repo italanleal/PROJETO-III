@@ -12,7 +12,7 @@
                   <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
                   <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
                   <Hyperlink id="updateEventLink" fx:id="updateEventLink" layoutY="25.0" onAction="#switchToEventUpdater" prefHeight="24.0" prefWidth="200.0" text="Update Event" />
-                  <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="49.0" onAction="#registerSession" prefHeight="24.0" prefWidth="198.0" text="New Session" />
+                  <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="49.0" onAction="#switchToSessionRegister" prefHeight="24.0" prefWidth="198.0" text="New Session" />
                </children>
             </AnchorPane>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
@@ -24,8 +24,32 @@
       </VBox>
       <VBox prefHeight="400.0" prefWidth="403.0">
          <children>
-            <Label id="eventDescritor" fx:id="eventDescritor" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
-            <VBox prefHeight="384.0" prefWidth="400.0" />
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="401.0" text="Painel do Evento" textAlignment="CENTER" />
+            <VBox prefHeight="384.0" prefWidth="400.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox id="eventData" prefHeight="100.0" prefWidth="163.0">
+                           <children>
+                              <Label text="Nome do Evento" />
+                              <Label text="Diretor do Evento" />
+                              <Label text="Data de início" />
+                              <Label text="Data de término" />
+                              <Label text="Número de Sessões" />
+                           </children>
+                        </VBox>
+                        <VBox id="eventData" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label id="eventoNome" fx:id="eventoNome" />
+                              <Label id="eventoDiretor" fx:id="eventoDiretor" />
+                              <Label id="dataInicio" fx:id="dataInicio" text="Não Informado" />
+                              <Label id="dataFim" fx:id="dataFim" text="Não Informado" />
+                              <Label id="sessionCount" fx:id="sessionCount" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children></VBox>
          </children></VBox>
    </children>
 </HBox>

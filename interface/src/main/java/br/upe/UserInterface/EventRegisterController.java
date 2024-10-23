@@ -7,7 +7,10 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Locale;
 
 public class EventRegisterController extends HomeAdminController {
     @FXML
@@ -24,12 +27,14 @@ public class EventRegisterController extends HomeAdminController {
     private void registerEvent() throws IOException {
         Date startDate = null;
         Date endDate = null;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+
         try {
-            startDate = (startDatePicker.getValue() != null) ? DateFormat.getDateInstance().parse(startDatePicker.getValue().toString()): null;
-            endDate = (endDatePicker.getValue() != null) ? DateFormat.getDateInstance().parse(endDatePicker.getValue().toString()): null;
+            startDate = (startDatePicker.getValue() != null) ? formatter.parse(startDatePicker.getValue().toString()): null;
+            endDate = (endDatePicker.getValue() != null) ? formatter.parse(endDatePicker.getValue().toString()): null;
 
         } catch (Exception e) {
-            //implementar logger
+            e.printStackTrace();
         }
 
         if(!descritorField.getText().isEmpty() && !directorField.getText().isEmpty()){
