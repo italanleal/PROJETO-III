@@ -1,11 +1,7 @@
 package br.upe.pojos;
 
-import br.upe.operations.SubscriptionCRUD;
-
 import java.util.Collection;
 import java.util.UUID;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CommomUser extends User {
     public void setEmail(String email) {

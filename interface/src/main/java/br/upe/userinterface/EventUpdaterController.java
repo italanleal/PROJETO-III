@@ -64,6 +64,8 @@ public class EventUpdaterController{
 
         App.setRoot("eventManager");
     }
+
+    //todo
     @FXML
     private void registerSession() {
     }
