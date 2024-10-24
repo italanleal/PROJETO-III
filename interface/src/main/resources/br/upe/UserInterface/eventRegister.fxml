@@ -12,7 +12,7 @@
                   <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
                   <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
                   <Hyperlink id="newEventLink" fx:id="newEventLink" layoutY="25.0" prefHeight="24.0" prefWidth="200.0" text="New Event" />
-                  <Hyperlink layoutY="49.0" prefHeight="24.0" prefWidth="198.0" text="List Events" />
+                  <Hyperlink layoutY="49.0" onAction="#switchToEventList" prefHeight="24.0" prefWidth="198.0" text="List Events" />
                </children>
             </AnchorPane>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">

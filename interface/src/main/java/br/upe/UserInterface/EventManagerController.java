@@ -51,4 +51,6 @@ public class EventManagerController{
     private void switchToEventUpdater() throws IOException {
         App.setRoot("eventUpdater");
     }
+
 }
+
