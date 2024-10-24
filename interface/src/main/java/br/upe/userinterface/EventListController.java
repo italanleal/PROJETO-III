@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class EventListController {
-    Logger logger = Logger.getLogger(EventRegisterController.class.getName());
+    Logger logger = Logger.getLogger(EventListController.class.getName());
     @FXML
     ScrollPane scrollPane;
     @FXML
