@@ -7,27 +7,24 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class EventManagerController{
+public class SessionManagerController {
     @FXML
-    Label eventoNome;
-    @FXML
-    Label eventoDiretor;
+    Label sessaoNome;
     @FXML
     Label dataInicio;
     @FXML
     Label dataFim;
     @FXML
-    Label sessionCount;
+    Label subscriptionCount;
 
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
-        eventoNome.setText(AppStateController.stateController.getCurrentEvent().getDescritor());
-        eventoDiretor.setText(AppStateController.stateController.getCurrentEvent().getDirector());
-        sessionCount.setText(String.valueOf(AppStateController.stateController.getCurrentEvent().getSessions().size()));
+        sessaoNome.setText(AppStateController.stateController.getCurrentSession().getDescritor());
+        subscriptionCount.setText(String.valueOf(AppStateController.stateController.getCurrentSession().getSubscriptions().size()));
 
-        Date startDate = AppStateController.stateController.getCurrentEvent().getStartDate();
-        Date endDate = AppStateController.stateController.getCurrentEvent().getEndDate();
+        Date startDate = AppStateController.stateController.getCurrentSession().getStartDate();
+        Date endDate = AppStateController.stateController.getCurrentSession().getEndDate();
 
         if (startDate != null) dataInicio.setText(DateFormat.getDateInstance().format(startDate));
         if (endDate != null) dataFim.setText(DateFormat.getDateInstance().format(endDate));
@@ -48,12 +45,7 @@ public class EventManagerController{
         App.setRoot("login");
     }
     @FXML
-    private void switchToEventUpdater() throws IOException {
-        App.setRoot("eventUpdater");
-    }
-    @FXML
-    private void switchToSessionList() throws IOException {
-        App.setRoot("sessionList");
+    private void switchToSessionUpdater() throws IOException {
+        App.setRoot("sessionUpdater");
     }
 }
-

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.SessionRegisterController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.SessionUpdaterController">
     <children>
         <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
                 <AnchorPane prefHeight="358.0" prefWidth="200.0">
                     <children>
-                        <Hyperlink id="homeSessionLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
+                        <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
                         <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
-                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="25.0" prefHeight="24.0" prefWidth="200.0" text="New Session" />
-                        <Hyperlink layoutY="49.0" onAction="#switchToSessionList" prefHeight="24.0" prefWidth="198.0" text="List Sessions" />
+                        <Hyperlink id="updateSessionLink" fx:id="updateSessionLink" layoutY="25.0" prefHeight="24.0" prefWidth="200.0" text="Update Session" />
+                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="49.0" onAction="#updateSession" prefHeight="24.0" prefWidth="198.0" text="New Session" />
                     </children>
                 </AnchorPane>
                 <ButtonBar prefHeight="40.0" prefWidth="200.0">
@@ -23,18 +24,17 @@
         </VBox>
         <VBox prefHeight="400.0" prefWidth="403.0">
             <children>
-                <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
+                <Label id="eventDescritor" fx:id="eventDescritor" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
                 <VBox prefHeight="182.0" prefWidth="400.0">
                     <children>
                         <Label text="Session's name" />
-                        <TextField id="descritorField" fx:id="descritorField" />
+                        <TextField id="descritorField" fx:id="descritorField"/>
                         <Label text="Start date" />
                         <DatePicker id="startDatePicker" fx:id="startDatePicker" />
                         <Label text="End date" />
                         <DatePicker id="endDatePicker" fx:id="endDatePicker" />
                     </children></VBox>
-                <Button id="submitSessionButton" fx:id="submitSessionButton" mnemonicParsing="false" onAction="#registerSession" text="Submit" />
-                <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;" />
+                <Button id="submitEventButton" fx:id="submitEventButton" mnemonicParsing="false" onAction="#updateSession" text="Submit" />
             </children></VBox>
     </children>
 </HBox>
