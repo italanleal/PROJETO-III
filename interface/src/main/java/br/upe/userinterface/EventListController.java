@@ -1,4 +1,4 @@
-package br.upe.userinterface;
+package br.upe.UserInterface;
 
 import br.upe.pojos.GreatEvent;
 import javafx.fxml.FXML;
