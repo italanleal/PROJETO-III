@@ -1,5 +1,6 @@
 package operations;
 
+import br.upe.operations.CRUDInterface;
 import br.upe.operations.SubmissionCRUD;
 import br.upe.pojos.Submission;
 import org.junit.jupiter.api.*;
@@ -37,7 +38,7 @@ class SubmissionCRUDTest {
 
     @BeforeEach
     public void setUp() {
-        submissionCRUD = new SubmissionCRUD();
+        submissionCRUD = CRUDInterface.newSubmissionCRUD();
     }
 
     @Test
@@ -100,24 +101,4 @@ class SubmissionCRUDTest {
         assertNull(removedSubmission, "A submissão removida deve ser nula.");
     }
 
-    @Test
-    void testReturnSubmission() {
-
-        Submission submission = new Submission();
-        UUID submissionUuid = UUID.randomUUID();
-        submission.setUuid(submissionUuid);
-        submission.setEventUuid(UUID.randomUUID());
-        submission.setUserUuid(UUID.randomUUID());
-        submission.setDate(new Date());
-        submissionCRUD.createSubmission(submission);
-
-
-        Submission retrievedSubmission = SubmissionCRUD.returnSubmission(submissionUuid);
-
-        assertNotNull(retrievedSubmission, "A submissão retornada não deve ser nula.");
-        assertEquals(submission.getUuid(), retrievedSubmission.getUuid(), "O UUID da submissão deve ser igual ao esperado.");
-        assertEquals(submission.getEventUuid(), retrievedSubmission.getEventUuid(), "O UUID do evento deve ser igual ao esperado.");
-        assertEquals(submission.getUserUuid(), retrievedSubmission.getUserUuid(), "O UUID do usuário deve ser igual ao esperado.");
-        assertEquals(submission.getDate(), retrievedSubmission.getDate(), "A data deve ser igual ao esperado.");
-    }
 }

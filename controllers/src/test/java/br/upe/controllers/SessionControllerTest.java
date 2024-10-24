@@ -1,13 +1,7 @@
 package br.upe.controllers;
 
-import br.upe.operations.SessionCRUD;
 import br.upe.pojos.*;
 import org.junit.jupiter.api.Test;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.UUID;
 
 
 import static org.junit.Assert.assertEquals;
