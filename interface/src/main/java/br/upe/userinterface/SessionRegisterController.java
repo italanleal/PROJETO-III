@@ -1,4 +1,5 @@
-package br.upe.UserInterface;
+package br.upe.userinterface;
 
+//todo
 public class SessionRegisterController {
 }

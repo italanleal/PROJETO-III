@@ -1,4 +1,4 @@
-package br.upe.UserInterface;
+package br.upe.userinterface;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -64,6 +64,8 @@ public class EventUpdaterController{
 
         App.setRoot("eventManager");
     }
+
+    //todo
     @FXML
     private void registerSession() {
     }

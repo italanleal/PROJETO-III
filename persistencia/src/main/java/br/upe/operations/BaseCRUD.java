@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class BaseCRUD {
     private static final Logger logger = Logger.getLogger(BaseCRUD.class.getName());
-    public BaseCRUD(String pathname) {
+    protected BaseCRUD(String pathname) {
         File d = new File(".\\state");
         if (!d.exists()) {
             boolean mkdirs;

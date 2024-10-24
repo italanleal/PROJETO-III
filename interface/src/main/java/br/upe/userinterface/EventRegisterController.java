@@ -1,12 +1,15 @@
-package br.upe.UserInterface;
+package br.upe.userinterface;
+
 
 import br.upe.operations.HasherInterface;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
