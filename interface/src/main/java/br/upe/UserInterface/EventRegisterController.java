@@ -74,4 +74,8 @@ public class EventRegisterController{
         AppStateController.authController.logout();
         App.setRoot("login");
     }
+    @FXML
+    private void switchToEventList() throws IOException {
+        App.setRoot("eventList");
+    }
 }

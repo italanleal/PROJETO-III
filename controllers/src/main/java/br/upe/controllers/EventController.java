@@ -89,6 +89,6 @@ public class EventController {
 
     public Collection<GreatEvent> getAllEventsByUser() {
         if(stateController.getCurrentUser() instanceof AdminUser user) return user.getEvents();
-        return getAllEvents();
+        return null;
     }
 }
