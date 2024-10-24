@@ -14,14 +14,9 @@ public class HomeAdminController {
         // Set the label's text to the value of the variable
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
     }
-
     @FXML
     private void switchToEventRegister() throws IOException {
         App.setRoot("eventRegister");
-    }
-    @FXML
-    private void switchToHomeAdmin() throws IOException {
-        App.setRoot("homeAdmin");
     }
     @FXML
     private void logout() throws IOException {
