@@ -4,9 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
 
 /**
  * JavaFX App
@@ -15,11 +17,23 @@ public class App extends Application {
 
     private static Scene scene;
 
+
+    private static final Logger logger = Logger.getLogger(App.class.getName());
+
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("login"), 640, 480);
         stage.setScene(scene);
         stage.setTitle("AcademicEvents");
+
+        InputStream faviconStream = App.class.getResourceAsStream("/favicon_academic_events.png");
+        if (faviconStream == null) {
+            logger.log(Level.SEVERE, "Favicon resource could not be found!");
+        } else {
+            Image icon = new Image(faviconStream);
+            stage.getIcons().add(icon);
+        }
+
         stage.show();
     }
 

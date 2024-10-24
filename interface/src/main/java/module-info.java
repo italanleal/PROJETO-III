@@ -1,4 +1,4 @@
-module br.upe.UserInterface {
+module br.upe.userinterface {
     requires javafx.controls;
     requires javafx.fxml;
     requires br.upe.controllers;
