@@ -3,7 +3,6 @@ package br.upe.controllers;
 
 import br.upe.pojos.GreatEvent;
 import br.upe.pojos.Submission;
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import java.util.Collection;
