@@ -1,4 +1,4 @@
-package br.upe.UserInterface;
+package br.upe.userinterface;
 
 import br.upe.operations.HasherInterface;
 import javafx.fxml.FXML;

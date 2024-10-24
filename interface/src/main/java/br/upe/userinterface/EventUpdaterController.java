@@ -1,4 +1,4 @@
-package br.upe.UserInterface;
+package br.upe.userinterface;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
