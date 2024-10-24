@@ -41,24 +41,28 @@ public class EventController {
         source.setDescritor(descritor);
         crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), source);
         stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
+        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
     public void updateEventDirector(String director){
         GreatEvent source = KeeperInterface.createGreatEvent();
         source.setDirector(director);
         crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), source);
         stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
+        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
     public void updateEventStartDate(Date startDate){
         GreatEvent source = KeeperInterface.createGreatEvent();
         source.setStartDate(startDate);
         crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), source);
         stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
+        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
     public void updateEventEndDate(Date endDate){
         GreatEvent source = KeeperInterface.createGreatEvent();
         source.setEndDate(endDate);
         crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), source);
         stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
+        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
     public void addEventSubmission(String descritor){
         Submission submission = KeeperInterface.createSubmission();
