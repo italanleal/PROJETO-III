@@ -1,0 +1,8 @@
+operations\SubscriptionCRUDTest.class
+operations\SubmissionCRUDTest.class
+operations\SessionCRUDTest.class
+operations\HasherInterfaceTest.class
+operations\QueryStateTest.class
+operations\UserCRUDTest.class
+pojos\KeeperInterfaceTest.class
+operations\EventCRUDTest.class

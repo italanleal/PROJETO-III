@@ -1,0 +1,4 @@
+--patch-module
+br.upe.controllers=_
+--add-reads
+br.upe.controllers=ALL-UNNAMED

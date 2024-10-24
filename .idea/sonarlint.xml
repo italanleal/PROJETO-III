@@ -3,6 +3,6 @@
   <component name="SonarLintProjectSettings">
     <option name="bindingEnabled" value="true" />
     <option name="projectKey" value="italanleal_PROJETO-III" />
-    <option name="serverId" value="teste" />
+    <option name="serverId" value="projeto-3-sonarcloud" />
   </component>
 </project>

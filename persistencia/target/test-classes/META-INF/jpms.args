@@ -1,0 +1,4 @@
+--patch-module
+persistencia=_
+--add-reads
+persistencia=ALL-UNNAMED

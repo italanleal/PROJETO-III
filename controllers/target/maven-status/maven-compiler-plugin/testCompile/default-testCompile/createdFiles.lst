@@ -1,0 +1,5 @@
+br\upe\controllers\EventControllerTest.class
+br\upe\controllers\UserControllerTest.class
+br\upe\controllers\AuthControllerTest.class
+br\upe\controllers\SessionControllerTest.class
+br\upe\controllers\AppTest.class
