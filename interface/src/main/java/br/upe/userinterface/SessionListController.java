@@ -21,7 +21,7 @@ public class SessionListController {
     ScrollPane scrollPane;
     @FXML
     Label userEmail;
-
+    //conserto
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
