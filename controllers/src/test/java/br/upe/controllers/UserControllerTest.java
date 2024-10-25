@@ -1,15 +1,14 @@
 package br.upe.controllers;
 
-import br.upe.operations.UserCRUD;
 import br.upe.pojos.User;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserControllerTest {
+public class UserControllerTest {
 
 
     @Test
-    void testUpdateUserName() {
+    public void testUpdateUserName() {
 
         StateController state = new StateController();
         CRUDController crud = new CRUDController();
@@ -21,15 +20,14 @@ class UserControllerTest {
 
         user.updateUserName("fernandoétop");
 
-        User updatedUser = UserCRUD.returnUser(state.getCurrentUser().getUuid());
+        User updatedUser = crud.userCRUD.returnUser(state.getCurrentUser().getUuid());
         assertNotNull(updatedUser);
         assertEquals("fernandoétop", updatedUser.getName());
 
         auth.logout();
     }
-
     @Test
-    void testUpdateUserEmail() {
+    public void testUpdateUserEmail() {
 
         StateController state = new StateController();
         CRUDController crud = new CRUDController();
@@ -42,10 +40,34 @@ class UserControllerTest {
 
         user.updateUserEmail("jackinho@upe.br");
 
-        User updatedUser = UserCRUD.returnUser(state.getCurrentUser().getUuid());
+        User updatedUser = crud.userCRUD.returnUser(state.getCurrentUser().getUuid());
         assertNotNull(updatedUser);
         assertEquals("jackinho@upe.br", updatedUser.getEmail());
 
         auth.logout();
     }
+
+//    @Test
+//    public void testUpdateUserPassword() {
+//
+//        StateController state = new StateController();
+//        CRUDController crud = new CRUDController();
+//        AuthController auth = new AuthController(state, crud);
+//        UserController user = new UserController(state, crud);
+//
+//        auth.createNewAdmin("admin.bruce.wayne@upe.br", "securePass3!");
+//        auth.login("admin.bruce.wayne@upe.br", "securePass3!");
+//
+//        user.updateUserPassword("BatMan@2024");
+//
+//        User updatedUser = crud.userCRUD.returnUser(state.getCurrentUser().getUuid());
+//        assertNotNull(updatedUser);
+//        assertEquals("BatMan@2024", updatedUser.getPassword());
+//
+//        auth.logout();
+//    }
+
 }
+
+
+

@@ -13,8 +13,6 @@
   <packaging>jar</packaging>
 
   <name>persistencia</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,6 +22,7 @@
 
   <dependencies>
     <!-- JUnit dependencies for testing -->
+
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -36,7 +35,12 @@
       <version>5.11.0-M2</version>
       <scope>test</scope>
     </dependency>
-
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>5.11.0-M2</version>
+      <scope>test</scope>
+    </dependency>
     <!-- SLF4J and Logback dependencies for logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -70,15 +74,15 @@
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
+          <version>3.10.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.2</version>
+          <version>3.0.0-M9</version>
         </plugin>
         <plugin>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>2.22.2</version>
+          <version>3.0.0-M9</version>
         </plugin>
         <plugin>
           <artifactId>maven-jar-plugin</artifactId>

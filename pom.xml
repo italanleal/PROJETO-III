@@ -10,7 +10,7 @@
   <modules>
     <module>persistencia</module>
     <module>controllers</module>
-    <module>ui</module>
+    <module>interface</module>
   </modules>
 
   <name>AcademicEvents</name>
@@ -26,13 +26,7 @@
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>org.junit</groupId>
-        <artifactId>junit-bom</artifactId>
-        <version>5.11.0</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -54,11 +48,15 @@
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.13.0</version>
+          <version>3.10.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.3.0</version>
+          <version>3.0.0-M9</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>3.0.0-M9</version>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
@@ -77,9 +75,7 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.6.1</version>
         </plugin>
-
       </plugins>
     </pluginManagement>
   </build>
-
 </project>

@@ -1,6 +1,5 @@
 package br.upe.controllers;
 
-import br.upe.operations.SessionCRUD;
 import br.upe.pojos.*;
 
 import java.util.ArrayList;
@@ -79,19 +78,19 @@ public class SessionController {
         crudController.userCRUD.updateUser(stateController.getCurrentUser().getUuid(), userHandler);
     }
     public void changeCurrentSession(UUID sessionUuid){
-        stateController.setCurrentSession(SessionCRUD.returnSession(sessionUuid));
+        stateController.setCurrentSession(crudController.sessionCRUD.returnSession(sessionUuid));
     }
     public void closeCurrentSession(){
         stateController.setCurrentSession(null);
     }
 
     public Collection<Session> getAllEventSessions(UUID eventUuid){
-        Collection<Session> sessions = SessionCRUD.returnSession();
+        Collection<Session> sessions = crudController.sessionCRUD.returnSession();
         Collection<Session> filtered = new ArrayList<>();
 
         for(Session session: sessions){
-            if(session!= null && session.getEventUuid().toString().equals(eventUuid.toString())){
-                filtered.add(session);
+            if(session!= null){
+                if(session.getEventUuid().toString().equals(eventUuid.toString())) filtered.add(session);
             }
         }
         return filtered;

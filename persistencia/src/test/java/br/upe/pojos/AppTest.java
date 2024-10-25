@@ -6,13 +6,13 @@ import org.junit.jupiter.api.Test;
 /**
  * Unit test for simple App.
  */
-class AppTest
+public class AppTest 
 {
     /**
      * Rigorous Test :-)
      */
     @Test
-    void shouldAnswerWithTrue()
+    public void shouldAnswerWithTrue()
     {
         assertTrue( true );
     }

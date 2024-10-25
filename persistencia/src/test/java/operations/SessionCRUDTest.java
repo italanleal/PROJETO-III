@@ -5,29 +5,28 @@ import br.upe.operations.SubscriptionCRUD;
 import br.upe.pojos.Session;
 import br.upe.pojos.Subscription;
 import org.junit.jupiter.api.*;
+
 import java.io.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SessionCRUDTest {
+
     private SessionCRUD sessionCRUD;
     private SubscriptionCRUD subscriptionCRUD;
-    static Logger logger = Logger.getLogger(SessionCRUDTest.class.getName());
 
     @BeforeAll
     public static void clearFiles() {
         try (BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\sessions.csv"))) {
             buffer.write(""); // Limpa o conteúdo do arquivo sessions.csv
         } catch (IOException e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
+            e.printStackTrace();
         }
         try (BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\subscriptions.csv"))) {
             buffer.write(""); // Limpa o conteúdo do arquivo subscriptions.csv
         } catch (IOException e) {
-            logger.log(Level.SEVERE, e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -38,7 +37,7 @@ public class SessionCRUDTest {
     }
 
     @Test
-    void testCreateSession() {
+    public void testCreateSession() {
         // Criar e salvar uma subscrição
         Subscription subscription = new Subscription();
         UUID subscriptionUuid = UUID.randomUUID();
@@ -66,11 +65,11 @@ public class SessionCRUDTest {
         List<Subscription> retrievedSubscriptions = (List<Subscription>) retrievedSession.getSubscriptions();
         assertNotNull(retrievedSubscriptions, "A lista de subscrições não deve ser nula.");
         assertEquals(1, retrievedSubscriptions.size(), "A lista de subscrições deve conter um item.");
-        assertEquals(subscription.getUuid(), retrievedSubscriptions.getFirst().getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
+        assertEquals(subscription.getUuid(), retrievedSubscriptions.get(0).getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
     }
 
     @Test
-    void testDeleteSession() {
+    public void testDeleteSession() {
         // Criar e salvar uma subscrição
         Subscription subscription = new Subscription();
         UUID subscriptionUuid = UUID.randomUUID();
@@ -100,7 +99,7 @@ public class SessionCRUDTest {
     }
 
     @Test
-    void testUpdateSession() {
+    public void testUpdateSession() {
         // Criar e salvar uma subscrição
         Subscription subscription = new Subscription();
         UUID subscriptionUuid = UUID.randomUUID();
@@ -138,11 +137,11 @@ public class SessionCRUDTest {
         List<Subscription> retrievedSubscriptions = (List<Subscription>) retrievedSession.getSubscriptions();
         assertNotNull(retrievedSubscriptions, "A lista de subscrições não deve ser nula.");
         assertEquals(1, retrievedSubscriptions.size(), "A lista de subscrições deve conter um item.");
-        assertEquals(subscription.getUuid(), retrievedSubscriptions.getFirst().getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
+        assertEquals(subscription.getUuid(), retrievedSubscriptions.get(0).getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
     }
 
     @Test
-    void testReturnSession() {
+    public void testReturnSession() {
         // Criar e salvar uma subscrição
         Subscription subscription = new Subscription();
         UUID subscriptionUuid = UUID.randomUUID();
@@ -172,6 +171,6 @@ public class SessionCRUDTest {
         List<Subscription> retrievedSubscriptions = (List<Subscription>) retrievedSession.getSubscriptions();
         assertNotNull(retrievedSubscriptions, "A lista de subscrições não deve ser nula.");
         assertEquals(1, retrievedSubscriptions.size(), "A lista de subscrições deve conter um item.");
-        assertEquals(subscription.getUuid(), retrievedSubscriptions.getFirst().getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
+        assertEquals(subscription.getUuid(), retrievedSubscriptions.get(0).getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
     }
 }

@@ -1,25 +1,27 @@
 package br.upe.controllers;
 
-import br.upe.operations.EventCRUD;
-import br.upe.operations.SubmissionCRUD;
 import br.upe.pojos.GreatEvent;
 import br.upe.pojos.KeeperInterface;
 import br.upe.pojos.Submission;
+import br.upe.pojos.Subscription;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 
 public class SubmissionController {
-    private final CRUDController crudController;
+    private CRUDController crudController;
+    private StateController stateController;
 
-    public SubmissionController(CRUDController crudController){
+    public SubmissionController(StateController stateController, CRUDController crudController) {
+        this.stateController = stateController;
         this.crudController = crudController;
     }
 
     private Collection<Submission> getAllSubmissions() {
-        return SubmissionCRUD.returnSubmission();
+        return crudController.submissionCRUD.returnSubmission();
     }
 
     public Collection<Submission> getAllSubmissionsByUser(UUID userUuid) {
@@ -34,7 +36,7 @@ public class SubmissionController {
         return filtered;
     }
 
-    public Collection<Submission> getAllSubmissionsByEvent(UUID eventUuid){
+    public Collection<Submission> getAllSubmissionsByEvent(UUID eventUuid) {
         Collection<Submission> submissions = getAllSubmissions();
         Collection<Submission> filtered = new ArrayList<>();
 
@@ -47,22 +49,16 @@ public class SubmissionController {
     }
 
     public void removeSubmission(UUID submissionUuid) {
-        Submission submission = SubmissionCRUD.returnSubmission(submissionUuid);
-        if(submission == null){
-          return;
-        }
+        Submission submission = crudController.submissionCRUD.returnSubmission(submissionUuid);
+        GreatEvent event = crudController.eventCRUD.returnEvent(submission.getEventUuid());
 
-        GreatEvent event = EventCRUD.returnEvent(submission.getEventUuid());
         if(event == null){
             return;
         }
 
-        Iterator<Submission> iterator = event.getSubmissions().iterator();
-        while (iterator.hasNext()) {
-            Submission submission1 = iterator.next();
-            if (submission1.getUuid().equals(submissionUuid)) {
-                iterator.remove();
-                break;
+        for(Submission submission1 : event.getSubmissions()){
+            if(submission1.getUuid().equals(submissionUuid)){
+                event.getSubmissions().remove(submission);
             }
         }
 
