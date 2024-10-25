@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 public class SubmissionCRUD extends BaseCRUD {
     private static final Logger logger = Logger.getLogger(SubmissionCRUD.class.getName());
-    private static final String FILE_PATH = ".\\state\\submissions.csv";
+    public static String FILE_PATH = ".\\state\\submissions.csv";
 
     public SubmissionCRUD() {
         super();
