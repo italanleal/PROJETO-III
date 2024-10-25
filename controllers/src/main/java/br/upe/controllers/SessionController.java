@@ -34,12 +34,8 @@ public class SessionController {
             crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), eventHandler);
             stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
             Collection<GreatEvent> events = user.getEvents();
-            for(GreatEvent event : events){
-                if(event.getUuid().equals(stateController.getCurrentEvent().getUuid())){
-                    events.remove(event);
-                    events.add(stateController.getCurrentEvent());
-                }
-            }
+            events.removeIf(event -> event.getUuid().equals(stateController.getCurrentEvent().getUuid()));
+            events.add(stateController.getCurrentEvent());
             ((AdminUser) stateController.getCurrentUser()).setEvents(events);
             return true;
         }
