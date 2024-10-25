@@ -17,8 +17,7 @@ public class SessionController {
     private final CRUDController crudController;
 
     public boolean createNewSession(String descritor){
-        if(stateController.getCurrentUser() instanceof AdminUser){
-
+        if(stateController.getCurrentUser() instanceof AdminUser user){
             Session session = KeeperInterface.createSession();
             session.setUuid(UUID.randomUUID());
             session.setDescritor(descritor);
@@ -32,6 +31,16 @@ public class SessionController {
             stateController.setCurrentSession(session);
             crudController.sessionCRUD.createSession(session);
             crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), eventHandler);
+            stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
+            Collection<GreatEvent> events = user.getEvents();
+            for(GreatEvent event : events){
+                if(event.getUuid().equals(stateController.getCurrentEvent().getUuid())){
+                    events.remove(event);
+                    events.add(stateController.getCurrentEvent());
+                }
+            }
+            ((AdminUser) stateController.getCurrentUser()).setEvents(events);
+
             return true;
         }
         return false;
