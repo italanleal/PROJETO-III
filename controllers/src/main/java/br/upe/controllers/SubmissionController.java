@@ -1,10 +1,15 @@
 package br.upe.controllers;
+
 import br.upe.pojos.GreatEvent;
 import br.upe.pojos.KeeperInterface;
 import br.upe.pojos.Submission;
+import br.upe.pojos.Subscription;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 
 public class SubmissionController {
     private CRUDController crudController;

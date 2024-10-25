@@ -1,34 +1,37 @@
 package br.upe.controllers;
 
+import br.upe.operations.SessionCRUD;
+import br.upe.operations.SubscriptionCRUD;
+import br.upe.operations.UserCRUD;
 import br.upe.pojos.*;
-
 import java.util.UUID;
 
-public class SubscriptionController {
-    private CRUDController crudController;
-    private StateController stateController;
+public class SubscriptionController{
+    private final CRUDController crudController;
 
-    public SubscriptionController(StateController stateController, CRUDController crudController) {
-        this.stateController = stateController;
+    public SubscriptionController(CRUDController crudController){
         this.crudController = crudController;
     }
 
     public void removeSubscription(UUID subscriptionUuid){
-        Subscription newSubscription = crudController.subscriptionCRUD.returnSubscription(subscriptionUuid);
-        User newUser = crudController.userCRUD.returnUser(newSubscription.getUserUuid());
-        Session newSession = crudController.sessionCRUD.returnSession(newSubscription.getSessionUuid());
+        Subscription newSubscription = SubscriptionCRUD.returnSubscription(subscriptionUuid);
 
-        for(Subscription subscription : newUser.getSubscriptions()){
-            if(subscription.getUuid().equals(subscriptionUuid)){
-                newUser.getSubscriptions().remove(subscription);
-            }
+        if (newSubscription == null){
+            throw new IllegalArgumentException("Subscription não encontrada, possui UUID: " + subscriptionUuid);
         }
 
-        for(Subscription subscription : newSession.getSubscriptions()){
-            if(subscription.getUuid().equals(subscriptionUuid)){
-                newSession.getSubscriptions().remove(subscription);
-            }
+        User newUser = UserCRUD.returnUser(newSubscription.getUserUuid());
+        if (newUser == null){
+            throw new IllegalArgumentException("User não encontrado, possui UUID: " + newSubscription.getUserUuid());
         }
+
+        Session newSession = SessionCRUD.returnSession(newSubscription.getSessionUuid());
+        if (newSession == null){
+            throw new IllegalArgumentException("Sessão não encontrada, possui UUID: " + newSubscription.getSessionUuid());
+        }
+
+        newUser.getSubscriptions().removeIf(subscription -> subscription.getUuid().equals(subscriptionUuid));
+        newSession.getSubscriptions().removeIf(subscription -> subscription.getUuid().equals(subscriptionUuid));
 
         Session sessionHandler = KeeperInterface.createSession();
         User userHandler;
@@ -45,7 +48,5 @@ public class SubscriptionController {
 
         crudController.userCRUD.updateUser(newUser.getUuid(), userHandler);
         crudController.sessionCRUD.updateSession(newSession.getUuid(), sessionHandler);
-
     }
-
 }

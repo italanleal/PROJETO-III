@@ -1,6 +1,8 @@
 package br.upe.operations;
 
+// define métodos estáticos para criação de instâncias de classes CRUD específicas
 public interface CRUDInterface {
+
     static EventCRUD newEventCRUD() {
         return new EventCRUD();
     }

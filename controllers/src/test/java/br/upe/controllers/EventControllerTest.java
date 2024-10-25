@@ -1,15 +1,33 @@
 package br.upe.controllers;
 
-
+import br.upe.controllers.EventController;
+import br.upe.pojos.AdminUser;
 import br.upe.pojos.GreatEvent;
 import br.upe.pojos.Submission;
+import br.upe.pojos.User;
+import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
 
 public class EventControllerTest {
+
+    private EventController eventController;
+    private StateController stateController;
+    private CRUDController crudController;
+
+    @Before
+    public void setUp() {
+        StateController state = new StateController();
+        CRUDController crud = new CRUDController();
+
+        AuthController auth = new AuthController(state, crud);
+        EventController event = new EventController(state, crud);
+        SubmissionController sub = new SubmissionController(state, crud);
+    }
 
     @Test
     public void testCreateNewEvent() {

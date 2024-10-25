@@ -3,7 +3,6 @@ package br.upe.controllers;
 import br.upe.pojos.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
 
@@ -41,29 +40,21 @@ public class EventController {
         GreatEvent source = KeeperInterface.createGreatEvent();
         source.setDescritor(descritor);
         crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), source);
-        stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
-        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
     public void updateEventDirector(String director){
         GreatEvent source = KeeperInterface.createGreatEvent();
         source.setDirector(director);
         crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), source);
-        stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
-        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
     public void updateEventStartDate(Date startDate){
         GreatEvent source = KeeperInterface.createGreatEvent();
         source.setStartDate(startDate);
         crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), source);
-        stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
-        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
     public void updateEventEndDate(Date endDate){
         GreatEvent source = KeeperInterface.createGreatEvent();
         source.setEndDate(endDate);
         crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), source);
-        stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
-        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
     public void addEventSubmission(String descritor){
         Submission submission = KeeperInterface.createSubmission();
@@ -94,6 +85,6 @@ public class EventController {
 
     public Collection<GreatEvent> getAllEventsByUser() {
         if(stateController.getCurrentUser() instanceof AdminUser user) return user.getEvents();
-        return Collections.emptyList();
+        return getAllEvents();
     }
 }

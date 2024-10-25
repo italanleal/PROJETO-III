@@ -6,44 +6,38 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class SubmissionCRUD extends BaseCRUD {
 
-    private static final Logger logger = Logger.getLogger(SubmissionCRUD.class.getName());
-
-    private static final String SUBMISSIONS_PATH = ".\\state\\submissions.csv";
-
-    public SubmissionCRUD() { super(SUBMISSIONS_PATH); }
+    public SubmissionCRUD() { super(); }
 
     public void createSubmission(Submission submission) {
-        try (BufferedWriter buffer = new BufferedWriter(new FileWriter(SUBMISSIONS_PATH, true))) {
+        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\submissions.csv", true))) {
             buffer.write(ParserInterface.validadeString(submission.getUuid()) + ";");
             buffer.write(ParserInterface.validadeString(submission.getDescritor()) + ";");
             buffer.write(ParserInterface.validadeString(submission.getEventUuid()) + ";");
             buffer.write(ParserInterface.validadeString(submission.getUserUuid()) + ";");
-            buffer.write((submission.getDate() != null ? ParserInterface.validadeString(submission.getDate().toInstant().toString()) : "") + ";");
+            buffer.write((submission.getDate() != null ? ParserInterface.validadeString(submission.getDate().toInstant()): "") + ";");
 
             buffer.newLine();
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error creating submission", e);
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
-
 
     public void deleteSubmission(UUID submissionUuid) {
         ArrayList<String> fileCopy = new ArrayList<>();
 
-        try(BufferedReader buffer = new BufferedReader(new FileReader(SUBMISSIONS_PATH))) {
+        try(BufferedReader buffer = new BufferedReader(new FileReader(".\\state\\submissions.csv"))) {
             while(buffer.ready()) {
                 fileCopy.add(buffer.readLine());
             }
         } catch(Exception e) {
-            logger.log(Level.SEVERE, "Error reading submission for deletion", e);
+            e.printStackTrace();
         }
 
-        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(SUBMISSIONS_PATH))) {
+        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\submissions.csv"))) {
             for (String line : fileCopy) {
                 if (line.contains(submissionUuid.toString())) continue;
                 buffer.write(line);
@@ -51,14 +45,15 @@ public class SubmissionCRUD extends BaseCRUD {
             }
 
         } catch(Exception e) {
-            logger.log(Level.SEVERE, "Error deleting submission", e);
+            e.printStackTrace();
+
         }
     }
 
     public void updateSubmission(UUID submissionUuid, Submission source) {
         Submission existingSubmission = returnSubmission(submissionUuid);
         if (existingSubmission == null) {
-            logger.log(Level.WARNING, "Submission not found for UUID: {0}", submissionUuid);
+            System.out.println("Submission not found for UUID: " + submissionUuid);
             return;
         }
         deleteSubmission(submissionUuid);
@@ -68,7 +63,7 @@ public class SubmissionCRUD extends BaseCRUD {
 
     public static Submission returnSubmission(UUID submissionUuid) {
 
-        try (BufferedReader buffer = new BufferedReader(new FileReader(SUBMISSIONS_PATH))) {
+        try (BufferedReader buffer = new BufferedReader(new FileReader(".\\state\\submissions.csv"))) {
             while (buffer.ready()) {
                 String line = buffer.readLine();
                 if (line.contains(submissionUuid.toString())) {
@@ -76,9 +71,7 @@ public class SubmissionCRUD extends BaseCRUD {
                 }
             }
 
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, e, () -> "Error reading submission for UUID: " + submissionUuid);
-        }
+        } catch (IOException e) {}
 
         return null;
     }
@@ -86,7 +79,7 @@ public class SubmissionCRUD extends BaseCRUD {
     public static Collection<Submission> returnSubmission() {
         Collection<Submission> submissions = new ArrayList<>();
 
-        try (BufferedReader buffer = new BufferedReader(new FileReader(SUBMISSIONS_PATH))) {
+        try (BufferedReader buffer = new BufferedReader(new FileReader(".\\state\\submissions.csv"))) {
             while (buffer.ready()) {
                 String line = buffer.readLine();
                 if (!line.isEmpty()) {
@@ -94,9 +87,7 @@ public class SubmissionCRUD extends BaseCRUD {
                     if(newSubmission != null) submissions.add(newSubmission);
                 }
             }
-        } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error reading submissions", e);
-        }
+        } catch (IOException e) {}
 
 
         return submissions;

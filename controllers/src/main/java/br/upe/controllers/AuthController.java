@@ -44,10 +44,7 @@ public class AuthController {
     }
 
     public boolean login(String email, String password){
-        UUID userUuid = QueryState.userFromEmail(email);
-        if(userUuid == null) return false;
-
-        User user = UserCRUD.returnUser(userUuid);
+        User user = UserCRUD.returnUser(QueryState.userFromEmail(email));
         if(user != null && HasherInterface.hash(password).equals(user.getPassword())){
             stateController.setCurrentUser(user);
             return true;

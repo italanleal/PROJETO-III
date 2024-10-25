@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Subscription {
-
     private UUID uuid;
     private UUID sessionUuid;
     private UUID userUuid;

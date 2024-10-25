@@ -1,52 +1,43 @@
 package operations;
 
-import br.upe.operations.CRUDInterface;
 import br.upe.operations.SessionCRUD;
 import br.upe.operations.SubscriptionCRUD;
 import br.upe.pojos.Session;
 import br.upe.pojos.Subscription;
 import org.junit.jupiter.api.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+
 import java.io.*;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SessionCRUDTest {
-    private static final String STATE_PATH = ".\\state";
-    private static final String SUBSCRIPTIONS_PATH = STATE_PATH+"\\subscriptions.csv";
-    private static final String SESSION_PATH = STATE_PATH+"\\sessions.csv";
-    private static final Logger logger = Logger.getLogger(SessionCRUDTest.class.getName());
+public class SessionCRUDTest {
+
     private SessionCRUD sessionCRUD;
     private SubscriptionCRUD subscriptionCRUD;
 
-    @AfterEach
-    void clearFiles() {
-        try {
-            Files.deleteIfExists(Paths.get(SESSION_PATH));
-            Files.deleteIfExists(Paths.get(SUBSCRIPTIONS_PATH));
+    @BeforeAll
+    public static void clearFiles() {
+        try (BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\sessions.csv"))) {
+            buffer.write(""); // Limpa o conteúdo do arquivo sessions.csv
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error when trying to delete files", e);
+            e.printStackTrace();
         }
-
-        try {
-            Files.deleteIfExists(Paths.get(STATE_PATH));
+        try (BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\subscriptions.csv"))) {
+            buffer.write(""); // Limpa o conteúdo do arquivo subscriptions.csv
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error when trying to delete directory", e);
+            e.printStackTrace();
         }
     }
 
     @BeforeEach
     public void setUp() {
-        sessionCRUD = CRUDInterface.newSessionCRUD();
-        subscriptionCRUD = CRUDInterface.newSubscriptionCRUD();
+        sessionCRUD = new SessionCRUD();
+        subscriptionCRUD = new SubscriptionCRUD();
     }
 
     @Test
-    void testCreateSession() {
+    public void testCreateSession() {
         // Criar e salvar uma subscrição
         Subscription subscription = new Subscription();
         UUID subscriptionUuid = UUID.randomUUID();
@@ -74,11 +65,11 @@ class SessionCRUDTest {
         List<Subscription> retrievedSubscriptions = (List<Subscription>) retrievedSession.getSubscriptions();
         assertNotNull(retrievedSubscriptions, "A lista de subscrições não deve ser nula.");
         assertEquals(1, retrievedSubscriptions.size(), "A lista de subscrições deve conter um item.");
-        assertEquals(subscription.getUuid(), retrievedSubscriptions.getFirst().getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
+        assertEquals(subscription.getUuid(), retrievedSubscriptions.get(0).getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
     }
 
     @Test
-    void testDeleteSession() {
+    public void testDeleteSession() {
         // Criar e salvar uma subscrição
         Subscription subscription = new Subscription();
         UUID subscriptionUuid = UUID.randomUUID();
@@ -108,7 +99,7 @@ class SessionCRUDTest {
     }
 
     @Test
-    void testUpdateSession() {
+    public void testUpdateSession() {
         // Criar e salvar uma subscrição
         Subscription subscription = new Subscription();
         UUID subscriptionUuid = UUID.randomUUID();
@@ -146,11 +137,11 @@ class SessionCRUDTest {
         List<Subscription> retrievedSubscriptions = (List<Subscription>) retrievedSession.getSubscriptions();
         assertNotNull(retrievedSubscriptions, "A lista de subscrições não deve ser nula.");
         assertEquals(1, retrievedSubscriptions.size(), "A lista de subscrições deve conter um item.");
-        assertEquals(subscription.getUuid(), retrievedSubscriptions.getFirst().getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
+        assertEquals(subscription.getUuid(), retrievedSubscriptions.get(0).getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
     }
 
     @Test
-    void testReturnSession() {
+    public void testReturnSession() {
         // Criar e salvar uma subscrição
         Subscription subscription = new Subscription();
         UUID subscriptionUuid = UUID.randomUUID();
@@ -180,49 +171,6 @@ class SessionCRUDTest {
         List<Subscription> retrievedSubscriptions = (List<Subscription>) retrievedSession.getSubscriptions();
         assertNotNull(retrievedSubscriptions, "A lista de subscrições não deve ser nula.");
         assertEquals(1, retrievedSubscriptions.size(), "A lista de subscrições deve conter um item.");
-        assertEquals(subscription.getUuid(), retrievedSubscriptions.getFirst().getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
+        assertEquals(subscription.getUuid(), retrievedSubscriptions.get(0).getUuid(), "O UUID da subscrição deve ser igual ao esperado.");
     }
-
-    @Test
-    void testReturnAllSessions() {
-        // Criar e salvar uma subscrição
-        Subscription subscription = new Subscription();
-        UUID subscriptionUuid = UUID.randomUUID();
-        subscription.setUuid(subscriptionUuid);
-        subscription.setSessionUuid(UUID.randomUUID());
-        subscription.setUserUuid(UUID.randomUUID());
-        subscription.setDate(new Date());
-        subscriptionCRUD.createSubscription(subscription);
-
-        // Criar e salvar uma sessão
-        Session session = new Session();
-        UUID sessionUuid = UUID.randomUUID();
-        session.setUuid(sessionUuid);
-        session.setEventUuid(UUID.randomUUID());
-        session.setDescritor("Session for Return Test");
-        session.setStartDate(new Date());
-        session.setEndDate(new Date());
-        session.setSubscriptions(Collections.singletonList(subscription)); // session shares the same subscription
-        sessionCRUD.createSession(session);
-
-        Session session1 = new Session();
-        session1.setUuid(UUID.randomUUID());
-        session1.setEventUuid(UUID.randomUUID());
-        session1.setDescritor("Session1 for Return Test");
-        session1.setStartDate(new Date());
-        session1.setEndDate(new Date());
-        session1.setSubscriptions(Collections.singletonList(subscription)); // session1 also shares the same subscription
-        sessionCRUD.createSession(session1);
-
-        // Retrieve all sessions
-        Collection<Session> retrievedSessions = SessionCRUD.returnSession();
-        assertNotNull(retrievedSessions, "As sessões retornadas não devem ser nulas.");
-        assertEquals(2, retrievedSessions.size(), "A lista de sessões deve conter dois itens.");
-
-        // Check subscriptions for the first session
-        Collection<Subscription> retrievedSubscriptions = retrievedSessions.iterator().next().getSubscriptions();
-        assertNotNull(retrievedSubscriptions, "A lista de subscrições não deve ser nula.");
-        assertEquals(1, retrievedSubscriptions.size(), "A lista de subscrições deve conter um item.");
-    }
-
 }

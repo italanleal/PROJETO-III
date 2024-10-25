@@ -20,11 +20,11 @@ public interface ControllersInterface {
         return new EventController(stateController, crudController);
     }
 
-    static SubscriptionController newSubscriptionController(StateController stateController, CRUDController crudController) {
-        return new SubscriptionController(stateController, crudController);
+    static SubscriptionController newSubscriptionController(CRUDController crudController) {
+        return new SubscriptionController(crudController);
     }
 
-    static SubmissionController newSubmissionController(StateController stateController, CRUDController crudController) {
-        return new SubmissionController(stateController, crudController);
+    static SubmissionController newSubmissionController(CRUDController crudController) {
+        return new SubmissionController(crudController);
     }
 }

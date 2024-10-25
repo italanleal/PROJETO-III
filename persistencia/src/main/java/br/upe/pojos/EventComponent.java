@@ -13,5 +13,4 @@ public abstract class EventComponent {
     public abstract void setEventUuid(UUID eventUuid);
     public abstract void setDescritor(String descritor);
     public abstract String getDescritor();
-
 }
