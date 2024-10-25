@@ -8,5 +8,6 @@ public class AppStateController {
     public static final AuthController authController = ControllersInterface.newAuthController(stateController, crudController);
     public static final UserController userController = ControllersInterface.newUserController(stateController, crudController);
     public static final EventController eventController = ControllersInterface.newEventController(stateController, crudController);
+    public static final SessionController sessionController = ControllersInterface.newSessionController(stateController, crudController);
     private AppStateController() {}
 }

@@ -25,7 +25,7 @@ public class SessionCRUD extends BaseCRUD {
             buffer.write(ParserInterface.validadeString(session.getEventUuid()) + ";");
             buffer.write(ParserInterface.validadeString(session.getDescritor()) + ";");
             buffer.write((session.getStartDate() != null ? ParserInterface.validadeString(session.getStartDate().toInstant()): "") + ";");
-            buffer.write((session.getStartDate() != null ? ParserInterface.validadeString(session.getEndDate().toInstant()): "") + ";");
+            buffer.write((session.getEndDate() != null ? ParserInterface.validadeString(session.getEndDate().toInstant()): "") + ";");
             for (Subscription sub : session.getSubscriptions()){
                 buffer.write(ParserInterface.validadeString(sub.getUuid()) + ",");
             }
