@@ -26,3 +26,7 @@ replay_pid*
 # This pattern will ignore any directory named test at any level within the project.
 **/test/
 
+# his line will ensure that the .idea directory and all its contents are ignored by Git
+.idea/
+
+
