@@ -1,4 +1,4 @@
-package operations;
+package br.upe.operations;
 
 import br.upe.operations.*;
 import br.upe.pojos.*;

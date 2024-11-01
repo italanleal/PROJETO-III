@@ -1,6 +1,5 @@
-package operations;
+package br.upe.operations;
 
-import br.upe.operations.UserCRUD;
 import br.upe.pojos.CommomUser;
 import br.upe.pojos.User;
 import org.junit.jupiter.api.*;

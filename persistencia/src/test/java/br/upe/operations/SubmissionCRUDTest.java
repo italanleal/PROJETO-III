@@ -1,7 +1,5 @@
-package operations;
+package br.upe.operations;
 
-import br.upe.operations.CRUDInterface;
-import br.upe.operations.SubmissionCRUD;
 import br.upe.pojos.Submission;
 import org.junit.jupiter.api.*;
 import java.io.*;
