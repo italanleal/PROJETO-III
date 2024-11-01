@@ -3,6 +3,8 @@ package br.upe.userinterface;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 public class HomeUserController {
 
@@ -26,6 +28,12 @@ public class HomeUserController {
 
     @FXML
     private Label userEmail;
+
+    @FXML
+    private TextField userSearchEvenTypeBox;
+
+    @FXML
+    private ListView<?> userSearchEventList;
 
     @FXML
     void goToHomeUser(MouseEvent event) {
@@ -53,11 +61,13 @@ public class HomeUserController {
     }
 
     @FXML
-    void logout(MouseEvent event) throws IOException {
-        AppStateController.authController.logout();
-        App.setRoot("login");
+    void logout(MouseEvent event) {
+
     }
 
-    userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
-}
+    @FXML
+    void updateTheEventsShown(InputMethodEvent event) {
+
+    }
+
 }
