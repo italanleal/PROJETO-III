@@ -28,8 +28,14 @@ public class HomeUserController {
     private Label userEmail;
 
     @FXML
-    void goToHomeUser(MouseEvent event) {
+    private TextField userAddSubscriptionTextBar;
 
+    @FXML
+    private Button userAddSubscriptionButton;
+
+    @FXML
+    void goToHomeUser(MouseEvent event) throws IOException {
+        App.setRoot("homeUser");
     }
     private void initialize() {
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
@@ -60,6 +66,14 @@ public class HomeUserController {
         App.setRoot("login");
     }
 
-    userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
-}
+
+    @FXML
+    void getThisSubscriptionToAdd(InputMethodEvent event) {
+
+    }
+
+    @FXML
+    void addASubscription(MouseEvent event) {
+
+    }
 }

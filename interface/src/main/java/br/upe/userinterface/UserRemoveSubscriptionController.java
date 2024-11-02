@@ -1,8 +1,10 @@
 package br.upe.userinterface;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class HomeUserController {
 
@@ -28,20 +30,31 @@ public class HomeUserController {
     private Label userEmail;
 
     @FXML
-    void goToHomeUser(MouseEvent event) {
+    private TextField userRemoveSubscriptionTypeBox;
 
-    }
-    private void initialize() {
-        userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
+    @FXML
+    private Button userRemoveSubscriptionButton;
+
+    @FXML
+    void checkTheSubscriptionTyped(MouseEvent event) {
+        @FXML
+        void removeThisSubscription(InputMethodEvent event) {
+        }
     }
 
     @FXML
-    void goToUserEditSubscription(MouseEvent event) throws IOException {
+    void goToHomeUser(MouseEvent event) throws IOException {
+        App.setRoot("homeUser");
     }
 
     @FXML
-    void goToUserListSubscription(MouseEvent event) throws IOException {
-        App.setRoot("userSearchEvent");
+    void goToUserEditSubscription(MouseEvent event) {
+
+    }
+
+    @FXML
+    void goToUserListSubscription(MouseEvent event) {
+
     }
 
     @FXML
@@ -50,16 +63,14 @@ public class HomeUserController {
     }
 
     @FXML
-    void goToUserRemoveSubscription(MouseEvent event) throws IOException {
-        App.setRoot("userRemoveSubscription");
+    void goToUserRemoveSubscription(MouseEvent event) {
+
     }
 
     @FXML
-    void logout(MouseEvent event) throws IOException {
+    void logout(MouseEvent event) {
         AppStateController.authController.logout();
         App.setRoot("login");
     }
 
-    userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
-}
 }
