@@ -1,10 +1,16 @@
 package br.upe.userinterface;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.MouseEvent;
 
-public class HomeUserController {
+import java.io.IOException;
+
+public class UserAddSubscriptionController {
 
     @FXML
     private Hyperlink homeUserLink;

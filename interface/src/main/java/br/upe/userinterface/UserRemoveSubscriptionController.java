@@ -5,8 +5,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import java.io.IOException;
+import javafx.scene.input.MouseEvent;
 
-public class HomeUserController {
+public class UserRemoveSubscriptionController {
 
     @FXML
     private Hyperlink homeUserLink;
@@ -37,9 +39,14 @@ public class HomeUserController {
 
     @FXML
     void checkTheSubscriptionTyped(MouseEvent event) {
-        @FXML
-        void removeThisSubscription(InputMethodEvent event) {
+        String subscriptionType = userRemoveSubscriptionTypeBox.getText();
+        if (subscriptionType != null && !subscriptionType.isEmpty()) {
+            removeThisSubscription(subscriptionType);
         }
+    }
+
+    private void removeThisSubscription(String subscriptionType) {
+
     }
 
     @FXML
@@ -68,9 +75,8 @@ public class HomeUserController {
     }
 
     @FXML
-    void logout(MouseEvent event) {
+    void logout(MouseEvent event) throws IOException {
         AppStateController.authController.logout();
         App.setRoot("login");
     }
-
 }
