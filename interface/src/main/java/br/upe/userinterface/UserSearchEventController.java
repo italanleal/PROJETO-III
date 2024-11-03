@@ -5,8 +5,11 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.InputMethodEvent;
 
-public class HomeUserController {
+public class UserSearchEventController {
+
 
     @FXML
     private Hyperlink homeUserLink;

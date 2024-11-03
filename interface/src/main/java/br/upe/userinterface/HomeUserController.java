@@ -3,6 +3,7 @@ package br.upe.userinterface;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
 public class HomeUserController {
 
@@ -25,14 +26,33 @@ public class HomeUserController {
     private Hyperlink logoutLink;
 
     @FXML
+    private Hyperlink userRemoveSubscriptionsLink;
+
+    @FXML
+    private Hyperlink userListSubscriptionLink;
+
+    @FXML
+    private Hyperlink logoutLink;
+
+    @FXML
     private Label userEmail;
 
     @FXML
     void goToHomeUser(MouseEvent event) {
 
     }
+
     private void initialize() {
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
+    }
+    @FXML
+    void goToHomeUser(MouseEvent event) {
+
+    }
+
+    @FXML
+    void goToUserEditSubscription(MouseEvent event) {
+
     }
 
     @FXML
@@ -42,6 +62,7 @@ public class HomeUserController {
     @FXML
     void goToUserListSubscription(MouseEvent event) throws IOException {
         App.setRoot("userSearchEvent");
+
     }
 
     @FXML
@@ -50,8 +71,10 @@ public class HomeUserController {
     }
 
     @FXML
+
     void goToUserRemoveSubscription(MouseEvent event) throws IOException {
         App.setRoot("userRemoveSubscription");
+
     }
 
     @FXML
@@ -59,7 +82,6 @@ public class HomeUserController {
         AppStateController.authController.logout();
         App.setRoot("login");
     }
-
     userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
 }
-}
+
