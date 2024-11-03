@@ -1,12 +1,16 @@
 package br.upe.userinterface;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
+
 import java.io.IOException;
 
-public class HomeUserController {
+public class UserAddSubscriptionController {
 
     @FXML
     private Hyperlink homeUserLink;
@@ -29,20 +33,27 @@ public class HomeUserController {
     @FXML
     private Label userEmail;
 
+    @FXML
+    private TextField userAddSubscriptionTextBar;
 
+    @FXML
+    private Button userAddSubscriptionButton;
+
+    @FXML
+    void goToHomeUser(MouseEvent event) throws IOException {
+        App.setRoot("homeUser");
+    }
     private void initialize() {
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
     }
+
     @FXML
-    void goToHomeUser(MouseEvent event) {
-
+    void goToUserEditSubscription(MouseEvent event) throws IOException {
     }
-
 
     @FXML
     void goToUserListSubscription(MouseEvent event) throws IOException {
         App.setRoot("userSearchEvent");
-
     }
 
     @FXML
@@ -51,10 +62,8 @@ public class HomeUserController {
     }
 
     @FXML
-
     void goToUserRemoveSubscription(MouseEvent event) throws IOException {
         App.setRoot("userRemoveSubscription");
-
     }
 
     @FXML
@@ -62,5 +71,15 @@ public class HomeUserController {
         AppStateController.authController.logout();
         App.setRoot("login");
     }
-}
 
+
+    @FXML
+    void getThisSubscriptionToAdd(InputMethodEvent event) {
+
+    }
+
+    @FXML
+    void addASubscription(MouseEvent event) {
+
+    }
+}

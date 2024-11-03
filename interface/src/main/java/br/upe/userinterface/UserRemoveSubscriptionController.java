@@ -1,15 +1,14 @@
 package br.upe.userinterface;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import java.io.IOException;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.InputMethodEvent;
 
-public class UserSearchEventController {
-
+public class UserRemoveSubscriptionController {
 
     @FXML
     private Hyperlink homeUserLink;
@@ -33,14 +32,26 @@ public class UserSearchEventController {
     private Label userEmail;
 
     @FXML
-    private TextField userSearchEvenTypeBox;
+    private TextField userRemoveSubscriptionTypeBox;
 
     @FXML
-    private ListView<?> userSearchEventList;
+    private Button userRemoveSubscriptionButton;
 
     @FXML
-    void goToHomeUser(MouseEvent event) {
+    void checkTheSubscriptionTyped(MouseEvent event) {
+        String subscriptionType = userRemoveSubscriptionTypeBox.getText();
+        if (subscriptionType != null && !subscriptionType.isEmpty()) {
+            removeThisSubscription(subscriptionType);
+        }
+    }
 
+    private void removeThisSubscription(String subscriptionType) {
+
+    }
+
+    @FXML
+    void goToHomeUser(MouseEvent event) throws IOException {
+        App.setRoot("homeUser");
     }
 
     @FXML
@@ -64,13 +75,8 @@ public class UserSearchEventController {
     }
 
     @FXML
-    void logout(MouseEvent event) {
-
+    void logout(MouseEvent event) throws IOException {
+        AppStateController.authController.logout();
+        App.setRoot("login");
     }
-
-    @FXML
-    void updateTheEventsShown(InputMethodEvent event) {
-
-    }
-
 }
