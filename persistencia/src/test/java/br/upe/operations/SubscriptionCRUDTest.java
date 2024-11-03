@@ -1,6 +1,5 @@
-package operations;
+package br.upe.operations;
 
-import br.upe.operations.SubscriptionCRUD;
 import br.upe.pojos.Subscription;
 import org.junit.jupiter.api.*;
 import java.nio.file.Files;
