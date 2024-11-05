@@ -65,7 +65,7 @@ public class SessionController {
             return true;
         } return false;
     }
-    public void addSessionsSubscription(){
+    public void addSubscriptionToSession(){
         Subscription subscription = KeeperInterface.createSubscription();
         subscription.setUuid(UUID.randomUUID());
         subscription.setSessionUuid(stateController.getCurrentSession().getUuid());
