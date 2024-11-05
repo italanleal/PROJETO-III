@@ -2,9 +2,9 @@ name: Maven + dotenv
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "develop-bd" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "develop-bd" ]
 
 jobs:
   build:
@@ -28,13 +28,7 @@ jobs:
         echo DB_PASSWORD="${{ secrets.DB_PASSWORD }}" >> /home/runner/work/PROJETO-III-DB/PROJETO-III-DB/.env
         cat /home/runner/work/PROJETO-III-DB/PROJETO-III-DB/.env
         
-    - name: Build with Maven
+    - name: Test with Maven
       run: |
         ls -a
-        mvn -B package --file pom.xml
-   
-    - name: Upload JAR file
-      uses: actions/upload-artifact@v4
-      with:
-        name: persistencia
-        path: target/*.jar
+        mvn clean test -pl persistencia --file pom.xml

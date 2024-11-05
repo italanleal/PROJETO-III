@@ -7,8 +7,11 @@ import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
-@Entity @Getter @Setter
+import java.util.UUID;
+
+@Entity @Getter @Setter @ToString
 public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Id @Setter(AccessLevel.PROTECTED) Long id;

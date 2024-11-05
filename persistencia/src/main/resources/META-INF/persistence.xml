@@ -5,7 +5,6 @@
              version="2.1">
     <persistence-unit name="default">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
-        <class>br.upe.entities.Event</class>
 
         <properties>
             <!-- Configurações do jakarta.persistence -->
@@ -18,6 +17,26 @@
             <!-- Configurações específicas do Hibernate -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="develop">
+        <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+        <class>br.upe.entities.Event</class>
+
+        <properties>
+            <!-- Configurações do jakarta.persistence -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://ep-broad-paper-a50aabg8.us-east-2.aws.neon.tech/neondb"/>
+            <property name="jakarta.persistence.jdbc.user" value="neondb_owner"/>
+            <property name="jakarta.persistence.jdbc.password" value="jAsBNRah0pJ1"/>
+
+            <!-- Configurações adicionais do OpenJPA -->
+            <property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO"/>
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema()"/>
+
+            <!-- Configurações específicas do Hibernate -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
         </properties>
     </persistence-unit>
 </persistence>

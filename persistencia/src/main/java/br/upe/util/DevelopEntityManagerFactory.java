@@ -7,7 +7,7 @@ import jakarta.persistence.Persistence;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DefaultEntityManagerFactory {
+public class DevelopEntityManagerFactory {
     private static final EntityManagerFactory emf;
     static {
         Map<String, String> properties = new HashMap<>();
@@ -15,7 +15,7 @@ public class DefaultEntityManagerFactory {
         properties.put("jakarta.persistence.jdbc.user", EnvConfig.get("DB_USER"));
         properties.put("jakarta.persistence.jdbc.password", EnvConfig.get("DB_PASSWORD"));
 
-        emf = Persistence.createEntityManagerFactory("default", properties);
+        emf = Persistence.createEntityManagerFactory("develop", properties);
     }
 
     public static EntityManager createEntityManager() {
