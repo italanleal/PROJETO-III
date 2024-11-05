@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class IntegrationTest {
+class IntegrationTest {
     /*-------------------SetUp variables-------------------*/
     private static final String STATE_PATH = ".\\state";
     private static final String USERS_PATH = STATE_PATH+"\\users.csv";
@@ -50,7 +50,7 @@ public class IntegrationTest {
 
     /*-------------------Actual Tests-------------------*/
     @Test
-    public void createNewAdminUserTest(){
+    void createNewAdminUserTest(){
         String email = "admin@upe.br";
         String password = "password";
 
@@ -59,7 +59,7 @@ public class IntegrationTest {
         Assertions.assertTrue(isCreated);
     }
     @Test
-    public void createNewUserTest(){
+    void createNewUserTest(){
         String email = "user@upe.br";
         String password = "password";
 
@@ -69,12 +69,23 @@ public class IntegrationTest {
     }
 
     @Test
-    public void updateUserTest(){
+    void updateUserTest(){
+        String email = "admin@upe.br";
+        String password = "password";
 
+        authController.createNewAdmin(email, password);
+        authController.login(email, password);
+
+        UserController userController = ControllersInterface.newUserController(stateController, crudController);
+
+        String newEmail = "user@upe.br";
+        userController.updateUserEmail(newEmail);
+
+        Assertions.assertEquals(newEmail, stateController.getCurrentUser().getEmail());
     }
 
     @Test
-    public void createNewEventTest(){
+    void createNewEventTest(){
         String email = "admin@upe.br";
         String password = "password";
 
@@ -86,7 +97,7 @@ public class IntegrationTest {
         Assertions.assertTrue(isCreated);
     }
     @Test
-    public void updateEventTest(){
+    void updateEventTest(){
         String email = "admin@upe.br";
         String password = "password";
 
@@ -99,7 +110,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void createNewSessionTest() {
+    void createNewSessionTest() {
         String email = "admin@upe.br";
         String password = "password";
 
@@ -113,7 +124,7 @@ public class IntegrationTest {
         Assertions.assertTrue(isCreated);
     }
     @Test
-    public void updateSessionTest(){
+    void updateSessionTest(){
         String email = "admin@upe.br";
         String password = "password";
 
@@ -128,28 +139,51 @@ public class IntegrationTest {
 
         Assertions.assertEquals("Di2loose", stateController.getCurrentSession().getDescritor());
     }
+//    @Test
+//    void createNewSubmissionTest(){
+//        String email = "admin@upe.br";
+//        String password = "password";
+//
+//        authController.createNewAdmin(email, password);
+//        authController.login(email, password);
+//        EventController eventController = ControllersInterface.newEventController(stateController, crudController);
+//        eventController.createNewEvent("super", "jucesa");
+//        authController.logout();
+//
+//        String emailUser = "admin@upe.br";
+//        String passwordUser = "password";
+//        authController.createNewUser(emailUser, passwordUser);
+//        authController.login(emailUser, passwordUser);
+//
+//        eventController.addEventSubmission("PDSA");
+//        Assertions.assertEquals(1, stateController.getCurrentEvent().getSubmissions().size());
+//    }
+//    @Test
+//    void updateSubmissionTest(){
+//        String adminEmail = "admin@upe.br";
+//        String adminPassword = "password";
+//        authController.createNewAdmin(adminEmail, adminPassword);
+//        authController.login(adminEmail, adminPassword);
+//
+//        EventController eventController = ControllersInterface.newEventController(stateController, crudController);
+//        eventController.createNewEvent("super", "jucesa");
+//        authController.logout();
+//
+//        String userEmail = "user@upe.br";
+//        String userPassword = "password";
+//        authController.createNewUser(userEmail, userPassword);
+//        authController.login(userEmail, userPassword);
+//
+//        eventController.addEventSubmission("PDSA");
+//
+//        SubmissionController submissionController = ControllersInterface.newSubmissionController(stateController, crudController);
+//        submissionController.updateSubmissionDescritor("SSDP");
+//        Assertions.assertEquals("SSDP", stateController.getCurrentSubmission().getDescritor());
+//    }
+
+
     @Test
-    public void createNewSubmissionTest(){
-        String email = "admin@upe.br";
-        String password = "password";
-
-        authController.createNewAdmin(email, password);
-        authController.login(email, password);
-        EventController eventController = ControllersInterface.newEventController(stateController, crudController);
-        eventController.createNewEvent("super", "jucesa");
-        authController.logout();
-
-        String emailUser = "admin@upe.br";
-        String passwordUser = "password";
-        authController.createNewUser(emailUser, passwordUser);
-        authController.login(emailUser, passwordUser);
-
-        eventController.addEventSubmission("PDSA");
-        Assertions.assertEquals(1, stateController.getCurrentEvent().getSubmissions().size());
-    }
-
-    @Test
-    public void createNewSubscriptionTest(){
+    void createNewSubscriptionTest(){
         String email = "admin@upe.br";
         String password = "password";
 

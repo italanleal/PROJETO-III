@@ -80,6 +80,8 @@ public class EventController {
 
         crudController.submissionCRUD.createSubmission(submission);
         crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), eventHandler);
+        stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
+        stateController.setCurrentSubmission(crudController.submissionCRUD.returnSubmission(stateController.getCurrentSubmission().getUuid()));
     }
     public void changeCurrentEvent(UUID eventUuid){
         stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(eventUuid));
