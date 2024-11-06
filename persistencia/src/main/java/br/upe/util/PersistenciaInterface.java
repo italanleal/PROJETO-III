@@ -1,8 +1,10 @@
 package br.upe.util;
 
 import br.upe.dao.JBDCEventDAO;
+import br.upe.dao.JBDCSessionDAO;
 import br.upe.dao.LambdaEntityManagerFactory;
 import br.upe.entities.Event;
+import br.upe.entities.Session;
 
 public interface PersistenciaInterface {
     public static LambdaEntityManagerFactory getDefaultEntityManagerFactory(){
@@ -16,5 +18,9 @@ public interface PersistenciaInterface {
     }
     public static JBDCEventDAO createJBDCEventDAO(LambdaEntityManagerFactory lambdaFunction){
         return new JBDCEventDAO(lambdaFunction);
+    }
+    public static Session createSession() {return new Session(); }
+    public static JBDCSessionDAO createJBDCSessionDAO(LambdaEntityManagerFactory lambdaFunction) {
+        return new JBDCSessionDAO(lambdaFunction);
     }
 }
