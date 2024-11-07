@@ -74,6 +74,7 @@ public class SessionController {
 
         stateController.getCurrentSession().getSubscriptions().add(subscription);
         stateController.getCurrentUser().getSubscriptions().add(subscription);
+        stateController.setCurrentSubscription(subscription);
 
         User userHandler;
         if(stateController.getCurrentUser() instanceof AdminUser){
