@@ -7,7 +7,7 @@ import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
-public class JBDCGenericDAO<T, ID> implements GenericDAO<T, ID>{
+public class JBDCGenericDAO<T, I> implements GenericDAO<T, I>{
     @PersistenceContext
     protected LambdaEntityManagerFactory createEntityManager;
     private final Class<T> entityClass;
@@ -28,7 +28,7 @@ public class JBDCGenericDAO<T, ID> implements GenericDAO<T, ID>{
     }
 
     @Override
-    public Optional<T> findById(ID id) {
+    public Optional<T> findById(I id) {
         EntityManager em = createEntityManager.call();
         T entity = em.find(entityClass, id);
         em.close();
@@ -64,7 +64,7 @@ public class JBDCGenericDAO<T, ID> implements GenericDAO<T, ID>{
     }
 
     @Override
-    public void deleteById(ID id) {
+    public void deleteById(I id) {
         EntityManager em = createEntityManager.call();
         em.getTransaction().begin();
         T entity = em.find(entityClass, id);

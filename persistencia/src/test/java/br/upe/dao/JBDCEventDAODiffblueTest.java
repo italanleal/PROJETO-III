@@ -1,7 +1,6 @@
 package br.upe.dao;
 
 import br.upe.entities.Event;
-import br.upe.util.DevelopEntityManagerFactory;
 import br.upe.util.PersistenciaInterface;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -26,6 +25,7 @@ class JBDCEventDAODiffblueTest {
             eventDAO.deleteById(event.getId());
         }
     }
+
     @Test
     @DisplayName("Test save method for eventDAO")
     public void saveEventTest() {
@@ -36,7 +36,6 @@ class JBDCEventDAODiffblueTest {
         event.setDescription("...");
 
         eventDAO.save(event);
-        logger.log(Level.INFO, event.toString());
 
         Assertions.assertNotNull(eventDAO.findById(event.getId()));
     }

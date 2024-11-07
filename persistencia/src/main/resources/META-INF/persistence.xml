@@ -5,6 +5,8 @@
              version="2.1">
     <persistence-unit name="default">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+        <class>br.upe.entities.Event</class>
+        <class>br.upe.entities.Session</class>
 
         <properties>
             <!-- Configurações do jakarta.persistence -->
@@ -22,6 +24,7 @@
     <persistence-unit name="develop">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <class>br.upe.entities.Event</class>
+        <class>br.upe.entities.Session</class>
 
         <properties>
             <!-- Configurações do jakarta.persistence -->
