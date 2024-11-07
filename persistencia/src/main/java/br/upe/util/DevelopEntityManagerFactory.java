@@ -2,6 +2,7 @@ package br.upe.util;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.FlushModeType;
 import jakarta.persistence.Persistence;
 
 import java.util.HashMap;
@@ -19,7 +20,9 @@ public class DevelopEntityManagerFactory {
     }
 
     public static EntityManager createEntityManager() {
-        return emf.createEntityManager();
+        EntityManager em = emf.createEntityManager();
+        em.setFlushMode(FlushModeType.COMMIT);
+        return em;
     }
     public static void close() {
         emf.close();

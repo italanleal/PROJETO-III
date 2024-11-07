@@ -2,10 +2,7 @@ package br.upe.dao;
 
 import br.upe.entities.Event;
 import br.upe.util.PersistenciaInterface;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -15,7 +12,7 @@ class JBDCEventDAODiffblueTest {
     /**
      * Test {@link JBDCEventDAO#JBDCEventDAO(LambdaEntityManagerFactory)}.
      */
-    private final JBDCEventDAO eventDAO = PersistenciaInterface.createJBDCEventDAO(PersistenciaInterface.getDevelopEntityManagerFactory());
+    private final JBDCEventDAO eventDAO = PersistenciaInterface.createJBDCEventDAO(PersistenciaInterface.getDevelopEMF_lambda());
     private final Logger logger = Logger.getLogger(JBDCEventDAODiffblueTest.class.getName());
 
     @AfterEach
@@ -38,5 +35,6 @@ class JBDCEventDAODiffblueTest {
         eventDAO.save(event);
 
         Assertions.assertNotNull(eventDAO.findById(event.getId()));
+
     }
 }

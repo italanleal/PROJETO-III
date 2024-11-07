@@ -7,6 +7,7 @@
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
         <class>br.upe.entities.Event</class>
         <class>br.upe.entities.Session</class>
+        <class>br.upe.entities.SubEvent</class>
 
         <properties>
             <!-- Configurações do jakarta.persistence -->
@@ -23,8 +24,6 @@
     </persistence-unit>
     <persistence-unit name="develop">
         <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
-        <class>br.upe.entities.Event</class>
-        <class>br.upe.entities.Session</class>
 
         <properties>
             <!-- Configurações do jakarta.persistence -->
