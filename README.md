@@ -8,4 +8,3 @@ para executar artefato jar da pipeline CI/CD
 
 para rodar SmokeTest
 -> mvn -Dtest=SmokeTest test -pl persistencia
-a
