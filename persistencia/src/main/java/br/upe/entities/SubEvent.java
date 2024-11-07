@@ -6,27 +6,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity @Getter @Setter
-public class Event {
+public class SubEvent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private @Id @Setter(AccessLevel.PROTECTED) Long id;
+    private @Id
+    @Setter(AccessLevel.PROTECTED) Long id;
 
     private String title;
     private String description;
-    private String director;
 
     private LocalDate startDate;
     private LocalDate endDate;
-
-    @OneToMany(
+    @OneToOne(
             targetEntity=br.upe.entities.Session.class,
-            mappedBy="event",
-            cascade=CascadeType.ALL,
-            orphanRemoval=true,
-            fetch=FetchType.LAZY
+            optional=true,
+            fetch=FetchType.LAZY,
+            cascade=CascadeType.PERSIST
     )
-    private @Setter(AccessLevel.PROTECTED) List<Session> sessions = new ArrayList<>();
+    @JoinColumn(name="session_id", unique=true, nullable=true, updatable=true)
+    private Session session;
 }
