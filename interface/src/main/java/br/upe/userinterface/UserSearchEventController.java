@@ -3,10 +3,13 @@ package br.upe.userinterface;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import java.io.IOException;
+import javafx.scene.input.InputMethodEvent;
 
-public class HomeUserController {
+public class UserSearchEventController {
+
 
     @FXML
     private Hyperlink homeUserLink;
@@ -29,19 +32,24 @@ public class HomeUserController {
     @FXML
     private Label userEmail;
 
+    @FXML
+    private TextField userSearchEvenTypeBox;
 
-    private void initialize() {
-        userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
-    }
+    @FXML
+    private ListView<?> userSearchEventList;
+
     @FXML
     void goToHomeUser(MouseEvent event) {
 
     }
 
+    @FXML
+    void goToUserEditSubscription(MouseEvent event) {
+
+    }
 
     @FXML
-    void goToUserListSubscription(MouseEvent event) throws IOException {
-        App.setRoot("userSearchEvent");
+    void goToUserListSubscription(MouseEvent event) {
 
     }
 
@@ -51,16 +59,18 @@ public class HomeUserController {
     }
 
     @FXML
-
-    void goToUserRemoveSubscription(MouseEvent event) throws IOException {
-        App.setRoot("userRemoveSubscription");
+    void goToUserRemoveSubscription(MouseEvent event) {
 
     }
 
     @FXML
-    void logout(MouseEvent event) throws IOException {
-        AppStateController.authController.logout();
-        App.setRoot("login");
-    }
-}
+    void logout(MouseEvent event) {
 
+    }
+
+    @FXML
+    void updateTheEventsShown(InputMethodEvent event) {
+
+    }
+
+}

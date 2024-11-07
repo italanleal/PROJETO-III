@@ -1,6 +1,4 @@
-package operations;
-import br.upe.operations.UserCRUD;
-import br.upe.operations.QueryState;
+package br.upe.operations;
 import br.upe.pojos.KeeperInterface;
 import br.upe.pojos.User;
 import org.junit.jupiter.api.*;

@@ -1,4 +1,4 @@
-package pojos;
+package br.upe.pojos;
 
 import org.junit.jupiter.api.*;
 import br.upe.pojos.*;
