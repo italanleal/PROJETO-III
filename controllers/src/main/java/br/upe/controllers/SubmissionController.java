@@ -42,6 +42,15 @@ public class SubmissionController {
         }
         return filtered;
     }
+    public boolean updateSubmissionDescritor(String descritor) {
+        if(descritor != null){
+            Submission source = KeeperInterface.createSubmission();
+            source.setDescritor(descritor);
+            crudController.submissionCRUD.updateSubmission(stateController.getCurrentSubmission().getUuid(), source);
+            stateController.setCurrentSubmission(crudController.submissionCRUD.returnSubmission(stateController.getCurrentSubmission().getUuid()));
+            return true;
+        } return false;
+    }
 
     public void removeSubmission(UUID submissionUuid) {
         Submission submission = crudController.submissionCRUD.returnSubmission(submissionUuid);

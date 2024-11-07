@@ -21,6 +21,7 @@ public class UserController {
         }
         source.setName(userName);
         crudController.userCRUD.updateUser(stateController.getCurrentUser().getUuid(), source);
+        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
     public void updateUserEmail(String userEmail){
         User source;
@@ -31,6 +32,7 @@ public class UserController {
         }
         source.setEmail(userEmail);
         crudController.userCRUD.updateUser(stateController.getCurrentUser().getUuid(), source);
+        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
     public void updateUserPassword(String userPassword){
         User source;
@@ -41,6 +43,7 @@ public class UserController {
         }
         source.setPassword(HasherInterface.hash(userPassword));
         crudController.userCRUD.updateUser(stateController.getCurrentUser().getUuid(), source);
+        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
 
 
