@@ -9,28 +9,42 @@
    <children>
       <Label text="Login page" textFill="WHITE">
          <VBox.margin>
-            <Insets bottom="40.0" />
+            <Insets bottom="30.0" top="10.0" />
          </VBox.margin>
          <font>
-            <Font name="System Bold" size="18.0" />
+            <Font name="System Bold" size="24.0" />
          </font></Label>
-      <VBox prefHeight="88.0" prefWidth="86.0">
+      <VBox>
          <children>
-            <Label prefHeight="18.0" prefWidth="149.0" text="E-mail:" textFill="WHITE" />
-            <TextField id="emailField" fx:id="emailField" promptText="type your email">
+            <Label prefHeight="18.0" prefWidth="149.0" text="E-mail:" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <TextField id="emailField" fx:id="emailField" prefColumnCount="0" promptText="type your email">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin></TextField>
-            <Label prefHeight="18.0" prefWidth="102.0" text="Password:" textFill="WHITE" />
+            <Label prefHeight="18.0" prefWidth="102.0" text="Password:" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
             <TextField id="passwordField" fx:id="passwordField" promptText="type your password">
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin></TextField>
-            <Button id="loginButton" fx:id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="13.0" prefWidth="100.0" style="-fx-background-color: #62D7AD;" text="login" textFill="#38393d" />
+            <HBox alignment="CENTER">
+               <Button id="loginButton" fx:id="loginButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#login" prefHeight="13.0" prefWidth="100.0" style="-fx-background-color: #62D7AD; -fx-border-radius: 50px;" text="login" textAlignment="CENTER" textFill="#38393d">
+                  <font>
+                     <Font name="System Bold" size="15.0" />
+                  </font></Button>
+            </HBox>
          </children>
       </VBox>
       <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;" />
-      <Hyperlink id="registerLink" fx:id="registerLink" onAction="#switchToRegister" text="register account" textFill="WHITE" underline="true" />
+      <Hyperlink id="registerLink" fx:id="registerLink" onAction="#switchToRegister" text="Register Account" textFill="WHITE" underline="true">
+         <font>
+            <Font size="15.0" />
+         </font></Hyperlink>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
