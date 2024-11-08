@@ -39,10 +39,12 @@
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin></CheckBox>
-                <Button id="registerButton" fx:id="registerButton" mnemonicParsing="false" onAction="#register" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #62D7AD; -fx-border-radius: 30.0; -fx-background-radius: 30.0;" text="Register">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font></Button>
+                 <HBox alignment="CENTER">
+                    <Button id="registerButton" fx:id="registerButton" mnemonicParsing="false" onAction="#register" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #62D7AD; -fx-border-radius: 30.0; -fx-background-radius: 30.0;" text="Register">
+                        <font>
+                            <Font name="System Bold" size="15.0" />
+                        </font></Button>
+                 </HBox>
              </children>
           </VBox>
         <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;" />
