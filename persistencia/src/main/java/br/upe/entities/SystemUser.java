@@ -32,4 +32,13 @@ public class SystemUser extends User{
             fetch=FetchType.LAZY
     )
     private @Setter(AccessLevel.PROTECTED) List<Submission> submissions = new ArrayList<>();
+
+    @OneToMany(
+            targetEntity=br.upe.entities.Certification.class,
+            mappedBy="user",
+            cascade=CascadeType.ALL,
+            orphanRemoval=true,
+            fetch=FetchType.LAZY
+    )
+    private @Setter(AccessLevel.PROTECTED) List<Certification> certifications = new ArrayList<>();
 }
