@@ -46,4 +46,8 @@ public interface PersistenciaInterface {
     public static JDBCSystemUserDAO createJDBCSystemUserDAO(LambdaEntityManagerFactory lambdaFunction) {
         return new JDBCSystemUserDAO(lambdaFunction);
     }
+    public static Certification createCertification() {return new Certification(); }
+    public static JDBCCertificationDAO createJDBCCertificationDAO(LambdaEntityManagerFactory lambdaFunction) {
+        return new JDBCCertificationDAO(lambdaFunction);
+    }
 }
