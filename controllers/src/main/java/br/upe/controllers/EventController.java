@@ -66,11 +66,14 @@ public class EventController {
 
         stateController.getCurrentEvent().addSubmission(submission);
 
+
         GreatEvent eventHandler = KeeperInterface.createGreatEvent();
         eventHandler.setSubmissions(stateController.getCurrentEvent().getSubmissions());
 
         crudController.submissionCRUD.createSubmission(submission);
         crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), eventHandler);
+        stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
+        stateController.setCurrentSubmission(submission);
     }
     public void changeCurrentEvent(UUID eventUuid){
         stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(eventUuid));

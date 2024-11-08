@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+//.
 /**
  * JavaFX App
  */
@@ -21,11 +21,16 @@ public class App extends Application {
 
     private static Scene scene;
 
-
     private static final Logger logger = Logger.getLogger(App.class.getName());
 
     @Override
     public void start(Stage stage) throws IOException {
+        initScene(stage);
+
+        stage.show();
+    }
+
+    private static void initScene(Stage stage) throws IOException {
         scene = new Scene(loadFXML("login"), 640, 480);
         stage.setScene(scene);
         stage.setTitle("AcademicEvents");
@@ -37,8 +42,6 @@ public class App extends Application {
             Image icon = new Image(faviconStream);
             stage.getIcons().add(icon);
         }
-
-        stage.show();
     }
 
     static void setRoot(String fxml) throws IOException {

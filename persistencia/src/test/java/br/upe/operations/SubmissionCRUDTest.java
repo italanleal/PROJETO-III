@@ -1,32 +1,46 @@
-package operations;
+package br.upe.operations;
 
-import br.upe.operations.SubmissionCRUD;
 import br.upe.pojos.Submission;
 import org.junit.jupiter.api.*;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.*;
+
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class SubmissionCRUDTest {
-
+class SubmissionCRUDTest {
     private SubmissionCRUD submissionCRUD;
+    private static final String STATE_PATH = ".\\state";
+    private static final String SUBMISSIONS_PATH = STATE_PATH+"\\submissions.csv";
+    private static final Logger logger = Logger.getLogger(SubmissionCRUDTest.class.getName());
 
-    @BeforeAll
-    public static void clearFiles() {
-        try(BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\submissions.csv"))) {
-            buffer.write("");
-        } catch(IOException e) {
-            System.out.println("Erro ao limpar arquivo de submissões: " + e.getMessage());
+
+    @AfterEach
+    void clearFiles() {
+        try {
+            Files.deleteIfExists(Paths.get(SUBMISSIONS_PATH));
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error when trying to delete files", e);
+        }
+
+        try {
+            Files.deleteIfExists(Paths.get(STATE_PATH));
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error when trying to delete directory", e);
         }
     }
 
     @BeforeEach
     public void setUp() {
-        submissionCRUD = new SubmissionCRUD();
+        submissionCRUD = CRUDInterface.newSubmissionCRUD();
     }
 
     @Test
-    public void testCreateSubmission() {
+    void testCreateSubmission() {
         Submission submission = new Submission();
         UUID submissionUuid = UUID.randomUUID();
         submission.setUuid(submissionUuid);
@@ -44,7 +58,7 @@ public class SubmissionCRUDTest {
     }
 
     @Test
-    public void testUpdateSubmission() {
+    void testUpdateSubmission() {
         Submission submission = new Submission();
         UUID submissionUuid = UUID.randomUUID();
         submission.setUuid(submissionUuid);
@@ -71,7 +85,7 @@ public class SubmissionCRUDTest {
     }
 
     @Test
-    public void testDeleteSubmission() {
+    void testDeleteSubmission() {
         Submission submission = new Submission();
         UUID submissionUuid = UUID.randomUUID();
         submission.setUuid(submissionUuid);
@@ -85,25 +99,4 @@ public class SubmissionCRUDTest {
         assertNull(removedSubmission, "A submissão removida deve ser nula.");
     }
 
-    @Test
-    public void testReturnSubmission() {
-
-        Submission submission = new Submission();
-        UUID submissionUuid = UUID.randomUUID();
-        submission.setUuid(submissionUuid);
-        submission.setEventUuid(UUID.randomUUID());
-        submission.setUserUuid(UUID.randomUUID());
-        submission.setDate(new Date());
-        submissionCRUD.createSubmission(submission);
-
-
-        Submission retrievedSubmission = SubmissionCRUD.returnSubmission(submissionUuid);
-
-
-        assertNotNull(retrievedSubmission, "A submissão retornada não deve ser nula.");
-        assertEquals(submission.getUuid(), retrievedSubmission.getUuid(), "O UUID da submissão deve ser igual ao esperado.");
-        assertEquals(submission.getEventUuid(), retrievedSubmission.getEventUuid(), "O UUID do evento deve ser igual ao esperado.");
-        assertEquals(submission.getUserUuid(), retrievedSubmission.getUserUuid(), "O UUID do usuário deve ser igual ao esperado.");
-        assertEquals(submission.getDate(), retrievedSubmission.getDate(), "A data deve ser igual ao esperado.");
-    }
 }

@@ -3,21 +3,48 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.LoginController">
+<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #394159;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.LoginController">
    <children>
-      <Label text="Login page" />
-      <VBox prefHeight="88.0" prefWidth="86.0">
+      <Label text="Login page" textFill="WHITE">
+         <VBox.margin>
+            <Insets bottom="30.0" top="10.0" />
+         </VBox.margin>
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font></Label>
+      <VBox>
          <children>
-            <Label prefHeight="18.0" prefWidth="149.0" text="email" />
-            <TextField id="emailField" fx:id="emailField" promptText="type your email" />
-            <Label prefHeight="18.0" prefWidth="102.0" text="password" />
-            <TextField id="passwordField" fx:id="passwordField" promptText="type your password" />
-            <Button id="loginButton" fx:id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="13.0" prefWidth="100.0" text="login" />
+            <Label prefHeight="18.0" prefWidth="149.0" text="E-mail:" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <TextField id="emailField" fx:id="emailField" prefColumnCount="0" promptText="type your email">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></TextField>
+            <Label prefHeight="18.0" prefWidth="102.0" text="Password:" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font></Label>
+            <TextField id="passwordField" fx:id="passwordField" promptText="type your password">
+               <VBox.margin>
+                  <Insets bottom="30.0" />
+               </VBox.margin></TextField>
+            <HBox alignment="CENTER">
+               <Button id="loginButton" fx:id="loginButton" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#login" prefHeight="13.0" prefWidth="100.0" style="-fx-background-color: #62D7AD; -fx-border-radius: 30.0; -fx-background-radius: 30.0;" text="login" textAlignment="CENTER" textFill="#38393d">
+                  <font>
+                     <Font name="System Bold" size="15.0" />
+                  </font></Button>
+            </HBox>
          </children>
       </VBox>
-      <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;"/>
-      <Hyperlink id="registerLink" fx:id="registerLink" onAction="#switchToRegister" text="register account" />
+      <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;" />
+      <Hyperlink id="registerLink" fx:id="registerLink" onAction="#switchToRegister" text="Register Account" textFill="WHITE" underline="true">
+         <font>
+            <Font size="15.0" />
+         </font></Hyperlink>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

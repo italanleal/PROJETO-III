@@ -1,7 +1,5 @@
-package operations;
+package br.upe.operations;
 
-import br.upe.operations.CRUDInterface;
-import br.upe.operations.EventCRUD;
 import br.upe.pojos.GreatEvent;
 import br.upe.pojos.KeeperInterface;
 import org.junit.jupiter.api.*;

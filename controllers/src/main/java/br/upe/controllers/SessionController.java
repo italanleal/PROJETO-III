@@ -17,7 +17,7 @@ public class SessionController {
     private final CRUDController crudController;
 
     public boolean createNewSession(String descritor){
-        if(stateController.getCurrentUser() instanceof AdminUser){
+        if(stateController.getCurrentUser() instanceof AdminUser user){
 
             Session session = KeeperInterface.createSession();
             session.setUuid(UUID.randomUUID());
@@ -25,9 +25,18 @@ public class SessionController {
             session.setEventUuid(stateController.getCurrentEvent().getUuid());
             session.setSubscriptions(new ArrayList<>());
 
+            GreatEvent eventHandler = KeeperInterface.createGreatEvent();
+            eventHandler.setSessions(stateController.getCurrentEvent().getSessions());
+            eventHandler.getSessions().add(session);
+
             stateController.setCurrentSession(session);
             crudController.sessionCRUD.createSession(session);
-
+            crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), eventHandler);
+            stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
+            Collection<GreatEvent> events = user.getEvents();
+            events.removeIf(event -> event.getUuid().equals(stateController.getCurrentEvent().getUuid()));
+            events.add(stateController.getCurrentEvent());
+            ((AdminUser) stateController.getCurrentUser()).setEvents(events);
             return true;
         }
         return false;
@@ -36,24 +45,27 @@ public class SessionController {
         Session source = KeeperInterface.createSession();
         source.setDescritor(descritor);
         crudController.sessionCRUD.updateSession(stateController.getCurrentSession().getUuid(), source);
+        stateController.setCurrentSession(crudController.sessionCRUD.returnSession(stateController.getCurrentSession().getUuid()));
     }
     public boolean updateSessionStartDate(Date startDate){
         Session source = KeeperInterface.createSession();
         source.setStartDate(startDate);
-        if(startDate.after(stateController.getCurrentEvent().getStartDate())){
+        if(startDate != null){
             crudController.sessionCRUD.updateSession(stateController.getCurrentSession().getUuid(), source);
+            stateController.setCurrentSession(crudController.sessionCRUD.returnSession(stateController.getCurrentSession().getUuid()));
             return true;
         } return false;
     }
     public boolean updateSessionEndDate(Date endDate){
         Session source = KeeperInterface.createSession();
         source.setEndDate(endDate);
-        if(endDate.before(stateController.getCurrentEvent().getEndDate())){
+        if(endDate != null){
             crudController.sessionCRUD.updateSession(stateController.getCurrentSession().getUuid(), source);
+            stateController.setCurrentSession(crudController.sessionCRUD.returnSession(stateController.getCurrentSession().getUuid()));
             return true;
         } return false;
     }
-    public void addSessionsSubscription(){
+    public void addSubscriptionToSession(){
         Subscription subscription = KeeperInterface.createSubscription();
         subscription.setUuid(UUID.randomUUID());
         subscription.setSessionUuid(stateController.getCurrentSession().getUuid());
@@ -62,6 +74,7 @@ public class SessionController {
 
         stateController.getCurrentSession().getSubscriptions().add(subscription);
         stateController.getCurrentUser().getSubscriptions().add(subscription);
+        stateController.setCurrentSubscription(subscription);
 
         User userHandler;
         if(stateController.getCurrentUser() instanceof AdminUser){
@@ -84,15 +97,19 @@ public class SessionController {
         stateController.setCurrentSession(null);
     }
 
-    public Collection<Session> getAllEventSessions(UUID eventUuid){
+    public Collection<Session> getAllEventSessions(UUID eventUuid) {
         Collection<Session> sessions = crudController.sessionCRUD.returnSession();
         Collection<Session> filtered = new ArrayList<>();
 
-        for(Session session: sessions){
-            if(session!= null){
-                if(session.getEventUuid().toString().equals(eventUuid.toString())) filtered.add(session);
+        for (Session session : sessions) {
+            if (session != null && session.getEventUuid().toString().equals(eventUuid.toString())) {
+                filtered.add(session);
             }
         }
+
         return filtered;
     }
+
 }
+
+
