@@ -1,12 +1,7 @@
 package br.upe.util;
 
-import br.upe.dao.JBDCEventDAO;
-import br.upe.dao.JBDCSessionDAO;
-import br.upe.dao.JBDCSubEventDAO;
-import br.upe.dao.LambdaEntityManagerFactory;
-import br.upe.entities.Event;
-import br.upe.entities.Session;
-import br.upe.entities.SubEvent;
+import br.upe.dao.*;
+import br.upe.entities.*;
 
 public interface PersistenciaInterface {
     public static LambdaEntityManagerFactory getDefaultEMF_lambda(){
@@ -24,15 +19,31 @@ public interface PersistenciaInterface {
     public static Event createEvent(){
         return new Event();
     }
-    public static JBDCEventDAO createJBDCEventDAO(LambdaEntityManagerFactory lambdaFunction){
-        return new JBDCEventDAO(lambdaFunction);
+    public static JDBCEventDAO createJDBCEventDAO(LambdaEntityManagerFactory lambdaFunction){
+        return new JDBCEventDAO(lambdaFunction);
     }
     public static Session createSession() {return new Session(); }
-    public static JBDCSessionDAO createJBDCSessionDAO(LambdaEntityManagerFactory lambdaFunction) {
-        return new JBDCSessionDAO(lambdaFunction);
+    public static JDBCSessionDAO createJDBCSessionDAO(LambdaEntityManagerFactory lambdaFunction) {
+        return new JDBCSessionDAO(lambdaFunction);
     }
     public static SubEvent createSubEvent() {return new SubEvent(); }
-    public static JBDCSubEventDAO createJBDCSubEventDAO(LambdaEntityManagerFactory lambdaFunction) {
-        return new JBDCSubEventDAO(lambdaFunction);
+    public static JDBCSubEventDAO createJDBCSubEventDAO(LambdaEntityManagerFactory lambdaFunction) {
+        return new JDBCSubEventDAO(lambdaFunction);
+    }
+    public static Subscription createSubscription() {return new Subscription(); }
+    public static JDBCSubscriptionDAO createJDBCSubscriptionDAO(LambdaEntityManagerFactory lambdaFunction) {
+        return new JDBCSubscriptionDAO(lambdaFunction);
+    }
+    public static Submission createSubmission() {return new Submission(); }
+    public static JDBCSubmissionDAO createJDBCSubmissionDAO(LambdaEntityManagerFactory lambdaFunction) {
+        return new JDBCSubmissionDAO(lambdaFunction);
+    }
+    public static SystemAdmin createSystemAdmin() {return new SystemAdmin(); }
+    public static JDBCSystemAdminDAO createJDBCSystemAdminDAO(LambdaEntityManagerFactory lambdaFunction) {
+        return new JDBCSystemAdminDAO(lambdaFunction);
+    }
+    public static SystemUser createSystemUser() {return new SystemUser(); }
+    public static JDBCSystemUserDAO createJDBCSystemUserDAO(LambdaEntityManagerFactory lambdaFunction) {
+        return new JDBCSystemUserDAO(lambdaFunction);
     }
 }

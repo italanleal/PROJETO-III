@@ -1,5 +1,6 @@
 package br.upe.dao;
 
+import br.upe.util.LambdaEntityManagerFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -7,12 +8,12 @@ import jakarta.persistence.Query;
 import java.util.List;
 import java.util.Optional;
 
-public class JBDCGenericDAO<T, I> implements GenericDAO<T, I>{
+public class JDBCGenericDAO<T, I> implements GenericDAO<T, I>{
     @PersistenceContext
     protected LambdaEntityManagerFactory createEntityManager;
     private final Class<T> entityClass;
 
-    public JBDCGenericDAO(Class<T> entityClass) {
+    public JDBCGenericDAO(Class<T> entityClass) {
         this.entityClass = entityClass;
     }
 

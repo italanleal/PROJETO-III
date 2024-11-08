@@ -29,4 +29,22 @@ public class Event {
             fetch=FetchType.LAZY
     )
     private @Setter(AccessLevel.PROTECTED) List<Session> sessions = new ArrayList<>();
+
+    @OneToMany(
+            targetEntity=br.upe.entities.Submission.class,
+            mappedBy="event",
+            cascade=CascadeType.ALL,
+            orphanRemoval=true,
+            fetch=FetchType.LAZY
+    )
+    private @Setter(AccessLevel.PROTECTED) List<Submission> submissions = new ArrayList<>();
+
+    @ManyToOne(
+            targetEntity=br.upe.entities.Event.class,
+            cascade=CascadeType.PERSIST,
+            fetch=FetchType.LAZY,
+            optional=true
+    )
+    @JoinColumn(name="admin_id", nullable=true, updatable=true)
+    private SystemAdmin admin;
 }
