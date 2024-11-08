@@ -4,21 +4,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.RegisterController">
+<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #394159;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.RegisterController">
     <children>
-        <Label text="Register page" />
+        <Label text="Register page"  textFill="WHITE"/>
           <VBox prefHeight="200.0" prefWidth="100.0">
              <children>
-                <Label prefHeight="18.0" prefWidth="101.0" text="email" />
+                <Label prefHeight="18.0" prefWidth="101.0" text="email" textFill="WHITE"/>
                 <TextField id="emailField" fx:id="emailField" />
-                <Label text="password" />
+                <Label text="password" textFill="WHITE"/>
                 <TextField id="passwordField" fx:id="passwordField" />
-                <CheckBox id="adminStatus" fx:id="adminStatus" mnemonicParsing="false" text="admin account" />
-                <Button id="registerButton" fx:id="registerButton" mnemonicParsing="false" onAction="#register" prefHeight="26.0" prefWidth="102.0" text="register" />
+                <CheckBox id="adminStatus" fx:id="adminStatus" mnemonicParsing="false" text="admin account" textFill="WHITE" />
+                <Button id="registerButton" fx:id="registerButton" mnemonicParsing="false" onAction="#register" prefHeight="26.0" prefWidth="102.0" text="register" style="-fx-background-color: #62D7AD; -fx-border-radius: 30.0; -fx-background-radius: 30.0;" />
              </children>
           </VBox>
         <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;"/>
-        <Hyperlink id="registerLink" fx:id="loginLink" onAction="#switchToLogin" text="login" />
+        <Hyperlink id="registerLink" fx:id="loginLink" onAction="#switchToLogin" text="login" textFill="WHITE" underline="true"/>
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
