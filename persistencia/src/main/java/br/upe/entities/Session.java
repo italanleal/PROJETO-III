@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity @Getter @Setter
 public class Session {
@@ -38,5 +40,14 @@ public class Session {
             fetch=FetchType.LAZY
     )
     private SubEvent subEvent;
+
+    @OneToMany(
+            targetEntity=br.upe.entities.Subscription.class,
+            mappedBy="session",
+            cascade=CascadeType.ALL,
+            orphanRemoval=true,
+            fetch=FetchType.LAZY
+    )
+    private @Setter(AccessLevel.PROTECTED) List<Subscription> subscriptions = new ArrayList<>();
 
 }

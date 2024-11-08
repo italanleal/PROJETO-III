@@ -11,7 +11,7 @@ public class DefaultEntityManagerFactory {
     private static final EntityManagerFactory emf;
     static {
         Map<String, String> properties = new HashMap<>();
-        properties.put("jakarta.persistence.jdbc.url", EnvConfig.get("DB_URL"));
+        properties.put("jakarta.persistence.jdbc.url", EnvConfig.get("DB_URL_PRODUCTION"));
         properties.put("jakarta.persistence.jdbc.user", EnvConfig.get("DB_USER"));
         properties.put("jakarta.persistence.jdbc.password", EnvConfig.get("DB_PASSWORD"));
 

@@ -1,4 +1,4 @@
-package br.upe.dao;
+package br.upe.util;
 
 import jakarta.persistence.EntityManager;
 
