@@ -10,23 +10,35 @@
         <Label text="Register page" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
-         </font></Label>
+         </font>
+         <VBox.margin>
+            <Insets bottom="30.0" top="10.0" />
+         </VBox.margin></Label>
           <VBox prefHeight="200.0" prefWidth="100.0">
              <children>
                 <Label prefHeight="18.0" prefWidth="101.0" text="E-mail:" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font></Label>
-                <TextField id="emailField" fx:id="emailField" />
+                <TextField id="emailField" fx:id="emailField">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></TextField>
                 <Label text="Password:" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font></Label>
-                <TextField id="passwordField" fx:id="passwordField" />
+                <TextField id="passwordField" fx:id="passwordField">
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></TextField>
                 <CheckBox id="adminStatus" fx:id="adminStatus" mnemonicParsing="false" text="Admin Account" textFill="WHITE">
                <font>
                   <Font size="13.0" />
-               </font></CheckBox>
+               </font>
+               <VBox.margin>
+                  <Insets bottom="20.0" />
+               </VBox.margin></CheckBox>
                 <Button id="registerButton" fx:id="registerButton" mnemonicParsing="false" onAction="#register" prefHeight="26.0" prefWidth="102.0" style="-fx-background-color: #62D7AD; -fx-border-radius: 30.0; -fx-background-radius: 30.0;" text="Register">
                <font>
                   <Font name="System Bold" size="15.0" />
