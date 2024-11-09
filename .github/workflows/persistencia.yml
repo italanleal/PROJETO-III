@@ -31,4 +31,4 @@ jobs:
     - name: Test with Maven
       run: |
         ls -a
-        mvn clean test -pl persistencia --file pom.xml
+        mvn clean test -pl persistencia,controllers --file pom.xml
