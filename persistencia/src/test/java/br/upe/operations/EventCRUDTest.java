@@ -98,6 +98,24 @@ class EventCRUDTest {
     }
 
     @Test
+    void testReturnEventById() {
+        GreatEvent event = KeeperInterface.createGreatEvent();
+        UUID eventUUID = UUID.randomUUID();
+        event.setUuid(eventUUID);
+        event.setStartDate(new Date());
+        event.setEndDate(new Date());
+        event.setDirector("Jackson");
+        event.setSessions(new ArrayList<>());
+        event.setSubmissions(new ArrayList<>());
+
+        eventCRUD.createEvent(event);
+        GreatEvent retrievedEvent = eventCRUD.returnEvent(eventUUID);
+        assertNotNull(retrievedEvent, "O evento retornado não deve ser null");
+        assertEquals(eventUUID, retrievedEvent.getUuid(), "Os UUID dos eventos devem ser iguais");
+        assertEquals("Jackson", retrievedEvent.getDirector(), "O Diretor do evento deve ser o esperado");
+    }
+
+    @Test
     void testReturnAllEvents(){
         GreatEvent event = KeeperInterface.createGreatEvent();
         UUID eventUUID = UUID.randomUUID();

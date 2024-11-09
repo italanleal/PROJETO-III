@@ -6,10 +6,14 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public interface ParserInterface {
+    Logger logger = Logger.getLogger(ParserInterface.class.getName());
+
     static <T> String validadeString(T str) {
         if (str == null){
             return "";
@@ -39,7 +43,7 @@ public interface ParserInterface {
     static User parseUser(String rawInput){
         if(rawInput.isEmpty()) {
             return null;
-        };
+        }
 
         Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
         Matcher matcher = pattern.matcher(rawInput);
@@ -68,11 +72,12 @@ public interface ParserInterface {
                 }
             }
         } else {
-            System.out.println("we do not get metch");
+            logger.log(Level.WARNING, "we do not get metch");
             return null;
         }
         return newUser;
     }
+
     static Subscription parseSubscription(String rawInput){
         if(rawInput.isEmpty()) return null;
 
