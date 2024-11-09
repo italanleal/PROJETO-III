@@ -2,30 +2,50 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.HomeAdminController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
-            <AnchorPane prefHeight="358.0" prefWidth="200.0">
+            <AnchorPane prefHeight="445.0" prefWidth="200.0" style="-fx-background-color: #394159;">
                <children>
-                  <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" prefHeight="24.0" prefWidth="198.0" text="Home" />
-                  <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
-                  <Hyperlink id="newEventLink" fx:id="newEventLink" layoutY="25.0" onAction="#switchToEventRegister" prefHeight="24.0" prefWidth="200.0" text="New Event" />
-                  <Hyperlink layoutY="49.0" onAction="#switchToEventList" prefHeight="24.0" prefWidth="198.0" text="List Events" />
+                  <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutX="43.0" layoutY="105.0" text="Home" textFill="#f2f2f2">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font></Hyperlink>
+                  <Separator layoutY="246.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
+                  <Hyperlink id="newEventLink" fx:id="newEventLink" layoutX="39.0" layoutY="164.0" onAction="#switchToEventRegister" prefHeight="35.0" prefWidth="131.0" text="New Event" textFill="#f2f2f2">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font></Hyperlink>
+                  <Hyperlink layoutX="37.0" layoutY="213.0" onAction="#switchToEventList" prefHeight="35.0" prefWidth="131.0" text="List Events" textFill="#f2f2f2">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font></Hyperlink>
+                  <Hyperlink id="logoutLink" fx:id="logoutLink" layoutX="39.0" layoutY="257.0" onAction="#logout" prefHeight="35.0" prefWidth="131.0" text="logout" textFill="#f2f2f2">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font></Hyperlink>
+                  <Separator layoutY="200.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
+                  <Separator layoutY="148.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
+                  <Separator layoutY="94.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
                </children>
             </AnchorPane>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0">
-              <buttons>
-                  <Hyperlink id="logoutLink" fx:id="logoutLink" onAction="#logout" text="logout" />
-              </buttons>
-            </ButtonBar>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" />
          </children>
       </VBox>
       <VBox prefHeight="400.0" prefWidth="403.0">
          <children>
-            <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
-            <VBox prefHeight="384.0" prefWidth="400.0" />
+            <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="137.0" prefWidth="350.0" textAlignment="CENTER" />
+            <Separator layoutY="94.0" prefHeight="0.0" prefWidth="350.0" style="-fx-background-color: #394159;" />
+            <VBox alignment="CENTER" prefHeight="353.0" prefWidth="350.0">
+               <children>
+                  <Text fill="#38393d" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome!">
+                     <font>
+                        <Font name="System Bold" size="35.0" />
+                     </font></Text>
+               </children></VBox>
          </children></VBox>
    </children>
 </HBox>
