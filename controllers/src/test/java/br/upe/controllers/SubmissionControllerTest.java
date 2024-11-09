@@ -29,9 +29,9 @@ public class SubmissionControllerTest {
         tempFile = new File(TEMP_FILE_PATH);
         tempFile.createNewFile();
 
-        SubmissionCRUD.FILE_PATH = TEMP_FILE_PATH;
         CRUDController crudController = new CRUDController();
-        submissionController = new SubmissionController(crudController);
+        StateController stateController = new StateController();
+        submissionController = new SubmissionController(stateController, crudController);
     }
 
     @Test

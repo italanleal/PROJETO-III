@@ -12,7 +12,5 @@ class BaseCRUDTest {
 
         File stateDir = new File(".\\state");
         assertTrue(stateDir.exists() && stateDir.isDirectory(), "O diretório 'state' deveria existir");
-
-        stateDir.delete();
     }
 }
