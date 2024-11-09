@@ -6,9 +6,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class SubmissionCRUD extends BaseCRUD {
+    private static final Logger logger = Logger.getLogger(SubmissionCRUD.class.getName());
 
     public SubmissionCRUD() { super(); }
 
@@ -22,7 +25,7 @@ public class SubmissionCRUD extends BaseCRUD {
 
             buffer.newLine();
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "{0}", e.getMessage());
         }
     }
 
@@ -34,7 +37,7 @@ public class SubmissionCRUD extends BaseCRUD {
                 fileCopy.add(buffer.readLine());
             }
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "{0}", e.getMessage());
         }
 
         try(BufferedWriter buffer = new BufferedWriter(new FileWriter(".\\state\\submissions.csv"))) {
@@ -45,7 +48,7 @@ public class SubmissionCRUD extends BaseCRUD {
             }
 
         } catch(Exception e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "{0}", e.getMessage());
 
         }
     }
@@ -53,7 +56,7 @@ public class SubmissionCRUD extends BaseCRUD {
     public void updateSubmission(UUID submissionUuid, Submission source) {
         Submission existingSubmission = returnSubmission(submissionUuid);
         if (existingSubmission == null) {
-            System.out.println("Submission not found for UUID: " + submissionUuid);
+            logger.log(Level.SEVERE, "Submission not found for UUID: {0}", submissionUuid);
             return;
         }
         deleteSubmission(submissionUuid);
@@ -71,7 +74,9 @@ public class SubmissionCRUD extends BaseCRUD {
                 }
             }
 
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "{0}", e.getMessage());
+        }
 
         return null;
     }
@@ -87,7 +92,9 @@ public class SubmissionCRUD extends BaseCRUD {
                     if(newSubmission != null) submissions.add(newSubmission);
                 }
             }
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "{0}", e.getMessage());
+        }
 
 
         return submissions;

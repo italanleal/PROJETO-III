@@ -99,4 +99,47 @@ class SubmissionCRUDTest {
         assertNull(removedSubmission, "A submissão removida deve ser nula.");
     }
 
+    @Test
+    void testReturnSubmissionById() {
+        Submission submission = new Submission();
+        UUID submissionUuid = UUID.randomUUID();
+        submission.setUuid(submissionUuid);
+        submission.setEventUuid(UUID.randomUUID());
+        submission.setUserUuid(UUID.randomUUID());
+        submission.setDate(new Date());
+        submissionCRUD.createSubmission(submission);
+
+        Submission retrievedSubmission = SubmissionCRUD.returnSubmission(submissionUuid);
+        assertNotNull(retrievedSubmission, "A submissão retornada não deve ser nula.");
+        assertEquals(submission.getUuid(), retrievedSubmission.getUuid(), "O UUID da submissão deve ser igual ao esperado.");
+        assertEquals(submission.getEventUuid(), retrievedSubmission.getEventUuid(), "O UUID do evento deve ser igual ao esperado.");
+        assertEquals(submission.getUserUuid(), retrievedSubmission.getUserUuid(), "O UUID do usuário deve ser igual ao esperado.");
+        assertEquals(submission.getDate(), retrievedSubmission.getDate(), "A data deve ser igual ao esperado.");
+    }
+
+    @Test
+    void testReturnSubmissionCollection() {
+        Submission submission1 = new Submission();
+        submission1.setUuid(UUID.randomUUID());
+        submission1.setEventUuid(UUID.randomUUID());
+        submission1.setUserUuid(UUID.randomUUID());
+        submission1.setDate(new Date());
+
+        Submission submission2 = new Submission();
+        submission2.setUuid(UUID.randomUUID());
+        submission2.setEventUuid(UUID.randomUUID());
+        submission2.setUserUuid(UUID.randomUUID());
+        submission2.setDate(new Date());
+
+        submissionCRUD.createSubmission(submission1);
+        submissionCRUD.createSubmission(submission2);
+
+        Collection<Submission> submissions = SubmissionCRUD.returnSubmission();
+        assertNotNull(submissions, "A coleção de submissões não deve ser nula.");
+        assertEquals(2, submissions.size(), "O número de submissões deve ser 2.");
+
+        assertTrue(submissions.stream().anyMatch(sub -> sub.getUuid().equals(submission1.getUuid())), "A primeira submissão deve estar na coleção.");
+        assertTrue(submissions.stream().anyMatch(sub -> sub.getUuid().equals(submission2.getUuid())), "A segunda submissão deve estar na coleção.");
+    }
+    
 }

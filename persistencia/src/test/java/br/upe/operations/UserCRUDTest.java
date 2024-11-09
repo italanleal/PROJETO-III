@@ -103,6 +103,26 @@ class UserCRUDTest {
     }
 
     @Test
+    void testReturnUser() {
+        CommomUser user = new CommomUser();
+        UUID userUUID = UUID.randomUUID();
+        user.setUuid(userUUID);
+        user.setEmail("jose.mario@teste.com");
+        user.setName("José Mario");
+        user.setPassword("jmsenha");
+        user.setSubscriptions(new ArrayList<>());
+
+        userCRUD.createUser(user);
+        User retrievedUser = UserCRUD.returnUser(userUUID);
+
+        assertNotNull(retrievedUser, "O usuário recuperado não deve ser nulo");
+        assertEquals(userUUID, retrievedUser.getUuid(), "O UUID do usuário deve ser igual ao esperado");
+        assertEquals("jose.mario@teste.com", retrievedUser.getEmail(), "O email do usuário deve ser igual ao esperado");
+        assertEquals("José Mario", retrievedUser.getName(), "O nome do usuário deve ser igual ao esperado");
+        assertEquals("jmsenha", retrievedUser.getPassword(), "A senha do usuário deve ser igual ao esperado");
+    }
+
+    @Test
     void testReturnAllUsers() {
         CommomUser user = new CommomUser();
         UUID userUUID = UUID.randomUUID();
