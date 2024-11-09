@@ -1,14 +1,16 @@
 package br.upe.controllers;
 
-import br.upe.controllers.EventController;
-import br.upe.pojos.AdminUser;
 import br.upe.pojos.GreatEvent;
 import br.upe.pojos.Submission;
-import br.upe.pojos.User;
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import java.util.ArrayList;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import static org.junit.jupiter.api.Assertions.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.UUID;
@@ -17,16 +19,42 @@ public class EventControllerTest {
 
     private EventController eventController;
     private StateController stateController;
+    /*-------------------SetUp variables-------------------*/
+    private static final String STATE_PATH = ".\\state";
+    private static final String USERS_PATH = STATE_PATH+"\\users.csv";
+    private static final String EVENTS_PATH = STATE_PATH+"\\events.csv";
+    private static final String SUBSCRIPTIONS_PATH = STATE_PATH+"\\subscriptions.csv";
+    private static final String SESSIONS_PATH = STATE_PATH+"\\sessions.csv";
+    private static final String SUBMISSIONS_PATH = STATE_PATH+"\\submissions.csv";
+    private static final Logger logger = Logger.getLogger(AuthController.class.getName());
+
     private CRUDController crudController;
 
-    @Before
-    public void setUp() {
-        StateController state = new StateController();
-        CRUDController crud = new CRUDController();
+    /*-------------------SetUp methods-------------------*/
 
-        AuthController auth = new AuthController(state, crud);
-        EventController event = new EventController(state, crud);
-        SubmissionController sub = new SubmissionController(state, crud);
+    @AfterEach
+    void clearFiles() {
+        try {
+            Files.deleteIfExists(Paths.get(EVENTS_PATH));
+            Files.deleteIfExists(Paths.get(SUBSCRIPTIONS_PATH));
+            Files.deleteIfExists(Paths.get(SESSIONS_PATH));
+            Files.deleteIfExists(Paths.get(SUBMISSIONS_PATH));
+            Files.deleteIfExists(Paths.get(USERS_PATH));
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error when trying to delete files", e);
+        }
+        try {
+            Files.deleteIfExists(Paths.get(STATE_PATH));
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error when trying to delete directory", e);
+        }
+    }
+
+    @BeforeEach
+    public void setUp(){
+        crudController = ControllersInterface.newCRUDController();
+        stateController = ControllersInterface.newStateController();
+        crudController = ControllersInterface.newCRUDController();
     }
 
     @Test
@@ -138,17 +166,17 @@ public class EventControllerTest {
 
         Collection<Submission> submissions = crud.submissionCRUD.returnSubmission();
         assertNotNull(submissions);
-        assertTrue("A submissão deve estar presente na coleção de submissões.",
-                submissions.stream()
-                        .anyMatch(sub -> sub.getDescritor().equals(submissionDescritor) &&
-                                sub.getUserUuid().equals(state.getCurrentUser().getUuid()) &&
-                                sub.getEventUuid().equals(state.getCurrentEvent().getUuid())));
+        assertTrue(submissions.stream()
+                                .anyMatch(sub -> sub.getDescritor().equals(submissionDescritor) &&
+                                        sub.getUserUuid().equals(state.getCurrentUser().getUuid()) &&
+                                        sub.getEventUuid().equals(state.getCurrentEvent().getUuid())),
+                "A submissão deve estar presente na coleção de submissões.");
 
         GreatEvent eventRetrieved = crud.eventCRUD.returnEvent(state.getCurrentEvent().getUuid());
         assertNotNull(eventRetrieved);
-        assertTrue("O evento deve conter a submissão adicionada.",
-                eventRetrieved.getSubmissions().stream()
-                        .anyMatch(sub -> sub.getDescritor().equals(submissionDescritor)));
+        assertTrue(eventRetrieved.getSubmissions().stream()
+                                .anyMatch(sub -> sub.getDescritor().equals(submissionDescritor)),
+                "O evento deve conter a submissão adicionada.");
 
         // fofinho deslogando
         auth.logout();

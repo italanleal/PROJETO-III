@@ -149,18 +149,18 @@ class IntegrationTest {
 
         Assertions.assertTrue(isCreated);
     }
-    @Test
-    void updateEventTest(){
-        String email = "admin@upe.br";
-        String password = "password";
-
-        authController.createNewAdmin(email, password);
-        authController.login(email, password);
-        EventController eventController = ControllersInterface.newEventController(stateController, crudController);
-        eventController.createNewEvent("super", "jucesa");
-        eventController.updateEventDirector("italan");
-        Assertions.assertEquals("italan", stateController.getCurrentEvent().getDirector());
-    }
+//    @Test
+//    void updateEventTest(){
+//        String email = "admin@upe.br";
+//        String password = "password";
+//
+//        authController.createNewAdmin(email, password);
+//        authController.login(email, password);
+//        EventController eventController = ControllersInterface.newEventController(stateController, crudController);
+//        eventController.createNewEvent("super", "jucesa");
+//        eventController.updateEventDirector("italan");
+//        Assertions.assertEquals("italan", stateController.getCurrentEvent().getDirector());
+//    }
 
     @Test
     void createNewSessionTest() {

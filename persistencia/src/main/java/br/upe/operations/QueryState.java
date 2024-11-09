@@ -14,37 +14,26 @@ public class QueryState {
     public static UUID userFromEmail(String email) {
         String rawUser = "";
 
-        // Tentativa de abrir e ler o arquivo de usuários
-        try (BufferedReader buffer = new BufferedReader(new FileReader(".\\state\\users.csv"))) {
-            while (buffer.ready()) {
+        try(BufferedReader buffer = new BufferedReader(new FileReader(".\\state\\users.csv"))){
+            while(buffer.ready()){
                 String line = buffer.readLine();
-                if (line.contains(email)) {
+                if(line.contains(email)) {
                     rawUser = line;
                     break;
                 }
             }
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Erro ao ler o arquivo de usuários para obter o email. ERRO: ", e);
+        } catch(Exception e) {
+            logger.log(Level.SEVERE, ("User with following email not found: " + email), e);
         }
 
-        if (rawUser.isEmpty()) {
-            logger.log(Level.WARNING, "Email não encontrado no arquivo de usuários.");
-            return null;
-        }
+        if(rawUser.isEmpty()) return null;
 
         Pattern pattern = Pattern.compile("(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)(.*)(;)");
         Matcher matcher = pattern.matcher(rawUser);
 
-        if (matcher.matches()) {
-            try {
-                return UUID.fromString(matcher.group(1));
-            } catch (IllegalArgumentException e) {
-                logger.log(Level.SEVERE, "Erro ao converter UUID do usuário para o email. ERRO: ", e);
-            }
-        } else {
-            logger.log(Level.WARNING, "Formato inválido para o registro do usuário");
-        }
-
-        return null;
+        if(matcher.matches()){
+            return UUID.fromString(matcher.group(1));
+        } return null;
     }
+    private QueryState(){}
 }

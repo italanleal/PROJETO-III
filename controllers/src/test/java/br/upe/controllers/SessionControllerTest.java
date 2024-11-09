@@ -1,21 +1,60 @@
 package br.upe.controllers;
 
-import br.upe.operations.SessionCRUD;
 import br.upe.pojos.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
-import java.util.UUID;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static org.junit.jupiter.api.Assertions.*;
+
 
 
 public class SessionControllerTest {
 
+    private EventController eventController;
+    private StateController stateController;
+    /*-------------------SetUp variables-------------------*/
+    private static final String STATE_PATH = ".\\state";
+    private static final String USERS_PATH = STATE_PATH+"\\users.csv";
+    private static final String EVENTS_PATH = STATE_PATH+"\\events.csv";
+    private static final String SUBSCRIPTIONS_PATH = STATE_PATH+"\\subscriptions.csv";
+    private static final String SESSIONS_PATH = STATE_PATH+"\\sessions.csv";
+    private static final String SUBMISSIONS_PATH = STATE_PATH+"\\submissions.csv";
+    private static final Logger logger = Logger.getLogger(SessionControllerTest.class.getName());
+
+    private CRUDController crudController;
+
+    /*-------------------SetUp methods-------------------*/
+
+    @AfterEach
+    void clearFiles() {
+        try {
+            Files.deleteIfExists(Paths.get(EVENTS_PATH));
+            Files.deleteIfExists(Paths.get(SUBSCRIPTIONS_PATH));
+            Files.deleteIfExists(Paths.get(SESSIONS_PATH));
+            Files.deleteIfExists(Paths.get(SUBMISSIONS_PATH));
+            Files.deleteIfExists(Paths.get(USERS_PATH));
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error when trying to delete files", e);
+        }
+        try {
+            Files.deleteIfExists(Paths.get(STATE_PATH));
+        } catch (IOException e) {
+            logger.log(Level.SEVERE, "Error when trying to delete directory", e);
+        }
+    }
+
+    @BeforeEach
+    public void setUp(){
+        crudController = ControllersInterface.newCRUDController();
+        stateController = ControllersInterface.newStateController();
+        crudController = ControllersInterface.newCRUDController();
+    }
 
     @Test
     public void testCreateNewSession() {
