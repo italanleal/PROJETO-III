@@ -1,4 +1,4 @@
-package br.upe.facede;
+package br.upe.facade;
 public class Facade {
 
 }
