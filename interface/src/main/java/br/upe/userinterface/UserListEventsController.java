@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.InputMethodEvent;
 
-public class UserSearchEventController {
+public class UserListEventsController {
 
 
     @FXML
@@ -70,7 +70,12 @@ public class UserSearchEventController {
 
     @FXML
     void updateTheEventsShown(InputMethodEvent event) {
-
+        try{
+            UserSearchEventListViewLayoutController ListView = new UserSearchEventListViewLayoutController();
+            ListView.setAllLabels(Integer.parseInt(event.toString()));
+            for(int event in AppStateController.crudController.userCRUD.
+        }catch (Exception e){
+        }
     }
 
 }

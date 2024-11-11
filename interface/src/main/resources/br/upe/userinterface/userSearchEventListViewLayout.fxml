@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.UserSearchEventListViewLayout">
+   <children>
+      <VBox layoutX="-1.0" layoutY="-3.0" prefHeight="400.0" prefWidth="397.0">
+         <children>
+            <Label prefHeight="45.0" prefWidth="204.0" text="About this subscription:">
+               <font>
+                  <Font size="19.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+            <Separator prefWidth="200.0" style="-fx-background-color: 999;" />
+            <Label prefHeight="30.0" prefWidth="147.0" text="Subscription ID:">
+               <VBox.margin>
+                  <Insets left="10.0" top="30.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="21.0" prefWidth="113.0" text="Session ID:">
+               <VBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="21.0" prefWidth="113.0" text="User ID:">
+               <VBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="21.0" prefWidth="113.0" text="Start date:">
+               <VBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="3.0" prefWidth="113.0" text="End date:">
+               <VBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Separator prefWidth="200.0">
+               <VBox.margin>
+                  <Insets top="60.0" />
+               </VBox.margin>
+            </Separator>
+         </children>
+      </VBox>
+      <VBox layoutX="160.0" layoutY="80.0" prefHeight="202.0" prefWidth="250.0">
+         <children>
+            <Label fx:id="subscriptionIDLabel" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" top="18.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="sessionIDLabel" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" top="11.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="userIDLabel" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" top="12.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="startDateLabel" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" top="14.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="endDateLabel" text="Label">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="10.0" top="16.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
