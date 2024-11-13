@@ -54,7 +54,7 @@ public class AuthController {
         User user = null;
         try {
             user = daoController.systemAdminDAO.findByEmail(email);
-        } catch(SystemException e) {
+        } catch(SystemException ignored) {
         }
         if(user == null ){
             try {
