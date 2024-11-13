@@ -7,5 +7,6 @@ public class JDBCCertificationDAO extends JDBCGenericDAO<Certification, Long> {
     public JDBCCertificationDAO(LambdaEntityManagerFactory lambdaFunction) {
         super(Certification.class);
         this.createEntityManager = lambdaFunction;
+        this.em = createEntityManager.call();
     }
 }

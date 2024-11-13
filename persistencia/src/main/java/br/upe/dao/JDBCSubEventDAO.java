@@ -7,5 +7,6 @@ public class JDBCSubEventDAO extends JDBCGenericDAO<SubEvent, Long> {
     public JDBCSubEventDAO(LambdaEntityManagerFactory lambdaFunction) {
         super(SubEvent.class);
         this.createEntityManager = lambdaFunction;
+        this.em = createEntityManager.call();
     }
 }
