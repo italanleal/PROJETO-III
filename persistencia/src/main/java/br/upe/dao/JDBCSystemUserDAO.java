@@ -13,26 +13,28 @@ public class JDBCSystemUserDAO extends JDBCGenericDAO<SystemUser, Long>{
         super(SystemUser.class);
         this.createEntityManager = lambdaFunction;
     }
-    public User findByCPF(String cpf) throws UserNotFoundException {
-        String jpql = "SELECT u FROM User u WHERE u.cpf = :cpf";
+    public SystemUser findByCPF(String cpf) throws SystemException {
+        String jpql = "SELECT u FROM SystemUser u WHERE u.cpf = :cpf";
 
         EntityManager entityManager = createEntityManager.call();
-        TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
+        TypedQuery<SystemUser> query = entityManager.createQuery(jpql, SystemUser.class);
         query.setParameter("cpf", cpf);
         if(query.getSingleResult() == null){
-            throw new UserNotFoundException("User with cpf " + cpf + " not found");
-        }
+            throw new UserNotFoundException("User with cpf " + cpf + " not found", null);
+        } entityManager.close();
+
         return query.getSingleResult();
     }
 
     public SystemUser findByEmail(String email) throws SystemException {
         String jpql = "SELECT u FROM SystemUser u WHERE u.email = :email";
         EntityManager entityManager = createEntityManager.call();
-        TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
+        TypedQuery<SystemUser> query = entityManager.createQuery(jpql, SystemUser.class);
         query.setParameter("email", email);
         if(query.getSingleResult() == null){
             throw new UserNotFoundException("User with email " + email + " not found", null);
         }
+        entityManager.close();
         return query.getSingleResult();
     }
 }

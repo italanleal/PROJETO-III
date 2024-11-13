@@ -31,33 +31,6 @@ public class AuthController {
         } catch (UserNotFoundException e) {
             throw new UserAlreadyExistsException("User already exists", null);
         }
-
-        // Begin a transaction
-        EntityManager entityManager = daoController.systemUserDAO.createEntityManager.call();
-        entityManager.getTransaction().begin();
-
-        try {
-            // Create and persist the new User
-            SystemUser newUser = new SystemUser();
-            newUser.setName(name);
-            newUser.setSurname(surname);
-            newUser.setCpf(cpf);
-            newUser.setEmail(email);
-            newUser.setPassword(password);
-
-            entityManager.persist(newUser);
-
-            // Commit the transaction
-            entityManager.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            // Rollback in case of an error
-            entityManager.getTransaction().rollback();
-            throw e; // Optionally handle or rethrow the exception as needed
-        } finally {
-            // Close the entity manager if it's not managed by a factory
-            entityManager.close();
-        }
     }
 
     public void createNewAdmin(String name, String surname, String cpf, String email, String password) throws SystemException{
@@ -97,7 +70,7 @@ public class AuthController {
         }
     }
 
-    public boolean logout(){
-
+    public void logout(){
+        stateController.setCurrentUser(null);
     }
 }
