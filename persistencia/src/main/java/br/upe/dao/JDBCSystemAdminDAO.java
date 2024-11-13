@@ -8,4 +8,5 @@ public class JDBCSystemAdminDAO extends JDBCGenericDAO<SystemAdmin, Long>{
         super(SystemAdmin.class);
         this.createEntityManager = lambdaFunction;
     }
+
 }
