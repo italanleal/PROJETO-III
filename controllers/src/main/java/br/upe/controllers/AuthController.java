@@ -19,7 +19,7 @@ public class AuthController {
 
     public void createNewUser(String name, String surname, String cpf, String email, String password) throws SystemException {
         try {
-            if (daoController.systemUserDAO.findByCPF(email) == null) {
+            if (daoController.systemUserDAO.findByEmail(email) == null) {
                 SystemUser newUser = PersistenciaInterface.createSystemUser();
                 newUser.setName(name);
                 newUser.setSurname(surname);

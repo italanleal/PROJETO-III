@@ -19,4 +19,16 @@ public interface ControllersInterface {
     static UserController newUserController(StateController stateController, DAOController daoController) {
         return new UserController(stateController, daoController);
     }
+    static EventController newEventController(StateController stateController, DAOController daoController) {
+        return new EventController(stateController, daoController);
+    }
+    static SubEventController newSubEventController(StateController stateController, DAOController daoController) {
+        return new SubEventController(stateController, daoController);
+    }
+    static SessionController newSessionController(StateController stateController, DAOController daoController) {
+        return new SessionController(stateController, daoController);
+    }
+    static SubscriptionController newSubscriptionController(StateController stateController, DAOController daoController) {
+        return new SubscriptionController(stateController, daoController);
+    }
 }
