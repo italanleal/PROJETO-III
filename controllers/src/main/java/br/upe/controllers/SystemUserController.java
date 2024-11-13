@@ -1,10 +1,5 @@
 package br.upe.controllers;
 
-import br.upe.entities.User;
-import br.upe.util.UserNotFoundException;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
-
 public class SystemUserController {
     private final StateController stateController;
     private final DAOController daoController;

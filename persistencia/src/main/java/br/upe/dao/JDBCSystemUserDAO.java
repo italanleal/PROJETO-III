@@ -1,14 +1,12 @@
 package br.upe.dao;
 
 import br.upe.entities.SystemUser;
-import br.upe.entities.User;
-import br.upe.util.LambdaEntityManagerFactory;
-import br.upe.util.UserNotFoundException;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
+import br.upe.util.persistencia.SystemException;
+import br.upe.util.persistencia.UserNotFoundException;
+
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import jakarta.transaction.SystemException;
-
-import java.nio.file.attribute.UserPrincipalNotFoundException;
 
 public class JDBCSystemUserDAO extends JDBCGenericDAO<SystemUser, Long>{
     public JDBCSystemUserDAO(LambdaEntityManagerFactory lambdaFunction) {
@@ -27,13 +25,13 @@ public class JDBCSystemUserDAO extends JDBCGenericDAO<SystemUser, Long>{
         return query.getSingleResult();
     }
 
-    public User findByEmail(String email) throws UserNotFoundException {
-        String jpql = "SELECT u FROM User u WHERE u.email = :email";
+    public SystemUser findByEmail(String email) throws SystemException {
+        String jpql = "SELECT u FROM SystemUser u WHERE u.email = :email";
         EntityManager entityManager = createEntityManager.call();
         TypedQuery<User> query = entityManager.createQuery(jpql, User.class);
         query.setParameter("email", email);
         if(query.getSingleResult() == null){
-            throw new UserNotFoundException("User with email " + email + " not found");
+            throw new UserNotFoundException("User with email " + email + " not found", null);
         }
         return query.getSingleResult();
     }

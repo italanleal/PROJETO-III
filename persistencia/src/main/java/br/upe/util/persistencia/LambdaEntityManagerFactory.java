@@ -1,4 +1,4 @@
-package br.upe.util;
+package br.upe.util.persistencia;
 
 import jakarta.persistence.EntityManager;
 

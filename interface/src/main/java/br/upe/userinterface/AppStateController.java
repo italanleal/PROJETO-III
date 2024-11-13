@@ -1,7 +1,7 @@
 package br.upe.userinterface;
 import  br.upe.controllers.*;
-import br.upe.util.ControllersInterface;
-import br.upe.util.PersistenciaInterface;
+import br.upe.util.controllers.ControllersInterface;
+import br.upe.util.persistencia.PersistenciaInterface;
 
 public class AppStateController {
     public static final DAOController daoController = ControllersInterface.newDAOController(PersistenciaInterface.getDevelopEMF_lambda());

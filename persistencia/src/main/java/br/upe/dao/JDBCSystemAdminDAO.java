@@ -1,7 +1,11 @@
 package br.upe.dao;
 
 import br.upe.entities.SystemAdmin;
-import br.upe.util.LambdaEntityManagerFactory;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
+import br.upe.util.persistencia.SystemException;
+import br.upe.util.persistencia.UserNotFoundException;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 public class JDBCSystemAdminDAO extends JDBCGenericDAO<SystemAdmin, Long>{
     public JDBCSystemAdminDAO(LambdaEntityManagerFactory lambdaFunction) {

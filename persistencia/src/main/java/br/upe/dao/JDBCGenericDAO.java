@@ -1,6 +1,6 @@
 package br.upe.dao;
 
-import br.upe.util.LambdaEntityManagerFactory;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;

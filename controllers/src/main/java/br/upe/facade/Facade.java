@@ -3,9 +3,8 @@ package br.upe.facade;
 import br.upe.controllers.AuthController;
 import br.upe.controllers.DAOController;
 import br.upe.controllers.StateController;
-import br.upe.util.ControllersInterface;
-import br.upe.util.LambdaEntityManagerFactory;
-import br.upe.util.PersistenciaInterface;
+import br.upe.util.controllers.ControllersInterface;
+import br.upe.util.persistencia.PersistenciaInterface;
 
 public class Facade {
     public final StateController stateController = ControllersInterface.newStateController();

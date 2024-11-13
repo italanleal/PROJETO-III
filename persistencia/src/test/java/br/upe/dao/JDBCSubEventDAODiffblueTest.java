@@ -1,13 +1,12 @@
 package br.upe.dao;
 
 import br.upe.entities.SubEvent;
-import br.upe.util.LambdaEntityManagerFactory;
-import br.upe.util.PersistenciaInterface;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
+import br.upe.util.persistencia.PersistenciaInterface;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.logging.Logger;
 
 class JDBCSubEventDAODiffblueTest {

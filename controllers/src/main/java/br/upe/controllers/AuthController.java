@@ -3,8 +3,11 @@ package br.upe.controllers;
 import br.upe.entities.SystemAdmin;
 import br.upe.entities.SystemUser;
 import br.upe.entities.User;
-import br.upe.util.UserNotFoundException;
-import jakarta.persistence.EntityManager;
+import br.upe.util.persistencia.PersistenciaInterface;
+import br.upe.util.persistencia.SystemException;
+import br.upe.util.controllers.UserAlreadyExistsException;
+import br.upe.util.persistencia.UserNotFoundException;
+import br.upe.util.controllers.IncorrectPasswordException;
 
 public class AuthController {
     public AuthController(StateController stateController, DAOController daoController) {
@@ -14,14 +17,19 @@ public class AuthController {
     private final StateController stateController;
     private final DAOController daoController;
 
-    public boolean createNewUser(String name, String surname, String cpf, String email, String password) throws UserNotFoundException {
-        // Check if a user with the same email already exists
+    public void createNewUser(String name, String surname, String cpf, String email, String password) throws SystemException {
         try {
-            if (daoController.systemUserDAO.findByEmail(email) != null) {
-                throw new UserNotFoundException("User already exists");
+            if (daoController.systemUserDAO.findByCPF(email) == null) {
+                SystemUser newUser = PersistenciaInterface.createSystemUser();
+                newUser.setName(name);
+                newUser.setSurname(surname);
+                newUser.setCpf(cpf);
+                newUser.setEmail(email);
+                newUser.setPassword(password);
+                daoController.systemUserDAO.save(newUser);
             }
         } catch (UserNotFoundException e) {
-            // No user found with this email, proceed to create a new one
+            throw new UserAlreadyExistsException("User already exists", null);
         }
 
         // Begin a transaction
@@ -52,13 +60,41 @@ public class AuthController {
         }
     }
 
-
-    public boolean createNewAdmin(String name, String surname, String cpf, String email, String password){
-
+    public void createNewAdmin(String name, String surname, String cpf, String email, String password) throws SystemException{
+        // Check if a user with the same email already exists
+        try {
+            if (daoController.systemUserDAO.findByEmail(email) == null) {
+                SystemAdmin newUser = PersistenciaInterface.createSystemAdmin();
+                newUser.setName(name);
+                newUser.setSurname(surname);
+                newUser.setCpf(cpf);
+                newUser.setEmail(email);
+                newUser.setPassword(password);
+                daoController.systemAdminDAO.save(newUser);
+            }
+        } catch (UserAlreadyExistsException e) {
+            throw new UserAlreadyExistsException("User already exists", e.getCause());
+        }
     }
 
-    public boolean login(String email, String password){
-
+    public void login(String email, String password) throws SystemException {
+        User user = null;
+        try {
+            user = daoController.systemAdminDAO.findByEmail(email);
+        } catch(SystemException e) {
+        }
+        if(user == null ){
+            try {
+                user = daoController.systemUserDAO.findByEmail(email);
+            } catch(SystemException e) {
+                throw new UserNotFoundException(e.getMessage(), e.getCause());
+            }
+        }
+        if(password.equals(user.getPassword())) {
+            stateController.setCurrentUser(user);
+        } else {
+            throw new IncorrectPasswordException("Incorrect Password", null);
+        }
     }
 
     public boolean logout(){

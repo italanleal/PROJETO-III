@@ -1,4 +1,6 @@
-package br.upe.util;
+package br.upe.util.controllers;
+
+import br.upe.util.persistencia.SystemException;
 
 public class UnauthenticatedUserException extends SystemException {
     public UnauthenticatedUserException() {

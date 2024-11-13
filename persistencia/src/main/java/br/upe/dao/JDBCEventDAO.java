@@ -1,7 +1,7 @@
 package br.upe.dao;
 
 import br.upe.entities.Event;
-import br.upe.util.LambdaEntityManagerFactory;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
 
 public class JDBCEventDAO extends JDBCGenericDAO<Event, Long> {
     public JDBCEventDAO(LambdaEntityManagerFactory lambdaFunction) {

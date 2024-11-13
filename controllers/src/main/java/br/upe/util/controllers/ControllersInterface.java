@@ -1,8 +1,9 @@
-package br.upe.util;
+package br.upe.util.controllers;
 
 import br.upe.controllers.AuthController;
 import br.upe.controllers.DAOController;
 import br.upe.controllers.StateController;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
 
 public interface ControllersInterface {
     static DAOController newDAOController(LambdaEntityManagerFactory lambdaEntityManagerFactory) {
