@@ -20,15 +20,6 @@ class JDBCSubmissionDAODiffblueTest {
     private final JDBCSubmissionDAO submissionDAO = PersistenciaInterface.createJDBCSubmissionDAO(PersistenciaInterface.getDevelopEMF_lambda());
     private final Logger logger = Logger.getLogger(JDBCSubmissionDAODiffblueTest.class.getName());
 
-    @AfterAll
-    public static void dropTable(){
-        String tableName = "submission";
-        EntityManager em = PersistenciaInterface.getDevelopEMF_lambda().call();
-        em.getTransaction().begin();
-        em.createNativeQuery("DROP TABLE " + tableName).executeUpdate();
-        em.getTransaction().commit();
-        em.close();
-    }
 
     @Test
     @DisplayName("Test save method for submissionDAO")
