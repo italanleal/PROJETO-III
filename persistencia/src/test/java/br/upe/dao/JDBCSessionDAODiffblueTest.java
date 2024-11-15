@@ -16,15 +16,6 @@ class JDBCSessionDAODiffblueTest {
     private final JDBCSessionDAO sessionDAO = PersistenciaInterface.createJDBCSessionDAO(PersistenciaInterface.getDevelopEMF_lambda());
     private final Logger logger = Logger.getLogger(JDBCSessionDAODiffblueTest.class.getName());
 
-    @AfterAll
-    public static void dropTable(){
-        String tableName = "session";
-        EntityManager em = PersistenciaInterface.getDevelopEMF_lambda().call();
-        em.getTransaction().begin();
-        em.createNativeQuery("DROP TABLE " + tableName).executeUpdate();
-        em.getTransaction().commit();
-        em.close();
-    }
 
     @Test
     @DisplayName("Test save method for sessionDAO")

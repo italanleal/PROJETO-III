@@ -24,6 +24,7 @@ public class JDBCGenericDAO<T, I> implements GenericDAO<T, I>{
         em.getTransaction().begin();
         em.persist(entity);
         em.getTransaction().commit();
+        em.close();
 
         return entity;
     }
