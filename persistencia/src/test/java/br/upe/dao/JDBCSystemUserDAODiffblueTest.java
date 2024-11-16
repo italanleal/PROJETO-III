@@ -97,7 +97,7 @@ class JDBCSystemUserDAODiffblueTest {
         user.setCpf("111.111.111-11");
         user.setName("USER1");
         user.setSurname("USER1");
-        user.setEmail("USER@EMAIL.COM");
+        user.setEmail("USER1@EMAIL.COM");
         user.setPassword("PASSWORD");
 
         userDAO.save(user);
@@ -111,7 +111,7 @@ class JDBCSystemUserDAODiffblueTest {
         user.setCpf("111.111.111-11");
         user.setName("USER1");
         user.setSurname("USER1");
-        user.setEmail("USER@EMAIL.COM");
+        user.setEmail("USER1@EMAIL.COM");
         user.setPassword("PASSWORD");
 
         userDAO.save(user);
