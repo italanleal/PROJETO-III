@@ -1,8 +1,8 @@
 package br.upe.controllers;
 
 import br.upe.dao.*;
-import br.upe.util.LambdaEntityManagerFactory;
-import br.upe.util.PersistenciaInterface;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
+import br.upe.util.persistencia.PersistenciaInterface;
 
 public class DAOController {
     public final JDBCEventDAO eventDAO;

@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class SessionManagerController {
@@ -20,11 +21,11 @@ public class SessionManagerController {
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
-        sessaoNome.setText(AppStateController.stateController.getCurrentSession().getDescritor());
+        sessaoNome.setText(AppStateController.stateController.getCurrentSession().getTitle());
         subscriptionCount.setText(String.valueOf(AppStateController.stateController.getCurrentSession().getSubscriptions().size()));
 
-        Date startDate = AppStateController.stateController.getCurrentSession().getStartDate();
-        Date endDate = AppStateController.stateController.getCurrentSession().getEndDate();
+        LocalDate startDate = AppStateController.stateController.getCurrentSession().getStartDate();
+        LocalDate endDate = AppStateController.stateController.getCurrentSession().getEndDate();
 
         if (startDate != null) dataInicio.setText(DateFormat.getDateInstance().format(startDate));
         if (endDate != null) dataFim.setText(DateFormat.getDateInstance().format(endDate));

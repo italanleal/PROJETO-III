@@ -2,7 +2,9 @@ package br.upe.dao;
 
 import static org.mockito.Mockito.mock;
 
-import br.upe.util.LambdaEntityManagerFactory;
+import br.upe.entities.SystemUser;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
+import br.upe.util.persistencia.PersistenciaInterface;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -23,6 +25,7 @@ class JDBCSystemUserDAODiffblueTest {
         //     JDBCGenericDAO.createEntityManager
         //     JDBCGenericDAO.entityClass
 
+        SystemUser user = PersistenciaInterface.createSystemUser();
         // Arrange and Act
         new JDBCSystemUserDAO(mock(LambdaEntityManagerFactory.class));
     }

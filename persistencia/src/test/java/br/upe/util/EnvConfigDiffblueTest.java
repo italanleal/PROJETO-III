@@ -1,5 +1,6 @@
 package br.upe.util;
 
+import br.upe.util.persistencia.EnvConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

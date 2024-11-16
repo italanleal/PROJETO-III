@@ -2,7 +2,9 @@ package br.upe.userinterface;
 
 import java.io.IOException;
 
+import br.upe.entities.SystemAdmin;
 import br.upe.pojos.AdminUser;
+import br.upe.util.persistencia.SystemException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,7 +26,7 @@ public class LoginController {
         App.setRoot("register");
     }
     @FXML
-    private void login() throws IOException {
+    private void login() throws IOException, SystemException {
         String email = emailField.getText();
         String password = passwordField.getText();
         warningLabel.setText("");
@@ -33,7 +35,7 @@ public class LoginController {
             isLogged = AppStateController.authController.login(email, password);
         }
         if(isLogged){
-            if(AppStateController.stateController.getCurrentUser() instanceof AdminUser){
+            if(AppStateController.stateController.getCurrentUser() instanceof SystemAdmin){
                 App.setRoot("homeAdmin");
             } else {
                 App.setRoot("homeUser");

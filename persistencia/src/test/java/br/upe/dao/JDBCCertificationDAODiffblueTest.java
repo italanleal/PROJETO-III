@@ -1,15 +1,13 @@
 package br.upe.dao;
 
 import static org.mockito.Mockito.mock;
-
 import br.upe.entities.Certification;
 import br.upe.entities.Event;
-import br.upe.util.LambdaEntityManagerFactory;
-import br.upe.util.PersistenciaInterface;
+import br.upe.util.persistencia.PersistenciaInterface;
 import org.junit.jupiter.api.Assertions;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.List;

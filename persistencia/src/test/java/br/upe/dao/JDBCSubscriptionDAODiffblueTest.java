@@ -5,16 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import br.upe.entities.Subscription;
-import br.upe.util.LambdaEntityManagerFactory;
-import br.upe.util.PersistenciaInterface;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
+import br.upe.util.persistencia.PersistenciaInterface;
 import jakarta.persistence.EntityManager;
 import org.apache.openjpa.persistence.EntityManagerImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.logging.Logger;
