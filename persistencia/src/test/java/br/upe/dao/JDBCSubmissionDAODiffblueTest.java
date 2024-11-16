@@ -2,15 +2,14 @@ package br.upe.dao;
 
 import static org.mockito.Mockito.mock;
 
-import br.upe.entities.Session;
 import br.upe.entities.Submission;
-import br.upe.util.LambdaEntityManagerFactory;
-import br.upe.util.PersistenciaInterface;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
+import br.upe.util.persistencia.PersistenciaInterface;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.*;
-
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 class JDBCSubmissionDAODiffblueTest {
@@ -30,6 +29,6 @@ class JDBCSubmissionDAODiffblueTest {
         submission.setContent((new String("lots of data")).getBytes(StandardCharsets.UTF_8));
         submissionDAO.save(submission);
 
-        Assertions.assertNotNull(submissionDAO.findById(submission.getId()));
+        Assertions.assertNotEquals(submissionDAO.findById(submission.getId()), Optional.empty());
     }
 }

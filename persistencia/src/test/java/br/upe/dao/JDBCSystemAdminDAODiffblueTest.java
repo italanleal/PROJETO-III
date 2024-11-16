@@ -2,7 +2,7 @@ package br.upe.dao;
 
 import static org.mockito.Mockito.mock;
 
-import br.upe.util.LambdaEntityManagerFactory;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

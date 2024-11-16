@@ -1,12 +1,12 @@
 package br.upe.dao;
 
 import br.upe.entities.Session;
-import br.upe.util.LambdaEntityManagerFactory;
-import br.upe.util.PersistenciaInterface;
+import br.upe.util.persistencia.LambdaEntityManagerFactory;
+import br.upe.util.persistencia.PersistenciaInterface;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.*;
-
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 class JDBCSessionDAODiffblueTest {
@@ -27,6 +27,6 @@ class JDBCSessionDAODiffblueTest {
         session.setTitle("INOVA ALGO");
 
         sessionDAO.save(session);
-        Assertions.assertNotNull(sessionDAO.findById(session.getId()));
+        Assertions.assertNotEquals(sessionDAO.findById(session.getId()), Optional.empty());
     }
 }

@@ -2,10 +2,10 @@ package br.upe.controllers;
 
 import br.upe.entities.Submission;
 import br.upe.entities.SystemUser;
-import br.upe.util.PersistenciaInterface;
-import br.upe.util.SystemException;
-import br.upe.util.SystemIOException;
-import br.upe.util.UnauthenticatedUserException;
+import br.upe.util.persistencia.PersistenciaInterface;
+import br.upe.util.persistencia.SystemException;
+import br.upe.util.controllers.SystemIOException;
+import br.upe.util.controllers.UnauthenticatedUserException;
 
 import java.io.File;
 import java.io.IOException;
