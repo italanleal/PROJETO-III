@@ -7,5 +7,6 @@ public class JDBCSystemUserDAO extends JDBCGenericDAO<SystemUser, Long>{
     public JDBCSystemUserDAO(LambdaEntityManagerFactory lambdaFunction) {
         super(SystemUser.class);
         this.createEntityManager = lambdaFunction;
+        this.openEM();
     }
 }

@@ -15,4 +15,7 @@ public interface GenericDAO<T, I> {
     void delete(T entity);  // Delete
 
     void deleteById(I id);  // Delete by ID
+
+    void closeEM(); // Closes EntityManager
+    void openEM(); // Opens EntityManager
 }

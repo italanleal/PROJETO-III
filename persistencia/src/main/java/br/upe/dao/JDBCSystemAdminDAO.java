@@ -7,5 +7,6 @@ public class JDBCSystemAdminDAO extends JDBCGenericDAO<SystemAdmin, Long>{
     public JDBCSystemAdminDAO(LambdaEntityManagerFactory lambdaFunction) {
         super(SystemAdmin.class);
         this.createEntityManager = lambdaFunction;
+        this.openEM();
     }
 }

@@ -7,6 +7,7 @@ import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 class JDBCSessionDAODiffblueTest {
@@ -27,6 +28,6 @@ class JDBCSessionDAODiffblueTest {
         session.setTitle("INOVA ALGO");
 
         sessionDAO.save(session);
-        Assertions.assertNotNull(sessionDAO.findById(session.getId()));
+        Assertions.assertNotEquals(sessionDAO.findById(session.getId()), Optional.empty());
     }
 }

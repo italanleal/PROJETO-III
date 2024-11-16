@@ -8,6 +8,7 @@ import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 class JDBCSubEventDAODiffblueTest {
@@ -30,7 +31,7 @@ class JDBCSubEventDAODiffblueTest {
 
         subEventDAO.save(subEvent);
 
-        Assertions.assertNotNull(subEventDAO.findById(subEvent.getId()));
+        Assertions.assertNotEquals(subEventDAO.findById(subEvent.getId()), Optional.empty());
 
     }
 }
