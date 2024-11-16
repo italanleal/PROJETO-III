@@ -8,8 +8,9 @@ import br.upe.util.persistencia.SystemException;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
+
+import static br.upe.util.controllers.CHECKING.checkDates;
 
 public class EventController {
     private final StateController stateController;
@@ -20,7 +21,9 @@ public class EventController {
         this.daoController = daoController;
     }
 
-    public void createNewEvent(String title, String description, String director) throws SystemException {
+    public void createNewEvent(String title, String description, String director, LocalDate startDate, LocalDate endDate) throws SystemException {
+        checkDates(startDate, endDate);
+
         if(!stateController.getCurrentUser().isSu()){
             throw new UserIsNotAdmin(ERROR_MSG, null);
         }
@@ -28,6 +31,9 @@ public class EventController {
         event.setTitle(title);
         event.setDescription(description);
         event.setDirector(director);
+        event.setStartDate(startDate);
+        event.setEndDate(endDate);
+
         event.setAdmin((SystemAdmin) stateController.getCurrentUser());
         ((SystemAdmin) stateController.getCurrentUser()).getEvents().add(event);
 
@@ -36,7 +42,6 @@ public class EventController {
 
         stateController.setCurrentEvent(event);
     }
-
     public void updateEventDescription(String description) throws SystemException {
         if(!stateController.getCurrentUser().isSu()){
             throw new UserIsNotAdmin(ERROR_MSG, null);
@@ -75,8 +80,9 @@ public class EventController {
             throw new UserIsNotAdmin(ERROR_MSG, null);
         }
         Event event = stateController.getCurrentEvent();
-        ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(event);
         event.setStartDate(date);
+        checkDates(event.getStartDate(), event.getEndDate());
+        ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(stateController.getCurrentEvent());
         daoController.eventDAO.update(event);
         stateController.setCurrentEvent(event);
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().add(event);
@@ -86,8 +92,9 @@ public class EventController {
             throw new UserIsNotAdmin(ERROR_MSG, null);
         }
         Event event = stateController.getCurrentEvent();
-        ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(event);
         event.setEndDate(date);
+        checkDates(event.getStartDate(), event.getEndDate());
+        ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(stateController.getCurrentEvent());
         daoController.eventDAO.update(event);
         stateController.setCurrentEvent(event);
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().add(event);
