@@ -15,7 +15,7 @@ import static br.upe.util.controllers.CHECKING.checkDates;
 public class EventController {
     private final StateController stateController;
     private final DAOController daoController;
-    private static final String ERROR_MSG = "User is not an admin";
+
     public EventController(StateController stateController, DAOController daoController) {
         this.stateController = stateController;
         this.daoController = daoController;
@@ -25,7 +25,7 @@ public class EventController {
         checkDates(startDate, endDate);
 
         if(!stateController.getCurrentUser().isSu()){
-            throw new UserIsNotAdmin(ERROR_MSG, null);
+            throw new UserIsNotAdmin();
         }
         Event event = PersistenciaInterface.createEvent();
         event.setTitle(title);
@@ -44,7 +44,7 @@ public class EventController {
     }
     public void updateEventDescription(String description) throws SystemException {
         if(!stateController.getCurrentUser().isSu()){
-            throw new UserIsNotAdmin(ERROR_MSG, null);
+            throw new UserIsNotAdmin();
         }
         Event event = stateController.getCurrentEvent();
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(event);
@@ -55,7 +55,7 @@ public class EventController {
     }
     public void updateEventDirector(String director) throws SystemException {
         if(!stateController.getCurrentUser().isSu()) {
-            throw new UserIsNotAdmin(ERROR_MSG, null);
+            throw new UserIsNotAdmin();
         }
         Event event = stateController.getCurrentEvent();
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(event);
@@ -66,7 +66,7 @@ public class EventController {
     }
     public void updateEventTitle(String title)throws SystemException {
         if(!stateController.getCurrentUser().isSu()) {
-            throw new UserIsNotAdmin(ERROR_MSG, null);
+            throw new UserIsNotAdmin();
         }
         Event event = stateController.getCurrentEvent();
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(event);
@@ -77,7 +77,7 @@ public class EventController {
     }
     public void updateEventStartDate(LocalDate date) throws SystemException {
         if(!stateController.getCurrentUser().isSu()) {
-            throw new UserIsNotAdmin(ERROR_MSG, null);
+            throw new UserIsNotAdmin();
         }
         Event event = stateController.getCurrentEvent();
         event.setStartDate(date);
@@ -89,7 +89,7 @@ public class EventController {
     }
     public void updateEventEndDate(LocalDate date) throws SystemException {
         if(!stateController.getCurrentUser().isSu()) {
-            throw new UserIsNotAdmin(ERROR_MSG, null);
+            throw new UserIsNotAdmin();
         }
         Event event = stateController.getCurrentEvent();
         event.setEndDate(date);
@@ -101,7 +101,7 @@ public class EventController {
     }
     public Collection<Event> getAllEventsByUser() throws SystemException {
         if(!(stateController.getCurrentUser() instanceof SystemAdmin user)) {
-            throw new UserIsNotAdmin(ERROR_MSG, null);
+            throw new UserIsNotAdmin();
         }
         return user.getEvents();
     }

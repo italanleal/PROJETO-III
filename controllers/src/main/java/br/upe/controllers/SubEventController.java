@@ -12,7 +12,6 @@ import static br.upe.util.controllers.CHECKING.checkDates;
 
 public class SubEventController {
     private final StateController stateController;
-    private final static String ERROR_MSG = "User isnt an admin";
 
     private final DAOController daoController;
     public SubEventController(StateController stateController, DAOController daoController) {
@@ -21,7 +20,7 @@ public class SubEventController {
     }
     public void createSubEvent(String title, String description, LocalDate startDate, LocalDate endDate) throws SystemException {
         if(!stateController.getCurrentUser().isSu()){
-            throw new UserIsNotAdmin(ERROR_MSG, null);
+            throw new UserIsNotAdmin();
         }
         checkDates(startDate, endDate);
         SubEvent subEvent = PersistenciaInterface.createSubEvent();
@@ -38,7 +37,7 @@ public class SubEventController {
 
     public void updateSubEventDescription(String description) throws SystemException {
         if(!stateController.getCurrentUser().isSu()){
-            throw new UserIsNotAdmin(ERROR_MSG, null);
+            throw new UserIsNotAdmin();
         }
         stateController.getCurrentSubEvent().setDescription(description);
         stateController.getCurrentSession().setSubEvent(stateController.getCurrentSubEvent());
@@ -47,7 +46,7 @@ public class SubEventController {
     }
     public void updateSubEventTitle(String title) throws SystemException {
         if(!stateController.getCurrentUser().isSu()){
-            throw new UserIsNotAdmin(ERROR_MSG, null);
+            throw new UserIsNotAdmin();
         }
         stateController.getCurrentSubEvent().setDescription(title);
         stateController.getCurrentSession().setSubEvent(stateController.getCurrentSubEvent());
@@ -56,7 +55,7 @@ public class SubEventController {
     }
     public void updateSubEventStartDate(LocalDate date) throws SystemException {
         if(!stateController.getCurrentUser().isSu()){
-            throw new UserIsNotAdmin(ERROR_MSG, null);
+            throw new UserIsNotAdmin();
         }
         stateController.getCurrentSubEvent().setStartDate(date);
         stateController.getCurrentSession().setSubEvent(stateController.getCurrentSubEvent());
@@ -65,7 +64,7 @@ public class SubEventController {
     }
     public void updateSubEventEndDate(LocalDate date) throws SystemException {
         if(!stateController.getCurrentUser().isSu()){
-            throw new UserIsNotAdmin(ERROR_MSG, null);
+            throw new UserIsNotAdmin();
         }
         stateController.getCurrentSubEvent().setEndDate(date);
         stateController.getCurrentSession().setSubEvent(stateController.getCurrentSubEvent());
