@@ -71,4 +71,11 @@ public class SubEventController {
 
         daoController.subEventDAO.update(stateController.getCurrentSubEvent());
     }
+    public void deleteSubEvent(SubEvent subEvent) throws SystemException {
+        if(!stateController.getCurrentUser().isSu()){
+            throw new UserIsNotAdmin();
+        }
+        daoController.subEventDAO.delete(subEvent);
+        stateController.getCurrentSession().setSubEvent(null);
+    }
 }

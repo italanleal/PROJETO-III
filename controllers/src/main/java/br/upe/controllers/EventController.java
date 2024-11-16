@@ -99,6 +99,14 @@ public class EventController {
         stateController.setCurrentEvent(event);
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().add(event);
     }
+    public void deleteEvent(Event event) throws SystemException {
+        if(!stateController.getCurrentUser().isSu()) {
+            throw new UserIsNotAdmin();
+        }
+        daoController.eventDAO.delete(event);
+        stateController.setCurrentEvent(null);
+        ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(event);
+    }
     public Collection<Event> getAllEventsByUser() throws SystemException {
         if(!(stateController.getCurrentUser() instanceof SystemAdmin user)) {
             throw new UserIsNotAdmin();
