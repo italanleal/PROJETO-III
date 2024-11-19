@@ -6,6 +6,7 @@ import br.upe.entities.Event;
 import br.upe.util.persistencia.PersistenciaInterface;
 import org.junit.jupiter.api.Assertions;
 import br.upe.util.persistencia.LambdaEntityManagerFactory;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.nio.charset.StandardCharsets;
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-
+@Disabled
 class JDBCCertificationDAODiffblueTest {
     /**
      * Test

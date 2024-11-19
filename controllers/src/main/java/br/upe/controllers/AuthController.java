@@ -18,36 +18,39 @@ public class AuthController {
     private final DAOController daoController;
 
     public void createNewUser(String name, String surname, String cpf, String email, String password) throws SystemException {
+        // Check if a user with the same email already exists
+        SystemUser newUser = null;
         try {
-            if (daoController.systemUserDAO.findByEmail(email) == null) {
-                SystemUser newUser = PersistenciaInterface.createSystemUser();
-                newUser.setName(name);
-                newUser.setSurname(surname);
-                newUser.setCpf(cpf);
-                newUser.setEmail(email);
-                newUser.setPassword(password);
-                daoController.systemUserDAO.save(newUser);
-            }
-        } catch (UserNotFoundException e) {
-            throw new UserAlreadyExistsException("User already exists", null);
-        }
+            newUser = daoController.systemUserDAO.findByEmail(email);
+        } catch (SystemException ignored){}
+
+        if(newUser != null) throw new UserAlreadyExistsException("User with the following email already exists: " + email, null);
+
+        newUser = PersistenciaInterface.createSystemUser();
+        newUser.setName(name);
+        newUser.setSurname(surname);
+        newUser.setCpf(cpf);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+        daoController.systemUserDAO.save(newUser);
     }
 
     public void createNewAdmin(String name, String surname, String cpf, String email, String password) throws SystemException{
         // Check if a user with the same email already exists
+        SystemAdmin newUser = null;
         try {
-            if (daoController.systemUserDAO.findByEmail(email) == null) {
-                SystemAdmin newUser = PersistenciaInterface.createSystemAdmin();
-                newUser.setName(name);
-                newUser.setSurname(surname);
-                newUser.setCpf(cpf);
-                newUser.setEmail(email);
-                newUser.setPassword(password);
-                daoController.systemAdminDAO.save(newUser);
-            }
-        } catch (UserAlreadyExistsException e) {
-            throw new UserAlreadyExistsException("User already exists", e.getCause());
-        }
+            newUser = daoController.systemAdminDAO.findByEmail(email);
+        } catch (SystemException ignored){}
+
+        if(newUser != null) throw new UserAlreadyExistsException("User with the following email already exists: " + email, null);
+
+        newUser = PersistenciaInterface.createSystemAdmin();
+        newUser.setName(name);
+        newUser.setSurname(surname);
+        newUser.setCpf(cpf);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+        daoController.systemAdminDAO.save(newUser);
     }
 
     public void login(String email, String password) throws SystemException {
