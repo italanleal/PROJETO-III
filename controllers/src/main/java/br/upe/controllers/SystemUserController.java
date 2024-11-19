@@ -1,12 +1,11 @@
 package br.upe.controllers;
 
-public class SystemUserController {
-    private final StateController stateController;
-    private final DAOController daoController;
+public class SystemUserController extends UserController {
+    private final StateController stateController = null;
+    private final DAOController daoController = null;
 
     public SystemUserController(StateController stateController, DAOController daoController) {
-        this.stateController = stateController;
-        this.daoController = daoController;
+        super(stateController, daoController);
     }
 
 }
