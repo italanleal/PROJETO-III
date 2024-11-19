@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity @Getter @Setter
 public class Submission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,6 +14,7 @@ public class Submission {
 
     private String filename;
     private byte[] content;
+    private LocalDate date;
 
     @ManyToOne(
             targetEntity=br.upe.entities.Event.class,
