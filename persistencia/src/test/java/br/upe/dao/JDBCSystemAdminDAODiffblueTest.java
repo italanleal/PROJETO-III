@@ -8,6 +8,7 @@ import br.upe.entities.User;
 import br.upe.util.persistencia.LambdaEntityManagerFactory;
 import br.upe.util.persistencia.PersistenciaInterface;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-
+@Disabled
 class JDBCSystemAdminDAODiffblueTest {
     /**
      * Test

@@ -1,6 +1,7 @@
 package br.upe.util.controllers;
 
 import br.upe.controllers.*;
+import br.upe.facade.Facade;
 import br.upe.util.persistencia.LambdaEntityManagerFactory;
 
 public interface ControllersInterface {
@@ -30,5 +31,9 @@ public interface ControllersInterface {
     }
     static SubscriptionController newSubscriptionController(StateController stateController, DAOController daoController) {
         return new SubscriptionController(stateController, daoController);
+    }
+
+    static Facade newFacade(LambdaEntityManagerFactory lambdaFunction) {
+        return new Facade(lambdaFunction);
     }
 }

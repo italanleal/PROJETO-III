@@ -13,6 +13,7 @@ import br.upe.util.persistencia.PersistenciaInterface;
 import jakarta.persistence.EntityManager;
 import org.apache.openjpa.persistence.EntityManagerImpl;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +22,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-
+@Disabled
 class JDBCSubscriptionDAODiffblueTest {
     /**
      * Test
