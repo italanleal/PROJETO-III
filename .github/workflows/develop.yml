@@ -22,7 +22,14 @@ jobs:
         distribution: 'liberica'
         java-package: jdk+fx
         architecture: x64
-        
+    - name: Create dotenv File
+      run: |
+        touch /home/runner/work/PROJETO-III/PROJETO-III/.env
+        echo DB_URL="${{ secrets.DB_URL }}" >> /home/runner/work/PROJETO-III/PROJETO-III/.env
+        echo DB_USER="${{ secrets.DB_USER }}" >> /home/runner/work/PROJETO-III/PROJETO-III/.env
+        echo DB_PASSWORD="${{ secrets.DB_PASSWORD }}" >> /home/runner/work/PROJETO-III/PROJETO-III/.env
+        cat /home/runner/work/PROJETO-III/PROJETO-III/.env
+
     - name: Cache SonarCloud packages
       uses: actions/cache@v4
       with:
