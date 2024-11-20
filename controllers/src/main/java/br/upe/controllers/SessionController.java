@@ -1,7 +1,10 @@
 package br.upe.controllers;
 
 import br.upe.entities.*;
+import br.upe.util.controllers.CHECKING;
+import br.upe.util.controllers.InvalidDateInput;
 import br.upe.util.persistencia.PersistenciaInterface;
+import br.upe.util.persistencia.SystemException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,18 +40,28 @@ public class SessionController {
         stateController.setCurrentSession(currentSession);
         stateController.getCurrentEvent().getSessions().add(currentSession);
     }
-    public void updateSessionStartDate(LocalDate starDate) {
+    public void updateSessionStartDate(LocalDate startDate) throws SystemException {
         if(!(stateController.getCurrentUser() instanceof SystemAdmin)) return;
         Session currentSession = stateController.getCurrentSession();
+        try{
+            CHECKING.checkDates(startDate, currentSession.getEndDate());
+        } catch (SystemException e){
+            throw new InvalidDateInput(e.getMessage(), e.getCause());
+        }
         stateController.getCurrentEvent().getSessions().remove(currentSession);
-        currentSession.setStartDate(starDate);
+        currentSession.setStartDate(startDate);
         daoController.sessionDAO.update(currentSession);
         stateController.setCurrentSession(currentSession);
         stateController.getCurrentEvent().getSessions().add(currentSession);
     }
-    public void updateSessionEndDate(LocalDate endDate) {
+    public void updateSessionEndDate(LocalDate endDate) throws InvalidDateInput {
         if(!(stateController.getCurrentUser() instanceof SystemAdmin)) return;
         Session currentSession = stateController.getCurrentSession();
+        try{
+            CHECKING.checkDates(currentSession.getStartDate(), endDate);
+        } catch (SystemException e){
+            throw new InvalidDateInput(e.getMessage(), e.getCause());
+        }
         stateController.getCurrentEvent().getSessions().remove(currentSession);
         currentSession.setEndDate(endDate);
         daoController.sessionDAO.update(currentSession);

@@ -1,6 +1,7 @@
 package br.upe.userinterface;
 
-import br.upe.pojos.GreatEvent;
+import br.upe.entities.Event;
+import br.upe.util.persistencia.SystemException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,7 +12,6 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Collection;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,10 +23,10 @@ public class EventListController {
     Label userEmail;
 
     @FXML
-    private void initialize() {
+    private void initialize() throws SystemException {
         // Set the label's text to the value of the variable
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
-        Collection<GreatEvent> events = AppStateController.eventController.getAllEventsByUser();
+        Collection<Event> events = AppStateController.eventController.getAllEventsByUser();
 
         VBox mainContainer = new VBox();
 
@@ -36,7 +36,7 @@ public class EventListController {
 
         events.forEach(event -> {
             VBox dataContainer = new VBox();
-            Label descritor = new Label(event.getDescritor());
+            Label descritor = new Label(event.getDescription());
             Label director = new Label(event.getDirector());
             Label startDate = new Label((event.getStartDate() != null) ? DateFormat.getDateInstance().format(event.getStartDate()): "Não Informado");
             Label endDate = new Label((event.getEndDate() != null) ? DateFormat.getDateInstance().format(event.getEndDate()): "Não Informado");
@@ -49,7 +49,7 @@ public class EventListController {
             Button manageButton = new Button("manage");
             manageButton.setOnAction(a -> {
                 try {
-                    manageEvent(event.getUuid());
+                    manageEvent(event);
                 } catch (IOException e){
                     logger.log(Level.SEVERE, "Error attaching event uuid to callback", e);
                 }
@@ -87,8 +87,8 @@ public class EventListController {
         App.setRoot("login");
     }
 
-    @FXML private void manageEvent(UUID eventUuid) throws IOException {
-        AppStateController.eventController.changeCurrentEvent(eventUuid);
+    @FXML private void manageEvent(Event event) throws IOException {
+        AppStateController.eventController.changeCurrentEvent(event);
         App.setRoot("eventManager");
     }
 }

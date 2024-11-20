@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class SessionManagerController {
     @FXML

@@ -2,6 +2,8 @@ package br.upe.controllers;
 
 import br.upe.entities.Event;
 import br.upe.entities.SystemAdmin;
+import br.upe.util.controllers.CHECKING;
+import br.upe.util.controllers.InvalidDateInput;
 import br.upe.util.controllers.UserIsNotAdmin;
 import br.upe.util.persistencia.PersistenciaInterface;
 import br.upe.util.persistencia.SystemException;
@@ -75,25 +77,33 @@ public class EventController {
         stateController.setCurrentEvent(event);
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().add(event);
     }
-    public void updateEventStartDate(LocalDate date) throws SystemException {
+    public void updateEventStartDate(LocalDate startDate) throws SystemException {
         if(!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
         Event event = stateController.getCurrentEvent();
-        event.setStartDate(date);
-        checkDates(event.getStartDate(), event.getEndDate());
+        try{
+            CHECKING.checkDates(startDate, event.getStartDate());
+        } catch (SystemException e){
+            throw new InvalidDateInput(e.getMessage(), e.getCause());
+        }
+        event.setStartDate(startDate);
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(stateController.getCurrentEvent());
         daoController.eventDAO.update(event);
         stateController.setCurrentEvent(event);
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().add(event);
     }
-    public void updateEventEndDate(LocalDate date) throws SystemException {
+    public void updateEventEndDate(LocalDate endDate) throws SystemException {
         if(!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
         Event event = stateController.getCurrentEvent();
-        event.setEndDate(date);
-        checkDates(event.getStartDate(), event.getEndDate());
+        try{
+            CHECKING.checkDates(event.getStartDate(), endDate);
+        } catch (SystemException e){
+            throw new InvalidDateInput(e.getMessage(), e.getCause());
+        }
+        event.setEndDate(endDate);
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(stateController.getCurrentEvent());
         daoController.eventDAO.update(event);
         stateController.setCurrentEvent(event);
