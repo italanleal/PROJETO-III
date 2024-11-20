@@ -19,16 +19,6 @@ public class SubmissionController {
         this.stateController = stateController;
         this.daoController = daoController;
     }
-    public boolean updateSubmissionDescritor(String descritor) {
-        if(descritor != null){
-            Submission source = KeeperInterface.createSubmission();
-            source.setDescritor(descritor);
-            crudController.submissionCRUD.updateSubmission(stateController.getCurrentSubmission().getUuid(), source);
-            stateController.setCurrentSubmission(crudController.submissionCRUD.returnSubmission(stateController.getCurrentSubmission().getUuid()));
-            return true;
-        } return false;
-    }
-
     public void submitFile(File file) throws SystemException {
         if(stateController.currentUser == null) throw new UnauthenticatedUserException();
 
