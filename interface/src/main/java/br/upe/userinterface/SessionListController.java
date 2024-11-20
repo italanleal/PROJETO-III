@@ -1,6 +1,6 @@
 package br.upe.userinterface;
 
-import br.upe.pojos.Session;
+import br.upe.entities.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Collection;
-import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +25,7 @@ public class SessionListController {
     private void initialize() {
         // Set the label's text to the value of the variable
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
-        Collection<Session> sessions = AppStateController.sessionController.getAllEventSessions(AppStateController.stateController.getCurrentEvent().getUuid());
+        Collection<Session> sessions = AppStateController.sessionController.getAllEventSessions(AppStateController.stateController.getCurrentEvent());
 
         VBox mainContainer = new VBox();
 
@@ -36,7 +35,7 @@ public class SessionListController {
 
         sessions.forEach(session -> {
             VBox dataContainer = new VBox();
-            Label descritor = new Label(session.getDescritor());
+            Label descritor = new Label(session.getDescription());
             Label startDate = new Label((session.getStartDate() != null) ? DateFormat.getDateInstance().format(session.getStartDate()): "Não Informado");
             Label endDate = new Label((session.getEndDate() != null) ? DateFormat.getDateInstance().format(session.getEndDate()): "Não Informado");
             Label subscriptionsCount = new Label(String.valueOf(session.getSubscriptions().size()));
@@ -48,7 +47,7 @@ public class SessionListController {
             Button manageButton = new Button("manage");
             manageButton.setOnAction(a -> {
                 try {
-                    manageSession(session.getUuid());
+                    manageSession(session);
                 } catch (IOException e){
                     logger.log(Level.SEVERE, "Error attaching session uuid to callback", e);
                 }
@@ -86,8 +85,8 @@ public class SessionListController {
         App.setRoot("login");
     }
 
-    @FXML private void manageSession(UUID sessionUuid) throws IOException {
-        AppStateController.sessionController.changeCurrentSession(sessionUuid);
+    @FXML private void manageSession(Session session) throws IOException {
+        AppStateController.sessionController.changeCurrentSession(session);
         App.setRoot("sessionManager");
     }
 }

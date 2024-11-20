@@ -1,5 +1,6 @@
 package br.upe.userinterface;
 
+import br.upe.util.persistencia.SystemException;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -7,7 +8,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,7 +20,13 @@ public class SessionRegisterController {
     @FXML
     Label warningLabel;
     @FXML
+    TextField titleField;
+    @FXML
     TextField descritorField;
+    @FXML
+    TextField guestField;
+    @FXML
+    TextField localField;
     @FXML
     DatePicker startDatePicker;
     @FXML
@@ -27,26 +34,26 @@ public class SessionRegisterController {
 
     @FXML
     private void registerSession() throws IOException {
-        Date startDate = null;
-        Date endDate = null;
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-
+        LocalDate startDate = null;
+        LocalDate endDate = null;
         try {
-            startDate = (startDatePicker.getValue() != null) ? formatter.parse(startDatePicker.getValue().toString()): null;
-            endDate = (endDatePicker.getValue() != null) ? formatter.parse(endDatePicker.getValue().toString()): null;
+            startDate = (startDatePicker.getValue() != null) ? startDatePicker.getValue(): null;
+            endDate = (endDatePicker.getValue() != null) ? endDatePicker.getValue(): null;
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error parsing Date objects", e);
         }
 
-        if(!descritorField.getText().isEmpty()){
-            boolean isCreated = AppStateController.sessionController.createNewSession(descritorField.getText());
-            if(isCreated){
-                if(startDate != null) AppStateController.sessionController.updateSessionStartDate(startDate);
-                if(endDate != null) AppStateController.sessionController.updateSessionEndDate(endDate);
-
-            } else {
-                warningLabel.setText("Couldn't create new session");
+        if(!descritorField.getText().isEmpty() && !titleField.getText().isEmpty() && !guestField.getText().isEmpty() && !localField.getText().isEmpty()){
+            AppStateController.sessionController.createNewSession(titleField.getText(),
+                    descritorField.getText(),
+                    guestField.getText(),
+                    localField.getText());
+            try{
+                AppStateController.sessionController.updateSessionStartDate(startDate);
+                AppStateController.sessionController.updateSessionEndDate(endDate);
+            }catch (SystemException e){
+                warningLabel.setText(e.getMessage());
             }
             switchToSessionManager();
         } else {

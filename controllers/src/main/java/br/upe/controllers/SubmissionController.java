@@ -1,75 +1,36 @@
 package br.upe.controllers;
-import br.upe.pojos.GreatEvent;
-import br.upe.pojos.KeeperInterface;
-import br.upe.pojos.Submission;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.UUID;
+
+import br.upe.entities.Submission;
+import br.upe.entities.SystemUser;
+import br.upe.util.persistencia.PersistenciaInterface;
+import br.upe.util.persistencia.SystemException;
+import br.upe.util.controllers.SystemIOException;
+import br.upe.util.controllers.UnauthenticatedUserException;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 public class SubmissionController {
-    private CRUDController crudController;
-    private StateController stateController;
+    private final StateController stateController;
+    private final DAOController daoController;
 
-    public SubmissionController(StateController stateController, CRUDController crudController) {
+    public SubmissionController(StateController stateController, DAOController daoController) {
         this.stateController = stateController;
-        this.crudController = crudController;
+        this.daoController = daoController;
     }
+    public void submitFile(File file) throws SystemException {
+        if(stateController.currentUser == null) throw new UnauthenticatedUserException();
 
-    private Collection<Submission> getAllSubmissions() {
-        return crudController.submissionCRUD.returnSubmission();
-    }
-
-    public Collection<Submission> getAllSubmissionsByUser(UUID userUuid) {
-        Collection<Submission> submissions = getAllSubmissions();
-        Collection<Submission> filtered = new ArrayList<>();
-
-        for(Submission submission : submissions) {
-            if(submission.getUserUuid().equals(userUuid)) {
-                filtered.add(submission);
-            }
+        Submission submission = PersistenciaInterface.createSubmission();
+        submission.setUser((SystemUser) stateController.currentUser);
+        submission.setEvent(stateController.currentEvent);
+        try {
+            submission.setFilename(file.getName());
+            submission.setContent(Files.readAllBytes(file.toPath()));
+        } catch (IOException e) {
+            throw new SystemIOException(e.getMessage(), e.getCause());
         }
-        return filtered;
-    }
-
-    public Collection<Submission> getAllSubmissionsByEvent(UUID eventUuid) {
-        Collection<Submission> submissions = getAllSubmissions();
-        Collection<Submission> filtered = new ArrayList<>();
-
-        for(Submission submission : submissions) {
-            if(submission.getUserUuid().equals(eventUuid)) {
-                filtered.add(submission);
-            }
-        }
-        return filtered;
-    }
-    public boolean updateSubmissionDescritor(String descritor) {
-        if(descritor != null){
-            Submission source = KeeperInterface.createSubmission();
-            source.setDescritor(descritor);
-            crudController.submissionCRUD.updateSubmission(stateController.getCurrentSubmission().getUuid(), source);
-            stateController.setCurrentSubmission(crudController.submissionCRUD.returnSubmission(stateController.getCurrentSubmission().getUuid()));
-            return true;
-        } return false;
-    }
-
-    public void removeSubmission(UUID submissionUuid) {
-        Submission submission = crudController.submissionCRUD.returnSubmission(submissionUuid);
-        GreatEvent event = crudController.eventCRUD.returnEvent(submission.getEventUuid());
-
-        if(event == null){
-            return;
-        }
-
-        for(Submission submission1 : event.getSubmissions()){
-            if(submission1.getUuid().equals(submissionUuid)){
-                event.getSubmissions().remove(submission);
-            }
-        }
-
-        GreatEvent eventHandler = KeeperInterface.createGreatEvent();
-        eventHandler.setSubmissions(event.getSubmissions());
-
-        crudController.submissionCRUD.deleteSubmission(submission.getUuid());
-        crudController.eventCRUD.updateEvent(event.getUuid(), eventHandler);
+        daoController.submissionDAO.save(submission);
     }
 }

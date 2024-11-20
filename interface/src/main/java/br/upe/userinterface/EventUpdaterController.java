@@ -1,14 +1,13 @@
 package br.upe.userinterface;
 
+import br.upe.util.persistencia.SystemException;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +19,7 @@ public class EventUpdaterController{
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
-        eventDescritor.setText(AppStateController.stateController.getCurrentEvent().getDescritor());
+        eventDescritor.setText(AppStateController.stateController.getCurrentEvent().getDescription());
     }
     @FXML
     TextField directorField;
@@ -44,13 +43,12 @@ public class EventUpdaterController{
         App.setRoot("eventUpdater");
     }
     @FXML
-    private void updateEvent() throws IOException {
-        Date startDate = null;
-        Date endDate = null;
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    private void updateEvent() throws IOException, SystemException {
+        LocalDate startDate = null;
+        LocalDate endDate = null;
         try {
-            startDate = (startDatePicker.getValue() != null) ? formatter.parse(startDatePicker.getValue().toString()): null;
-            endDate = (endDatePicker.getValue() != null) ? formatter.parse(endDatePicker.getValue().toString()): null;
+            startDate = (startDatePicker.getValue() != null) ? startDatePicker.getValue(): null;
+            endDate = (endDatePicker.getValue() != null) ? endDatePicker.getValue(): null;
 
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error parsing Date objects", e);
@@ -60,7 +58,7 @@ public class EventUpdaterController{
         if (!directorField.getText().isEmpty())
             AppStateController.eventController.updateEventDirector(directorField.getText());
         if (!descritorField.getText().isEmpty())
-            AppStateController.eventController.updateEventDescritor(descritorField.getText());
+            AppStateController.eventController.updateEventDescription(descritorField.getText());
 
         App.setRoot("eventManager");
     }

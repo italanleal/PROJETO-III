@@ -1,51 +1,29 @@
 package br.upe.controllers;
 
-import br.upe.pojos.*;
-
-import java.util.UUID;
+import br.upe.entities.Session;
+import br.upe.entities.Subscription;
+import br.upe.entities.SystemAdmin;
+import br.upe.entities.SystemUser;
+import br.upe.util.persistencia.PersistenciaInterface;
 
 public class SubscriptionController {
-    private CRUDController crudController;
-    private StateController stateController;
-
-    public SubscriptionController(StateController stateController, CRUDController crudController) {
+    private final StateController stateController;
+    private final DAOController daoController;
+    public SubscriptionController(StateController stateController, DAOController daoController) {
         this.stateController = stateController;
-        this.crudController = crudController;
+        this.daoController = daoController;
     }
+    public void removeSubscription(Subscription subscription){
+        SystemUser newUser = subscription.getUser();
+        Session newSession = subscription.getSession();
 
-    public void removeSubscription(UUID subscriptionUuid){
-        Subscription newSubscription = crudController.subscriptionCRUD.returnSubscription(subscriptionUuid);
-        User newUser = crudController.userCRUD.returnUser(newSubscription.getUserUuid());
-        Session newSession = crudController.sessionCRUD.returnSession(newSubscription.getSessionUuid());
+        newUser.getSubscriptions().removeIf(subscription1 -> subscription.getId().equals(subscription1.getId()));
+        newSession.getSubscriptions().removeIf(subscription1 -> subscription.getId().equals(subscription1.getId()));
 
-        for(Subscription subscription : newUser.getSubscriptions()){
-            if(subscription.getUuid().equals(subscriptionUuid)){
-                newUser.getSubscriptions().remove(subscription);
-            }
-        }
+        stateController.setCurrentUser(newUser);
+        stateController.setCurrentSession(newSession);
 
-        for(Subscription subscription : newSession.getSubscriptions()){
-            if(subscription.getUuid().equals(subscriptionUuid)){
-                newSession.getSubscriptions().remove(subscription);
-            }
-        }
-
-        Session sessionHandler = KeeperInterface.createSession();
-        User userHandler;
-        if(newUser instanceof AdminUser){
-            userHandler = KeeperInterface.createAdminUser();
-        } else {
-            userHandler = KeeperInterface.createCommomUser();
-        }
-
-        userHandler.setSubscriptions(newUser.getSubscriptions());
-        sessionHandler.setSubscriptions(newSession.getSubscriptions());
-
-        crudController.subscriptionCRUD.deleteSubscription(subscriptionUuid);
-
-        crudController.userCRUD.updateUser(newUser.getUuid(), userHandler);
-        crudController.sessionCRUD.updateSession(newSession.getUuid(), sessionHandler);
-
+        daoController.subscriptionDAO.delete(subscription);
     }
 
 }

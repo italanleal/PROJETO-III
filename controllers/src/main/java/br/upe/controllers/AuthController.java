@@ -1,64 +1,79 @@
 package br.upe.controllers;
 
-import br.upe.operations.HasherInterface;
-import br.upe.operations.QueryState;
-import br.upe.operations.UserCRUD;
-import br.upe.pojos.*;
-
-import java.util.ArrayList;
-import java.util.UUID;
+import br.upe.entities.SystemAdmin;
+import br.upe.entities.SystemUser;
+import br.upe.entities.User;
+import br.upe.util.persistencia.PersistenciaInterface;
+import br.upe.util.persistencia.SystemException;
+import br.upe.util.controllers.UserAlreadyExistsException;
+import br.upe.util.persistencia.UserNotFoundException;
+import br.upe.util.controllers.IncorrectPasswordException;
 
 public class AuthController {
-    public AuthController(StateController stateController, CRUDController crudController) {
+    public AuthController(StateController stateController, DAOController daoController) {
         this.stateController = stateController;
-        this.crudController = crudController;
+        this.daoController = daoController;
     }
     private final StateController stateController;
-    private final CRUDController crudController;
+    private final DAOController daoController;
 
-    public boolean createNewUser(String email, String password){
-        if(QueryState.userFromEmail(email) != null) return false;
+    public void createNewUser(String name, String surname, String cpf, String email, String password) throws SystemException {
+        // Check if a user with the same email already exists
+        SystemUser newUser = null;
+        try {
+            newUser = daoController.systemUserDAO.findByEmail(email);
+        } catch (SystemException ignored){}
 
-        CommomUser user = KeeperInterface.createCommomUser();
-        user.setUuid(UUID.randomUUID());
-        user.setSubscriptions(new ArrayList<>());
-        user.setPassword(HasherInterface.hash(password));
-        user.setEmail(email);
+        if(newUser != null) throw new UserAlreadyExistsException("User with the following email already exists: " + email, null);
 
-        crudController.userCRUD.createUser(user);
-        return true;
+        newUser = PersistenciaInterface.createSystemUser();
+        newUser.setName(name);
+        newUser.setSurname(surname);
+        newUser.setCpf(cpf);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+        daoController.systemUserDAO.save(newUser);
     }
 
-    public boolean createNewAdmin(String email, String password){
-        if(QueryState.userFromEmail(email) != null) return false;
+    public void createNewAdmin(String name, String surname, String cpf, String email, String password) throws SystemException{
+        // Check if a user with the same email already exists
+        SystemAdmin newUser = null;
+        try {
+            newUser = daoController.systemAdminDAO.findByEmail(email);
+        } catch (SystemException ignored){}
 
-        AdminUser user = KeeperInterface.createAdminUser();
-        user.setUuid(UUID.randomUUID());
-        user.setSubscriptions(new ArrayList<>());
-        user.setEvents(new ArrayList<>());
-        user.setPassword(HasherInterface.hash(password));
-        user.setEmail(email);
+        if(newUser != null) throw new UserAlreadyExistsException("User with the following email already exists: " + email, null);
 
-        crudController.userCRUD.createUser(user);
-        return true;
+        newUser = PersistenciaInterface.createSystemAdmin();
+        newUser.setName(name);
+        newUser.setSurname(surname);
+        newUser.setCpf(cpf);
+        newUser.setEmail(email);
+        newUser.setPassword(password);
+        daoController.systemAdminDAO.save(newUser);
     }
 
-    public boolean login(String email, String password){
-        UUID userUuid = QueryState.userFromEmail(email);
-        if(userUuid == null) return false;
-
-        User user = UserCRUD.returnUser(userUuid);
-        if(user != null && HasherInterface.hash(password).equals(user.getPassword())){
+    public void login(String email, String password) throws SystemException {
+        User user = null;
+        try {
+            user = daoController.systemAdminDAO.findByEmail(email);
+        } catch(SystemException ignored) {
+        }
+        if(user == null ){
+            try {
+                user = daoController.systemUserDAO.findByEmail(email);
+            } catch(SystemException e) {
+                throw new UserNotFoundException(e.getMessage(), e.getCause());
+            }
+        }
+        if(password.equals(user.getPassword())) {
             stateController.setCurrentUser(user);
-            return true;
-        } return false;
+        } else {
+            throw new IncorrectPasswordException("Incorrect Password", null);
+        }
     }
 
-    public boolean logout(){
-        if(stateController.getCurrentUser() != null){
-            stateController.setCurrentUser(null);
-            return true;
-        } return false;
+    public void logout(){
+        stateController.setCurrentUser(null);
     }
-
 }
