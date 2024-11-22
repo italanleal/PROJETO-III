@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-class FacadeDiffblueTest {
+public class FacadeDiffblueTest {
     /**
      * Test {@link Facade#printA(String)}.
      */
