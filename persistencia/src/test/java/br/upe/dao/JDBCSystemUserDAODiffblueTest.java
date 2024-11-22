@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-@Disabled
 class JDBCSystemUserDAODiffblueTest {
     /**
      * Test {@link JDBCSystemUserDAO#JDBCSystemUserDAO(LambdaEntityManagerFactory)}.

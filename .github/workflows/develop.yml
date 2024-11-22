@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-    name: Build and Analyze
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -22,6 +21,7 @@ jobs:
         distribution: 'liberica'
         java-package: jdk+fx
         architecture: x64
+
     - name: Create dotenv File
       run: |
         touch /home/runner/work/PROJETO-III/PROJETO-III/.env
@@ -48,10 +48,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=italanleal_PROJETO-III        
-
-    - name: Upload JAR file
-      uses: actions/upload-artifact@v4
-      with:
-        name: AcademicEvents
-        path: target/*.jar
+      run: mvn -Dtest=FacadeDiffblueTest -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=italanleal_PROJETO-III

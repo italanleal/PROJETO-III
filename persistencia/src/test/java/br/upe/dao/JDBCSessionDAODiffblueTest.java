@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-@Disabled
 class JDBCSessionDAODiffblueTest {
     /**
      * Test {@link JDBCSessionDAO#JDBCSessionDAO(LambdaEntityManagerFactory)}.
