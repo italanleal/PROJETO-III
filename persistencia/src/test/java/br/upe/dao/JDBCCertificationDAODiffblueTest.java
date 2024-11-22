@@ -27,7 +27,7 @@ public class JDBCCertificationDAODiffblueTest {
     void saveCertificationTest() {
         Certification certification = PersistenciaInterface.createCertification();
         certification.setFilename("certification.txt");
-        certification.setContent((new String("lots of data")).getBytes(StandardCharsets.UTF_8));
+        certification.setContent(("lots of data").getBytes(StandardCharsets.UTF_8));
         certification.setDate(LocalDate.now());
         certificationDAO.save(certification);
 
