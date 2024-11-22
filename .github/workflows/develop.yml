@@ -1,4 +1,4 @@
-name: Java CI with Maven + SonarCloud [develop]
+name: Integration Test + SonarCloud
 
 on:
   push:

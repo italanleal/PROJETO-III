@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-class JDBCSystemAdminDAODiffblueTest {
+public class JDBCSystemAdminDAODiffblueTest {
     /**
      * Test
      * {@link JDBCSystemAdminDAO#JDBCSystemAdminDAO(LambdaEntityManagerFactory)}.

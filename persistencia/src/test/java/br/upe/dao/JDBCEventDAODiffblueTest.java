@@ -11,7 +11,7 @@ import br.upe.util.persistencia.PersistenciaInterface;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.*;
 import java.util.logging.Logger;
-class JDBCEventDAODiffblueTest {
+public class JDBCEventDAODiffblueTest {
     /**
      * Test {@link JDBCEventDAO#JDBCEventDAO(LambdaEntityManagerFactory)}.
      */

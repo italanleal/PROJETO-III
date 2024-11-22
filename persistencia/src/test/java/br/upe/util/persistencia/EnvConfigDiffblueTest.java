@@ -1,11 +1,10 @@
-package br.upe.util;
+package br.upe.util.persistencia;
 
-import br.upe.util.persistencia.EnvConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class EnvConfigDiffblueTest {
+public class EnvConfigDiffblueTest {
     /**
      * Test {@link EnvConfig#get(String)}.
      */
