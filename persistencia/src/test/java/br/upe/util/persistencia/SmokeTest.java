@@ -5,7 +5,7 @@ import org.junit.platform.suite.api.Suite;
 
 @Suite
 @SelectClasses({
-        EnvConfigDiffblueTest.class,
+        EnverDiffblueTest.class,
 })
 
 public class SmokeTest {

@@ -1,15 +1,17 @@
 package br.upe.util.persistencia;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class EnvConfigDiffblueTest {
+
+public class EnverDiffblueTest {
     /**
-     * Test {@link EnvConfig#get(String)}.
+     * Test {@link Enver#get(String)}.
      */
-    EnvConfig env = new EnvConfig(true);
-    
+    Dotenv env = (new Enver()).getDevelopEnv();
+
     @Test
     @DisplayName("Test get(DB_URL)")
     void testGetDB_URL() {
