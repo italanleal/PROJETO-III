@@ -10,10 +10,11 @@ import java.util.Map;
 public class DefaultEntityManagerFactory {
     private static final EntityManagerFactory emf;
     static {
+        EnvConfig env = new EnvConfig();
         Map<String, String> properties = new HashMap<>();
-        properties.put("jakarta.persistence.jdbc.url", EnvConfig.get("DB_URL_PRODUCTION"));
-        properties.put("jakarta.persistence.jdbc.user", EnvConfig.get("DB_USER"));
-        properties.put("jakarta.persistence.jdbc.password", EnvConfig.get("DB_PASSWORD"));
+        properties.put("jakarta.persistence.jdbc.url", env.get("DB_URL_PRODUCTION"));
+        properties.put("jakarta.persistence.jdbc.user", env.get("DB_USER"));
+        properties.put("jakarta.persistence.jdbc.password", env.get("DB_PASSWORD"));
 
         emf = Persistence.createEntityManagerFactory("default", properties);
     }
