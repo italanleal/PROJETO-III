@@ -14,7 +14,7 @@ public class EnvConfigDiffblueTest {
     @DisplayName("Test get(DB_URL)")
     void testGetDB_URL() {
         // Arrange, Act and Assert
-        Assertions.assertNotNull(envg.get("DB_URL"));
+        Assertions.assertNotNull(env.get("DB_URL"));
     }
     @Test
     @DisplayName("Test get(DB_USER)")
