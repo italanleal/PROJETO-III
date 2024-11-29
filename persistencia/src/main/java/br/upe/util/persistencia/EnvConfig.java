@@ -4,7 +4,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 
 public class EnvConfig {
     private Dotenv env;
-    public static String get(String key) {
+    public String get(String key) {
         return env.get(key);
     }
     public EnvConfig(boolean develop){
