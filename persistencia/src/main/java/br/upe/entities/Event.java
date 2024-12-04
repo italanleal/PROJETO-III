@@ -10,25 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Getter @Setter
-public class Event {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private @Id @Setter(AccessLevel.PROTECTED) Long id;
-
-    private String title;
-    private String description;
-    private String director;
-
-    private LocalDate startDate;
-    private LocalDate endDate;
-
+public class Event extends BaseEvent {
     @OneToMany(
-            targetEntity=br.upe.entities.Session.class,
+            targetEntity=br.upe.entities.SubEvent.class,
             mappedBy="event",
             cascade=CascadeType.ALL,
             orphanRemoval=true,
             fetch=FetchType.LAZY
     )
-    private @Setter(AccessLevel.PROTECTED) List<Session> sessions = new ArrayList<>();
+    private @Setter(AccessLevel.PROTECTED) List<SubEvent> subEvents = new ArrayList<>();
 
     @OneToMany(
             targetEntity=br.upe.entities.Submission.class,

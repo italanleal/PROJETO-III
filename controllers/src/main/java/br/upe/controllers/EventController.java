@@ -1,6 +1,7 @@
 package br.upe.controllers;
 
 import br.upe.entities.Event;
+import br.upe.entities.SubEvent;
 import br.upe.entities.SystemAdmin;
 import br.upe.util.controllers.CHECKING;
 import br.upe.util.controllers.InvalidDateInput;
@@ -122,6 +123,12 @@ public class EventController {
             throw new UserIsNotAdmin();
         }
         return user.getEvents();
+    }
+    public Collection<SubEvent> getAllSubEvents() throws SystemException {
+        if (!(stateController.getCurrentUser() instanceof SystemAdmin user)) {
+            throw new UserIsNotAdmin();
+        }
+        return stateController.getCurrentEvent().getSubEvents();
     }
     public void changeCurrentEvent(Event event){
         stateController.setCurrentEvent(event);
