@@ -5,16 +5,16 @@ import br.upe.entities.*;
 
 public interface PersistenciaInterface {
      static LambdaEntityManagerFactory getDefaultEMF_lambda(){
-        return DefaultEntityManagerFactory::createEntityManager;
+        return DefaultEMTFactoryWrapper.defaultEntityManagerFactory::createEntityManager;
     }
      static void closeDefaultEMF(){
-        DefaultEntityManagerFactory.close();
+         DefaultEMTFactoryWrapper.defaultEntityManagerFactory.close();
     }
      static LambdaEntityManagerFactory getDevelopEMF_lambda(){
-        return DevelopEntityManagerFactory::createEntityManager;
+        return DevelopEMTFactoryWrapper.developEntityManagerFactory::createEntityManager;
     }
      static void closeDevelopEMF(){
-        DevelopEntityManagerFactory.close();
+         DevelopEMTFactoryWrapper.developEntityManagerFactory.close();
     }
      static Event createEvent(){
         return new Event();
