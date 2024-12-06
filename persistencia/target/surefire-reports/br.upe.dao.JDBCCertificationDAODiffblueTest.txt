@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: br.upe.dao.JDBCCertificationDAODiffblueTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 69.495 s - in br.upe.dao.JDBCCertificationDAODiffblueTest

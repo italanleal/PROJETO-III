@@ -1,0 +1,10 @@
+br\upe\dao\JDBCCertificationDAODiffblueTest.class
+br\upe\util\persistencia\EnverDiffblueTest.class
+br\upe\dao\JDBCSubmissionDAODiffblueTest.class
+br\upe\dao\JDBCSessionDAODiffblueTest.class
+br\upe\dao\JDBCSubEventDAODiffblueTest.class
+br\upe\dao\JDBCSystemAdminDAODiffblueTest.class
+br\upe\dao\JDBCSystemUserDAODiffblueTest.class
+br\upe\dao\JDBCSubscriptionDAODiffblueTest.class
+br\upe\util\persistencia\SmokeTest.class
+br\upe\dao\JDBCEventDAODiffblueTest.class

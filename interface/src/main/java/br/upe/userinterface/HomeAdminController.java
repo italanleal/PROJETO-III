@@ -2,7 +2,6 @@ package br.upe.userinterface;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-
 import java.io.IOException;
 
 public class HomeAdminController {
@@ -14,15 +13,23 @@ public class HomeAdminController {
         // Set the label's text to the value of the variable
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
     }
+
     @FXML
     private void switchToEventRegister() throws IOException {
         App.setRoot("eventRegister");
     }
+
+    @FXML
+    private void switchToCertification() throws IOException {
+        App.setRoot("certification");
+    }
+
     @FXML
     private void logout() throws IOException {
         AppStateController.authController.logout();
         App.setRoot("login");
     }
+
     @FXML
     private void switchToEventList() throws IOException {
         App.setRoot("eventList");

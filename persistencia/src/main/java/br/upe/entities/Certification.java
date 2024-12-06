@@ -24,4 +24,7 @@ public class Certification {
     )
     @JoinColumn(name="user_id", nullable=true, updatable=true)
     private SystemUser user;
+
+    public void setEvent(Event event) {
+    }
 }

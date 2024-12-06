@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: br.upe.facade.FacadeDiffblueTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 65.392 s - in br.upe.facade.FacadeDiffblueTest

@@ -1,0 +1,4 @@
+--patch-module
+controllers=_
+--add-reads
+controllers=ALL-UNNAMED

@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: br.upe.dao.JDBCSessionDAODiffblueTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.761 s - in br.upe.dao.JDBCSessionDAODiffblueTest
