@@ -48,17 +48,8 @@ public class UserAddSubscriptionController {
     }
 
     @FXML
-    void goToUserEditSubscription(MouseEvent event) throws IOException {
-    }
-
-    @FXML
     void goToUserListSubscription(MouseEvent event) throws IOException {
         App.setRoot("userSearchEvent");
-    }
-
-    @FXML
-    void goToUserRegisterEvent(MouseEvent event) {
-
     }
 
     @FXML
@@ -72,10 +63,8 @@ public class UserAddSubscriptionController {
         App.setRoot("login");
     }
 
-
     @FXML
     void getThisSubscriptionToAdd(InputMethodEvent event) {
-
     }
 
     @FXML

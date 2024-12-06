@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.InputMethodEvent;
 
+import java.io.IOException;
+
 public class UserSearchEventController {
 
 
@@ -39,38 +41,27 @@ public class UserSearchEventController {
     private ListView<?> userSearchEventList;
 
     @FXML
-    void goToHomeUser(MouseEvent event) {
-
+    void goToHomeUser(MouseEvent event) throws IOException {
+        App.setRoot("homeUser");
     }
 
     @FXML
-    void goToUserEditSubscription(MouseEvent event) {
-
+    void goToUserRegisterEvent(MouseEvent event) throws IOException {
+        App.setRoot("userAddSubscription");
     }
 
     @FXML
-    void goToUserListSubscription(MouseEvent event) {
-
+    void goToUserRemoveSubscription(MouseEvent event) throws IOException {
+        App.setRoot("userRemoveSubscription");
     }
 
     @FXML
-    void goToUserRegisterEvent(MouseEvent event) {
-
-    }
-
-    @FXML
-    void goToUserRemoveSubscription(MouseEvent event) {
-
-    }
-
-    @FXML
-    void logout(MouseEvent event) {
-
+    void logout(MouseEvent event) throws IOException {
+        AppStateController.authController.logout();
+        App.setRoot("login");
     }
 
     @FXML
     void updateTheEventsShown(InputMethodEvent event) {
-
     }
-
 }

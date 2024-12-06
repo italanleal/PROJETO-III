@@ -45,33 +45,19 @@ public class UserRemoveSubscriptionController {
         }
     }
 
-    private void removeThisSubscription(String subscriptionType) {
-
-    }
-
     @FXML
     void goToHomeUser(MouseEvent event) throws IOException {
         App.setRoot("homeUser");
     }
 
     @FXML
-    void goToUserEditSubscription(MouseEvent event) {
-
+    void goToUserListSubscription(MouseEvent event) throws IOException{
+        App.setRoot("userSearchEvent");
     }
 
     @FXML
-    void goToUserListSubscription(MouseEvent event) {
-
-    }
-
-    @FXML
-    void goToUserRegisterEvent(MouseEvent event) {
-
-    }
-
-    @FXML
-    void goToUserRemoveSubscription(MouseEvent event) {
-
+    void goToUserRegisterEvent(MouseEvent event) throws IOException{
+        App.setRoot("userAddSubscription");
     }
 
     @FXML

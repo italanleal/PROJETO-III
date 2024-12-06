@@ -33,28 +33,20 @@ public class HomeUserController {
     private void initialize() {
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
     }
-    @FXML
-    void goToHomeUser(MouseEvent event) {
-
-    }
-
 
     @FXML
     void goToUserListSubscription(MouseEvent event) throws IOException {
         App.setRoot("userSearchEvent");
-
     }
 
     @FXML
-    void goToUserRegisterEvent(MouseEvent event) {
-
+    void goToUserRegisterEvent(MouseEvent event) throws IOException{
+        App.setRoot("userAddSubscription");
     }
 
     @FXML
-
     void goToUserRemoveSubscription(MouseEvent event) throws IOException {
         App.setRoot("userRemoveSubscription");
-
     }
 
     @FXML
@@ -63,4 +55,3 @@ public class HomeUserController {
         App.setRoot("login");
     }
 }
-
