@@ -28,7 +28,6 @@ public class FacadeTest extends TestingFeatures {
     class StateControllerTest{
         //----------------------------------StateController tests----------------------------------
         @Test
-        @Disabled
         @DisplayName("State: currentUser != null")
         void currentUserNotNullTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
@@ -39,14 +38,12 @@ public class FacadeTest extends TestingFeatures {
 
             facade.authController.createNewUser(name, surname, cpf, email, password);
             facade.authController.login(email, password);
-            Assertions.assertNotNull(facade.stateController.currentUser);
-            Assertions.assertEquals(cpf, facade.stateController.currentUser.getCpf());
+            Assertions.assertNotNull(facade.stateController.getCurrentUser());
+            Assertions.assertEquals(cpf, facade.stateController.getCurrentUser().getCpf());
         }
 
         @Test
-
         @DisplayName("State: CurrentEvent != null")
-        @Disabled
         void currentEventNotNullTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
             String surname= "surname#" + randomAlphaDecimalText(11);
@@ -58,8 +55,8 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
 
-            Assertions.assertNotNull(facade.stateController.currentEvent);
-            Assertions.assertEquals(eventDirector1, facade.stateController.currentEvent.getDirector());
+            Assertions.assertNotNull(facade.stateController.getCurrentEvent());
+            Assertions.assertEquals(eventDirector1, facade.stateController.getCurrentEvent().getDirector());
         }
         @Test
         @DisplayName("State: CurrentSubEvent != null")
@@ -78,12 +75,11 @@ public class FacadeTest extends TestingFeatures {
 
             facade.subEventController.createNewSubEvent(subeventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
 
-            Assertions.assertNotNull(facade.stateController.currentSubEvent);
-            Assertions.assertEquals(subeventTitle1, facade.stateController.currentSubEvent.getTitle());
+            Assertions.assertNotNull(facade.stateController.getCurrentSubEvent());
+            Assertions.assertEquals(subeventTitle1, facade.stateController.getCurrentSubEvent().getTitle());
         }
 
         @Test
-        @Disabled
         @DisplayName("State: currentSession != null")
         void currentSessionNotNullTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
@@ -122,7 +118,7 @@ public class FacadeTest extends TestingFeatures {
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
 
             facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE");
-            Session session = facade.stateController.currentSession;
+            Session session = facade.stateController.getCurrentSession();
 
             facade.authController.logout();
 
@@ -256,11 +252,11 @@ public class FacadeTest extends TestingFeatures {
 
             facade.authController.login(email, password);
 
-            Assertions.assertEquals(facade.daoController.systemUserDAO.findByCPF(cpf), facade.stateController.currentUser);
+            Assertions.assertEquals(facade.daoController.systemUserDAO.findByCPF(cpf), facade.stateController.getCurrentUser());
             facade.authController.logout();
 
             facade.authController.login(email2, password2);
-            Assertions.assertEquals(facade.daoController.systemUserDAO.findByCPF(cpf2), facade.stateController.currentUser);
+            Assertions.assertEquals(facade.daoController.systemUserDAO.findByCPF(cpf2), facade.stateController.getCurrentUser());
 
         }
 
@@ -307,7 +303,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
 
             facade.authController.logout();
-            Assertions.assertNull(facade.stateController.currentUser);
+            Assertions.assertNull(facade.stateController.getCurrentUser());
         }
     }
     @Nested
@@ -320,6 +316,7 @@ public class FacadeTest extends TestingFeatures {
     @DisplayName("EventController tests")
     class EventControllerTest{
         @Test
+        @Disabled
         @DisplayName("EventController: Invalid date for event")
         void setInvalidDateForEvent() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);

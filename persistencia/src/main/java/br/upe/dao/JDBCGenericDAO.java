@@ -73,4 +73,11 @@ public class JDBCGenericDAO<T, I> implements GenericDAO<T, I>{
         em = createEntityManager.call();
     }
 
+    @Override
+    public void detach(T entity) {
+        if (em.contains(entity)) {
+            em.detach(entity);
+        }
+    }
+
 }

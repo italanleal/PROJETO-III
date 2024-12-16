@@ -16,7 +16,7 @@ public class Facade {
     public final SubmissionController submissionController;
     public Facade(LambdaEntityManagerFactory lambdaFunction) {
         daoController = ControllersInterface.newDAOController(lambdaFunction);
-        stateController = ControllersInterface.newStateController();
+        stateController = ControllersInterface.newStateController(daoController);
         authController = ControllersInterface.newAuthController(stateController, daoController);
         userController = ControllersInterface.newUserController(stateController, daoController);
         eventController = ControllersInterface.newEventController(stateController, daoController);
