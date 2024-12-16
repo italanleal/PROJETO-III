@@ -6,10 +6,8 @@ import br.upe.util.persistencia.SystemException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.Nested;
 import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FacadeDiffblueTest extends TestingFeatures {
 
@@ -239,9 +237,24 @@ public class FacadeDiffblueTest extends TestingFeatures {
         }
     }
 
-    //todo
-    //----------------------------------SessionController tests----------------------------------
-    //----------------------------------SubEvent tests----------------------------------
-    //----------------------------------Subscription tests----------------------------------
-    //----------------------------------Submission tests----------------------------------
+    @Nested
+    @DisplayName("SessionController tests")
+    class SessionControllerTest{
+
+    }
+    @Nested
+    @DisplayName("SubEventController tests")
+    class SubEventControllerTest{
+
+    }
+    @Nested
+    @DisplayName("SubscriptionController tests")
+    class SubscriptionControllerTest{
+
+    }
+    @Nested
+    @DisplayName("SubmissionController tests")
+    class SubmissionControllerTest{
+
+    }
 }

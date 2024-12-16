@@ -28,9 +28,15 @@ public class SessionController {
 
         daoController.sessionDAO.save(currentSession);
 
+        if(stateController.getCurrentSubEvent() != null){
+            stateController.getCurrentSubEvent().getSessions().add(currentSession);
+        } else {
+            stateController.getCurrentEvent().getSessions().add(currentSession);
+        }
+
         stateController.setCurrentSession(currentSession);
-        stateController.getCurrentEvent().getSessions().add(currentSession);
     }
+
     public void updateSessionDescription(String description) {
         if(!(stateController.getCurrentUser() instanceof SystemAdmin)) return;
         Session currentSession = stateController.getCurrentSession();
