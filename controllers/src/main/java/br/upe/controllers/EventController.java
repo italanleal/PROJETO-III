@@ -37,12 +37,12 @@ public class EventController {
         event.setStartDate(startDate);
         event.setEndDate(endDate);
 
+        daoController.eventDAO.save(event);
+
         event.setAdmin((SystemAdmin) stateController.getCurrentUser());
         ((SystemAdmin) stateController.getCurrentUser()).getEvents().add(event);
 
         daoController.systemAdminDAO.update((SystemAdmin) stateController.getCurrentUser());
-        daoController.eventDAO.save(event);
-
         stateController.setCurrentEvent(event);
     }
     public void updateEventDescription(String description) throws SystemException {
