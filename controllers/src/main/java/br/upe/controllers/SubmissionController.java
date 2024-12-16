@@ -19,6 +19,7 @@ public class SubmissionController {
         this.stateController = stateController;
         this.daoController = daoController;
     }
+
     public void submitFile(File file) throws SystemException {
         if(stateController.currentUser == null) throw new UnauthenticatedUserException();
 
@@ -30,6 +31,7 @@ public class SubmissionController {
             submission.setContent(Files.readAllBytes(file.toPath()));
         } catch (IOException e) {
             throw new SystemIOException(e.getMessage(), e.getCause());
+
         }
         daoController.submissionDAO.save(submission);
     }

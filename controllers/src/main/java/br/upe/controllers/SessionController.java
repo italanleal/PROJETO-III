@@ -88,6 +88,7 @@ public class SessionController {
         stateController.setCurrentSession(currentSession);
         stateController.getCurrentEvent().getSessions().add(currentSession);
         daoController.subscriptionDAO.save(subscription);
+
     }
     public void changeCurrentSession(Session session){
         stateController.setCurrentSession(session);

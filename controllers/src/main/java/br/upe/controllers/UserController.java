@@ -24,6 +24,7 @@ public class UserController {
             source.setName(userName);
             daoController.systemUserDAO.update((SystemUser) source);
         }
+
     }
     public void updateUserEmail(String email){
         User source;
@@ -36,6 +37,7 @@ public class UserController {
             source.setEmail(email);
             daoController.systemUserDAO.update((SystemUser) source);
         }
+
     }
     public void updateUserPassword(String Password){
         User source;
@@ -60,5 +62,6 @@ public class UserController {
             source.setSurname(surname);
             daoController.systemUserDAO.update((SystemUser) source);
         }
+
     }
 }
