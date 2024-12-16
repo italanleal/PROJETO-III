@@ -75,20 +75,23 @@ public class SessionController {
         stateController.currentEvent.getSessions().add(currentSession);
     }
     public void addSubscriptionToSession(){
-        Session currentSession = stateController.currentSession;
-        stateController.currentEvent.getSessions().remove(currentSession);
+
+        stateController.currentEvent.getSessions().remove(stateController.currentSession);
 
         Subscription subscription = PersistenciaInterface.createSubscription();
-        subscription.setSession(currentSession);
+
         subscription.setUser((SystemUser) stateController.currentUser);
         subscription.setDate(LocalDate.now());
-
-        currentSession.getSubscriptions().add(subscription);
-        daoController.sessionDAO.update(currentSession);
-        stateController.currentSession=currentSession;
-        stateController.currentEvent.getSessions().add(currentSession);
+        subscription.setSession(stateController.currentSession);
         daoController.subscriptionDAO.save(subscription);
 
+        stateController.currentSession.getSubscriptions().add(subscription);
+
+        daoController.sessionDAO.update(stateController.currentSession);
+
+
+        stateController.currentEvent.getSessions().add(stateController.currentSession);
+        stateController.currentSubscription = subscription;
     }
     public void changeCurrentSession(Session session){
         stateController.currentSession =session;
