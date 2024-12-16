@@ -20,8 +20,8 @@ public class SubscriptionController {
         newUser.getSubscriptions().removeIf(subscription1 -> subscription.getId().equals(subscription1.getId()));
         newSession.getSubscriptions().removeIf(subscription1 -> subscription.getId().equals(subscription1.getId()));
 
-        stateController.setCurrentUser(newUser);
-        stateController.setCurrentSession(newSession);
+        stateController.currentUser=newUser;
+        stateController.currentSession=newSession;
 
         daoController.subscriptionDAO.delete(subscription);
     }

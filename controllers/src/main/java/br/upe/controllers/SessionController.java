@@ -19,7 +19,7 @@ public class SessionController {
     }
 
     public void createNewSession(String title, String description, String guest, String local) {
-        if(!(stateController.getCurrentUser() instanceof SystemAdmin)) return;
+        if(!(stateController.currentUser instanceof SystemAdmin)) return;
         Session currentSession = PersistenciaInterface.createSession();
         currentSession.setTitle(title);
         currentSession.setDescription(description);
@@ -28,55 +28,55 @@ public class SessionController {
 
         daoController.sessionDAO.save(currentSession);
 
-        if(stateController.getCurrentSubEvent() != null){
-            stateController.getCurrentSubEvent().getSessions().add(currentSession);
+        if(stateController.currentSubEvent != null){
+            stateController.currentSubEvent.getSessions().add(currentSession);
         } else {
-            stateController.getCurrentEvent().getSessions().add(currentSession);
+            stateController.currentEvent.getSessions().add(currentSession);
         }
 
-        stateController.setCurrentSession(currentSession);
+        stateController.currentSession = currentSession;
     }
 
     public void updateSessionDescription(String description) {
-        if(!(stateController.getCurrentUser() instanceof SystemAdmin)) return;
-        Session currentSession = stateController.getCurrentSession();
-        stateController.getCurrentEvent().getSessions().remove(currentSession);
+        if(!(stateController.currentUser instanceof SystemAdmin)) return;
+        Session currentSession = stateController.currentSession;
+        stateController.currentEvent.getSessions().remove(currentSession);
         currentSession.setDescription(description);
         daoController.sessionDAO.update(currentSession);
-        stateController.setCurrentSession(currentSession);
-        stateController.getCurrentEvent().getSessions().add(currentSession);
+        stateController.currentSession =currentSession;
+        stateController.currentEvent.getSessions().add(currentSession);
     }
     public void updateSessionStartDate(LocalDate startDate) throws SystemException {
-        if(!(stateController.getCurrentUser() instanceof SystemAdmin)) return;
-        Session currentSession = stateController.getCurrentSession();
+        if(!(stateController.currentUser instanceof SystemAdmin)) return;
+        Session currentSession = stateController.currentSession;
         try{
             CHECKING.checkDates(startDate, currentSession.getEndDate());
         } catch (SystemException e){
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
-        stateController.getCurrentEvent().getSessions().remove(currentSession);
+        stateController.currentEvent.getSessions().remove(currentSession);
         currentSession.setStartDate(startDate);
         daoController.sessionDAO.update(currentSession);
-        stateController.setCurrentSession(currentSession);
-        stateController.getCurrentEvent().getSessions().add(currentSession);
+        stateController.currentSession=currentSession;
+        stateController.currentEvent.getSessions().add(currentSession);
     }
     public void updateSessionEndDate(LocalDate endDate) throws InvalidDateInput {
-        if(!(stateController.getCurrentUser() instanceof SystemAdmin)) return;
-        Session currentSession = stateController.getCurrentSession();
+        if(!(stateController.currentUser instanceof SystemAdmin)) return;
+        Session currentSession = stateController.currentSession;
         try{
             CHECKING.checkDates(currentSession.getStartDate(), endDate);
         } catch (SystemException e){
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
-        stateController.getCurrentEvent().getSessions().remove(currentSession);
+        stateController.currentEvent.getSessions().remove(currentSession);
         currentSession.setEndDate(endDate);
         daoController.sessionDAO.update(currentSession);
-        stateController.setCurrentSession(currentSession);
-        stateController.getCurrentEvent().getSessions().add(currentSession);
+        stateController.currentSession=currentSession;
+        stateController.currentEvent.getSessions().add(currentSession);
     }
     public void addSubscriptionToSession(){
-        Session currentSession = stateController.getCurrentSession();
-        stateController.getCurrentEvent().getSessions().remove(currentSession);
+        Session currentSession = stateController.currentSession;
+        stateController.currentEvent.getSessions().remove(currentSession);
 
         Subscription subscription = PersistenciaInterface.createSubscription();
         subscription.setSession(currentSession);
@@ -85,17 +85,17 @@ public class SessionController {
 
         currentSession.getSubscriptions().add(subscription);
         daoController.sessionDAO.update(currentSession);
-        stateController.setCurrentSession(currentSession);
-        stateController.getCurrentEvent().getSessions().add(currentSession);
+        stateController.currentSession=currentSession;
+        stateController.currentEvent.getSessions().add(currentSession);
         daoController.subscriptionDAO.save(subscription);
 
     }
     public void changeCurrentSession(Session session){
-        stateController.setCurrentSession(session);
+        stateController.currentSession =session;
     }
 
     public void closeCurrentSession(){
-        stateController.setCurrentSession(null);
+        stateController.currentSession=null;
     }
 
     public Collection<Session> getAllEventSessions(Event event) {

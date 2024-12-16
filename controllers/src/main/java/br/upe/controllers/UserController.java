@@ -15,12 +15,12 @@ public class UserController {
 
     public void updateUserName(String userName){
         User source;
-        if(stateController.getCurrentUser() instanceof SystemAdmin){
-            source = stateController.getCurrentUser();
+        if(stateController.currentUser instanceof SystemAdmin){
+            source = stateController.currentUser;
             source.setName(userName);
             daoController.systemAdminDAO.update((SystemAdmin) source);
         } else {
-            source = stateController.getCurrentUser();
+            source = stateController.currentUser;
             source.setName(userName);
             daoController.systemUserDAO.update((SystemUser) source);
         }
@@ -28,12 +28,12 @@ public class UserController {
     }
     public void updateUserEmail(String email){
         User source;
-        if(stateController.getCurrentUser() instanceof SystemAdmin){
-            source = stateController.getCurrentUser();
+        if(stateController.currentUser instanceof SystemAdmin){
+            source = stateController.currentUser;
             source.setEmail(email);
             daoController.systemAdminDAO.update((SystemAdmin) source);
         } else {
-            source = stateController.getCurrentUser();
+            source = stateController.currentUser;
             source.setEmail(email);
             daoController.systemUserDAO.update((SystemUser) source);
         }
@@ -41,24 +41,24 @@ public class UserController {
     }
     public void updateUserPassword(String Password){
         User source;
-        if(stateController.getCurrentUser() instanceof SystemAdmin){
-            source = stateController.getCurrentUser();
+        if(stateController.currentUser instanceof SystemAdmin){
+            source = stateController.currentUser;
             source.setPassword(Password);
             daoController.systemAdminDAO.update((SystemAdmin) source);
         } else {
-            source = stateController.getCurrentUser();
+            source = stateController.currentUser;
             source.setPassword(Password);
             daoController.systemUserDAO.update((SystemUser) source);
         }
     }
     public void updateUserSurname(String surname){
         User source;
-        if(stateController.getCurrentUser() instanceof SystemAdmin){
-            source = stateController.getCurrentUser();
+        if(stateController.currentUser instanceof SystemAdmin){
+            source = stateController.currentUser;
             source.setSurname(surname);
             daoController.systemAdminDAO.update((SystemAdmin) source);
         } else {
-            source = stateController.getCurrentUser();
+            source = stateController.currentUser;
             source.setSurname(surname);
             daoController.systemUserDAO.update((SystemUser) source);
         }
