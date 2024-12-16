@@ -39,11 +39,14 @@ public class SubEventController {
         subEvent.setEndDate(endDate);
 
         daoController.subEventDAO.save(subEvent);
+
         Event event = stateController.getCurrentEvent();
-        ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(event);
+        subEvent.setEvent(event);
         event.getSubEvents().add(subEvent);
 
         daoController.eventDAO.update(event);
+
+        ((SystemAdmin)stateController.getCurrentUser()).getEvents().removeIf(e -> e.getId().equals(event.getId()));
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().add(event);
         stateController.setCurrentSubEvent(subEvent);
     }

@@ -45,6 +45,7 @@ public class EventController {
         daoController.systemAdminDAO.update((SystemAdmin) stateController.getCurrentUser());
         stateController.setCurrentEvent(event);
     }
+
     public void updateEventDescription(String description) throws SystemException {
         if(!stateController.getCurrentUser().isSu()){
             throw new UserIsNotAdmin();
