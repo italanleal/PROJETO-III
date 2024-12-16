@@ -2,7 +2,8 @@ package br.upe.userinterface;
 
 import java.io.IOException;
 
-import br.upe.pojos.AdminUser;
+import br.upe.entities.SystemAdmin;
+import br.upe.util.persistencia.SystemException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,18 +29,17 @@ public class LoginController {
         String email = emailField.getText();
         String password = passwordField.getText();
         warningLabel.setText("");
-        boolean isLogged = false;
         if(!email.isEmpty() && !password.isEmpty()){
-            isLogged = AppStateController.authController.login(email, password);
-        }
-        if(isLogged){
-            if(AppStateController.stateController.getCurrentUser() instanceof AdminUser){
-                App.setRoot("homeAdmin");
-            } else {
-                App.setRoot("homeUser");
+            try{
+                AppStateController.authController.login(email, password);
+                if(AppStateController.stateController.getCurrentUser() instanceof SystemAdmin){
+                    App.setRoot("homeAdmin");
+                } else {
+                    App.setRoot("homeUser");
+                }
+            } catch (SystemException e) {
+                warningLabel.setText(e.getMessage());
             }
-        } else {
-            warningLabel.setText("Couldn't log in");
         }
     }
 }

@@ -1,5 +1,6 @@
 package br.upe.userinterface;
 
+import br.upe.util.persistencia.SystemException;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -7,13 +8,14 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SessionUpdaterController {
-    Logger logger = Logger.getLogger(SessionUpdaterController.class.getName());
-
+    @FXML
+    Label warningLabel;
     @FXML
     Label eventDescritor;
     @FXML
@@ -26,7 +28,7 @@ public class SessionUpdaterController {
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
-        eventDescritor.setText(AppStateController.stateController.getCurrentEvent().getDescritor());
+        eventDescritor.setText(AppStateController.stateController.getCurrentEvent().getDescription());
     }
 
     @FXML
@@ -44,19 +46,17 @@ public class SessionUpdaterController {
     }
     @FXML
     private void updateSession() throws IOException {
-        Date startDate = null;
-        Date endDate = null;
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        LocalDate startDate = null;
+        LocalDate endDate = null;
         try {
-            startDate = (startDatePicker.getValue() != null) ? formatter.parse(startDatePicker.getValue().toString()): null;
-            endDate = (endDatePicker.getValue() != null) ? formatter.parse(endDatePicker.getValue().toString()): null;
-
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error parsing Date objects", e);
+            startDate = (startDatePicker.getValue() != null) ? startDatePicker.getValue(): null;
+            endDate = (endDatePicker.getValue() != null) ? endDatePicker.getValue(): null;
+            AppStateController.sessionController.updateSessionStartDate(startDate);
+            AppStateController.sessionController.updateSessionEndDate(endDate);
+        } catch (SystemException e) {
+            warningLabel.setText(e.getMessage());
         }
-        if (startDate != null) AppStateController.sessionController.updateSessionStartDate(startDate);
-        if (endDate != null) AppStateController.sessionController.updateSessionEndDate(endDate);
-        if (!descritorField.getText().isEmpty()) AppStateController.sessionController.updateSessionDescritor(descritorField.getText());
+        if (!descritorField.getText().isEmpty()) AppStateController.sessionController.updateSessionDescription(descritorField.getText());
 
         App.setRoot("sessionManager");
     }

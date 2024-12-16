@@ -1,115 +1,112 @@
 package br.upe.controllers;
 
-import br.upe.pojos.*;
+import br.upe.entities.*;
+import br.upe.util.controllers.CHECKING;
+import br.upe.util.controllers.InvalidDateInput;
+import br.upe.util.persistencia.PersistenciaInterface;
+import br.upe.util.persistencia.SystemException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.UUID;
 
 public class SessionController {
-
-    public SessionController(StateController stateController, CRUDController crudController) {
-        this.stateController = stateController;
-        this.crudController = crudController;
-    }
     private final StateController stateController;
-    private final CRUDController crudController;
+    private final DAOController daoController;
+    public SessionController(StateController stateController, DAOController daoController) {
+        this.stateController = stateController;
+        this.daoController = daoController;
+    }
 
-    public boolean createNewSession(String descritor){
-        if(stateController.getCurrentUser() instanceof AdminUser user){
+    public void createNewSession(String title, String description, String guest, String local) {
+        if(!(stateController.getCurrentUser() instanceof SystemAdmin)) return;
+        Session currentSession = PersistenciaInterface.createSession();
+        currentSession.setTitle(title);
+        currentSession.setDescription(description);
+        currentSession.setGuest(guest);
+        currentSession.setLocal(local);
 
-            Session session = KeeperInterface.createSession();
-            session.setUuid(UUID.randomUUID());
-            session.setDescritor(descritor);
-            session.setEventUuid(stateController.getCurrentEvent().getUuid());
-            session.setSubscriptions(new ArrayList<>());
+        daoController.sessionDAO.save(currentSession);
 
-            GreatEvent eventHandler = KeeperInterface.createGreatEvent();
-            eventHandler.setSessions(stateController.getCurrentEvent().getSessions());
-            eventHandler.getSessions().add(session);
-
-            stateController.setCurrentSession(session);
-            crudController.sessionCRUD.createSession(session);
-            crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), eventHandler);
-            stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
-            Collection<GreatEvent> events = user.getEvents();
-            events.removeIf(event -> event.getUuid().equals(stateController.getCurrentEvent().getUuid()));
-            events.add(stateController.getCurrentEvent());
-            ((AdminUser) stateController.getCurrentUser()).setEvents(events);
-            return true;
+        if(stateController.getCurrentSubEvent() != null){
+            stateController.getCurrentSubEvent().getSessions().add(currentSession);
+        } else {
+            stateController.getCurrentEvent().getSessions().add(currentSession);
         }
-        return false;
+
+        stateController.setCurrentSession(currentSession);
     }
-    public void updateSessionDescritor(String descritor){
-        Session source = KeeperInterface.createSession();
-        source.setDescritor(descritor);
-        crudController.sessionCRUD.updateSession(stateController.getCurrentSession().getUuid(), source);
-        stateController.setCurrentSession(crudController.sessionCRUD.returnSession(stateController.getCurrentSession().getUuid()));
+
+    public void updateSessionDescription(String description) {
+        if(!(stateController.getCurrentUser() instanceof SystemAdmin)) return;
+        Session currentSession = stateController.getCurrentSession();
+        stateController.getCurrentEvent().getSessions().remove(currentSession);
+        currentSession.setDescription(description);
+        daoController.sessionDAO.update(currentSession);
+        stateController.setCurrentSession(currentSession);
+        stateController.getCurrentEvent().getSessions().add(currentSession);
     }
-    public boolean updateSessionStartDate(Date startDate){
-        Session source = KeeperInterface.createSession();
-        source.setStartDate(startDate);
-        if(startDate != null){
-            crudController.sessionCRUD.updateSession(stateController.getCurrentSession().getUuid(), source);
-            stateController.setCurrentSession(crudController.sessionCRUD.returnSession(stateController.getCurrentSession().getUuid()));
-            return true;
-        } return false;
+    public void updateSessionStartDate(LocalDate startDate) throws SystemException {
+        if(!(stateController.getCurrentUser() instanceof SystemAdmin)) return;
+        Session currentSession = stateController.getCurrentSession();
+        try{
+            CHECKING.checkDates(startDate, currentSession.getEndDate());
+        } catch (SystemException e){
+            throw new InvalidDateInput(e.getMessage(), e.getCause());
+        }
+        stateController.getCurrentEvent().getSessions().remove(currentSession);
+        currentSession.setStartDate(startDate);
+        daoController.sessionDAO.update(currentSession);
+        stateController.setCurrentSession(currentSession);
+        stateController.getCurrentEvent().getSessions().add(currentSession);
     }
-    public boolean updateSessionEndDate(Date endDate){
-        Session source = KeeperInterface.createSession();
-        source.setEndDate(endDate);
-        if(endDate != null){
-            crudController.sessionCRUD.updateSession(stateController.getCurrentSession().getUuid(), source);
-            stateController.setCurrentSession(crudController.sessionCRUD.returnSession(stateController.getCurrentSession().getUuid()));
-            return true;
-        } return false;
+    public void updateSessionEndDate(LocalDate endDate) throws InvalidDateInput {
+        if(!(stateController.getCurrentUser() instanceof SystemAdmin)) return;
+        Session currentSession = stateController.getCurrentSession();
+        try{
+            CHECKING.checkDates(currentSession.getStartDate(), endDate);
+        } catch (SystemException e){
+            throw new InvalidDateInput(e.getMessage(), e.getCause());
+        }
+        stateController.getCurrentEvent().getSessions().remove(currentSession);
+        currentSession.setEndDate(endDate);
+        daoController.sessionDAO.update(currentSession);
+        stateController.setCurrentSession(currentSession);
+        stateController.getCurrentEvent().getSessions().add(currentSession);
     }
     public void addSubscriptionToSession(){
-        Subscription subscription = KeeperInterface.createSubscription();
-        subscription.setUuid(UUID.randomUUID());
-        subscription.setSessionUuid(stateController.getCurrentSession().getUuid());
-        subscription.setUserUuid(stateController.getCurrentUser().getUuid());
-        subscription.setDate(new Date());
+        Session currentSession = stateController.getCurrentSession();
+        stateController.getCurrentEvent().getSessions().remove(currentSession);
 
-        stateController.getCurrentSession().getSubscriptions().add(subscription);
-        stateController.getCurrentUser().getSubscriptions().add(subscription);
-        stateController.setCurrentSubscription(subscription);
+        Subscription subscription = PersistenciaInterface.createSubscription();
+        subscription.setSession(currentSession);
+        subscription.setUser((SystemUser) stateController.currentUser);
+        subscription.setDate(LocalDate.now());
 
-        User userHandler;
-        if(stateController.getCurrentUser() instanceof AdminUser){
-            userHandler = KeeperInterface.createAdminUser();
-        } else {
-            userHandler = KeeperInterface.createCommomUser();
-        } userHandler.setSubscriptions(stateController.getCurrentUser().getSubscriptions());
-
-        Session sessionHandler = KeeperInterface.createSession();
-        sessionHandler.setSubscriptions(stateController.getCurrentSession().getSubscriptions());
-
-        crudController.subscriptionCRUD.createSubscription(subscription);
-        crudController.sessionCRUD.updateSession(stateController.getCurrentSession().getUuid(), sessionHandler);
-        crudController.userCRUD.updateUser(stateController.getCurrentUser().getUuid(), userHandler);
+        currentSession.getSubscriptions().add(subscription);
+        daoController.sessionDAO.update(currentSession);
+        stateController.setCurrentSession(currentSession);
+        stateController.getCurrentEvent().getSessions().add(currentSession);
+        daoController.subscriptionDAO.save(subscription);
     }
-    public void changeCurrentSession(UUID sessionUuid){
-        stateController.setCurrentSession(crudController.sessionCRUD.returnSession(sessionUuid));
+    public void changeCurrentSession(Session session){
+        stateController.setCurrentSession(session);
     }
+
     public void closeCurrentSession(){
         stateController.setCurrentSession(null);
     }
 
-    public Collection<Session> getAllEventSessions(UUID eventUuid) {
-        Collection<Session> sessions = crudController.sessionCRUD.returnSession();
+    public Collection<Session> getAllEventSessions(Event event) {
+        Collection<Session> sessions = daoController.sessionDAO.findAll();
         Collection<Session> filtered = new ArrayList<>();
 
         for (Session session : sessions) {
-            if (session != null && session.getEventUuid().toString().equals(eventUuid.toString())) {
+            if (session != null && session.getEvent().getId().equals(event.getId())) {
                 filtered.add(session);
             }
         }
 
         return filtered;
     }
-
 }
-
-

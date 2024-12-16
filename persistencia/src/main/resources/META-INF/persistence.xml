@@ -1,0 +1,54 @@
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+             http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+             version="2.1">
+    <persistence-unit name="default">
+        <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+        <class>br.upe.entities.Event</class>
+        <class>br.upe.entities.SubEvent</class>
+        <class>br.upe.entities.Session</class>
+        <class>br.upe.entities.Submission</class>
+        <class>br.upe.entities.Subscription</class>
+        <class>br.upe.entities.User</class>
+        <class>br.upe.entities.SystemUser</class>
+        <class>br.upe.entities.SystemAdmin</class>
+        <class>br.upe.entities.Certification</class>
+        <class>br.upe.entities.BaseEvent</class>
+
+        <properties>
+            <!-- Configurações do jakarta.persistence -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
+
+            <!-- Configurações adicionais do OpenJPA -->
+            <property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO"/>
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+
+        </properties>
+    </persistence-unit>
+    <persistence-unit name="develop">
+        <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+        <class>br.upe.entities.Event</class>
+        <class>br.upe.entities.SubEvent</class>
+        <class>br.upe.entities.Session</class>
+        <class>br.upe.entities.Submission</class>
+        <class>br.upe.entities.Subscription</class>
+        <class>br.upe.entities.User</class>
+        <class>br.upe.entities.SystemUser</class>
+        <class>br.upe.entities.SystemAdmin</class>
+        <class>br.upe.entities.Certification</class>
+        <class>br.upe.entities.BaseEvent</class>
+
+        <properties>
+            <!-- Configurações do jakarta.persistence -->
+            <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+
+            <!-- Configurações adicionais do OpenJPA -->
+            <property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO"/>
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+
+        </properties>
+    </persistence-unit>
+</persistence>

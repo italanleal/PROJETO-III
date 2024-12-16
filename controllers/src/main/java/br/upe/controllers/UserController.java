@@ -1,50 +1,64 @@
 package br.upe.controllers;
 
-import br.upe.operations.HasherInterface;
-import br.upe.pojos.*;
+import br.upe.entities.SystemAdmin;
+import br.upe.entities.SystemUser;
+import br.upe.entities.User;
 
 public class UserController {
-    public UserController(StateController stateController, CRUDController crudController) {
-        this.stateController = stateController;
-        this.crudController = crudController;
-    }
-
     private final StateController stateController;
-    private final CRUDController crudController;
+    private final DAOController daoController;
+
+    public UserController(StateController stateController, DAOController daoController) {
+        this.stateController = stateController;
+        this.daoController = daoController;
+    }
 
     public void updateUserName(String userName){
         User source;
-        if(stateController.getCurrentUser() instanceof AdminUser){
-            source = KeeperInterface.createAdminUser();
+        if(stateController.getCurrentUser() instanceof SystemAdmin){
+            source = stateController.getCurrentUser();
+            source.setName(userName);
+            daoController.systemAdminDAO.update((SystemAdmin) source);
         } else {
-            source = KeeperInterface.createCommomUser();
+            source = stateController.getCurrentUser();
+            source.setName(userName);
+            daoController.systemUserDAO.update((SystemUser) source);
         }
-        source.setName(userName);
-        crudController.userCRUD.updateUser(stateController.getCurrentUser().getUuid(), source);
-        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
-    public void updateUserEmail(String userEmail){
+    public void updateUserEmail(String email){
         User source;
-        if(stateController.getCurrentUser() instanceof AdminUser){
-            source = KeeperInterface.createAdminUser();
+        if(stateController.getCurrentUser() instanceof SystemAdmin){
+            source = stateController.getCurrentUser();
+            source.setEmail(email);
+            daoController.systemAdminDAO.update((SystemAdmin) source);
         } else {
-            source = KeeperInterface.createCommomUser();
+            source = stateController.getCurrentUser();
+            source.setEmail(email);
+            daoController.systemUserDAO.update((SystemUser) source);
         }
-        source.setEmail(userEmail);
-        crudController.userCRUD.updateUser(stateController.getCurrentUser().getUuid(), source);
-        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
-    public void updateUserPassword(String userPassword){
+    public void updateUserPassword(String Password){
         User source;
-        if(stateController.getCurrentUser() instanceof AdminUser){
-            source = KeeperInterface.createAdminUser();
+        if(stateController.getCurrentUser() instanceof SystemAdmin){
+            source = stateController.getCurrentUser();
+            source.setPassword(Password);
+            daoController.systemAdminDAO.update((SystemAdmin) source);
         } else {
-            source = KeeperInterface.createCommomUser();
+            source = stateController.getCurrentUser();
+            source.setPassword(Password);
+            daoController.systemUserDAO.update((SystemUser) source);
         }
-        source.setPassword(HasherInterface.hash(userPassword));
-        crudController.userCRUD.updateUser(stateController.getCurrentUser().getUuid(), source);
-        stateController.setCurrentUser(crudController.userCRUD.returnUser(stateController.getCurrentUser().getUuid()));
     }
-
-
+    public void updateUserSurname(String surname){
+        User source;
+        if(stateController.getCurrentUser() instanceof SystemAdmin){
+            source = stateController.getCurrentUser();
+            source.setSurname(surname);
+            daoController.systemAdminDAO.update((SystemAdmin) source);
+        } else {
+            source = stateController.getCurrentUser();
+            source.setSurname(surname);
+            daoController.systemUserDAO.update((SystemUser) source);
+        }
+    }
 }

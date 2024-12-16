@@ -1,25 +1,33 @@
 package br.upe.controllers;
 
-import br.upe.pojos.*;
+import br.upe.entities.*;
 
 public class StateController {
-    private User currentUser;
-    private GreatEvent currentEvent;
-    private Session  currentSession;
-    private Submission currentSubmission;
-    private Subscription currentSubscription;
+    public User currentUser;
+    public Event currentEvent;
+    public Session currentSession;
+    public Submission currentSubmission;
+    public Certification currentCertification;
+    public Subscription currentSubscription;
+    public SubEvent currentSubEvent;
 
+    public Event getCurrentEvent() {
+        return currentEvent;
+    }
+    public void setCurrentEvent(Event currentEvent) {
+        this.currentEvent = currentEvent;
+    }
     public Session getCurrentSession() {
         return currentSession;
     }
     public void setCurrentSession(Session currentSession) {
         this.currentSession = currentSession;
     }
-    public Submission getCurrentSubmission() {
-        return currentSubmission;
+    public Certification getCurrentCertification() {
+        return currentCertification;
     }
-    public void setCurrentSubmission(Submission currentSubmission) {
-        this.currentSubmission = currentSubmission;
+    public void setCurrentCertification(Certification currentCertification) {
+        this.currentCertification = currentCertification;
     }
     public Subscription getCurrentSubscription() {
         return currentSubscription;
@@ -27,16 +35,22 @@ public class StateController {
     public void setCurrentSubscription(Subscription currentSubscription) {
         this.currentSubscription = currentSubscription;
     }
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
+    public SubEvent getCurrentSubEvent() {
+        return currentSubEvent;
+    }
+    public void setCurrentSubEvent(SubEvent currentSubEvent) {
+        this.currentSubEvent = currentSubEvent;
+    }
+    public void setCurrentSubmission(Submission currentSubmission) {
+        this.currentSubmission = currentSubmission;
+    }
+    public Submission getCurrentSubmission() {
+        return currentSubmission;
     }
     public User getCurrentUser() {
-        return this.currentUser;
+        return currentUser;
     }
-    public GreatEvent getCurrentEvent() {
-        return currentEvent;
-    }
-    public void setCurrentEvent(GreatEvent currentEvent) {
-        this.currentEvent = currentEvent;
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
     }
 }
