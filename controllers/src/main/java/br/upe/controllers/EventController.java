@@ -78,6 +78,7 @@ public class EventController {
         stateController.setCurrentEvent(event);
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().add(event);
     }
+
     public void updateEventStartDate(LocalDate startDate) throws SystemException {
         if(!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
@@ -93,6 +94,26 @@ public class EventController {
         daoController.eventDAO.update(event);
         stateController.setCurrentEvent(event);
         ((SystemAdmin)stateController.getCurrentUser()).getEvents().add(event);
+
+    public void addEventSubmission(String descritor){
+        Submission submission = KeeperInterface.createSubmission();
+        submission.setUuid(UUID.randomUUID());
+        submission.setUserUuid(stateController.getCurrentUser().getUuid());
+        submission.setEventUuid(stateController.getCurrentEvent().getUuid());
+        submission.setDescritor(descritor);
+        submission.setDate(new Date());
+
+        stateController.getCurrentEvent().addSubmission(submission);
+
+
+        GreatEvent eventHandler = KeeperInterface.createGreatEvent();
+        eventHandler.setSubmissions(stateController.getCurrentEvent().getSubmissions());
+
+        crudController.submissionCRUD.createSubmission(submission);
+        crudController.eventCRUD.updateEvent(stateController.getCurrentEvent().getUuid(), eventHandler);
+        stateController.setCurrentEvent(crudController.eventCRUD.returnEvent(stateController.getCurrentEvent().getUuid()));
+        stateController.setCurrentSubmission(submission);
+
     }
     public void updateEventEndDate(LocalDate endDate) throws SystemException {
         if(!stateController.getCurrentUser().isSu()) {

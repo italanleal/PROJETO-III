@@ -15,12 +15,14 @@
     <dependencies>
         <dependency>
             <groupId>br.upe</groupId>
+          
             <artifactId>persistencia</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>br.upe</groupId>
+
             <artifactId>controllers</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>

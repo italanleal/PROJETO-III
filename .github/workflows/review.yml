@@ -1,4 +1,3 @@
-
 name: Review Required Workflow
 
 on:
@@ -20,7 +19,6 @@ jobs:
           architecture: x64
               
       - name: Build with Maven
-
         run: mvn -Dtest=NoneToTest -B package --file pom.xml
 
       - name: Upload JAR file
@@ -38,7 +36,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-
       - name: UserTest
+
         run: |
           echo "This job requires a review before it can proceed"
