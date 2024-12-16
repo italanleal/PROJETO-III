@@ -6,6 +6,7 @@ import br.upe.util.persistencia.SystemException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Nested;
 
 import java.time.LocalDate;
 import java.util.logging.Level;
