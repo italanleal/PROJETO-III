@@ -25,7 +25,4 @@ public class Facade {
         subscriptionController = ControllersInterface.newSubscriptionController(stateController, daoController);
         submissionController = ControllersInterface.newSubmissionController(stateController, daoController);
     }
-    void printA(String A){
-        System.out.println(A);
-    }
 }

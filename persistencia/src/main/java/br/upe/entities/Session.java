@@ -24,22 +24,13 @@ public class Session {
     private LocalDate endDate;
 
     @ManyToOne(
-            targetEntity=br.upe.entities.Event.class,
+            targetEntity=br.upe.entities.BaseEvent.class,
             cascade=CascadeType.PERSIST,
             fetch=FetchType.LAZY,
             optional=true
     )
     @JoinColumn(name="event_id", nullable=true, updatable=true)
-    private Event event;
-
-    @OneToOne(
-            targetEntity=br.upe.entities.SubEvent.class,
-            mappedBy="session",
-            cascade=CascadeType.ALL,
-            orphanRemoval=true,
-            fetch=FetchType.LAZY
-    )
-    private SubEvent subEvent;
+    private BaseEvent event;
 
     @OneToMany(
             targetEntity=br.upe.entities.Subscription.class,

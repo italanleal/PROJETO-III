@@ -8,22 +8,13 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity @Getter @Setter
-public class SubEvent {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private @Id
-    @Setter(AccessLevel.PROTECTED) Long id;
-
-    private String title;
-    private String description;
-
-    private LocalDate startDate;
-    private LocalDate endDate;
-    @OneToOne(
-            targetEntity=br.upe.entities.Session.class,
-            optional=true,
+public class SubEvent extends BaseEvent {
+    @ManyToOne(
+            targetEntity=br.upe.entities.Event.class,
+            cascade=CascadeType.PERSIST,
             fetch=FetchType.LAZY,
-            cascade=CascadeType.PERSIST
+            optional=true
     )
-    @JoinColumn(name="session_id", unique=true, nullable=true, updatable=true)
-    private Session session;
+    @JoinColumn(name="event_id", nullable=true, updatable=true)
+    private Event event;
 }
