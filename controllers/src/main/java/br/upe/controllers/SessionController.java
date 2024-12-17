@@ -26,11 +26,13 @@ public class SessionController {
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
 
+
         Session session = PersistenciaInterface.createSession();
         session.setTitle(title);
         session.setDescription(description);
         session.setGuest(guest);
         session.setLocal(local);
+
         session.setStartDate(startDate);
         session.setEndDate(endDate);
 
@@ -46,6 +48,7 @@ public class SessionController {
             stateController.setCurrentEvent(event);
         }
         stateController.setCurrentSession(daoController.sessionDAO.save(session));
+
     }
 
     public void updateSessionDescription(String description) {
@@ -57,12 +60,14 @@ public class SessionController {
     }
 
     public void updateSessionStartDate(LocalDate startDate) throws SystemException {
+
         if(!(stateController.currentUser instanceof SystemAdmin)) throw new UserIsNotAdmin();
         try {
             CHECKING.checkDates(startDate, stateController.currentSession.getEndDate());
         } catch (InvalidDateInput e){
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
+
 
         Session session = stateController.getCurrentSession();
 
@@ -75,6 +80,7 @@ public class SessionController {
         session.setStartDate(startDate);
         stateController.setCurrentSession(daoController.sessionDAO.update(session));
     }
+
     public void updateSessionEndDate(LocalDate endDate) throws SystemException {
         if(!(stateController.currentUser instanceof SystemAdmin)) return;
         try {
@@ -82,6 +88,7 @@ public class SessionController {
         } catch (InvalidDateInput e){
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
+
         Session session = stateController.getCurrentSession();
 
         try{
@@ -110,6 +117,7 @@ public class SessionController {
         Session session = stateController.getCurrentSession();
         session.setTitle(local);
         stateController.setCurrentSession(daoController.sessionDAO.update(session));
+
     }
     public void addSubscriptionToSession(){
         Session session = stateController.getCurrentSession();
