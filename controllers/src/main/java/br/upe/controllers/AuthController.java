@@ -67,13 +67,13 @@ public class AuthController {
             }
         }
         if(password.equals(user.getPassword())) {
-            stateController.setCurrentUser(user);
+            stateController.currentUser = user;
         } else {
             throw new IncorrectPasswordException("Incorrect Password", null);
         }
     }
 
     public void logout(){
-        stateController.setCurrentUser(null);
+        stateController.currentUser = null;
     }
 }

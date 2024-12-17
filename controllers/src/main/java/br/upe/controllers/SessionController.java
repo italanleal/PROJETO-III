@@ -20,6 +20,7 @@ public class SessionController {
 
     public void createNewSession(String title, String description, String guest, String local) {
         if(!(stateController.currentUser instanceof SystemAdmin)) return;
+
         Session session = PersistenciaInterface.createSession();
         session.setTitle(title);
         session.setDescription(description);
@@ -42,11 +43,14 @@ public class SessionController {
         session.setDescription(description);
         daoController.sessionDAO.update(session);
         stateController.setCurrentSession(session);
+
     }
 
     public void updateSessionStartDate(LocalDate startDate) throws SystemException {
         if(!(stateController.currentUser instanceof SystemAdmin)) return;
+
         Session session = stateController.getCurrentSession();
+
         try{
             CHECKING.checkDates(startDate, session.getEndDate());
         } catch (SystemException e){
@@ -60,18 +64,19 @@ public class SessionController {
     public void updateSessionEndDate(LocalDate endDate) throws InvalidDateInput {
         if(!(stateController.currentUser instanceof SystemAdmin)) return;
         Session session = stateController.getCurrentSession();
+
         try{
             CHECKING.checkDates(session.getStartDate(), endDate);
         } catch (SystemException e){
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
-
         session.setEndDate(endDate);
         daoController.sessionDAO.update(session);
         stateController.setCurrentSession(session);
     }
     public void addSubscriptionToSession(){
         Session session = stateController.getCurrentSession();
+
 
         Subscription subscription = PersistenciaInterface.createSubscription();
         subscription.setSession(session);
@@ -82,11 +87,11 @@ public class SessionController {
 
     }
     public void changeCurrentSession(Session session){
-        stateController.setCurrentSession(session);
+        stateController.currentSession =session;
     }
 
     public void closeCurrentSession(){
-        stateController.setCurrentSession(null);
+        stateController.currentSession=null;
     }
 
     public Collection<Session> getAllEventSessions(BaseEvent event) {

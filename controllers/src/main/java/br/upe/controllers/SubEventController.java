@@ -41,6 +41,7 @@ public class SubEventController {
 
         daoController.subEventDAO.save(subEvent);
         stateController.setCurrentSubEvent(subEvent);
+
     }
 
     public void updateSubEventDescription(String description) throws SystemException {
@@ -51,6 +52,7 @@ public class SubEventController {
         subEvent.setDescription(description);
         daoController.subEventDAO.update(subEvent);
         stateController.setCurrentSubEvent(subEvent);
+
     }
 
     public void updateSubEventDirector(String director) throws SystemException {
@@ -67,6 +69,7 @@ public class SubEventController {
         if (!stateController.currentUser.isSu()) {
             throw new UserIsNotAdmin();
         }
+
         SubEvent subEvent = stateController.getCurrentSubEvent();
         subEvent.setTitle(title);
         daoController.subEventDAO.update(subEvent);
@@ -111,14 +114,15 @@ public class SubEventController {
         }
         daoController.subEventDAO.delete(subEvent);
         stateController.setCurrentSubEvent(null);
+
     }
 
     public void changeCurrentSubEvent(SubEvent subEvent) {
-        stateController.setCurrentSubEvent(subEvent);
+        stateController.currentSubEvent=subEvent;
     }
 
     public void closeCurrentSubEvent() {
-        stateController.setCurrentSubEvent(null);
+        stateController.currentSubEvent=null;
     }
 
     public List<SubEvent> getAllSubEvents() {

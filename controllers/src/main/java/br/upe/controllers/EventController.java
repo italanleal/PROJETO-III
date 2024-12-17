@@ -36,20 +36,24 @@ public class EventController {
         event.setDirector(director);
         event.setStartDate(startDate);
         event.setEndDate(endDate);
+
         event.setAdmin((SystemAdmin) stateController.getCurrentUser());
 
         daoController.eventDAO.save(event);
         stateController.setCurrentEvent(event);
+
     }
 
     public void updateEventDescription(String description) throws SystemException {
         if(!stateController.currentUser.isSu()){
             throw new UserIsNotAdmin();
         }
+
         Event event = stateController.getCurrentEvent();
         event.setDescription(description);
         daoController.eventDAO.update(event);
         stateController.setCurrentEvent(event);
+
     }
 
     public void updateEventDirector(String director) throws SystemException {
@@ -61,6 +65,7 @@ public class EventController {
         event.setDirector(director);
         daoController.eventDAO.update(event);
         stateController.setCurrentEvent(event);
+
     }
     public void updateEventTitle(String title)throws SystemException {
         if(!stateController.currentUser.isSu()) {
@@ -71,13 +76,14 @@ public class EventController {
         event.setTitle(title);
         daoController.eventDAO.update(event);
         stateController.setCurrentEvent(event);
+
     }
 
     public void updateEventStartDate(LocalDate startDate) throws SystemException {
         if (!stateController.currentUser.isSu()) {
             throw new UserIsNotAdmin();
         }
-        Event event = stateController.getCurrentEvent();
+        Event event = stateController.currentEvent;
         try {
             CHECKING.checkDates(startDate, event.getStartDate());
         } catch (SystemException e) {
@@ -87,13 +93,14 @@ public class EventController {
         event.setStartDate(startDate);
         daoController.eventDAO.update(event);
         stateController.setCurrentEvent(event);
+
     }
 
     public void updateEventEndDate(LocalDate endDate) throws SystemException {
         if(!stateController.currentUser.isSu()) {
             throw new UserIsNotAdmin();
         }
-        Event event = stateController.getCurrentEvent();
+        Event event = stateController.currentEvent;
         try{
             CHECKING.checkDates(event.getStartDate(), endDate);
         } catch (SystemException e){
@@ -110,6 +117,7 @@ public class EventController {
             throw new UserIsNotAdmin();
         }
         daoController.eventDAO.delete(event);
+
         stateController.setCurrentEvent(null);
     }
     public Collection<Event> getAllEventsByUser() throws SystemException {
@@ -122,12 +130,14 @@ public class EventController {
             return stateController.getCurrentEvent().getSubEvents();
         }  else throw new UserIsNotAdmin();
 
+
     }
     public void changeCurrentEvent(Event event){
-        stateController.setCurrentEvent(event);
+        stateController.currentEvent = event;
     }
     public void closeCurrentEvent() {
-        stateController.setCurrentEvent(null);
+
+        stateController.currentEvent = null;
     }
     public List<Event> getAllEvents() {
         return daoController.eventDAO.findAll();

@@ -15,6 +15,7 @@ public class UserController {
     }
 
     public void updateUserName(String userName){
+
         if(stateController.getCurrentUser() instanceof SystemAdmin admin){
             admin.setName(userName);
             daoController.systemAdminDAO.update(admin);
@@ -32,12 +33,12 @@ public class UserController {
             daoController.systemAdminDAO.update(admin);
             return;
         }
-
         if(stateController.getCurrentUser() instanceof SystemUser user) {
             user.setEmail(email);
             daoController.systemUserDAO.update(user);
         }
     }
+
     public void updateUserPassword(String password){
         if(stateController.getCurrentUser() instanceof SystemAdmin admin){
             admin.setPassword(password);
@@ -60,6 +61,7 @@ public class UserController {
         if(stateController.getCurrentUser() instanceof SystemUser user) {
             user.setSurname(surname);
             daoController.systemUserDAO.update(user);
+
         }
 
     }

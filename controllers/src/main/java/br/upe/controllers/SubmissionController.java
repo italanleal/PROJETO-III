@@ -32,7 +32,5 @@ public class SubmissionController {
         } catch (IOException e) {
             throw new SystemIOException(e.getMessage(), e.getCause());
         }
-        daoController.submissionDAO.save(submission);
-        stateController.setCurrentSubmission(submission);
     }
 }

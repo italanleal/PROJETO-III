@@ -11,6 +11,7 @@ public class StateController {
     public Subscription currentSubscription;
     public SubEvent currentSubEvent;
 
+
     private DAOController daoController;
 
     public StateController(DAOController daoController) {
@@ -150,3 +151,4 @@ public class StateController {
 
     }
 }
+
