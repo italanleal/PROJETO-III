@@ -22,13 +22,11 @@ public class StateController {
 
     public Userd getCurrentUser() {
         if(currentUser instanceof SystemAdmin systemAdmin) {
-            daoController.systemAdminDAO.update(systemAdmin);
-            daoController.systemAdminDAO.detach(systemAdmin);
+            setCurrentUser(daoController.systemAdminDAO.update(systemAdmin));
         }
 
-        if(currentUser instanceof SystemUser user) {
-            daoController.systemUserDAO.update(user);
-            daoController.systemUserDAO.detach(user);
+        if(currentUser instanceof SystemUser systemUser) {
+            setCurrentUser(daoController.systemUserDAO.update(systemUser));
         }
 
         return currentUser;
@@ -46,8 +44,7 @@ public class StateController {
 
     public Event getCurrentEvent() {
         if (currentEvent != null) {
-            daoController.eventDAO.update(currentEvent);
-            daoController.eventDAO.detach(currentEvent);
+            setCurrentEvent(daoController.eventDAO.update(currentEvent));
         }
         return currentEvent;
     }
@@ -63,8 +60,7 @@ public class StateController {
 
     public Session getCurrentSession() {
         if (currentSession != null) {
-            daoController.sessionDAO.update(currentSession);
-            daoController.sessionDAO.detach(currentSession);
+            setCurrentSession(daoController.sessionDAO.update(currentSession));
         }
         return currentSession;
     }
@@ -80,8 +76,7 @@ public class StateController {
 
     public Submission getCurrentSubmission() {
         if (currentSubmission != null) {
-            daoController.submissionDAO.update(currentSubmission);
-            daoController.submissionDAO.detach(currentSubmission);
+            setCurrentSubmission(daoController.submissionDAO.update(currentSubmission));
         }
 
         return currentSubmission;
@@ -98,8 +93,7 @@ public class StateController {
 
     public Certification getCurrentCertification() {
         if (currentCertification != null) {
-            daoController.certificationDAO.update(currentCertification);
-            daoController.certificationDAO.detach(currentCertification);
+            setCurrentCertification(daoController.certificationDAO.update(currentCertification));
         }
         return currentCertification;
     }
@@ -115,8 +109,7 @@ public class StateController {
 
     public Subscription getCurrentSubscription() {
         if (currentSubscription != null) {
-            daoController.subscriptionDAO.update(currentSubscription);
-            daoController.subscriptionDAO.detach(currentSubscription);
+            setCurrentSubscription(daoController.subscriptionDAO.update(currentSubscription));
         }
 
         return currentSubscription;
@@ -134,7 +127,7 @@ public class StateController {
 
     public SubEvent getCurrentSubEvent() {
         if (currentSubEvent != null) {
-            daoController.subEventDAO.update(currentSubEvent);
+            setCurrentSubEvent(daoController.subEventDAO.update(currentSubEvent));
             daoController.subEventDAO.detach(currentSubEvent);
         }
 

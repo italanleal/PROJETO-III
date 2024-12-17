@@ -41,8 +41,7 @@ public class SessionController {
         if(!(stateController.currentUser.isSu())) return;
         Session session = stateController.getCurrentSession();
         session.setDescription(description);
-        daoController.sessionDAO.update(session);
-        stateController.setCurrentSession(session);
+        stateController.setCurrentSession(daoController.sessionDAO.update(session));
 
     }
 
@@ -58,8 +57,7 @@ public class SessionController {
         }
 
         session.setStartDate(startDate);
-        daoController.sessionDAO.update(session);
-        stateController.setCurrentSession(session);
+        stateController.setCurrentSession(daoController.sessionDAO.update(session));
     }
     public void updateSessionEndDate(LocalDate endDate) throws InvalidDateInput {
         if(!(stateController.currentUser instanceof SystemAdmin)) return;
@@ -71,8 +69,8 @@ public class SessionController {
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
         session.setEndDate(endDate);
-        daoController.sessionDAO.update(session);
-        stateController.setCurrentSession(session);
+
+        stateController.setCurrentSession(daoController.sessionDAO.update(session));
     }
     public void addSubscriptionToSession(){
         Session session = stateController.getCurrentSession();

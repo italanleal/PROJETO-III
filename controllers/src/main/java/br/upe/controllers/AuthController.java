@@ -73,7 +73,6 @@ public class AuthController {
         if(qUser instanceof SystemUser user){
             Optional<SystemUser> fUser = daoController.systemUserDAO.findById(user.getId());
             fUser.ifPresent(stateController::setCurrentUser);
-            return;
         }
     }
 

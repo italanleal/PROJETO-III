@@ -244,23 +244,19 @@ public class FacadeTest extends TestingFeatures {
 
             String name2 = "name#" + randomAlphaDecimalText(11);
             String surname2 = "surname#" + randomAlphaDecimalText(11);
-            String cpf2 = "cpf#" + randomAlphaDecimalText(11);
+            String cpf2 = "cpf2#" + randomAlphaDecimalText(11);
             String email2 = "email#" + randomAlphaDecimalText(11);
             String password2 = "pass#" + randomAlphaDecimalText(11);
 
             facade.authController.createNewUser(name, surname, cpf, email, password);
-
-            facade.authController.createNewUser(name2, surname2, cpf2, email2, password2);
-
             facade.authController.login(email, password);
+            Assertions.assertEquals(facade.daoController.userDAO.findByCPF(cpf).getId(), facade.stateController.getCurrentUser().getId());
 
-            Assertions.assertEquals(facade.daoController.userDAO.findByCPF(cpf), facade.stateController.getCurrentUser());
             facade.authController.logout();
 
+            facade.authController.createNewUser(name2, surname2, cpf2, email2, password2);
             facade.authController.login(email2, password2);
-            Assertions.assertEquals(facade.daoController.userDAO.findByCPF(cpf2), facade.stateController.getCurrentUser());
-
-
+            Assertions.assertEquals(facade.daoController.userDAO.findByCPF(cpf2).getId(), facade.stateController.getCurrentUser().getId());
         }
 
         @Test
@@ -276,7 +272,7 @@ public class FacadeTest extends TestingFeatures {
 
             facade.authController.login(email, password);
 
-            Assertions.assertTrue(true);
+            Assertions.assertEquals(name, facade.stateController.getCurrentUser().getName());
         }
 
         @Test
@@ -309,6 +305,7 @@ public class FacadeTest extends TestingFeatures {
             Assertions.assertNull(facade.stateController.currentUser);
         }
     }
+
     @Nested
     @DisplayName("UserController tests")
     class UserdControllerTest {
@@ -432,34 +429,90 @@ public class FacadeTest extends TestingFeatures {
 
         @Test
         @DisplayName("UpdateEventStartDate to after the end date")
-        void updateEventStartDateTest() throws SystemException {
+        void updateEventToValidStartDateTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
             String surname = "surname#" + randomAlphaDecimalText(11);
             String cpf = "cpf#" + randomAlphaDecimalText(11);
             String email = "email#" + randomAlphaDecimalText(11);
             String password = "pass#" + randomAlphaDecimalText(11);
+
             facade.authController.createNewAdmin(name, surname, cpf, email, password);
             facade.authController.login(email, password);
-            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
-            LocalDate newStartDate = startDate1.plusDays(1);
-            Assertions.assertThrows(SystemException.class, () -> facade.eventController.updateEventStartDate(newStartDate));
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = startDate.plusDays(10);
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            LocalDate newStartDate = startDate.plusDays(5);
+
+            facade.eventController.updateEventStartDate(newStartDate);
             Assertions.assertEquals(newStartDate, facade.stateController.getCurrentEvent().getStartDate());
         }
 
         @Test
-        @DisplayName("UpdateEventEndDate")
-        void updateEventEndDateTest() throws SystemException {
+        @DisplayName("UpdateEventStartDate to after the end date")
+        void updateEventToInvalidStartDateTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
             String surname = "surname#" + randomAlphaDecimalText(11);
             String cpf = "cpf#" + randomAlphaDecimalText(11);
             String email = "email#" + randomAlphaDecimalText(11);
             String password = "pass#" + randomAlphaDecimalText(11);
+
             facade.authController.createNewAdmin(name, surname, cpf, email, password);
             facade.authController.login(email, password);
-            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
-            LocalDate newEndDate = LocalDate.now().plusDays(20);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = startDate.plusDays(10);
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            LocalDate newStartDate = startDate.plusDays(11);
+
+            Assertions.assertThrows(SystemException.class, () -> facade.eventController.updateEventStartDate(newStartDate));
+            Assertions.assertEquals(startDate, facade.stateController.getCurrentEvent().getStartDate());
+        }
+
+        @Test
+        @DisplayName("UpdateEventEndDate")
+        void updateEventToValidEndDateTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname = "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = startDate.plusDays(10);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            LocalDate newEndDate = startDate.plusDays(11);
             facade.eventController.updateEventEndDate(newEndDate);
             Assertions.assertEquals(newEndDate, facade.stateController.getCurrentEvent().getEndDate());
+        }
+
+        @Test
+        @DisplayName("UpdateEventEndDate")
+        void updateEventToInvalidEndDateTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname = "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = startDate.plusDays(10);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            LocalDate newEndDate = endDate.minusDays(11);
+            Assertions.assertThrows(SystemException.class, () -> facade.eventController.updateEventEndDate(newEndDate));
+            Assertions.assertEquals(endDate, facade.stateController.getCurrentEvent().getEndDate());
         }
 
         @Test

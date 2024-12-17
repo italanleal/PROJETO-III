@@ -1,8 +1,8 @@
 package br.upe.controllers;
 
-import br.upe.entities.Event;
+
+import br.upe.entities.Session;
 import br.upe.entities.SubEvent;
-import br.upe.entities.SystemAdmin;
 import br.upe.util.controllers.CHECKING;
 import br.upe.util.controllers.InvalidDateInput;
 import br.upe.util.controllers.UserIsNotAdmin;
@@ -10,7 +10,6 @@ import br.upe.util.persistencia.PersistenciaInterface;
 import br.upe.util.persistencia.SystemException;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 
 import static br.upe.util.controllers.CHECKING.checkDates;
@@ -50,8 +49,8 @@ public class SubEventController {
         }
         SubEvent subEvent = stateController.getCurrentSubEvent();
         subEvent.setDescription(description);
-        daoController.subEventDAO.update(subEvent);
-        stateController.setCurrentSubEvent(subEvent);
+
+        stateController.setCurrentSubEvent(daoController.subEventDAO.update(subEvent));
 
     }
 
@@ -61,8 +60,7 @@ public class SubEventController {
         }
         SubEvent subEvent = stateController.getCurrentSubEvent();
         subEvent.setDirector(director);
-        daoController.subEventDAO.update(subEvent);
-        stateController.setCurrentSubEvent(subEvent);
+        stateController.setCurrentSubEvent(daoController.subEventDAO.update(subEvent));
     }
 
     public void updateSubEventTitle(String title) throws SystemException {
@@ -72,8 +70,8 @@ public class SubEventController {
 
         SubEvent subEvent = stateController.getCurrentSubEvent();
         subEvent.setTitle(title);
-        daoController.subEventDAO.update(subEvent);
-        stateController.setCurrentSubEvent(subEvent);
+
+        stateController.setCurrentSubEvent(daoController.subEventDAO.update(subEvent));
     }
 
     public void updateSubEventStartDate(LocalDate startDate) throws SystemException {
@@ -87,8 +85,8 @@ public class SubEventController {
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
         subEvent.setStartDate(startDate);
-        daoController.subEventDAO.update(subEvent);
-        stateController.setCurrentSubEvent(subEvent);
+
+        stateController.setCurrentSubEvent(daoController.subEventDAO.update(subEvent));
 
     }
 
@@ -103,8 +101,7 @@ public class SubEventController {
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
         subEvent.setEndDate(endDate);
-        daoController.subEventDAO.update(subEvent);
-        stateController.setCurrentSubEvent(subEvent);
+        stateController.setCurrentSubEvent(daoController.subEventDAO.update(subEvent));
 
     }
 
@@ -114,18 +111,20 @@ public class SubEventController {
         }
         daoController.subEventDAO.delete(subEvent);
         stateController.setCurrentSubEvent(null);
-
+    }
+    public List<Session> getSubEventSessions(){
+        return stateController.getCurrentSubEvent().getSessions();
     }
 
     public void changeCurrentSubEvent(SubEvent subEvent) {
-        stateController.currentSubEvent=subEvent;
+        stateController.setCurrentSubEvent(subEvent);
     }
 
     public void closeCurrentSubEvent() {
-        stateController.currentSubEvent=null;
+        stateController.setCurrentSubEvent(null);
     }
 
     public List<SubEvent> getAllSubEvents() {
-        return daoController.subEventDAO.findAll();
+        return stateController.getCurrentEvent().getSubEvents();
     }
 }

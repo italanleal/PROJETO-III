@@ -51,8 +51,7 @@ public class EventController {
 
         Event event = stateController.getCurrentEvent();
         event.setDescription(description);
-        daoController.eventDAO.update(event);
-        stateController.setCurrentEvent(event);
+        stateController.setCurrentEvent(daoController.eventDAO.update(event));
 
     }
 
@@ -63,9 +62,7 @@ public class EventController {
 
         Event event = stateController.getCurrentEvent();
         event.setDirector(director);
-        daoController.eventDAO.update(event);
-        stateController.setCurrentEvent(event);
-
+        stateController.setCurrentEvent(daoController.eventDAO.update(event));
     }
     public void updateEventTitle(String title)throws SystemException {
         if(!stateController.currentUser.isSu()) {
@@ -74,9 +71,7 @@ public class EventController {
 
         Event event = stateController.getCurrentEvent();
         event.setTitle(title);
-        daoController.eventDAO.update(event);
-        stateController.setCurrentEvent(event);
-
+        stateController.setCurrentEvent(daoController.eventDAO.update(event));
     }
 
     public void updateEventStartDate(LocalDate startDate) throws SystemException {
@@ -85,15 +80,14 @@ public class EventController {
         }
         Event event = stateController.currentEvent;
         try {
-            CHECKING.checkDates(startDate, event.getStartDate());
+            CHECKING.checkDates(startDate, event.getEndDate());
         } catch (SystemException e) {
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
 
         event.setStartDate(startDate);
-        daoController.eventDAO.update(event);
-        stateController.setCurrentEvent(event);
 
+        stateController.setCurrentEvent(daoController.eventDAO.update(event));
     }
 
     public void updateEventEndDate(LocalDate endDate) throws SystemException {
@@ -108,8 +102,7 @@ public class EventController {
         }
 
         event.setEndDate(endDate);
-        daoController.eventDAO.update(event);
-        stateController.setCurrentEvent(event);
+        stateController.setCurrentEvent(daoController.eventDAO.update(event));
 
     }
     public void deleteEvent(Event event) throws SystemException {
@@ -117,7 +110,6 @@ public class EventController {
             throw new UserIsNotAdmin();
         }
         daoController.eventDAO.delete(event);
-
         stateController.setCurrentEvent(null);
     }
     public Collection<Event> getAllEventsByUser() throws SystemException {
@@ -129,7 +121,6 @@ public class EventController {
         if (stateController.getCurrentUser() instanceof SystemAdmin) {
             return stateController.getCurrentEvent().getSubEvents();
         }  else throw new UserIsNotAdmin();
-
 
     }
     public void changeCurrentEvent(Event event){
