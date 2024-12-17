@@ -43,7 +43,6 @@ public class FacadeTest extends TestingFeatures {
         }
 
         @Test
-
         @DisplayName("State: CurrentEvent != null")
         void currentEventNotNullTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
@@ -102,7 +101,6 @@ public class FacadeTest extends TestingFeatures {
         }
 
         @Test
-        @Disabled
         @DisplayName("State: currentSubscription != null")
         void currentSubscriptionNotNullTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
@@ -119,7 +117,7 @@ public class FacadeTest extends TestingFeatures {
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
 
             facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE");
-            Session session = facade.stateController.currentSession;
+            Session session = facade.stateController.getCurrentSession();
 
             facade.authController.logout();
 
@@ -132,13 +130,12 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.createNewUser(name3, surname3, cpf3, email3, password3);
             facade.authController.login(email3, password3);
 
-            facade.stateController.currentSession= session;
+            facade.stateController.setCurrentSession(session);
             facade.sessionController.addSubscriptionToSession();
-            Assertions.assertNotNull(facade.stateController.currentSubscription);
+            Assertions.assertNotNull(facade.stateController.getCurrentSubscription());
         }
 
         @Test
-        @Disabled
         @DisplayName("State: currentSubscription != null")
         void currentSubmissionNotNullTest() throws SystemException, IOException {
             String name = "name#" + randomAlphaDecimalText(11);
@@ -153,9 +150,10 @@ public class FacadeTest extends TestingFeatures {
 
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE");
-            Event event = facade.stateController.currentEvent;
 
+            Event event = facade.stateController.getCurrentEvent();
             facade.authController.logout();
+
 
             String name3 = "name#" + randomAlphaDecimalText(11);
             String surname3 = "surname#" + randomAlphaDecimalText(11);
@@ -165,7 +163,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.createNewUser(name3, surname3, cpf3, email3, password3);
             facade.authController.login(email3, password3);
 
-            facade.stateController.currentEvent = event;
+            facade.stateController.setCurrentEvent(event);
 
             File tempFile = File.createTempFile("testFile", ".txt");
             tempFile.deleteOnExit();
@@ -174,7 +172,7 @@ public class FacadeTest extends TestingFeatures {
 
             facade.submissionController.submitFile(tempFile);
 
-            Assertions.assertNotNull(facade.stateController.currentSubscription);
+            Assertions.assertNotNull(facade.stateController.getCurrentSubmission());
         }
         @Test
         @DisplayName("State: currentCertification != null")
