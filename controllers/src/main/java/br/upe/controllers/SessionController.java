@@ -34,14 +34,18 @@ public class SessionController {
         session.setStartDate(startDate);
         session.setEndDate(endDate);
 
-        if(stateController.getCurrentSubEvent() instanceof SubEvent subEvent){
+        SubEvent subEvent = stateController.getCurrentSubEvent();
+        Event event = stateController.getCurrentEvent();
+        if(subEvent != null){
             session.setEvent(subEvent);
-        } else {
-            session.setEvent(stateController.getCurrentEvent());
+            subEvent.getSessions().add(session);
+            stateController.setCurrentSubEvent(subEvent);
+        } else if(event != null){
+            session.setEvent(event);
+            event.getSessions().add(session);
+            stateController.setCurrentEvent(event);
         }
-
-        daoController.sessionDAO.save(session);
-        stateController.setCurrentSession(session);
+        stateController.setCurrentSession(daoController.sessionDAO.save(session));
     }
 
     public void updateSessionDescription(String description) {
@@ -89,6 +93,24 @@ public class SessionController {
 
         stateController.setCurrentSession(daoController.sessionDAO.update(session));
     }
+    public void updateSessionTitle(String title){
+        if(!(stateController.currentUser.isSu())) return;
+        Session session = stateController.getCurrentSession();
+        session.setTitle(title);
+        stateController.setCurrentSession(daoController.sessionDAO.update(session));
+    }
+    public void updateSessionGuest(String guest){
+        if(!(stateController.currentUser.isSu())) return;
+        Session session = stateController.getCurrentSession();
+        session.setTitle(guest);
+        stateController.setCurrentSession(daoController.sessionDAO.update(session));
+    }
+    public void updateSessionLocal(String local){
+        if(!(stateController.currentUser.isSu())) return;
+        Session session = stateController.getCurrentSession();
+        session.setTitle(local);
+        stateController.setCurrentSession(daoController.sessionDAO.update(session));
+    }
     public void addSubscriptionToSession(){
         Session session = stateController.getCurrentSession();
 
@@ -108,7 +130,7 @@ public class SessionController {
         stateController.setCurrentSubscription(null);
     }
 
-    public Collection<Session> getAllEventSessions(BaseEvent event) {
-        return event.getSessions();
+    public Collection<Session> getAllEventSessions() {
+        return stateController.getCurrentEvent().getSessions();
     }
 }

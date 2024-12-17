@@ -3,6 +3,7 @@ package br.upe.controllers;
 import br.upe.entities.Subscription;
 import br.upe.entities.SystemAdmin;
 import br.upe.entities.SystemUser;
+import br.upe.entities.Userd;
 import br.upe.util.controllers.EmailAlreadyInUse;
 import br.upe.util.persistencia.SystemException;
 
@@ -29,9 +30,13 @@ public class UserController {
         }
     }
     public void updateUserEmail(String email) throws SystemException {
-        if(daoController.userDAO.findByEmail(email) != null) {
-            throw new EmailAlreadyInUse("Email used by other user", null);
-        }
+        Userd qUser = null;
+        try {
+            qUser = daoController.userDAO.findByEmail(email);
+        } catch (SystemException ignored){}
+
+        if(qUser != null) throw new EmailAlreadyInUse("Email used by other user", null);
+
         if(stateController.getCurrentUser() instanceof SystemAdmin admin){
             admin.setEmail(email);
             stateController.setCurrentUser(daoController.systemAdminDAO.update(admin));
