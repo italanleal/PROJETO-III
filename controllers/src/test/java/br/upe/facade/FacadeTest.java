@@ -260,6 +260,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email2, password2);
             Assertions.assertEquals(facade.daoController.userDAO.findByCPF(cpf2), facade.stateController.getCurrentUser());
 
+
         }
 
         @Test
@@ -322,7 +323,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.createNewUser(name, surname, cpf, email, password);
             facade.authController.login(email, password);
             facade.userController.updateUserName("Concha");
-            Assertions.assertEquals("Concha", facade.stateController.currentUser.getName());
+            Assertions.assertEquals("Concha", facade.stateController.getCurrentUser().getName());
         }
         @Test
         @DisplayName("UpdateUserEmailTest")
@@ -335,7 +336,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.createNewUser(name, surname, cpf, email, password);
             facade.authController.login(email, password);
             facade.userController.updateUserEmail("Concha");
-            Assertions.assertEquals("Concha", facade.stateController.currentUser.getEmail());
+            Assertions.assertEquals("Concha", facade.stateController.getCurrentUser().getEmail());
         }
         @Test
         @DisplayName("UpdateUserPassword")
@@ -348,7 +349,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.createNewUser(name, surname, cpf, email, password);
             facade.authController.login(email, password);
             facade.userController.updateUserPassword("Concha");
-            Assertions.assertEquals("Concha", facade.stateController.currentUser.getPassword());
+            Assertions.assertEquals("Concha", facade.stateController.getCurrentUser().getPassword());
         }
         @Test
         @DisplayName("UpdateUserSurname")
@@ -361,7 +362,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.createNewUser(name, surname, cpf, email, password);
             facade.authController.login(email, password);
             facade.userController.updateUserSurname("Concha");
-            Assertions.assertEquals("Concha", facade.stateController.currentUser.getSurname());
+            Assertions.assertEquals("Concha", facade.stateController.getCurrentUser().getSurname());
         }
     }
 
@@ -383,7 +384,7 @@ public class FacadeTest extends TestingFeatures {
             LocalDate startDate = LocalDate.parse("2024-12-20");
             LocalDate endDate = LocalDate.parse("2024-12-22");
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
-            Assertions.assertNotNull(facade.stateController.currentEvent);
+            Assertions.assertNotNull(facade.stateController.getCurrentEvent());
         }
         @Test
         @DisplayName("UpdateEventDescription")
@@ -397,7 +398,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             facade.eventController.updateEventDescription("Concha");
-            Assertions.assertEquals("Concha", facade.stateController.currentEvent.getDescription());
+            Assertions.assertEquals("Concha", facade.stateController.getCurrentEvent().getDescription());
         }
         @Test
         @DisplayName("UpdateEventDirector")
@@ -411,7 +412,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             facade.eventController.updateEventDirector("New Director");
-            Assertions.assertEquals("New Director", facade.stateController.currentEvent.getDirector());
+            Assertions.assertEquals("New Director", facade.stateController.getCurrentEvent().getDirector());
         }
 
         @Test
@@ -426,11 +427,11 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             facade.eventController.updateEventTitle("New Title");
-            Assertions.assertEquals("New Title", facade.stateController.currentEvent.getTitle());
+            Assertions.assertEquals("New Title", facade.stateController.getCurrentEvent().getTitle());
         }
 
         @Test
-        @DisplayName("UpdateEventStartDate")
+        @DisplayName("UpdateEventStartDate to after the end date")
         void updateEventStartDateTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
             String surname = "surname#" + randomAlphaDecimalText(11);
@@ -441,8 +442,8 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             LocalDate newStartDate = startDate1.plusDays(1);
-            facade.eventController.updateEventStartDate(newStartDate);
-            Assertions.assertEquals(newStartDate, facade.stateController.currentEvent.getStartDate());
+            Assertions.assertThrows(SystemException.class, () -> facade.eventController.updateEventStartDate(newStartDate));
+            Assertions.assertEquals(newStartDate, facade.stateController.getCurrentEvent().getStartDate());
         }
 
         @Test
@@ -458,7 +459,7 @@ public class FacadeTest extends TestingFeatures {
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             LocalDate newEndDate = LocalDate.now().plusDays(20);
             facade.eventController.updateEventEndDate(newEndDate);
-            Assertions.assertEquals(newEndDate, facade.stateController.currentEvent.getEndDate());
+            Assertions.assertEquals(newEndDate, facade.stateController.getCurrentEvent().getEndDate());
         }
 
         @Test
@@ -472,7 +473,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.createNewAdmin(name, surname, cpf, email, password);
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
-            facade.eventController.deleteEvent(facade.stateController.currentEvent);
+            facade.eventController.deleteEvent(facade.stateController.getCurrentEvent());
         }
         //special cases
         @Test
