@@ -24,17 +24,13 @@ public class SubmissionController {
         if(stateController.currentUser == null) throw new UnauthenticatedUserException();
 
         Submission submission = PersistenciaInterface.createSubmission();
-        submission.setUser((SystemUser) stateController.currentUser);
-        submission.setEvent(stateController.currentEvent);
+        submission.setUser((SystemUser) stateController.getCurrentUser());
+        submission.setEvent(stateController.getCurrentEvent());
         try {
             submission.setFilename(file.getName());
             submission.setContent(Files.readAllBytes(file.toPath()));
         } catch (IOException e) {
             throw new SystemIOException(e.getMessage(), e.getCause());
         }
-        stateController.currentSubmission=submission;
-        stateController.currentEvent.getSubmissions().add(submission);
-        daoController.eventDAO.update(stateController.currentEvent);
-        daoController.submissionDAO.save(submission);
     }
 }

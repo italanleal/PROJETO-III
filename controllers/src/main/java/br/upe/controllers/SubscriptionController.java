@@ -13,17 +13,4 @@ public class SubscriptionController {
         this.stateController = stateController;
         this.daoController = daoController;
     }
-    public void removeSubscription(Subscription subscription){
-        SystemUser newUser = subscription.getUser();
-        Session newSession = subscription.getSession();
-
-        newUser.getSubscriptions().removeIf(subscription1 -> subscription.getId().equals(subscription1.getId()));
-        newSession.getSubscriptions().removeIf(subscription1 -> subscription.getId().equals(subscription1.getId()));
-
-        stateController.currentUser=newUser;
-        stateController.currentSession=newSession;
-
-        daoController.subscriptionDAO.delete(subscription);
-    }
-
 }

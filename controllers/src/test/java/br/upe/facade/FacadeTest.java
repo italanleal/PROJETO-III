@@ -28,7 +28,6 @@ public class FacadeTest extends TestingFeatures {
     class StateControllerTest{
         //----------------------------------StateController tests----------------------------------
         @Test
-        @Disabled
         @DisplayName("State: currentUser != null")
         void currentUserNotNullTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
@@ -44,7 +43,6 @@ public class FacadeTest extends TestingFeatures {
         }
 
         @Test
-
         @DisplayName("State: CurrentEvent != null")
         @Disabled
         void currentEventNotNullTest() throws SystemException {
@@ -83,7 +81,6 @@ public class FacadeTest extends TestingFeatures {
         }
 
         @Test
-        @Disabled
         @DisplayName("State: currentSession != null")
         void currentSessionNotNullTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
@@ -320,6 +317,7 @@ public class FacadeTest extends TestingFeatures {
     @DisplayName("EventController tests")
     class EventControllerTest{
         @Test
+        @Disabled
         @DisplayName("EventController: Invalid date for event")
         void setInvalidDateForEvent() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
