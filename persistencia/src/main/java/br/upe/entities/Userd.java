@@ -3,12 +3,11 @@ package br.upe.entities;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity @Getter @Setter
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class User {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Userd {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Id
     @Setter(AccessLevel.PROTECTED) Long id;

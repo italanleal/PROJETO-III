@@ -234,7 +234,7 @@ public class FacadeTest extends TestingFeatures {
         }
 
         @Test
-        @DisplayName("Test change User")
+        @DisplayName("Test change Userd")
         void changeUserTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
             String surname= "surname#" + randomAlphaDecimalText(11);
@@ -254,11 +254,12 @@ public class FacadeTest extends TestingFeatures {
 
             facade.authController.login(email, password);
 
-            Assertions.assertEquals(facade.daoController.systemUserDAO.findByCPF(cpf), facade.stateController.getCurrentUser());
+            Assertions.assertEquals(facade.daoController.userDAO.findByCPF(cpf), facade.stateController.getCurrentUser());
             facade.authController.logout();
 
             facade.authController.login(email2, password2);
-            Assertions.assertEquals(facade.daoController.systemUserDAO.findByCPF(cpf2), facade.stateController.getCurrentUser());
+            Assertions.assertEquals(facade.daoController.userDAO.findByCPF(cpf2), facade.stateController.getCurrentUser());
+
 
         }
 
@@ -310,7 +311,7 @@ public class FacadeTest extends TestingFeatures {
     }
     @Nested
     @DisplayName("UserController tests")
-    class UserControllerTest{
+    class UserdControllerTest {
         @Test
         @DisplayName("UpdateUserNameTest")
         void updateUserNameTest() throws SystemException {

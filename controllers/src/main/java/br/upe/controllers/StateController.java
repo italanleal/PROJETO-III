@@ -3,7 +3,7 @@ package br.upe.controllers;
 import br.upe.entities.*;
 
 public class StateController {
-    public User currentUser;
+    public Userd currentUser;
     public Event currentEvent;
     public Session currentSession;
     public Submission currentSubmission;
@@ -20,7 +20,7 @@ public class StateController {
     private StateController() {
     }
 
-    public User getCurrentUser() {
+    public Userd getCurrentUser() {
         if(currentUser instanceof SystemAdmin systemAdmin) {
             daoController.systemAdminDAO.update(systemAdmin);
             daoController.systemAdminDAO.detach(systemAdmin);
@@ -34,7 +34,7 @@ public class StateController {
         return currentUser;
     }
 
-    public void setCurrentUser(User user) {
+    public void setCurrentUser(Userd user) {
         if(user instanceof SystemAdmin systemAdmin) {
             daoController.systemAdminDAO.detach(systemAdmin);
         }

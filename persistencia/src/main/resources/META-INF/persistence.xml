@@ -10,7 +10,7 @@
         <class>br.upe.entities.Session</class>
         <class>br.upe.entities.Submission</class>
         <class>br.upe.entities.Subscription</class>
-        <class>br.upe.entities.User</class>
+        <class>br.upe.entities.Userd</class>
         <class>br.upe.entities.SystemUser</class>
         <class>br.upe.entities.SystemAdmin</class>
         <class>br.upe.entities.Certification</class>
@@ -34,7 +34,7 @@
         <class>br.upe.entities.Session</class>
         <class>br.upe.entities.Submission</class>
         <class>br.upe.entities.Subscription</class>
-        <class>br.upe.entities.User</class>
+        <class>br.upe.entities.Userd</class>
         <class>br.upe.entities.SystemUser</class>
         <class>br.upe.entities.SystemAdmin</class>
         <class>br.upe.entities.Certification</class>
