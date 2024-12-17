@@ -1,5 +1,6 @@
 package br.upe.userinterface;
 
+
 import br.upe.util.persistencia.SystemException;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -7,9 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SessionRegisterController {
@@ -36,29 +35,24 @@ public class SessionRegisterController {
     private void registerSession() throws IOException {
         LocalDate startDate = null;
         LocalDate endDate = null;
-        try {
-            startDate = (startDatePicker.getValue() != null) ? startDatePicker.getValue(): null;
-            endDate = (endDatePicker.getValue() != null) ? endDatePicker.getValue(): null;
 
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error parsing Date objects", e);
+        startDate = (startDatePicker.getValue() != null) ? startDatePicker.getValue(): null;
+        endDate = (endDatePicker.getValue() != null) ? endDatePicker.getValue(): null;
+
+
+        if(descritorField.getText().isEmpty() || titleField.getText().isEmpty() ||guestField.getText().isEmpty() || localField.getText().isEmpty()){
+            warningLabel.setText("Couldn't create new session");
+            return;
         }
-
-        if(!descritorField.getText().isEmpty() && !titleField.getText().isEmpty() && !guestField.getText().isEmpty() && !localField.getText().isEmpty()){
+        try {
             AppStateController.sessionController.createNewSession(titleField.getText(),
                     descritorField.getText(),
                     guestField.getText(),
-                    localField.getText());
-            try{
-                AppStateController.sessionController.updateSessionStartDate(startDate);
-                AppStateController.sessionController.updateSessionEndDate(endDate);
-            }catch (SystemException e){
-                warningLabel.setText(e.getMessage());
-            }
-            switchToSessionManager();
-        } else {
-            warningLabel.setText("Couldn't create new session");
+                    localField.getText(),startDate, endDate);
+        } catch (SystemException e) {
+            warningLabel.setText("Couldn't create new session cause date format was wrong");
         }
+        switchToSessionManager();
     }
     @FXML
     private void switchToSessionManager() throws IOException{
