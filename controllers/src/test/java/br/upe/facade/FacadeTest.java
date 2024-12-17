@@ -22,7 +22,7 @@ public class FacadeTest extends TestingFeatures {
     LocalDate startDate1 = LocalDate.parse("2024-12-20");
     LocalDate endDate1 = LocalDate.parse("2024-12-30");
 
-
+    //done
     @Nested
     @DisplayName("StateController tests")
     class StateControllerTest{
@@ -178,7 +178,7 @@ public class FacadeTest extends TestingFeatures {
         @DisplayName("State: currentCertification != null")
         void currentCertificationNotNullTest() { /* TODO */ }
     }
-
+    //done
     @Nested
     @DisplayName("AuthController tests")
     class AuthControllerTest{
@@ -305,7 +305,7 @@ public class FacadeTest extends TestingFeatures {
             Assertions.assertNull(facade.stateController.currentUser);
         }
     }
-
+    //falta special cases: tentar mudar para um email ja existente
     @Nested
     @DisplayName("UserController tests")
     class UserdControllerTest {
