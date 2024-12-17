@@ -27,7 +27,7 @@ public class EventController {
     public void createNewEvent(String title, String description, String director, LocalDate startDate, LocalDate endDate) throws SystemException {
         checkDates(startDate, endDate);
 
-        if(!stateController.getCurrentUser().isSu()){
+        if(!stateController.currentUser.isSu()){
             throw new UserIsNotAdmin();
         }
         Event event = PersistenciaInterface.createEvent();
@@ -37,106 +37,98 @@ public class EventController {
         event.setStartDate(startDate);
         event.setEndDate(endDate);
 
-        daoController.eventDAO.save(event);
-
         event.setAdmin((SystemAdmin) stateController.getCurrentUser());
-        ((SystemAdmin) stateController.getCurrentUser()).getEvents().add(event);
 
-        daoController.systemAdminDAO.update((SystemAdmin) stateController.getCurrentUser());
+        daoController.eventDAO.save(event);
         stateController.setCurrentEvent(event);
+
     }
+
     public void updateEventDescription(String description) throws SystemException {
-        if(!stateController.getCurrentUser().isSu()){
+        if(!stateController.currentUser.isSu()){
             throw new UserIsNotAdmin();
         }
+
         Event event = stateController.getCurrentEvent();
-        ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(event);
         event.setDescription(description);
-        daoController.eventDAO.update(event);
-        stateController.setCurrentEvent(event);
-        ((SystemAdmin)stateController.getCurrentUser()).getEvents().add(event);
+        stateController.setCurrentEvent(daoController.eventDAO.update(event));
+
     }
+
     public void updateEventDirector(String director) throws SystemException {
-        if(!stateController.getCurrentUser().isSu()) {
+        if(!stateController.currentUser.isSu()) {
             throw new UserIsNotAdmin();
         }
+
         Event event = stateController.getCurrentEvent();
-        ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(event);
         event.setDirector(director);
-        daoController.eventDAO.update(event);
-        stateController.setCurrentEvent(event);
-        ((SystemAdmin)stateController.getCurrentUser()).getEvents().add(event);
+        stateController.setCurrentEvent(daoController.eventDAO.update(event));
     }
     public void updateEventTitle(String title)throws SystemException {
-        if(!stateController.getCurrentUser().isSu()) {
+        if(!stateController.currentUser.isSu()) {
             throw new UserIsNotAdmin();
         }
+
         Event event = stateController.getCurrentEvent();
-        ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(event);
         event.setTitle(title);
-        daoController.eventDAO.update(event);
-        stateController.setCurrentEvent(event);
-        ((SystemAdmin)stateController.getCurrentUser()).getEvents().add(event);
+        stateController.setCurrentEvent(daoController.eventDAO.update(event));
     }
 
     public void updateEventStartDate(LocalDate startDate) throws SystemException {
-        if (!stateController.getCurrentUser().isSu()) {
+        if (!stateController.currentUser.isSu()) {
             throw new UserIsNotAdmin();
         }
-        Event event = stateController.getCurrentEvent();
+        Event event = stateController.currentEvent;
         try {
-            CHECKING.checkDates(startDate, event.getStartDate());
+            CHECKING.checkDates(startDate, event.getEndDate());
         } catch (SystemException e) {
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
+
         event.setStartDate(startDate);
-        ((SystemAdmin) stateController.getCurrentUser()).getEvents().remove(stateController.getCurrentEvent());
-        daoController.eventDAO.update(event);
-        stateController.setCurrentEvent(event);
-        ((SystemAdmin) stateController.getCurrentUser()).getEvents().add(event);
+
+        stateController.setCurrentEvent(daoController.eventDAO.update(event));
     }
 
     public void updateEventEndDate(LocalDate endDate) throws SystemException {
-        if(!stateController.getCurrentUser().isSu()) {
+        if(!stateController.currentUser.isSu()) {
             throw new UserIsNotAdmin();
         }
-        Event event = stateController.getCurrentEvent();
+        Event event = stateController.currentEvent;
         try{
             CHECKING.checkDates(event.getStartDate(), endDate);
         } catch (SystemException e){
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
+
         event.setEndDate(endDate);
-        ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(stateController.getCurrentEvent());
-        daoController.eventDAO.update(event);
-        stateController.setCurrentEvent(event);
-        ((SystemAdmin)stateController.getCurrentUser()).getEvents().add(event);
+        stateController.setCurrentEvent(daoController.eventDAO.update(event));
+
     }
     public void deleteEvent(Event event) throws SystemException {
-        if(!stateController.getCurrentUser().isSu()) {
+        if(!stateController.currentUser.isSu()) {
             throw new UserIsNotAdmin();
         }
         daoController.eventDAO.delete(event);
         stateController.setCurrentEvent(null);
-        ((SystemAdmin)stateController.getCurrentUser()).getEvents().remove(event);
     }
     public Collection<Event> getAllEventsByUser() throws SystemException {
-        if(!(stateController.getCurrentUser() instanceof SystemAdmin user)) {
-            throw new UserIsNotAdmin();
-        }
-        return user.getEvents();
+        if(stateController.getCurrentUser() instanceof SystemAdmin admin) {
+            return admin.getEvents();
+        } else throw new UserIsNotAdmin();
     }
     public Collection<SubEvent> getAllSubEvents() throws SystemException {
-        if (!(stateController.getCurrentUser() instanceof SystemAdmin)) {
-            throw new UserIsNotAdmin();
-        }
-        return stateController.getCurrentEvent().getSubEvents();
+        if (stateController.getCurrentUser() instanceof SystemAdmin) {
+            return stateController.getCurrentEvent().getSubEvents();
+        }  else throw new UserIsNotAdmin();
+
     }
     public void changeCurrentEvent(Event event){
-        stateController.setCurrentEvent(event);
+        stateController.currentEvent = event;
     }
     public void closeCurrentEvent() {
-        stateController.setCurrentEvent(null);
+
+        stateController.currentEvent = null;
     }
     public List<Event> getAllEvents() {
         return daoController.eventDAO.findAll();

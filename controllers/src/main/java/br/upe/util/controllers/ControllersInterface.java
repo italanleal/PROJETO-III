@@ -8,8 +8,8 @@ public interface ControllersInterface {
     static DAOController newDAOController(LambdaEntityManagerFactory lambdaEntityManagerFactory) {
         return new DAOController(lambdaEntityManagerFactory);
     }
-    static StateController newStateController() {
-        return new StateController();
+    static StateController newStateController(DAOController daoController) {
+        return new StateController(daoController);
     }
     static AuthController newAuthController(StateController stateController, DAOController daoController) {
         return new AuthController(stateController, daoController);

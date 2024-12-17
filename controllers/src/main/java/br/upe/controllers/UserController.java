@@ -1,8 +1,8 @@
 package br.upe.controllers;
 
+import br.upe.entities.Subscription;
 import br.upe.entities.SystemAdmin;
 import br.upe.entities.SystemUser;
-import br.upe.entities.User;
 
 public class UserController {
     private final StateController stateController;
@@ -14,54 +14,56 @@ public class UserController {
     }
 
     public void updateUserName(String userName){
-        User source;
-        if(stateController.getCurrentUser() instanceof SystemAdmin){
-            source = stateController.getCurrentUser();
-            source.setName(userName);
-            daoController.systemAdminDAO.update((SystemAdmin) source);
-        } else {
-            source = stateController.getCurrentUser();
-            source.setName(userName);
-            daoController.systemUserDAO.update((SystemUser) source);
+
+        if(stateController.getCurrentUser() instanceof SystemAdmin admin){
+            admin.setName(userName);
+            stateController.setCurrentUser(daoController.systemAdminDAO.update(admin));
+            return;
         }
 
+        if(stateController.getCurrentUser() instanceof SystemUser user) {
+            user.setName(userName);
+            stateController.setCurrentUser(daoController.systemUserDAO.update(user));
+        }
     }
     public void updateUserEmail(String email){
-        User source;
-        if(stateController.getCurrentUser() instanceof SystemAdmin){
-            source = stateController.getCurrentUser();
-            source.setEmail(email);
-            daoController.systemAdminDAO.update((SystemAdmin) source);
-        } else {
-            source = stateController.getCurrentUser();
-            source.setEmail(email);
-            daoController.systemUserDAO.update((SystemUser) source);
+        if(stateController.getCurrentUser() instanceof SystemAdmin admin){
+            admin.setEmail(email);
+            stateController.setCurrentUser(daoController.systemAdminDAO.update(admin));
+            return;
+        }
+        if(stateController.getCurrentUser() instanceof SystemUser user) {
+            user.setEmail(email);
+            stateController.setCurrentUser(daoController.systemUserDAO.update(user));
+        }
+    }
+
+    public void updateUserPassword(String password){
+        if(stateController.getCurrentUser() instanceof SystemAdmin admin){
+            admin.setPassword(password);
+            stateController.setCurrentUser(daoController.systemAdminDAO.update(admin));
+            return;
         }
 
-    }
-    public void updateUserPassword(String Password){
-        User source;
-        if(stateController.getCurrentUser() instanceof SystemAdmin){
-            source = stateController.getCurrentUser();
-            source.setPassword(Password);
-            daoController.systemAdminDAO.update((SystemAdmin) source);
-        } else {
-            source = stateController.getCurrentUser();
-            source.setPassword(Password);
-            daoController.systemUserDAO.update((SystemUser) source);
+        if(stateController.getCurrentUser() instanceof SystemUser user) {
+            user.setPassword(password);
+            stateController.setCurrentUser(daoController.systemUserDAO.update(user));
         }
     }
     public void updateUserSurname(String surname){
-        User source;
-        if(stateController.getCurrentUser() instanceof SystemAdmin){
-            source = stateController.getCurrentUser();
-            source.setSurname(surname);
-            daoController.systemAdminDAO.update((SystemAdmin) source);
-        } else {
-            source = stateController.getCurrentUser();
-            source.setSurname(surname);
-            daoController.systemUserDAO.update((SystemUser) source);
+        if(stateController.getCurrentUser() instanceof SystemAdmin admin){
+            admin.setSurname(surname);
+            stateController.setCurrentUser(daoController.systemAdminDAO.update(admin));
+            return;
         }
 
+        if(stateController.getCurrentUser() instanceof SystemUser user) {
+            user.setSurname(surname);
+            stateController.setCurrentUser(daoController.systemUserDAO.update(user));
+        }
+
+    }
+    public void removeSubscriptionFromUser(Subscription subscription){
+       daoController.subscriptionDAO.delete(subscription);
     }
 }

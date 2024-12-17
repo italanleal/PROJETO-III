@@ -16,26 +16,6 @@ public class JDBCSystemAdminDAO extends JDBCGenericDAO<SystemAdmin, Long>{
         this.createEntityManager = lambdaFunction;
         this.openEM();
     }
-    public SystemAdmin findByCPF(String cpf) throws SystemException {
-        String jpql = "SELECT u FROM SystemAdmin u WHERE u.cpf = :cpf";
-        TypedQuery<SystemAdmin> query = em.createQuery(jpql, SystemAdmin.class);
-        query.setParameter("cpf", cpf);
-        List<SystemAdmin> result = query.getResultList();
-        if (result.isEmpty()) {
-            throw new UserNotFoundException("User with cpf " + cpf + " not found", null);
-        }
-        return result.getFirst();
-    }
 
-    public SystemAdmin findByEmail(String email) throws SystemException {
-        String jpql = "SELECT u FROM SystemAdmin u WHERE u.email = :email";
-        TypedQuery<SystemAdmin> query = em.createQuery(jpql, SystemAdmin.class);
-        query.setParameter("email", email);
-        List<SystemAdmin> result = query.getResultList();
-        if (result.isEmpty()) {
-            throw new UserNotFoundException("User with email " + email + " not found", null);
-        }
-        return result.getFirst();
-    }
 
 }
