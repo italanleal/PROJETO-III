@@ -96,8 +96,8 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
 
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
-
             facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE", startDate1, endDate1);
+
             Assertions.assertNotNull(facade.stateController.getCurrentSession());
             Assertions.assertEquals("UPE", facade.stateController.getCurrentSession().getLocal());
         }
@@ -119,6 +119,7 @@ public class FacadeTest extends TestingFeatures {
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
 
             facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE", startDate1, endDate1);
+
             Session session = facade.stateController.getCurrentSession();
 
             facade.authController.logout();
@@ -152,6 +153,7 @@ public class FacadeTest extends TestingFeatures {
 
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE", startDate1, endDate1);
+
 
             Event event = facade.stateController.getCurrentEvent();
             facade.authController.logout();
@@ -307,6 +309,7 @@ public class FacadeTest extends TestingFeatures {
             Assertions.assertNull(facade.stateController.currentUser);
         }
     }
+
     @Nested
     @DisplayName("UserController tests")
     class UserdControllerTest {
@@ -576,6 +579,7 @@ public class FacadeTest extends TestingFeatures {
     @Nested
     @DisplayName("SessionController tests")
     class SessionControllerTest{
+
         @Test
         @DisplayName("Create new session test")
         void createNewSessionTest() throws SystemException {
@@ -855,6 +859,7 @@ public class FacadeTest extends TestingFeatures {
             Collection<Session> sessions = facade.sessionController.getAllEventSessions();
             Assertions.assertEquals(2, sessions.size());
         }
+
     }
     @Nested
     @DisplayName("SubEventController tests")

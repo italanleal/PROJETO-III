@@ -124,11 +124,12 @@ public class EventController {
 
     }
     public void changeCurrentEvent(Event event){
-        stateController.setCurrentEvent(event);
+        stateController.currentEvent = event;
     }
     public void closeCurrentEvent() {
 
         stateController.setCurrentEvent(null);
+
     }
     public List<Event> getAllEvents() {
         return daoController.eventDAO.findAll();
