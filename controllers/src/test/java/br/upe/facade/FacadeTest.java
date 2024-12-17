@@ -310,7 +310,6 @@ public class FacadeTest extends TestingFeatures {
             Assertions.assertNull(facade.stateController.currentUser);
         }
     }
-
     @Nested
     @DisplayName("UserController tests")
     class UserControllerTest{
@@ -497,7 +496,6 @@ public class FacadeTest extends TestingFeatures {
 
             Assertions.assertNull(facade.stateController.currentEvent);
         }
-
     }
 
     @Nested
