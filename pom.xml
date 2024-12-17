@@ -26,18 +26,21 @@
   </properties>
 
   <dependencies>
+    <dependency>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+    </dependency>
   </dependencies>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-
         <groupId>io.github.cdimascio</groupId>
         <artifactId>dotenv-java</artifactId>
         <version>3.0.2</version>
       </dependency>
       <dependency>
-
         <groupId>org.junit.platform</groupId>
         <artifactId>junit-platform-suite</artifactId>
         <version>1.11.0</version>
@@ -93,6 +96,14 @@
           <version>3.0.0-M9</version>
           <configuration>
             <failIfNoSpecifiedTests>false</failIfNoSpecifiedTests>
+            <redirectTestOutputToFile>true</redirectTestOutputToFile>
+            <forkCount>3</forkCount>
+            <reuseForks>true</reuseForks>
+            <argLine>
+              --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+              --add-opens javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
+              ${surefireArgLine} -Xmx1024m
+            </argLine>
           </configuration>
         </plugin>
         <plugin>
@@ -120,6 +131,37 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.6.1</version>
         </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>0.8.12</version>
+          <executions>
+            <execution>
+              <id>prepare-agent</id>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+              <configuration>
+                <append>true</append>
+                <destFile>${sonar.jacoco.reportPath}</destFile>
+                <propertyName>surefireArgLine</propertyName>
+              </configuration>
+            </execution>
+            <execution>
+              <id>generate-report</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+              <configuration>
+                <formats>
+                  <format>XML</format>
+                  <format>HTML</format>
+                </formats>
+              </configuration>
+            </execution>
+          </executions>
+          </plugin>
       </plugins>
     </pluginManagement>
   </build>
