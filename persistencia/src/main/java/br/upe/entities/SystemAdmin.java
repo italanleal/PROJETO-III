@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Getter @Setter
-public class SystemAdmin extends User {
+public class SystemAdmin extends Userd {
     @Setter(AccessLevel.PROTECTED) boolean su = true;
 
     @OneToMany(

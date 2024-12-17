@@ -50,4 +50,7 @@ public interface PersistenciaInterface {
     static JDBCCertificationDAO createJDBCCertificationDAO(LambdaEntityManagerFactory lambdaFunction) {
         return new JDBCCertificationDAO(lambdaFunction);
     }
+    static JDBCUserDAO createJDBCUserDAO(LambdaEntityManagerFactory lambdaFunction) {
+         return new JDBCUserDAO(lambdaFunction);
+    }
 }

@@ -3,7 +3,6 @@ package br.upe.controllers;
 import br.upe.entities.Subscription;
 import br.upe.entities.SystemAdmin;
 import br.upe.entities.SystemUser;
-import br.upe.entities.User;
 
 public class UserController {
     private final StateController stateController;
