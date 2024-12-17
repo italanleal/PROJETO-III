@@ -25,7 +25,7 @@ public class SessionListController {
     private void initialize() {
         // Set the label's text to the value of the variable
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
-        Collection<Session> sessions = AppStateController.sessionController.getAllEventSessions(AppStateController.stateController.getCurrentEvent());
+        Collection<Session> sessions = AppStateController.sessionController.getAllEventSessions();
 
         VBox mainContainer = new VBox();
 

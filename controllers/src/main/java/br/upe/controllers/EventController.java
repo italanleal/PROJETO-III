@@ -128,7 +128,8 @@ public class EventController {
     }
     public void closeCurrentEvent() {
 
-        stateController.currentEvent = null;
+        stateController.setCurrentEvent(null);
+
     }
     public List<Event> getAllEvents() {
         return daoController.eventDAO.findAll();

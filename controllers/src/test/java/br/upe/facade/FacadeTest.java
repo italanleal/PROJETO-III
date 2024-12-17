@@ -11,6 +11,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDate;
+import java.util.Collection;
+
 
 public class FacadeTest extends TestingFeatures {
 
@@ -94,8 +96,8 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
 
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
+            facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE", startDate1, endDate1);
 
-            facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE");
             Assertions.assertNotNull(facade.stateController.getCurrentSession());
             Assertions.assertEquals("UPE", facade.stateController.getCurrentSession().getLocal());
         }
@@ -116,7 +118,8 @@ public class FacadeTest extends TestingFeatures {
 
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
 
-            facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE");
+            facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE", startDate1, endDate1);
+
             Session session = facade.stateController.getCurrentSession();
 
             facade.authController.logout();
@@ -149,7 +152,8 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
 
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
-            facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE");
+            facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE", startDate1, endDate1);
+
 
             Event event = facade.stateController.getCurrentEvent();
             facade.authController.logout();
@@ -305,7 +309,7 @@ public class FacadeTest extends TestingFeatures {
             Assertions.assertNull(facade.stateController.currentUser);
         }
     }
-    //falta special cases: tentar mudar para um email ja existente
+
     @Nested
     @DisplayName("UserController tests")
     class UserdControllerTest {
@@ -332,8 +336,30 @@ public class FacadeTest extends TestingFeatures {
             String password = "pass#" + randomAlphaDecimalText(11);
             facade.authController.createNewUser(name, surname, cpf, email, password);
             facade.authController.login(email, password);
-            facade.userController.updateUserEmail("Concha");
-            Assertions.assertEquals("Concha", facade.stateController.getCurrentUser().getEmail());
+            String newEmail = "Concha";
+            facade.userController.updateUserEmail(newEmail);
+            Assertions.assertEquals(newEmail, facade.stateController.getCurrentUser().getEmail());
+        }
+        @Test
+        @DisplayName("UpdateUserEmailTest")
+        void updateUserEmailInvalidTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+            facade.authController.createNewUser(name, surname, cpf, email, password);
+
+            String name2 = "name#" + randomAlphaDecimalText(11);
+            String surname2 = "surname#" + randomAlphaDecimalText(11);
+            String cpf2 = "cpf#" + randomAlphaDecimalText(11);
+            String email2 = "email#" + randomAlphaDecimalText(11);
+            String password2 = "pass#" + randomAlphaDecimalText(11);
+            facade.authController.createNewUser(name2, surname2, cpf2, email2, password2);
+
+            facade.authController.login(email, password);
+            Assertions.assertThrows(SystemException.class, () -> facade.userController.updateUserEmail(email2));
+            Assertions.assertEquals(email, facade.stateController.getCurrentUser().getEmail());
         }
         @Test
         @DisplayName("UpdateUserPassword")
@@ -553,6 +579,286 @@ public class FacadeTest extends TestingFeatures {
     @Nested
     @DisplayName("SessionController tests")
     class SessionControllerTest{
+
+        @Test
+        @DisplayName("Create new session test")
+        void createNewSessionTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String title = "title#" + randomAlphaDecimalText(11);
+            String description = "description#" + randomAlphaDecimalText(11);
+            String guest = "guest#" + randomAlphaDecimalText(11);
+            String location = "location#" + randomAlphaDecimalText(11);
+            facade.sessionController.createNewSession(title, description, guest, location, startDate, endDate);
+            Assertions.assertNotNull(facade.stateController.getCurrentSession());
+            Assertions.assertEquals(location, facade.stateController.getCurrentSession().getLocal());
+        }
+        @Test
+        @DisplayName("Update Session description")
+        void updateSessionDescriptionTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String title = "title#" + randomAlphaDecimalText(11);
+            String description = "description#" + randomAlphaDecimalText(11);
+            String guest = "guest#" + randomAlphaDecimalText(11);
+            String location = "location#" + randomAlphaDecimalText(11);
+            facade.sessionController.createNewSession(title, description, guest, location, startDate, endDate);
+
+            String newDescription = "newDescription#" + randomAlphaDecimalText(11);
+            facade.sessionController.updateSessionDescription(newDescription);
+            Assertions.assertEquals(newDescription, facade.stateController.getCurrentSession().getDescription());
+        }
+        @Test
+        @DisplayName("Update Session local")
+        void updateSessionLocalTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String title = "title#" + randomAlphaDecimalText(11);
+            String description = "description#" + randomAlphaDecimalText(11);
+            String guest = "guest#" + randomAlphaDecimalText(11);
+            String location = "location#" + randomAlphaDecimalText(11);
+            facade.sessionController.createNewSession(title, description, guest, location, startDate, endDate);
+
+            String newLocal = "newLocal#" + randomAlphaDecimalText(11);
+            facade.sessionController.updateSessionDescription(newLocal);
+            Assertions.assertEquals(newLocal, facade.stateController.getCurrentSession().getDescription());
+        }
+        @Test
+        @DisplayName("Update Session guest")
+        void updateSessionGuestTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String title = "title#" + randomAlphaDecimalText(11);
+            String description = "description#" + randomAlphaDecimalText(11);
+            String guest = "guest#" + randomAlphaDecimalText(11);
+            String location = "location#" + randomAlphaDecimalText(11);
+            facade.sessionController.createNewSession(title, description, guest, location, startDate, endDate);
+
+            String newGuest = "newGuest#" + randomAlphaDecimalText(11);
+            facade.sessionController.updateSessionDescription(newGuest);
+            Assertions.assertEquals(newGuest, facade.stateController.getCurrentSession().getDescription());
+        }
+        @Test
+        @DisplayName("Update Session title")
+        void updateSessionTitleTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String title = "title#" + randomAlphaDecimalText(11);
+            String description = "description#" + randomAlphaDecimalText(11);
+            String guest = "guest#" + randomAlphaDecimalText(11);
+            String location = "location#" + randomAlphaDecimalText(11);
+            facade.sessionController.createNewSession(title, description, guest, location, startDate, endDate);
+
+            String newTitle = "newTitle#" + randomAlphaDecimalText(11);
+            facade.sessionController.updateSessionDescription(newTitle);
+            Assertions.assertEquals(newTitle, facade.stateController.getCurrentSession().getDescription());
+        }
+
+        @Test
+        @DisplayName("Update Session StartDate")
+        void updateSessionValidDateTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String title = "title#" + randomAlphaDecimalText(11);
+            String description = "description#" + randomAlphaDecimalText(11);
+            String guest = "guest#" + randomAlphaDecimalText(11);
+            String location = "location#" + randomAlphaDecimalText(11);
+
+            LocalDate sessionStartDate = LocalDate.parse("2024-12-20");
+            LocalDate sessionEndDate = LocalDate.parse("2024-12-22");
+
+            facade.sessionController.createNewSession(title, description, guest, location, sessionStartDate, sessionEndDate);
+
+            LocalDate newStartDate = startDate.plusDays(2);
+            LocalDate newEndDate =  startDate.plusDays(2);
+
+            facade.sessionController.updateSessionStartDate(newStartDate);
+            facade.sessionController.updateSessionEndDate(newEndDate);
+
+            Assertions.assertEquals(newStartDate, facade.stateController.getCurrentSession().getStartDate());
+            Assertions.assertEquals(newEndDate, facade.stateController.getCurrentSession().getEndDate());
+        }
+        @Test
+        @DisplayName("Update Session StartDate")
+        void updateSessionInvalidDateTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String title = "title#" + randomAlphaDecimalText(11);
+            String description = "description#" + randomAlphaDecimalText(11);
+            String guest = "guest#" + randomAlphaDecimalText(11);
+            String location = "location#" + randomAlphaDecimalText(11);
+            LocalDate sessionStartDate = LocalDate.parse("2024-12-20");
+            LocalDate sessionEndDate = LocalDate.parse("2024-12-22");
+            facade.sessionController.createNewSession(title, description, guest, location,sessionStartDate, sessionEndDate);
+
+
+            LocalDate newEndDate =  sessionStartDate.minusDays(2);
+
+            Assertions.assertThrows(SystemException.class, () -> facade.sessionController.updateSessionEndDate(newEndDate));
+            Assertions.assertEquals(sessionEndDate, facade.stateController.getCurrentSession().getEndDate());
+
+            Assertions.assertThrows(SystemException.class,
+                    () -> facade.sessionController.updateSessionStartDate(
+                            facade.stateController.getCurrentSession().getEndDate().plusDays(1)
+                    )
+            , "SessionStartDate should not get updated");
+            Assertions.assertEquals(sessionStartDate, facade.stateController.getCurrentSession().getStartDate());
+        }
+        @Test
+        @DisplayName("Add subscription to session Test")
+        void addSubscriptionToSessionTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String title = "title#" + randomAlphaDecimalText(11);
+            String description = "description#" + randomAlphaDecimalText(11);
+            String guest = "guest#" + randomAlphaDecimalText(11);
+            String location = "location#" + randomAlphaDecimalText(11);
+            LocalDate sessionStartDate = LocalDate.parse("2024-12-20");
+            LocalDate sessionEndDate = LocalDate.parse("2024-12-22");
+
+            facade.sessionController.createNewSession(title, description, guest, location, sessionStartDate, sessionEndDate);
+            Session session = facade.stateController.getCurrentSession();
+            facade.authController.logout();
+
+            String name2 = "name#" + randomAlphaDecimalText(11);
+            String surname2 = "surname#" + randomAlphaDecimalText(11);
+            String cpf2 = "cpf#" + randomAlphaDecimalText(11);
+            String email2 = "email#" + randomAlphaDecimalText(11);
+            String password2 = "pass#" + randomAlphaDecimalText(11);
+            facade.authController.createNewUser(name2, surname2, cpf2, email2, password2);
+            facade.authController.login(email2, password2);
+
+            facade.stateController.setCurrentSession(session);
+            facade.sessionController.addSubscriptionToSession();
+
+            Assertions.assertNotNull(facade.stateController.getCurrentSubscription());
+            Assertions.assertEquals(facade.stateController.getCurrentSubscription().getUser().getId(), facade.stateController.getCurrentUser().getId());
+        }
+        @Test
+        @DisplayName("Get all event sessions")
+        void getAllSessionsTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+
+            String title = "title#" + randomAlphaDecimalText(11);
+            String description = "description#" + randomAlphaDecimalText(11);
+            String guest = "guest#" + randomAlphaDecimalText(11);
+            String location = "location#" + randomAlphaDecimalText(11);
+            LocalDate sessionStartDate = LocalDate.parse("2024-12-20");
+            LocalDate sessionEndDate = LocalDate.parse("2024-12-22");
+
+            String title2 = "title2#" + randomAlphaDecimalText(11);
+            String description2 = "description2#" + randomAlphaDecimalText(11);
+            String guest2 = "guest2#" + randomAlphaDecimalText(11);
+            String location2 = "location2#" + randomAlphaDecimalText(11);
+            LocalDate sessionStartDate2 = LocalDate.parse("2024-12-20");
+            LocalDate sessionEndDate2 = LocalDate.parse("2024-12-22");
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            facade.sessionController.createNewSession(title, description, guest, location, sessionStartDate, sessionEndDate);
+            facade.sessionController.createNewSession(title2, description2, guest2, location2, sessionStartDate2, sessionEndDate2);
+
+            Collection<Session> sessions = facade.sessionController.getAllEventSessions();
+            Assertions.assertEquals(2, sessions.size());
+        }
 
     }
     @Nested

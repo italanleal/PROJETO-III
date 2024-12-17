@@ -3,11 +3,11 @@ package br.upe.controllers;
 import br.upe.entities.*;
 import br.upe.util.controllers.CHECKING;
 import br.upe.util.controllers.InvalidDateInput;
+import br.upe.util.controllers.UserIsNotAdmin;
 import br.upe.util.persistencia.PersistenciaInterface;
 import br.upe.util.persistencia.SystemException;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class SessionController {
@@ -18,8 +18,14 @@ public class SessionController {
         this.daoController = daoController;
     }
 
-    public void createNewSession(String title, String description, String guest, String local) {
-        if(!(stateController.currentUser instanceof SystemAdmin)) return;
+    public void createNewSession(String title, String description, String guest, String local, LocalDate startDate, LocalDate endDate) throws SystemException {
+        if(!(stateController.currentUser instanceof SystemAdmin)) throw new UserIsNotAdmin();
+        try {
+            CHECKING.checkDates(startDate, endDate);
+        } catch (InvalidDateInput e) {
+            throw new InvalidDateInput(e.getMessage(), e.getCause());
+        }
+
 
         Session session = PersistenciaInterface.createSession();
         session.setTitle(title);
@@ -27,14 +33,22 @@ public class SessionController {
         session.setGuest(guest);
         session.setLocal(local);
 
-        if(stateController.getCurrentSubEvent() instanceof SubEvent subEvent){
-            session.setEvent(subEvent);
-        } else {
-            session.setEvent(stateController.getCurrentEvent());
-        }
+        session.setStartDate(startDate);
+        session.setEndDate(endDate);
 
-        daoController.sessionDAO.save(session);
-        stateController.setCurrentSession(session);
+        SubEvent subEvent = stateController.getCurrentSubEvent();
+        Event event = stateController.getCurrentEvent();
+        if(subEvent != null){
+            session.setEvent(subEvent);
+            subEvent.getSessions().add(session);
+            stateController.setCurrentSubEvent(subEvent);
+        } else if(event != null){
+            session.setEvent(event);
+            event.getSessions().add(session);
+            stateController.setCurrentEvent(event);
+        }
+        stateController.setCurrentSession(daoController.sessionDAO.save(session));
+
     }
 
     public void updateSessionDescription(String description) {
@@ -46,7 +60,14 @@ public class SessionController {
     }
 
     public void updateSessionStartDate(LocalDate startDate) throws SystemException {
-        if(!(stateController.currentUser instanceof SystemAdmin)) return;
+
+        if(!(stateController.currentUser instanceof SystemAdmin)) throw new UserIsNotAdmin();
+        try {
+            CHECKING.checkDates(startDate, stateController.currentSession.getEndDate());
+        } catch (InvalidDateInput e){
+            throw new InvalidDateInput(e.getMessage(), e.getCause());
+        }
+
 
         Session session = stateController.getCurrentSession();
 
@@ -59,8 +80,15 @@ public class SessionController {
         session.setStartDate(startDate);
         stateController.setCurrentSession(daoController.sessionDAO.update(session));
     }
-    public void updateSessionEndDate(LocalDate endDate) throws InvalidDateInput {
+
+    public void updateSessionEndDate(LocalDate endDate) throws SystemException {
         if(!(stateController.currentUser instanceof SystemAdmin)) return;
+        try {
+            CHECKING.checkDates(stateController.currentSession.getStartDate(), endDate);
+        } catch (InvalidDateInput e){
+            throw new InvalidDateInput(e.getMessage(), e.getCause());
+        }
+
         Session session = stateController.getCurrentSession();
 
         try{
@@ -71,6 +99,25 @@ public class SessionController {
         session.setEndDate(endDate);
 
         stateController.setCurrentSession(daoController.sessionDAO.update(session));
+    }
+    public void updateSessionTitle(String title){
+        if(!(stateController.currentUser.isSu())) return;
+        Session session = stateController.getCurrentSession();
+        session.setTitle(title);
+        stateController.setCurrentSession(daoController.sessionDAO.update(session));
+    }
+    public void updateSessionGuest(String guest){
+        if(!(stateController.currentUser.isSu())) return;
+        Session session = stateController.getCurrentSession();
+        session.setTitle(guest);
+        stateController.setCurrentSession(daoController.sessionDAO.update(session));
+    }
+    public void updateSessionLocal(String local){
+        if(!(stateController.currentUser.isSu())) return;
+        Session session = stateController.getCurrentSession();
+        session.setTitle(local);
+        stateController.setCurrentSession(daoController.sessionDAO.update(session));
+
     }
     public void addSubscriptionToSession(){
         Session session = stateController.getCurrentSession();
@@ -91,7 +138,7 @@ public class SessionController {
         stateController.setCurrentSubscription(null);
     }
 
-    public Collection<Session> getAllEventSessions(BaseEvent event) {
-        return event.getSessions();
+    public Collection<Session> getAllEventSessions() {
+        return stateController.getCurrentEvent().getSessions();
     }
 }
