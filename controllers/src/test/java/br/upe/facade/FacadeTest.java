@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Optional;
 
 
 public class FacadeTest extends TestingFeatures {
@@ -551,7 +552,9 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.createNewAdmin(name, surname, cpf, email, password);
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
+            Long id = facade.stateController.getCurrentEvent().getId();
             facade.eventController.deleteEvent(facade.stateController.getCurrentEvent());
+            Assertions.assertEquals(Optional.empty(), facade.daoController.eventDAO.findById(id));
         }
         //special cases
         @Test
@@ -572,6 +575,20 @@ public class FacadeTest extends TestingFeatures {
             Assertions.assertThrows(SystemException.class, () -> facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDateBeforeStartDate));
 
             Assertions.assertNull(facade.stateController.currentEvent);
+        }
+        @Test
+        @DisplayName("GetAllEventByUser Test")
+        void getALlEventByUserTest() throws SystemException{
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
+            Collection<Event> events = facade.eventController.getAllEventsByUser();
+            Assertions.assertEquals(1, events.size());
         }
     }
 

@@ -30,13 +30,16 @@
                         <Label text="Session Title" />
                         <TextField id="titleField" fx:id="titleField" />
                   <Label layoutX="10.0" layoutY="10.0" text="Guest" />
-                  <TextField id="descritorField" fx:id="descritorField" layoutX="10.0" layoutY="28.0" />
+                  <TextField id="guestField" fx:id="guestField" layoutX="10.0" layoutY="28.0" />
+
                   <Label layoutX="10.0" layoutY="10.0" text="Local" />
                   <TextField id="localField" fx:id="localField" layoutX="10.0" layoutY="28.0" />
                         <Label text="Start date" />
                         <DatePicker id="startDatePicker" fx:id="startDatePicker" />
                         <Label text="End date" />
                         <DatePicker id="endDatePicker" fx:id="endDatePicker" />
+                  <Label layoutX="10.0" layoutY="10.0" text="Description" />
+                  <TextField id="descritorField" fx:id="descritorField" layoutX="10.0" layoutY="28.0" />
                     </children></VBox>
                 <Button id="submitSessionButton" fx:id="submitSessionButton" mnemonicParsing="false" onAction="#registerSession" text="Submit" />
                 <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;" />

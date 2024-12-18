@@ -1,6 +1,8 @@
 package br.upe.userinterface;
 
 import br.upe.entities.Event;
+import br.upe.entities.SystemAdmin;
+import br.upe.util.controllers.UserIsNotAdmin;
 import br.upe.util.persistencia.SystemException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,6 +14,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,20 +29,26 @@ public class EventListController {
     private void initialize() throws SystemException {
         // Set the label's text to the value of the variable
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
-        Collection<Event> events = AppStateController.eventController.getAllEventsByUser();
+
+        Collection<Event> events;
+
+        try {
+            events = AppStateController.eventController.getAllEventsByUser();
+        } catch (UserIsNotAdmin e) {
+            return;
+        }
 
         VBox mainContainer = new VBox();
 
         mainContainer.getChildren().clear();
         mainContainer.setSpacing(10);
 
-
         events.forEach(event -> {
             VBox dataContainer = new VBox();
             Label descritor = new Label(event.getDescription());
             Label director = new Label(event.getDirector());
-            Label startDate = new Label((event.getStartDate() != null) ? DateFormat.getDateInstance().format(event.getStartDate()): "Não Informado");
-            Label endDate = new Label((event.getEndDate() != null) ? DateFormat.getDateInstance().format(event.getEndDate()): "Não Informado");
+            Label startDate = new Label((event.getStartDate() != null) ? DateFormat.getDateInstance().format(event.getStartDate()) : "Não Informado");
+            Label endDate = new Label((event.getEndDate() != null) ? DateFormat.getDateInstance().format(event.getEndDate()) : "Não Informado");
             Label sessionCount = new Label(String.valueOf(event.getSessions().size()));
             dataContainer.getChildren().addAll(descritor, director, startDate, endDate, sessionCount);
 
@@ -50,7 +59,7 @@ public class EventListController {
             manageButton.setOnAction(a -> {
                 try {
                     manageEvent(event);
-                } catch (IOException e){
+                } catch (IOException e) {
                     logger.log(Level.SEVERE, "Error attaching event uuid to callback", e);
                 }
             });

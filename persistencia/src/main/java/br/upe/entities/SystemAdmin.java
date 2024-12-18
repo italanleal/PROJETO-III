@@ -23,5 +23,4 @@ public class SystemAdmin extends Userd {
             fetch= FetchType.LAZY
     )
     private @Setter(AccessLevel.PROTECTED) List<Event> events = new ArrayList<>();
-
 }
