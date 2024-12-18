@@ -176,5 +176,15 @@ public class StateController {
         if(currentSubEvent != null) refreshCurrentSubEvent();
         if(currentSession != null) refreshCurrentSession();
     }
+
+    public void close() {
+        setCurrentUser(null);
+        setCurrentEvent(null);
+        setCurrentSession(null);
+        setCurrentSubmission(null);
+        setCurrentCertification(null);
+        setCurrentSubEvent(null);
+        setCurrentSubscription(null);
+    }
 }
 

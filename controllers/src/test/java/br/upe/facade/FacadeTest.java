@@ -407,6 +407,7 @@ public class FacadeTest extends TestingFeatures {
             LocalDate startDate = LocalDate.parse("2024-12-20");
             LocalDate endDate = LocalDate.parse("2024-12-22");
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+            Assertions.assertEquals(facade.stateController.getCurrentUser().getId(), facade.stateController.getCurrentEvent().getAdmin().getId());
             Assertions.assertNotNull(facade.stateController.getCurrentEvent());
         }
         @Test
@@ -553,6 +554,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             Long id = facade.stateController.getCurrentEvent().getId();
+            facade.stateController.getCurrentUser();
             facade.eventController.deleteEvent(facade.stateController.getCurrentEvent());
             Assertions.assertEquals(Optional.empty(), facade.daoController.eventDAO.findById(id));
         }
