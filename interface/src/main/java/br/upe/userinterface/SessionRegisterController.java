@@ -18,6 +18,7 @@ public class SessionRegisterController {
     Label userEmail;
     @FXML
     Label warningLabel;
+
     @FXML
     TextField titleField;
     @FXML
@@ -39,8 +40,8 @@ public class SessionRegisterController {
         startDate = (startDatePicker.getValue() != null) ? startDatePicker.getValue(): null;
         endDate = (endDatePicker.getValue() != null) ? endDatePicker.getValue(): null;
 
+        if(descritorField.getText().isEmpty() || titleField.getText().isEmpty() || guestField.getText().isEmpty() || localField.getText().isEmpty()){
 
-        if(descritorField.getText().isEmpty() || titleField.getText().isEmpty() ||guestField.getText().isEmpty() || localField.getText().isEmpty()){
             warningLabel.setText("Couldn't create new session");
             return;
         }

@@ -37,10 +37,10 @@ public class SubEventController {
         subEvent.setStartDate(startDate);
         subEvent.setEndDate(endDate);
         subEvent.setEvent(stateController.getCurrentEvent());
+        stateController.getCurrentEvent().getSubEvents().add(subEvent);
 
-        daoController.subEventDAO.save(subEvent);
-        stateController.setCurrentSubEvent(subEvent);
-
+        stateController.setCurrentEvent(stateController.getCurrentEvent());
+        stateController.setCurrentSubEvent(daoController.subEventDAO.save(subEvent));
     }
 
     public void updateSubEventDescription(String description) throws SystemException {
@@ -78,7 +78,7 @@ public class SubEventController {
         if (!stateController.currentUser.isSu()) {
             throw new UserIsNotAdmin();
         }
-        SubEvent subEvent = stateController.currentSubEvent;
+        SubEvent subEvent = stateController.getCurrentSubEvent();
         try {
             CHECKING.checkDates(startDate, subEvent.getEndDate());
         } catch (SystemException e) {
@@ -87,7 +87,6 @@ public class SubEventController {
         subEvent.setStartDate(startDate);
 
         stateController.setCurrentSubEvent(daoController.subEventDAO.update(subEvent));
-
     }
 
     public void updateSubEventEndDate(LocalDate endDate) throws SystemException {
@@ -106,7 +105,7 @@ public class SubEventController {
     }
 
     public void deleteSubEvent(SubEvent subEvent) throws SystemException {
-        if (!stateController.currentUser.isSu()) {
+        if (!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
         daoController.subEventDAO.delete(subEvent);

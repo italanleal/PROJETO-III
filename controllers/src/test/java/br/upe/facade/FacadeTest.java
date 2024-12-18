@@ -24,7 +24,6 @@ public class FacadeTest extends TestingFeatures {
     LocalDate startDate1 = LocalDate.parse("2024-12-20");
     LocalDate endDate1 = LocalDate.parse("2024-12-30");
 
-    //done
     @Nested
     @DisplayName("StateController tests")
     class StateControllerTest{
@@ -182,7 +181,7 @@ public class FacadeTest extends TestingFeatures {
         @DisplayName("State: currentCertification != null")
         void currentCertificationNotNullTest() { /* TODO */ }
     }
-    //done
+
     @Nested
     @DisplayName("AuthController tests")
     class AuthControllerTest{
@@ -824,7 +823,8 @@ public class FacadeTest extends TestingFeatures {
         }
         @Test
         @DisplayName("Get all event sessions")
-        void getAllSessionsTest() throws SystemException {
+        void getAllEventSessionsTest() throws SystemException {
+
             String name = "name#" + randomAlphaDecimalText(11);
             String surname= "surname#" + randomAlphaDecimalText(11);
             String cpf = "cpf#" + randomAlphaDecimalText(11);
@@ -860,20 +860,357 @@ public class FacadeTest extends TestingFeatures {
             Assertions.assertEquals(2, sessions.size());
         }
 
+        @Test
+        @DisplayName("Get all subevent sessions")
+        void getAllSubEventSessionsTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+
+            String title = "title#" + randomAlphaDecimalText(11);
+            String description = "description#" + randomAlphaDecimalText(11);
+            String guest = "guest#" + randomAlphaDecimalText(11);
+            String location = "location#" + randomAlphaDecimalText(11);
+            LocalDate sessionStartDate = LocalDate.parse("2024-12-20");
+            LocalDate sessionEndDate = LocalDate.parse("2024-12-22");
+
+            String title2 = "title2#" + randomAlphaDecimalText(11);
+            String description2 = "description2#" + randomAlphaDecimalText(11);
+            String guest2 = "guest2#" + randomAlphaDecimalText(11);
+            String location2 = "location2#" + randomAlphaDecimalText(11);
+            LocalDate sessionStartDate2 = LocalDate.parse("2024-12-20");
+            LocalDate sessionEndDate2 = LocalDate.parse("2024-12-22");
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String subEventTitle = "title3#" + randomAlphaDecimalText(11);
+            String description3 = "description2#" + randomAlphaDecimalText(11);
+
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+
+            facade.sessionController.createNewSession(title, description, guest, location, sessionStartDate, sessionEndDate);
+            facade.sessionController.createNewSession(title2, description2, guest2, location2, sessionStartDate2, sessionEndDate2);
+
+            Collection<Session> sessions = facade.sessionController.getAllEventSessions();
+            Assertions.assertEquals(2, sessions.size());
+            Assertions.assertEquals(2, facade.stateController.getCurrentSubEvent().getSessions().size());
+        }
+
     }
     @Nested
     @DisplayName("SubEventController tests")
-    class SubEventControllerTest{
 
+    class SubEventControllerTest{
+        @Test
+        @DisplayName("Create new subEvent Test")
+        void createNewSubEventTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String subEventTitle = "title3#" + randomAlphaDecimalText(11);
+            String description3 = "description2#" + randomAlphaDecimalText(11);
+
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+            Assertions.assertNotNull(facade.stateController.getCurrentSubEvent());
+            Assertions.assertEquals(subEventTitle, facade.stateController.getCurrentSubEvent().getTitle());
+        }
+        @Test
+        @DisplayName("Update Subevent description Test")
+        void updateSubEventDescriptionTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String subEventTitle = "title3#" + randomAlphaDecimalText(11);
+            String description3 = "description2#" + randomAlphaDecimalText(11);
+
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+            String newDescription = "Oii";
+            facade.subEventController.updateSubEventDescription(newDescription);
+            Assertions.assertEquals(newDescription, facade.stateController.getCurrentSubEvent().getDescription());
+        }
+        @Test
+        @DisplayName("Update SubEvent Director")
+        void updateSubEventDirectorTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String subEventTitle = "title3#" + randomAlphaDecimalText(11);
+            String description3 = "description2#" + randomAlphaDecimalText(11);
+
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+            String newDirector = "Jackito";
+            facade.subEventController.updateSubEventDirector(newDirector);
+            Assertions.assertEquals(newDirector, facade.stateController.getCurrentSubEvent().getDirector());
+        }
+        @Test
+        @DisplayName("Update SubEvent title")
+        void updateSubEventTitleTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String subEventTitle = "title3#" + randomAlphaDecimalText(11);
+            String description3 = "description2#" + randomAlphaDecimalText(11);
+
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+            String newTitle = "Éeeeh";
+            facade.subEventController.updateSubEventTitle(newTitle);
+            Assertions.assertEquals(newTitle, facade.stateController.getCurrentSubEvent().getTitle());
+        }
+        @Test
+        @DisplayName("Update SubEvent StartDate")
+        void updateSubEventStartDateTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String subEventTitle = "title3#" + randomAlphaDecimalText(11);
+            String description3 = "description2#" + randomAlphaDecimalText(11);
+
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+            LocalDate newStartDate = endDate.minusDays(1);
+            Assertions.assertDoesNotThrow(() -> facade.subEventController.updateSubEventStartDate(newStartDate));
+            Assertions.assertEquals(newStartDate, facade.stateController.getCurrentSubEvent().getStartDate());
+        }
+        @Test
+        @DisplayName("Update SubEvent EndDate")
+        void updateSubEventEndDateTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String subEventTitle = "title3#" + randomAlphaDecimalText(11);
+            String description3 = "description2#" + randomAlphaDecimalText(11);
+
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+            LocalDate newEndDate = startDate.plusDays(10);
+            Assertions.assertDoesNotThrow(() -> facade.subEventController.updateSubEventEndDate(newEndDate));
+            Assertions.assertEquals(newEndDate, facade.stateController.getCurrentSubEvent().getEndDate());
+        }
+        @Test
+        @DisplayName("Update SubEvent Invalid StartDate")
+        void updateSubEventInvalidStartDateTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String subEventTitle = "title3#" + randomAlphaDecimalText(11);
+            String description3 = "description2#" + randomAlphaDecimalText(11);
+
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+            LocalDate newStartDate = endDate.plusDays(10);
+            Assertions.assertThrows(SystemException.class, () -> facade.subEventController.updateSubEventStartDate(newStartDate));
+            Assertions.assertEquals(startDate, facade.stateController.getCurrentSubEvent().getStartDate());
+        }
+        @Test
+        @DisplayName("Update SubEvent Invalid EndDate")
+        void updateSubEventInvalidEndDateTest() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String subEventTitle = "title3#" + randomAlphaDecimalText(11);
+            String description3 = "description2#" + randomAlphaDecimalText(11);
+
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+            LocalDate newEndDate = startDate.minusDays(10);
+            Assertions.assertThrows(SystemException.class, () -> facade.subEventController.updateSubEventEndDate(newEndDate));
+            Assertions.assertEquals(endDate, facade.stateController.getCurrentSubEvent().getEndDate());
+        }
+        @Test
+        @DisplayName("Delete Subevent Test")
+        void deleteSubEventTest() throws SystemException{
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String subEventTitle = "title3#" + randomAlphaDecimalText(11);
+            String description3 = "description2#" + randomAlphaDecimalText(11);
+
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+
+            facade.subEventController.deleteSubEvent(facade.stateController.getCurrentSubEvent());
+            Assertions.assertNull(facade.stateController.getCurrentSubEvent());
+            Assertions.assertNotNull(facade.stateController.getCurrentEvent());
+        }
+        @Test
+        @DisplayName("Get all subevents Test")
+        void getAllEventSubEvents() throws SystemException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String surname = "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
+
+            LocalDate startDate = LocalDate.parse("2024-12-20");
+            LocalDate endDate = LocalDate.parse("2024-12-22");
+
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+
+            String subEventTitle = "title3#" + randomAlphaDecimalText(11);
+            String description3 = "description2#" + randomAlphaDecimalText(11);
+
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+            facade.subEventController.createNewSubEvent(subEventTitle, description3, "Eu", startDate, endDate);
+
+            Assertions.assertEquals(3, facade.subEventController.getAllSubEvents().size());
+        }
     }
+
     @Nested
     @DisplayName("SubscriptionController tests")
     class SubscriptionControllerTest{
-
+        //nothing to test yet
     }
+
     @Nested
     @DisplayName("SubmissionController tests")
     class SubmissionControllerTest{
+        @Test
+        @DisplayName("Submit File Test")
+        void submitFileTest() throws SystemException, IOException {
+            String name = "name#" + randomAlphaDecimalText(11);
+            String name2 = "name#" + randomAlphaDecimalText(11);
+            String surname= "surname#" + randomAlphaDecimalText(11);
+            String cpf = "cpf#" + randomAlphaDecimalText(11);
+            String email = "email#" + randomAlphaDecimalText(11);
+            String password = "pass#" + randomAlphaDecimalText(11);
 
+            facade.authController.createNewAdmin(name, surname, cpf, email, password);
+            facade.authController.login(email, password);
+
+            facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
+            facade.sessionController.createNewSession(eventTitle1, eventDescription1, name2, "UPE", startDate1, endDate1);
+
+
+            Event event = facade.stateController.getCurrentEvent();
+            facade.authController.logout();
+
+
+            String name3 = "name#" + randomAlphaDecimalText(11);
+            String surname3 = "surname#" + randomAlphaDecimalText(11);
+            String cpf3 = "cpf#" + randomAlphaDecimalText(11);
+            String email3 = "email#" + randomAlphaDecimalText(11);
+            String password3 = "pass#" + randomAlphaDecimalText(11);
+            facade.authController.createNewUser(name3, surname3, cpf3, email3, password3);
+            facade.authController.login(email3, password3);
+
+            facade.stateController.setCurrentEvent(event);
+
+            File tempFile = File.createTempFile("testFile", ".txt");
+            tempFile.deleteOnExit();
+
+            Files.write(tempFile.toPath(), "Test content".getBytes());
+
+            byte[] bytes = Files.readAllBytes(tempFile.toPath());
+            facade.submissionController.submitFile(tempFile);
+            Assertions.assertNotNull(facade.stateController.getCurrentSubmission().getContent());
+            Assertions.assertEquals(bytes.length, facade.stateController.getCurrentSubmission().getContent().length);
+        }
     }
 }

@@ -139,6 +139,7 @@ public class SessionController {
     }
 
     public Collection<Session> getAllEventSessions() {
+        if(stateController.getCurrentSubEvent() instanceof SubEvent subEvent) return subEvent.getSessions();
         return stateController.getCurrentEvent().getSessions();
     }
 }
