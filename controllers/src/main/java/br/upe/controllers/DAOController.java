@@ -13,6 +13,7 @@ public class DAOController {
     public final JDBCCertificationDAO certificationDAO;
     public final JDBCSystemUserDAO systemUserDAO;
     public final JDBCSystemAdminDAO systemAdminDAO;
+    public final JDBCUserDAO userDAO;
 
 
     public DAOController(LambdaEntityManagerFactory lambdaFunction){
@@ -24,6 +25,7 @@ public class DAOController {
         certificationDAO = PersistenciaInterface.createJDBCCertificationDAO(lambdaFunction);
         systemUserDAO = PersistenciaInterface.createJDBCSystemUserDAO(lambdaFunction);
         systemAdminDAO = PersistenciaInterface.createJDBCSystemAdminDAO(lambdaFunction);
+        userDAO = PersistenciaInterface.createJDBCUserDAO(lambdaFunction);
     }
 
 }

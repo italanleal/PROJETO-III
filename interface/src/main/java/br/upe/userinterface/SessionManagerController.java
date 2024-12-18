@@ -26,8 +26,8 @@ public class SessionManagerController {
         LocalDate startDate = AppStateController.stateController.getCurrentSession().getStartDate();
         LocalDate endDate = AppStateController.stateController.getCurrentSession().getEndDate();
 
-        if (startDate != null) dataInicio.setText(DateFormat.getDateInstance().format(startDate));
-        if (endDate != null) dataFim.setText(DateFormat.getDateInstance().format(endDate));
+        if (startDate != null) dataInicio.setText(startDate.toString());
+        if (endDate != null) dataFim.setText(endDate.toString());
     }
 
     @FXML

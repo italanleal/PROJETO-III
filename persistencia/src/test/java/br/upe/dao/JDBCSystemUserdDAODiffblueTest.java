@@ -2,23 +2,21 @@ package br.upe.dao;
 
 import static org.mockito.Mockito.mock;
 
-import br.upe.entities.SystemAdmin;
 import br.upe.entities.SystemUser;
 import br.upe.util.persistencia.LambdaEntityManagerFactory;
 import br.upe.util.persistencia.PersistenciaInterface;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-public class JDBCSystemUserDAODiffblueTest {
+public class JDBCSystemUserdDAODiffblueTest {
     /**
      * Test {@link JDBCSystemUserDAO#JDBCSystemUserDAO(LambdaEntityManagerFactory)}.
      */
-    private final Logger logger = Logger.getLogger(JDBCSystemUserDAODiffblueTest.class.getName());
+    private final Logger logger = Logger.getLogger(JDBCSystemUserdDAODiffblueTest.class.getName());
     private final JDBCSystemUserDAO userDAO = PersistenciaInterface.createJDBCSystemUserDAO(PersistenciaInterface.getDevelopEMF_lambda());
 
     @Test

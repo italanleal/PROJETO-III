@@ -17,27 +17,4 @@ public class JDBCSystemUserDAO extends JDBCGenericDAO<SystemUser, Long>{
         this.createEntityManager = lambdaFunction;
         this.openEM();
     }
-    public SystemUser findByCPF(String cpf) throws SystemException {
-        String jpql = "SELECT u FROM SystemUser u WHERE u.cpf = :cpf";
-
-        TypedQuery<SystemUser> query = em.createQuery(jpql, SystemUser.class);
-        query.setParameter("cpf", cpf);
-        List<SystemUser> result = query.getResultList();
-
-        if (result.isEmpty()) {
-            throw new UserNotFoundException("User with cpf " + cpf + " not found", null);
-        }
-        return result.getFirst();
-    }
-
-    public SystemUser findByEmail(String email) throws SystemException {
-        String jpql = "SELECT u FROM SystemUser u WHERE u.email = :email";
-        TypedQuery<SystemUser> query = em.createQuery(jpql, SystemUser.class);
-        query.setParameter("email", email);
-        List<SystemUser> result = query.getResultList();
-        if (result.isEmpty()) {
-            throw new UserNotFoundException("User with email " + email + " not found", null);
-        }
-        return result.getFirst();
-    }
 }
