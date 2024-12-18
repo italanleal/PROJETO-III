@@ -14,7 +14,7 @@ public class SystemAdmin extends Userd {
     @OneToMany(
             targetEntity=br.upe.entities.Event.class,
             mappedBy="admin",
-            cascade= CascadeType.ALL,
+            cascade=CascadeType.ALL,
             orphanRemoval=true,
             fetch=FetchType.EAGER
     )

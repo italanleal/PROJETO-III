@@ -306,7 +306,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
 
             facade.authController.logout();
-            Assertions.assertNull(facade.stateController.currentUser);
+            Assertions.assertNull(facade.stateController.getCurrentUser());
         }
     }
 
@@ -554,7 +554,6 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             Long id = facade.stateController.getCurrentEvent().getId();
-            facade.stateController.getCurrentUser();
             facade.eventController.deleteEvent(facade.stateController.getCurrentEvent());
             Assertions.assertEquals(Optional.empty(), facade.daoController.eventDAO.findById(id));
         }
@@ -576,7 +575,7 @@ public class FacadeTest extends TestingFeatures {
 
             Assertions.assertThrows(SystemException.class, () -> facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDateBeforeStartDate));
 
-            Assertions.assertNull(facade.stateController.currentEvent);
+            Assertions.assertNull(facade.stateController.getCurrentEvent());
         }
         @Test
         @DisplayName("GetAllEventByUser Test")

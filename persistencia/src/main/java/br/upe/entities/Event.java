@@ -31,7 +31,7 @@ public class Event extends BaseEvent {
     private @Setter(AccessLevel.PROTECTED) List<Submission> submissions = new ArrayList<>();
 
     @ManyToOne(
-            targetEntity=br.upe.entities.Event.class,
+            targetEntity=br.upe.entities.SystemAdmin.class,
             cascade=CascadeType.PERSIST,
             fetch=FetchType.LAZY,
             optional=true
