@@ -13,8 +13,6 @@ import java.util.List;
 
 @Entity @Getter @Setter
 public class SystemAdmin extends Userd {
-    @Setter(AccessLevel.PROTECTED) boolean su = true;
-
     @OneToMany(
             targetEntity=br.upe.entities.Event.class,
             mappedBy="admin",

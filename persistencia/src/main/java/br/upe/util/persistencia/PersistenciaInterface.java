@@ -38,11 +38,13 @@ public interface PersistenciaInterface {
      static JDBCSubmissionDAO createJDBCSubmissionDAO(LambdaEntityManagerFactory lambdaFunction) {
         return new JDBCSubmissionDAO(lambdaFunction);
     }
-     static SystemAdmin createSystemAdmin() {return new SystemAdmin(); }
+     static SystemAdmin createSystemAdmin() {return UserFactory.createSystemAdmin(); }
     static JDBCSystemAdminDAO createJDBCSystemAdminDAO(LambdaEntityManagerFactory lambdaFunction) {
         return new JDBCSystemAdminDAO(lambdaFunction);
     }
-    static SystemUser createSystemUser() {return new SystemUser(); }
+    static SystemUser createSystemUser() {
+         return UserFactory.createSystemUser();
+     }
     static JDBCSystemUserDAO createJDBCSystemUserDAO(LambdaEntityManagerFactory lambdaFunction) {
         return new JDBCSystemUserDAO(lambdaFunction);
     }

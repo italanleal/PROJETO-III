@@ -13,8 +13,6 @@ import java.util.List;
 
 @Entity @Getter @Setter
 public class SystemUser extends Userd {
-    @Setter(AccessLevel.PROTECTED) boolean su = false;
-
     @OneToMany(
             targetEntity=br.upe.entities.Subscription.class,
             mappedBy="user",
