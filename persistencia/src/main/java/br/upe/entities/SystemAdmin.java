@@ -1,9 +1,6 @@
 package br.upe.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,13 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Getter @Setter
+@DiscriminatorValue("SystemAdmin")
 public class SystemAdmin extends Userd {
     @OneToMany(
             targetEntity=br.upe.entities.Event.class,
             mappedBy="admin",
             cascade= CascadeType.ALL,
             orphanRemoval=true,
-            fetch= FetchType.LAZY
+            fetch=FetchType.EAGER
     )
     private @Setter(AccessLevel.PROTECTED) List<Event> events = new ArrayList<>();
 }

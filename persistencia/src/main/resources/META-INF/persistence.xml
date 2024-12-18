@@ -19,7 +19,7 @@
         <properties>
             <!-- Configurações do jakarta.persistence -->
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
 
             <!-- Configurações adicionais do OpenJPA -->
             <property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO"/>

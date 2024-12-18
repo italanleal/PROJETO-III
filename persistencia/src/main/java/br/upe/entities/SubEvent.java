@@ -8,6 +8,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity @Getter @Setter
+@DiscriminatorValue("SubEvent")
 public class SubEvent extends BaseEvent {
     @ManyToOne(
             targetEntity=br.upe.entities.Event.class,

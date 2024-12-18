@@ -1,9 +1,6 @@
 package br.upe.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,13 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Getter @Setter
+@DiscriminatorValue("SystemUser")
 public class SystemUser extends Userd {
     @OneToMany(
             targetEntity=br.upe.entities.Subscription.class,
             mappedBy="user",
             cascade= CascadeType.ALL,
             orphanRemoval=true,
-            fetch= FetchType.LAZY
+            fetch=FetchType.EAGER
     )
     private @Setter(AccessLevel.PROTECTED) List<Subscription> subscriptions = new ArrayList<>();
 
@@ -27,7 +25,7 @@ public class SystemUser extends Userd {
             mappedBy="user",
             cascade=CascadeType.ALL,
             orphanRemoval=true,
-            fetch=FetchType.LAZY
+            fetch=FetchType.EAGER
     )
     private @Setter(AccessLevel.PROTECTED) List<Submission> submissions = new ArrayList<>();
 
@@ -36,7 +34,7 @@ public class SystemUser extends Userd {
             mappedBy="user",
             cascade=CascadeType.ALL,
             orphanRemoval=true,
-            fetch=FetchType.LAZY
+            fetch=FetchType.EAGER
     )
     private @Setter(AccessLevel.PROTECTED) List<Certification> certifications = new ArrayList<>();
 }

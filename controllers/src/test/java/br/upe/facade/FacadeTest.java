@@ -553,6 +553,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             Long id = facade.stateController.getCurrentEvent().getId();
+            facade.stateController.getCurrentUser();
             facade.eventController.deleteEvent(facade.stateController.getCurrentEvent());
             Assertions.assertEquals(Optional.empty(), facade.daoController.eventDAO.findById(id));
         }
@@ -578,7 +579,7 @@ public class FacadeTest extends TestingFeatures {
         }
         @Test
         @DisplayName("GetAllEventByUser Test")
-        void getALlEventByUserTest() throws SystemException{
+        void getAllEventsByUserTest() throws SystemException{
             String name = "name#" + randomAlphaDecimalText(11);
             String surname= "surname#" + randomAlphaDecimalText(11);
             String cpf = "cpf#" + randomAlphaDecimalText(11);
@@ -588,6 +589,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             Collection<Event> events = facade.eventController.getAllEventsByUser();
+            Assertions.assertNotNull(events);
             Assertions.assertEquals(1, events.size());
         }
     }
