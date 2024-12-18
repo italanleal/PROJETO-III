@@ -143,5 +143,15 @@ public class StateController {
         }
 
     }
+
+    public void close() {
+        setCurrentUser(null);
+        setCurrentEvent(null);
+        setCurrentSession(null);
+        setCurrentSubmission(null);
+        setCurrentCertification(null);
+        setCurrentSubEvent(null);
+        setCurrentSubscription(null);
+    }
 }
 

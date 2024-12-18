@@ -407,6 +407,7 @@ public class FacadeTest extends TestingFeatures {
             LocalDate startDate = LocalDate.parse("2024-12-20");
             LocalDate endDate = LocalDate.parse("2024-12-22");
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDate);
+            Assertions.assertEquals(facade.stateController.getCurrentUser().getId(), facade.stateController.getCurrentEvent().getAdmin().getId());
             Assertions.assertNotNull(facade.stateController.getCurrentEvent());
         }
         @Test
@@ -579,7 +580,9 @@ public class FacadeTest extends TestingFeatures {
         }
         @Test
         @DisplayName("GetAllEventByUser Test")
+
         void getAllEventsByUserTest() throws SystemException{
+
             String name = "name#" + randomAlphaDecimalText(11);
             String surname= "surname#" + randomAlphaDecimalText(11);
             String cpf = "cpf#" + randomAlphaDecimalText(11);

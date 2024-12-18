@@ -31,7 +31,6 @@
                         <TextField id="titleField" fx:id="titleField" />
                   <Label layoutX="10.0" layoutY="10.0" text="Guest" />
                   <TextField id="guestField" fx:id="guestField" layoutX="10.0" layoutY="28.0" />
-
                   <Label layoutX="10.0" layoutY="10.0" text="Local" />
                   <TextField id="localField" fx:id="localField" layoutX="10.0" layoutY="28.0" />
                         <Label text="Start date" />

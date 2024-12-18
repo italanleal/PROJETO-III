@@ -11,9 +11,7 @@ import br.upe.util.persistencia.SystemException;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static br.upe.util.controllers.CHECKING.checkDates;
 
@@ -112,9 +110,12 @@ public class EventController {
         stateController.setCurrentEvent(null);
     }
     public Collection<Event> getAllEventsByUser() throws SystemException {
+        Collection<Event> events = getAllEvents();
+
         if(stateController.getCurrentUser() instanceof SystemAdmin admin) {
             return admin.getEvents();
         } else throw new UserIsNotAdmin();
+
     }
     public Collection<SubEvent> getAllSubEvents() throws SystemException {
         if (stateController.getCurrentUser() instanceof SystemAdmin) {
