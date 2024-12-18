@@ -27,7 +27,7 @@ public class SubEventController {
     public void createNewSubEvent(String title, String description, String director, LocalDate startDate, LocalDate endDate) throws SystemException {
         checkDates(startDate, endDate);
 
-        if (!stateController.currentUser.isSu()) {
+        if (!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
         SubEvent subEvent = PersistenciaInterface.createSubEvent();
@@ -37,34 +37,33 @@ public class SubEventController {
         subEvent.setStartDate(startDate);
         subEvent.setEndDate(endDate);
         subEvent.setEvent(stateController.getCurrentEvent());
-        stateController.getCurrentEvent().getSubEvents().add(subEvent);
-
-        stateController.setCurrentEvent(stateController.getCurrentEvent());
         stateController.setCurrentSubEvent(daoController.subEventDAO.save(subEvent));
+        stateController.refresh();
     }
 
     public void updateSubEventDescription(String description) throws SystemException {
-        if (!stateController.currentUser.isSu()) {
+        if (!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
         SubEvent subEvent = stateController.getCurrentSubEvent();
         subEvent.setDescription(description);
 
         stateController.setCurrentSubEvent(daoController.subEventDAO.update(subEvent));
-
+        stateController.refresh();
     }
 
     public void updateSubEventDirector(String director) throws SystemException {
-        if (!stateController.currentUser.isSu()) {
+        if (!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
         SubEvent subEvent = stateController.getCurrentSubEvent();
         subEvent.setDirector(director);
         stateController.setCurrentSubEvent(daoController.subEventDAO.update(subEvent));
+        stateController.refresh();
     }
 
     public void updateSubEventTitle(String title) throws SystemException {
-        if (!stateController.currentUser.isSu()) {
+        if (!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
 
@@ -72,10 +71,11 @@ public class SubEventController {
         subEvent.setTitle(title);
 
         stateController.setCurrentSubEvent(daoController.subEventDAO.update(subEvent));
+        stateController.refresh();
     }
 
     public void updateSubEventStartDate(LocalDate startDate) throws SystemException {
-        if (!stateController.currentUser.isSu()) {
+        if (!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
         SubEvent subEvent = stateController.getCurrentSubEvent();
@@ -87,13 +87,14 @@ public class SubEventController {
         subEvent.setStartDate(startDate);
 
         stateController.setCurrentSubEvent(daoController.subEventDAO.update(subEvent));
+        stateController.refresh();
     }
 
     public void updateSubEventEndDate(LocalDate endDate) throws SystemException {
-        if (!stateController.currentUser.isSu()) {
+        if (!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
-        SubEvent subEvent = stateController.currentSubEvent;
+        SubEvent subEvent = stateController.getCurrentSubEvent();
         try {
             CHECKING.checkDates(subEvent.getStartDate(), endDate);
         } catch (SystemException e) {
@@ -101,6 +102,7 @@ public class SubEventController {
         }
         subEvent.setEndDate(endDate);
         stateController.setCurrentSubEvent(daoController.subEventDAO.update(subEvent));
+        stateController.refresh();
 
     }
 
@@ -110,6 +112,7 @@ public class SubEventController {
         }
         daoController.subEventDAO.delete(subEvent);
         stateController.setCurrentSubEvent(null);
+        stateController.refresh();
     }
     public List<Session> getSubEventSessions(){
         return stateController.getCurrentSubEvent().getSessions();

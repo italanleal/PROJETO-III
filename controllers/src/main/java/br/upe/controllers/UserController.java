@@ -30,6 +30,7 @@ public class UserController {
             user.setName(userName);
             stateController.setCurrentUser(daoController.systemUserDAO.update(user));
         }
+        stateController.refresh();
     }
     public void updateUserEmail(String email) throws SystemException {
         Userd qUser = null;
@@ -48,6 +49,7 @@ public class UserController {
             user.setEmail(email);
             stateController.setCurrentUser(daoController.systemUserDAO.update(user));
         }
+        stateController.refresh();
 
     }
 
@@ -74,9 +76,11 @@ public class UserController {
             user.setSurname(surname);
             stateController.setCurrentUser(daoController.systemUserDAO.update(user));
         }
+        stateController.refresh();
 
     }
     public void removeSubscriptionFromUser(Subscription subscription){
        daoController.subscriptionDAO.delete(subscription);
+       stateController.refresh();
     }
 }

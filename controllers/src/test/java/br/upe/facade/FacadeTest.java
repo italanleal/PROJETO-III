@@ -306,7 +306,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
 
             facade.authController.logout();
-            Assertions.assertNull(facade.stateController.currentUser);
+            Assertions.assertNull(facade.stateController.getCurrentUser());
         }
     }
 
@@ -574,11 +574,13 @@ public class FacadeTest extends TestingFeatures {
 
             Assertions.assertThrows(SystemException.class, () -> facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate, endDateBeforeStartDate));
 
-            Assertions.assertNull(facade.stateController.currentEvent);
+            Assertions.assertNull(facade.stateController.getCurrentEvent());
         }
         @Test
         @DisplayName("GetAllEventByUser Test")
-        void getALlEventByUserTest() throws SystemException{
+
+        void getAllEventsByUserTest() throws SystemException{
+
             String name = "name#" + randomAlphaDecimalText(11);
             String surname= "surname#" + randomAlphaDecimalText(11);
             String cpf = "cpf#" + randomAlphaDecimalText(11);
@@ -588,6 +590,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             Collection<Event> events = facade.eventController.getAllEventsByUser();
+            Assertions.assertNotNull(events);
             Assertions.assertEquals(1, events.size());
         }
     }

@@ -18,7 +18,7 @@ public class Submission {
 
     @ManyToOne(
             targetEntity=br.upe.entities.Event.class,
-            cascade=CascadeType.PERSIST,
+            cascade=CascadeType.ALL,
             fetch=FetchType.LAZY,
             optional=true
     )

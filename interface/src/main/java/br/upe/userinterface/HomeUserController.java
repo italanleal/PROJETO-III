@@ -40,6 +40,7 @@ public class HomeUserController {
 
     @FXML
     void logout() throws IOException {
+        AppStateController.stateController.close();
         AppStateController.authController.logout();
         App.setRoot("login");
     }

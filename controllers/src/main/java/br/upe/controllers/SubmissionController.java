@@ -21,7 +21,7 @@ public class SubmissionController {
     }
 
     public void submitFile(File file) throws SystemException {
-        if(stateController.currentUser == null) throw new UnauthenticatedUserException();
+        if(stateController.getCurrentUser() == null) throw new UnauthenticatedUserException();
 
         Submission submission = PersistenciaInterface.createSubmission();
         submission.setUser((SystemUser) stateController.getCurrentUser());
@@ -34,5 +34,6 @@ public class SubmissionController {
         }
         daoController.submissionDAO.save(submission);
         stateController.setCurrentSubmission(submission);
+        stateController.refresh();
     }
 }
