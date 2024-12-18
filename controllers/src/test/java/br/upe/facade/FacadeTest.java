@@ -824,6 +824,7 @@ public class FacadeTest extends TestingFeatures {
         @Test
         @DisplayName("Get all event sessions")
         void getAllEventSessionsTest() throws SystemException {
+
             String name = "name#" + randomAlphaDecimalText(11);
             String surname= "surname#" + randomAlphaDecimalText(11);
             String cpf = "cpf#" + randomAlphaDecimalText(11);
@@ -858,6 +859,7 @@ public class FacadeTest extends TestingFeatures {
             Collection<Session> sessions = facade.sessionController.getAllEventSessions();
             Assertions.assertEquals(2, sessions.size());
         }
+
         @Test
         @DisplayName("Get all subevent sessions")
         void getAllSubEventSessionsTest() throws SystemException {
@@ -901,6 +903,7 @@ public class FacadeTest extends TestingFeatures {
             Assertions.assertEquals(2, sessions.size());
             Assertions.assertEquals(2, facade.stateController.getCurrentSubEvent().getSessions().size());
         }
+
     }
     @Nested
     @DisplayName("SubEventController tests")
