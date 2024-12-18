@@ -36,10 +36,8 @@ public class EventController {
         event.setDirector(director);
         event.setStartDate(startDate);
         event.setEndDate(endDate);
-
         event.setAdmin((SystemAdmin) stateController.getCurrentUser());
 
-        stateController.setCurrentUser(stateController.getCurrentUser());
         stateController.setCurrentEvent(daoController.eventDAO.save(event));
     }
 
@@ -115,10 +113,9 @@ public class EventController {
         Collection<Event> events = getAllEvents();
 
         if(stateController.getCurrentUser() instanceof SystemAdmin admin) {
-            events.removeIf(event -> !event.getAdmin().getCpf().equals(admin.getCpf()));
-            return events;
-        }
-        throw new UserIsNotAdmin();
+            return admin.getEvents();
+        } else throw new UserIsNotAdmin();
+
     }
     public Collection<SubEvent> getAllSubEvents() throws SystemException {
         if (stateController.getCurrentUser() instanceof SystemAdmin) {
@@ -127,7 +124,7 @@ public class EventController {
 
     }
     public void changeCurrentEvent(Event event){
-        stateController.currentEvent = event;
+        stateController.setCurrentEvent(event);
     }
     public void closeCurrentEvent() {
 
