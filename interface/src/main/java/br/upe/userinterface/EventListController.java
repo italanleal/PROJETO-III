@@ -1,7 +1,6 @@
 package br.upe.userinterface;
 
 import br.upe.entities.Event;
-import br.upe.entities.SystemAdmin;
 import br.upe.util.controllers.UserIsNotAdmin;
 import br.upe.util.persistencia.SystemException;
 import javafx.fxml.FXML;
@@ -14,7 +13,6 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Collection;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

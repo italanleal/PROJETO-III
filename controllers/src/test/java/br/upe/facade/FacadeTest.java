@@ -578,7 +578,7 @@ public class FacadeTest extends TestingFeatures {
         }
         @Test
         @DisplayName("GetAllEventByUser Test")
-        void getALlEventByUserTest() throws SystemException{
+        void getAllEventByUserTest() throws SystemException{
             String name = "name#" + randomAlphaDecimalText(11);
             String surname= "surname#" + randomAlphaDecimalText(11);
             String cpf = "cpf#" + randomAlphaDecimalText(11);
