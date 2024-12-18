@@ -26,7 +26,7 @@ public class EventListController {
     @FXML
     private void initialize() throws SystemException {
         // Set the label's text to the value of the variable
-        userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
+        userEmail.setText(AppStateController.stateController.getCurrentUser().getName());
 
         Collection<Event> events;
 

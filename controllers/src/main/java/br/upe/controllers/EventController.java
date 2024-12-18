@@ -113,10 +113,10 @@ public class EventController {
     }
     public Collection<Event> getAllEventsByUser() throws SystemException {
         Collection<Event> events = getAllEvents();
-        events.forEach(event -> System.out.println("Event: " + event + ", Admin: " + event.getAdmin()));
 
         if(stateController.getCurrentUser() instanceof SystemAdmin admin) {
-            return getAllEvents().stream().filter(event -> event.getAdmin().getId().equals(admin.getId())).toList();
+            events.removeIf(event -> !event.getAdmin().getCpf().equals(admin.getCpf()));
+            return events;
         }
         throw new UserIsNotAdmin();
     }
