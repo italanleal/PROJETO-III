@@ -3,16 +3,43 @@ package br.upe.controllers;
 import br.upe.entities.*;
 
 public class StateController {
-    public Userd currentUser;
-    public Event currentEvent;
-    public Session currentSession;
-    public Submission currentSubmission;
-    public Certification currentCertification;
-    public Subscription currentSubscription;
-    public SubEvent currentSubEvent;
-
+    private Userd currentUser;
+    private Event currentEvent;
+    private Session currentSession;
+    private Submission currentSubmission;
+    private Certification currentCertification;
+    private Subscription currentSubscription;
+    private SubEvent currentSubEvent;
 
     private DAOController daoController;
+
+    public Userd getCurrentUser() {
+        return currentUser;
+    }
+
+    public Event getCurrentEvent() {
+        return currentEvent;
+    }
+
+    public Session getCurrentSession() {
+        return currentSession;
+    }
+
+    public Submission getCurrentSubmission() {
+        return currentSubmission;
+    }
+
+    public Certification getCurrentCertification() {
+        return currentCertification;
+    }
+
+    public Subscription getCurrentSubscription() {
+        return currentSubscription;
+    }
+
+    public SubEvent getCurrentSubEvent() {
+        return currentSubEvent;
+    }
 
     public StateController(DAOController daoController) {
         this.daoController = daoController;
@@ -20,16 +47,13 @@ public class StateController {
     private StateController() {
     }
 
-    public Userd getCurrentUser() {
+    public void refreshCurrentUser() {
         if(currentUser instanceof SystemAdmin systemAdmin) {
             setCurrentUser(daoController.systemAdminDAO.findById(systemAdmin.getId()).get());
         }
-
         if(currentUser instanceof SystemUser systemUser) {
             setCurrentUser(daoController.systemUserDAO.findById(systemUser.getId()).get());
         }
-
-        return currentUser;
     }
 
     public void setCurrentUser(Userd user) {
@@ -42,11 +66,10 @@ public class StateController {
         currentUser = user;
     }
 
-    public Event getCurrentEvent() {
+    public void refreshCurrentEvent() {
         if (currentEvent != null) {
             setCurrentEvent(daoController.eventDAO.findById(currentEvent.getId()).get());
         }
-        return currentEvent;
     }
 
     public void setCurrentEvent(Event event) {
@@ -58,11 +81,10 @@ public class StateController {
         }
     }
 
-    public Session getCurrentSession() {
+    public void refreshCurrentSession() {
         if (currentSession != null) {
             setCurrentSession(daoController.sessionDAO.findById(currentSession.getId()).get());
         }
-        return currentSession;
     }
 
     public void setCurrentSession(Session session) {
@@ -74,12 +96,10 @@ public class StateController {
         }
     }
 
-    public Submission getCurrentSubmission() {
+    public void refreshCurrentSubmission() {
         if (currentSubmission != null) {
             setCurrentSubmission(daoController.submissionDAO.findById(currentSubmission.getId()).get());
         }
-
-        return currentSubmission;
     }
 
     public void setCurrentSubmission(Submission submission) {
@@ -91,11 +111,10 @@ public class StateController {
         }
     }
 
-    public Certification getCurrentCertification() {
+    public void refreshCurrentCertification() {
         if (currentCertification != null) {
             setCurrentCertification(daoController.certificationDAO.findById(currentCertification.getId()).get());
         }
-        return currentCertification;
     }
 
     public void setCurrentCertification(Certification certification) {
@@ -107,12 +126,10 @@ public class StateController {
         }
     }
 
-    public Subscription getCurrentSubscription() {
+    public void refreshCurrentSubscription() {
         if (currentSubscription != null) {
             setCurrentSubscription(daoController.subscriptionDAO.findById(currentSubscription.getId()).get());
         }
-
-        return currentSubscription;
     }
 
     public void setCurrentSubscription(Subscription subscription) {
@@ -122,16 +139,13 @@ public class StateController {
         } else {
             currentSubscription = null;
         }
-
     }
 
-    public SubEvent getCurrentSubEvent() {
+    public void refreshCurrentSubEvent() {
         if (currentSubEvent != null) {
             setCurrentSubEvent(daoController.subEventDAO.findById(currentSubEvent.getId()).get());
             daoController.subEventDAO.detach(currentSubEvent);
         }
-
-        return currentSubEvent;
     }
 
     public void setCurrentSubEvent(SubEvent subEvent) {
@@ -141,7 +155,26 @@ public class StateController {
         } else {
             currentSubEvent = null;
         }
+    }
 
+    public void close() {
+        setCurrentUser(null);
+        setCurrentEvent(null);
+        setCurrentSession(null);
+        setCurrentSubmission(null);
+        setCurrentCertification(null);
+        setCurrentSubEvent(null);
+        setCurrentSubscription(null);
+    }
+
+    public void refresh() {
+        if(currentUser != null) refreshCurrentUser();
+        if(currentCertification != null) refreshCurrentCertification();
+        if(currentSubscription != null) refreshCurrentSubscription();
+        if(currentSubmission != null) refreshCurrentSubmission();
+        if(currentEvent != null) refreshCurrentEvent();
+        if(currentSubEvent != null) refreshCurrentSubEvent();
+        if(currentSession != null) refreshCurrentSession();
     }
 
     public void close() {

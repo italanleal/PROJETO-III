@@ -27,7 +27,7 @@ public class EventController {
     public void createNewEvent(String title, String description, String director, LocalDate startDate, LocalDate endDate) throws SystemException {
         checkDates(startDate, endDate);
 
-        if(!stateController.currentUser.isSu()){
+        if(!stateController.getCurrentUser().isSu()){
             throw new UserIsNotAdmin();
         }
         Event event = PersistenciaInterface.createEvent();
@@ -39,43 +39,46 @@ public class EventController {
         event.setAdmin((SystemAdmin) stateController.getCurrentUser());
 
         stateController.setCurrentEvent(daoController.eventDAO.save(event));
+        stateController.refresh();
     }
 
     public void updateEventDescription(String description) throws SystemException {
-        if(!stateController.currentUser.isSu()){
+        if(!stateController.getCurrentUser().isSu()){
             throw new UserIsNotAdmin();
         }
 
         Event event = stateController.getCurrentEvent();
         event.setDescription(description);
         stateController.setCurrentEvent(daoController.eventDAO.update(event));
-
+        stateController.refresh();
     }
 
     public void updateEventDirector(String director) throws SystemException {
-        if(!stateController.currentUser.isSu()) {
+        if(!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
 
         Event event = stateController.getCurrentEvent();
         event.setDirector(director);
         stateController.setCurrentEvent(daoController.eventDAO.update(event));
+        stateController.refresh();
     }
     public void updateEventTitle(String title)throws SystemException {
-        if(!stateController.currentUser.isSu()) {
+        if(!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
 
         Event event = stateController.getCurrentEvent();
         event.setTitle(title);
         stateController.setCurrentEvent(daoController.eventDAO.update(event));
+        stateController.refresh();
     }
 
     public void updateEventStartDate(LocalDate startDate) throws SystemException {
-        if (!stateController.currentUser.isSu()) {
+        if (!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
-        Event event = stateController.currentEvent;
+        Event event = stateController.getCurrentEvent();
         try {
             CHECKING.checkDates(startDate, event.getEndDate());
         } catch (SystemException e) {
@@ -85,13 +88,14 @@ public class EventController {
         event.setStartDate(startDate);
 
         stateController.setCurrentEvent(daoController.eventDAO.update(event));
+        stateController.refresh();
     }
 
     public void updateEventEndDate(LocalDate endDate) throws SystemException {
-        if(!stateController.currentUser.isSu()) {
+        if(!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
-        Event event = stateController.currentEvent;
+        Event event = stateController.getCurrentEvent();
         try{
             CHECKING.checkDates(event.getStartDate(), endDate);
         } catch (SystemException e){
@@ -100,14 +104,16 @@ public class EventController {
 
         event.setEndDate(endDate);
         stateController.setCurrentEvent(daoController.eventDAO.update(event));
+        stateController.refresh();
 
     }
     public void deleteEvent(Event event) throws SystemException {
-        if(!stateController.currentUser.isSu()) {
+        if(!stateController.getCurrentUser().isSu()) {
             throw new UserIsNotAdmin();
         }
-        daoController.eventDAO.delete(event);
+        daoController.eventDAO.deleteById(event.getId());
         stateController.setCurrentEvent(null);
+        stateController.refresh();
     }
     public Collection<Event> getAllEventsByUser() throws SystemException {
         Collection<Event> events = getAllEvents();
