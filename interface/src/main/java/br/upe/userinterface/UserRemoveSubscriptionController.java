@@ -41,7 +41,7 @@ public class UserRemoveSubscriptionController {
     void checkTheSubscriptionTyped(MouseEvent event) {
         String subscriptionType = userRemoveSubscriptionTypeBox.getText();
         if (subscriptionType != null && !subscriptionType.isEmpty()) {
-            removeThisSubscription(subscriptionType);
+            //removeThisSubscription(subscriptionType);
         }
     }
 

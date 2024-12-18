@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
@@ -33,7 +34,7 @@
                         <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/home.png" />
                      </image>
                   </ImageView>
-                  <Hyperlink fx:id="homeUserLink" layoutX="56.0" layoutY="39.0" onMouseClicked="#goToHomeUser" prefHeight="29.0" prefWidth="130.0" text="Home" />
+                  <Hyperlink fx:id="homeUserLink" layoutX="56.0" layoutY="39.0" onAction="#switchToHomeUser" prefHeight="29.0" prefWidth="130.0" text="Home" />
                   <Separator layoutX="-1.0" layoutY="69.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
                      <effect>
                         <ColorAdjust />
@@ -44,7 +45,7 @@
                         <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/balloon-sharp.png" />
                      </image>
                   </ImageView>
-                  <Hyperlink fx:id="registerIntoAnEvent" layoutX="56.0" layoutY="76.0" onMouseClicked="#goToUserRegisterEvent" prefHeight="29.0" prefWidth="130.0" text="New subscription" />
+                  <Hyperlink fx:id="registerIntoAnEvent" layoutX="56.0" layoutY="76.0" onAction="#switchToUserRegisterEvent" prefHeight="29.0" prefWidth="130.0" text="New subscription" />
                   <Separator layoutY="114.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
                      <effect>
                         <ColorAdjust />
@@ -55,7 +56,7 @@
                         <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/trash-outline.png" />
                      </image>
                   </ImageView>
-                  <Hyperlink fx:id="userRemoveSubscriptionsLink" layoutX="56.0" layoutY="124.0" onMouseClicked="#goToUserRemoveSubscription" prefHeight="29.0" prefWidth="130.0" text="Remove subscription" />
+                  <Hyperlink fx:id="userRemoveSubscriptionsLink" layoutX="56.0" layoutY="124.0" onAction="#switchToUserRemoveSubscription" prefHeight="29.0" prefWidth="130.0" text="Remove subscription" />
                   <Separator layoutY="161.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
                      <effect>
                         <ColorAdjust />
@@ -66,7 +67,7 @@
                         <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/reader-outline.png" />
                      </image>
                   </ImageView>
-                  <Hyperlink fx:id="userListSubscriptionLink" layoutX="56.0" layoutY="171.0" onMouseClicked="#goToUserListSubscription" prefHeight="29.0" prefWidth="130.0" text="List subscriptions" />
+                  <Hyperlink fx:id="userListSubscriptionLink" layoutX="56.0" layoutY="171.0" onAction="#switchToUserListSubscription" prefHeight="29.0" prefWidth="130.0" text="List subscriptions" />
                   <Separator layoutX="-1.0" layoutY="209.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
                      <effect>
                         <ColorAdjust />
@@ -77,7 +78,7 @@
                         <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/arrow-undo-sharp.png" />
                      </image>
                   </ImageView>
-                  <Hyperlink fx:id="logoutLink" layoutX="56.0" layoutY="219.0" onMouseClicked="#logout" prefHeight="29.0" prefWidth="130.0" text="Logout" />
+                  <Hyperlink fx:id="logoutLink" layoutX="56.0" layoutY="219.0" onAction="#logout" prefHeight="29.0" prefWidth="130.0" text="Logout" />
                </children>
             </AnchorPane>
          </children>

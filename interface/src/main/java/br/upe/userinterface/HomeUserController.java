@@ -9,48 +9,44 @@ import java.io.IOException;
 public class HomeUserController {
 
     @FXML
-    private Hyperlink homeUserLink;
+    Hyperlink homeUserLink;
 
     @FXML
-    private Hyperlink registerIntoAnEvent;
+    Hyperlink registerIntoAnEvent;
 
     @FXML
-    private Hyperlink userEditSubscriptionLink;
+    Hyperlink userEditSubscriptionLink;
 
     @FXML
-    private Hyperlink userRemoveSubscriptionsLink;
+    Hyperlink userRemoveSubscriptionsLink;
 
     @FXML
-    private Hyperlink userListSubscriptionLink;
+    Hyperlink logoutLink;
 
     @FXML
-    private Hyperlink logoutLink;
-
-    @FXML
-    private Label userEmail;
-
+    Label userEmail;
 
     private void initialize() {
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
     }
 
     @FXML
-    void goToUserListSubscription(MouseEvent event) throws IOException {
+    void switchToUserListSubscription() throws IOException {
         App.setRoot("userSearchEvent");
     }
 
     @FXML
-    void goToUserRegisterEvent(MouseEvent event) throws IOException{
+    void switchToUserRegisterEvent() throws IOException{
         App.setRoot("userAddSubscription");
     }
 
     @FXML
-    void goToUserRemoveSubscription(MouseEvent event) throws IOException {
+    void switchToUserRemoveSubscription() throws IOException {
         App.setRoot("userRemoveSubscription");
     }
 
     @FXML
-    void logout(MouseEvent event) throws IOException {
+    void logout() throws IOException {
         AppStateController.authController.logout();
         App.setRoot("login");
     }
