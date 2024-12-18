@@ -167,6 +167,7 @@ public class StateController {
         setCurrentSubscription(null);
     }
 
+
     public void refresh() {
         if(currentUser != null) refreshCurrentUser();
         if(currentCertification != null) refreshCurrentCertification();
@@ -176,5 +177,7 @@ public class StateController {
         if(currentSubEvent != null) refreshCurrentSubEvent();
         if(currentSession != null) refreshCurrentSession();
     }
+
+   
 }
 

@@ -553,6 +553,7 @@ public class FacadeTest extends TestingFeatures {
             facade.authController.login(email, password);
             facade.eventController.createNewEvent(eventTitle1, eventDescription1, eventDirector1, startDate1, endDate1);
             Long id = facade.stateController.getCurrentEvent().getId();
+            facade.stateController.getCurrentUser();
             facade.eventController.deleteEvent(facade.stateController.getCurrentEvent());
             Assertions.assertEquals(Optional.empty(), facade.daoController.eventDAO.findById(id));
         }
