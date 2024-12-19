@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.UserProfileController">
+    <children>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <AnchorPane prefHeight="445.0" prefWidth="200.0" style="-fx-background-color: #394159;">
+                    <children>
+                        <Separator layoutY="246.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
+                        <Hyperlink id="logoutLink" fx:id="logoutLink" layoutX="39.0" layoutY="257.0" onAction="#logout" prefHeight="35.0" prefWidth="131.0" text="logout" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font></Hyperlink>
+                        <Separator layoutY="200.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
+                        <Separator layoutY="148.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
+                        <Separator layoutY="94.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
+                    </children>
+                </AnchorPane>
+                <ButtonBar prefHeight="40.0" prefWidth="200.0" />
+            </children>
+        </VBox>
+        <VBox prefHeight="400.0" prefWidth="403.0">
+            <children>
+                <Label id="userName" fx:id="userName" alignment="CENTER" prefHeight="137.0" prefWidth="350.0" textAlignment="CENTER" />
+                <Separator layoutY="94.0" prefHeight="0.0" prefWidth="350.0" style="-fx-background-color: #394159;" />
+                <VBox alignment="CENTER" prefHeight="353.0" prefWidth="350.0" />
+            <Circle fill="DODGERBLUE" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+            </children></VBox>
+    </children>
+</HBox>
