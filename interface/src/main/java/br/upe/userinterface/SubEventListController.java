@@ -1,8 +1,10 @@
 package br.upe.userinterface;
 
 import br.upe.entities.Event;
+import br.upe.entities.SubEvent;
 import br.upe.util.controllers.UserIsNotAdmin;
 import br.upe.util.persistencia.SystemException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,52 +13,48 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EventListController {
-    Logger logger = Logger.getLogger(EventListController.class.getName());
+public class SubEventListController {
+    Logger logger = Logger.getLogger(SubEventListController.class.getName());
     @FXML
     ScrollPane scrollPane;
     @FXML
     Label userEmail;
 
     @FXML
-    private void initialize() throws SystemException {
+    private void initialize() {
         // Set the label's text to the value of the variable
         userEmail.setText(AppStateController.stateController.getCurrentUser().getName());
 
-        Collection<Event> events;
+        Collection<SubEvent> subEvents;
 
-        try {
-            events = AppStateController.eventController.getAllEventsByUser();
-        } catch (UserIsNotAdmin e) {
-            return;
-        }
+        subEvents = AppStateController.subEventController.getAllSubEvents();
 
         VBox mainContainer = new VBox();
 
         mainContainer.getChildren().clear();
         mainContainer.setSpacing(10);
 
-        events.forEach(event -> {
+        subEvents.forEach(subEvent -> {
             VBox dataContainer = new VBox();
-            Label descritor = new Label(event.getDescription());
-            Label director = new Label(event.getDirector());
-            Label startDate = new Label((event.getStartDate() != null) ? event.getStartDate().toString() : "Não Informado");
-            Label endDate = new Label((event.getEndDate() != null) ? event.getEndDate().toString() : "Não Informado");
-            Label sessionCount = new Label(String.valueOf(event.getSessions().size()));
-            dataContainer.getChildren().addAll(descritor, director, startDate, endDate, sessionCount);
+            Label eventTitle = new Label(subEvent.getEvent().getTitle());
+            Label descritor = new Label(subEvent.getDescription());
+            Label director = new Label(subEvent.getDirector());
+            Label startDate = new Label((subEvent.getStartDate() != null) ? subEvent.getStartDate().toString() : "Não Informado");
+            Label endDate = new Label((subEvent.getEndDate() != null) ? subEvent.getEndDate().toString() : "Não Informado");
+            Label sessionCount = new Label(String.valueOf(subEvent.getSessions().size()));
+            dataContainer.getChildren().addAll(eventTitle, descritor, director, startDate, endDate, sessionCount);
 
             VBox labelsContainer = new VBox();
-            labelsContainer.getChildren().addAll(new Label("Nome do Evento"), new Label("Diretor do Evento"), new Label("Data de início"), new Label("Data de término"), new Label("Número de Sessões"));
+            labelsContainer.getChildren().addAll(new Label("Nome do Evento pai"), new Label("Nome do SubEvento"), new Label("Diretor do SubEvento"), new Label("Data de início"), new Label("Data de término"), new Label("Número de Sessões"));
 
             Button manageButton = new Button("manage");
             manageButton.setOnAction(a -> {
                 try {
-                    manageEvent(event);
+                    manageSubEvent(subEvent);
                 } catch (IOException e) {
                     logger.log(Level.SEVERE, "Error attaching event uuid to callback", e);
                 }
@@ -81,9 +79,11 @@ public class EventListController {
         scrollPane.setFitToHeight(true);
     }
     @FXML
-    private void switchToEventRegister() throws IOException {
-        App.setRoot("eventRegister");
+    private void manageSubEvent(SubEvent subEvent) throws IOException {
+        AppStateController.subEventController.changeCurrentSubEvent(subEvent);
+        App.setRoot("subEventManager");
     }
+
     @FXML
     private void switchToHomeAdmin() throws IOException {
         App.setRoot("homeAdmin");
@@ -101,5 +101,10 @@ public class EventListController {
     @FXML
     private void switchToSubEventRegister() throws IOException{
         App.setRoot("subEventRegister");
+    }
+
+    @FXML
+    public void switchToEventManager() throws IOException {
+        App.setRoot("eventManager");
     }
 }

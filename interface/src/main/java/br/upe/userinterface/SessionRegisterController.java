@@ -3,6 +3,7 @@ package br.upe.userinterface;
 
 import br.upe.util.persistencia.SystemException;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.util.logging.Logger;
 
 public class SessionRegisterController {
+    public Button submitSessionButton;
     Logger logger = Logger.getLogger(SessionRegisterController.class.getName());
 
     @FXML

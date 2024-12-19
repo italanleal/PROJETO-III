@@ -35,14 +35,23 @@ public class SessionListController {
 
         sessions.forEach(session -> {
             VBox dataContainer = new VBox();
-            Label descritor = new Label(session.getDescription());
+            Label title = new Label(session.getTitle());
+            Label guest = new Label(session.getGuest());
+            Label local = new Label(session.getLocal());
             Label startDate = new Label((session.getStartDate() != null) ? session.getStartDate().toString(): "Não Informado");
             Label endDate = new Label((session.getEndDate() != null) ? session.getEndDate().toString(): "Não Informado");
             Label subscriptionsCount = new Label(String.valueOf(session.getSubscriptions().size()));
-            dataContainer.getChildren().addAll(descritor, startDate, endDate, subscriptionsCount);
+            Label descritor = new Label(session.getDescription());
+            dataContainer.getChildren().addAll(title, guest, local, startDate, endDate, subscriptionsCount, descritor);
 
             VBox labelsContainer = new VBox();
-            labelsContainer.getChildren().addAll(new Label("Nome da sessão"), new Label("Data de início"), new Label("Data de término"), new Label("Número de inscritos"));
+            labelsContainer.getChildren().addAll(new Label("Nome da sessão"),
+                    new Label("Nome da convidado"),
+                    new Label("Local"),
+                    new Label("Data de início"),
+                    new Label("Data de término"),
+                    new Label("Número de inscritos"),
+                    new Label("Descrição"));
 
             Button manageButton = new Button("manage");
             manageButton.setOnAction(a -> {
@@ -74,6 +83,10 @@ public class SessionListController {
     @FXML
     private void switchToSessionRegister() throws IOException {
         App.setRoot("sessionRegister");
+    }
+    @FXML
+    private void switchToManageEvent() throws IOException {
+        App.setRoot("eventManager");
     }
     @FXML
     private void switchToHomeAdmin() throws IOException {
