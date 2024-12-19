@@ -1,16 +1,14 @@
 package br.upe.userinterface;
 
-import javafx.event.ActionEvent;
+import br.upe.entities.SubEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.time.LocalDate;
 
-public class EventManagerController{
-
-
+public class SubEventManagerController {
+    public Label subEventoNome;
     @FXML
     Label eventoNome;
     @FXML
@@ -21,19 +19,19 @@ public class EventManagerController{
     Label dataFim;
     @FXML
     Label sessionCount;
-    @FXML
-    Label subEventCount;
 
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
-        eventoNome.setText(AppStateController.stateController.getCurrentEvent().getDescription());
-        eventoDiretor.setText(AppStateController.stateController.getCurrentEvent().getDirector());
-        sessionCount.setText(String.valueOf(AppStateController.stateController.getCurrentEvent().getSessions().size()));
-        subEventCount.setText(String.valueOf(AppStateController.stateController.getCurrentEvent().getSubEvents().size()));
+        SubEvent subEvent = AppStateController.stateController.getCurrentSubEvent();
 
-        LocalDate startDate = AppStateController.stateController.getCurrentEvent().getStartDate();
-        LocalDate endDate = AppStateController.stateController.getCurrentEvent().getEndDate();
+        eventoNome.setText(subEvent.getEvent().getTitle());
+        subEventoNome.setText(subEvent.getDescription());
+        eventoDiretor.setText(subEvent.getDirector());
+        sessionCount.setText(String.valueOf(subEvent.getSessions().size()));
+
+        LocalDate startDate = subEvent.getStartDate();
+        LocalDate endDate = subEvent.getEndDate();
 
         if (startDate != null) dataInicio.setText(startDate.toString());
         if (endDate != null) dataFim.setText(endDate.toString());
@@ -54,21 +52,19 @@ public class EventManagerController{
         App.setRoot("login");
     }
     @FXML
-    private void switchToEventUpdater() throws IOException {
-        App.setRoot("eventUpdater");
+    private void switchToEventManager() throws IOException {
+        App.setRoot("eventManager");
     }
-    @FXML
-    private void switchToSessionList() throws IOException {
-        App.setRoot("sessionList");
-    }
-
     @FXML
     private void switchToSubEventRegister() throws IOException {
         App.setRoot("subEventRegister");
     }
     @FXML
-    private void switchToSubEventList() throws IOException {
-        App.setRoot("subEventList");
+    private void switchToSessionList() throws IOException {
+        App.setRoot("sessionList");
+    }
+    @FXML
+    private void switchToSubEventUpdater() throws IOException{
+        App.setRoot("subEventUpdater");
     }
 }
-

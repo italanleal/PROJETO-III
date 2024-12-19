@@ -11,8 +11,9 @@
                <children>
                   <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
                   <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
-                  <Hyperlink id="updateEventLink" fx:id="updateEventLink" layoutY="25.0" prefHeight="24.0" prefWidth="200.0" text="Update Event" />
-                  <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="49.0" onAction="#registerSession" prefHeight="24.0" prefWidth="198.0" text="New Session" />
+                  <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutY="28.0" onAction="#switchToManageEvent" text="Manage Event" />
+                  <Hyperlink id="subEventListLink" fx:id="subEventListLink" layoutY="73.0" onAction="#switchToSubEventRegister" text="List Sub-event" />
+                  <Hyperlink id="newSubEventLink" fx:id="newSubEventLink" layoutY="49.0" onAction="#switchToSubEventList" text="New Sub-event" />
                </children>
             </AnchorPane>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
@@ -24,15 +25,21 @@
       </VBox>
       <VBox prefHeight="400.0" prefWidth="403.0">
          <children>
-            <Label id="userEmail" fx:id="eventDescritor" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
+            <Label id="userName" fx:id="userName" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
             <VBox prefHeight="182.0" prefWidth="400.0">
                <children>
-                  <Label text="Event's name" />
-                  <TextField id="descritorField" fx:id="descritorField" />
+                  <Label text="Event's title" />
+                  <TextField id="titleField" fx:id="titleField" />
+
                   <Label text="Director's name" />
                   <TextField id="directorField" fx:id="directorField" />
+
+                  <Label layoutX="10.0" layoutY="10.0" text="Description" />
+                  <TextField id="descriptionField" fx:id="descriptionField" layoutX="10.0" layoutY="28.0" />
+
                   <Label text="Start date" />
                   <DatePicker id="startDatePicker" fx:id="startDatePicker" />
+
                   <Label text="End date" />
                   <DatePicker id="endDatePicker" fx:id="endDatePicker" />
                </children></VBox>

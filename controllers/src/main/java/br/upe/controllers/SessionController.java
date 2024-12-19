@@ -8,7 +8,6 @@ import br.upe.util.persistencia.PersistenciaInterface;
 import br.upe.util.persistencia.SystemException;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collection;
 
 public class SessionController {
@@ -20,7 +19,9 @@ public class SessionController {
     }
 
     public void createNewSession(String title, String description, String guest, String local, LocalDate startDate, LocalDate endDate) throws SystemException {
+
         if((!stateController.getCurrentUser().isSu())) throw new UserIsNotAdmin();
+
         try {
             CHECKING.checkDates(startDate, endDate);
         } catch (InvalidDateInput e) {
