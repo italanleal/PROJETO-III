@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
+
 <?import javafx.scene.text.*?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.UserProfileController">
@@ -11,25 +13,104 @@
             <children>
                 <AnchorPane prefHeight="445.0" prefWidth="200.0" style="-fx-background-color: #394159;">
                     <children>
-                        <Separator layoutY="246.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
-                        <Hyperlink id="logoutLink" fx:id="logoutLink" layoutX="39.0" layoutY="257.0" onAction="#logout" prefHeight="35.0" prefWidth="131.0" text="logout" textFill="#f2f2f2">
+                  <Hyperlink id="homeLink" fx:id="homeLink" layoutX="14.0" layoutY="29.0" onAction="#home" prefHeight="35.0" prefWidth="131.0" text="Home" textFill="#f2f2f2">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Hyperlink>
+                        <Separator layoutY="94.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
+                        <Hyperlink id="logoutLink" fx:id="logoutLink" layoutY="112.0" onAction="#logout" prefHeight="35.0" prefWidth="131.0" text="LOGOUT" textFill="#f2f2f2">
                             <font>
                                 <Font name="System Bold" size="18.0" />
-                            </font></Hyperlink>
-                        <Separator layoutY="200.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
-                        <Separator layoutY="148.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
-                        <Separator layoutY="94.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
+                            </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding></Hyperlink>
                     </children>
                 </AnchorPane>
-                <ButtonBar prefHeight="40.0" prefWidth="200.0" />
             </children>
         </VBox>
-        <VBox prefHeight="400.0" prefWidth="403.0">
+        <VBox alignment="CENTER" spacing="35.0">
             <children>
-                <Label id="userName" fx:id="userName" alignment="CENTER" prefHeight="137.0" prefWidth="350.0" textAlignment="CENTER" />
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label id="userNameField" alignment="CENTER" text="Nome" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField id="nameField" fx:id="nameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+                  <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#updateUserName" text="Edit" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
                 <Separator layoutY="94.0" prefHeight="0.0" prefWidth="350.0" style="-fx-background-color: #394159;" />
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                      <Label id="surnameField" alignment="CENTER" text="Sobrenome" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField id="surnameField" fx:id="surnameField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+                  <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#updateUserSurname" text="Edit" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <Separator layoutX="10.0" layoutY="39.0" prefHeight="0.0" prefWidth="350.0" style="-fx-background-color: #394159;" />
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label id="cpfField" alignment="CENTER" text="CPF" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField id="cpfField" fx:id="cpfField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <Separator layoutX="10.0" layoutY="38.0" prefHeight="0.0" prefWidth="350.0" style="-fx-background-color: #394159;" />
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label id="emailField" alignment="CENTER" text="Email" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField id="emailField" fx:id="emailField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />
+                  <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#updateUserEmail" text="Edit" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <Separator layoutX="10.0" layoutY="98.0" prefHeight="0.0" prefWidth="350.0" style="-fx-background-color: #394159;" />
                 <VBox alignment="CENTER" prefHeight="353.0" prefWidth="350.0" />
-            <Circle fill="DODGERBLUE" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
-            </children></VBox>
+            </children>
+         <opaqueInsets>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </opaqueInsets>
+         <padding>
+            <Insets top="20.0" />
+         </padding></VBox>
+
     </children>
 </HBox>

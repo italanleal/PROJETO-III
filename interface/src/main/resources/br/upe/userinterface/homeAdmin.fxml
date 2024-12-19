@@ -30,6 +30,11 @@
                   <Separator layoutY="200.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
                   <Separator layoutY="148.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
                   <Separator layoutY="94.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
+                  <Hyperlink id="profileLink" fx:id="profileLink" layoutX="91.0" layoutY="35.0" onAction="#switchToUserProfile" text="Profile" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Hyperlink>
                </children>
             </AnchorPane>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" />
