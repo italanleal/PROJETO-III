@@ -1,6 +1,7 @@
 package br.upe.userinterface;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.text.DateFormat;
 import java.time.LocalDate;
 
 public class SessionManagerController {
+    public Hyperlink manageEventLink;
     @FXML
     Label sessaoNome;
     @FXML
@@ -38,6 +40,10 @@ public class SessionManagerController {
     @FXML
     private void switchToHomeAdmin() throws IOException {
         App.setRoot("homeAdmin");
+    }
+    @FXML
+    private void switchToManageEvent() throws IOException {
+        App.setRoot("eventManager");
     }
     @FXML
     private void logout() throws IOException {

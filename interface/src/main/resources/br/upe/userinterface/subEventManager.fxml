@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.SubEventManagerController">
+    <children>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <AnchorPane>
+                    <children>
+
+                        <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
+
+                        <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
+
+                        <Hyperlink id="updateSubEventLink" fx:id="updateSubEventLink" layoutY="25.0" onAction="#switchToSubEventUpdater" prefHeight="24.0" prefWidth="200.0" text="Update Sub-event" />
+                        <Hyperlink id="newSubEventLink" fx:id="newSubEventLink" layoutY="49.0" onAction="#switchToSubEventRegister" text="New Sub-event" />
+                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="73.0" onAction="#switchToSessionRegister" prefHeight="24.0" prefWidth="198.0" text="New Session" />
+                        <Hyperlink id="listSessionLink" fx:id="listSessionLink" layoutX="-1.0" layoutY="97.0" onAction="#switchToSessionList" text="List Sessions" />
+                        <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutX="-1.0" layoutY="121.0" onAction="#switchToEventManager" text="Manage Event" />
+                    </children>
+                </AnchorPane>
+
+            </children>
+        </VBox>
+        <VBox prefHeight="400.0" prefWidth="403.0">
+            <children>
+                <Label alignment="CENTER" prefHeight="18.0" prefWidth="401.0" text="Painel do Sub-evento" textAlignment="CENTER" />
+                <VBox prefHeight="384.0" prefWidth="400.0">
+                    <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                            <children>
+                                <VBox id="eventData" prefHeight="100.0" prefWidth="163.0">
+                                    <children>
+                                        <Label text="Nome do Evento pai" />
+                                        <Label text="Nome do Sub-evento" />
+                                        <Label text="Diretor do Sub-evento" />
+                                        <Label text="Data de início" />
+                                        <Label text="Data de término" />
+                                        <Label text="Número de Sessões" />
+                                    </children>
+                                </VBox>
+                                <VBox id="eventData" prefHeight="200.0" prefWidth="100.0">
+                                    <children>
+                                        <Label id="eventoNome" fx:id="eventoNome" />
+                                        <Label id="subEventoNome" fx:id="subEventoNome" />
+                                        <Label id="eventoDiretor" fx:id="eventoDiretor" />
+                                        <Label id="dataInicio" fx:id="dataInicio" text="Não Informado" />
+                                        <Label id="dataFim" fx:id="dataFim" text="Não Informado" />
+                                        <Label id="sessionCount" fx:id="sessionCount" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children></VBox>
+            </children></VBox>
+    </children>
+</HBox>

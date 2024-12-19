@@ -1,25 +1,35 @@
 package br.upe.userinterface;
 
 import br.upe.util.persistencia.SystemException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class SessionUpdaterController {
+    public Hyperlink homeAdminLink;
+    public Hyperlink manageEventLink;
+    public Hyperlink updateSessionLink;
+    public Hyperlink newSessionLink;
+    public Hyperlink logoutLink;
     @FXML
     Label warningLabel;
     @FXML
     Label eventDescritor;
+
+    @FXML
+    TextField titleField;
     @FXML
     TextField descritorField;
+    @FXML
+    TextField guestField;
+    @FXML
+    TextField localField;
     @FXML
     DatePicker startDatePicker;
     @FXML
@@ -46,18 +56,22 @@ public class SessionUpdaterController {
     }
     @FXML
     private void updateSession() throws IOException {
-        LocalDate startDate = null;
-        LocalDate endDate = null;
+
         try {
-            startDate = (startDatePicker.getValue() != null) ? startDatePicker.getValue(): null;
-            endDate = (endDatePicker.getValue() != null) ? endDatePicker.getValue(): null;
-            AppStateController.sessionController.updateSessionStartDate(startDate);
-            AppStateController.sessionController.updateSessionEndDate(endDate);
+            if(startDatePicker.getValue() != null)AppStateController.sessionController.updateSessionStartDate(startDatePicker.getValue());
+            if(endDatePicker.getValue() != null) AppStateController.sessionController.updateSessionEndDate(endDatePicker.getValue());
         } catch (SystemException e) {
             warningLabel.setText(e.getMessage());
         }
         if (!descritorField.getText().isEmpty()) AppStateController.sessionController.updateSessionDescription(descritorField.getText());
+        if (!titleField.getText().isEmpty()) AppStateController.sessionController.updateSessionTitle(titleField.getText());
+        if (!localField.getText().isEmpty()) AppStateController.sessionController.updateSessionLocal(localField.getText());
+        if (!guestField.getText().isEmpty()) AppStateController.sessionController.updateSessionGuest(guestField.getText());
 
         App.setRoot("sessionManager");
+    }
+
+    public void switchToManageEvent() throws IOException{
+        App.setRoot("manageEvent");
     }
 }

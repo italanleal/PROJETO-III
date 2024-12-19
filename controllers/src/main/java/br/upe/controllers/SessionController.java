@@ -19,7 +19,9 @@ public class SessionController {
     }
 
     public void createNewSession(String title, String description, String guest, String local, LocalDate startDate, LocalDate endDate) throws SystemException {
-        if(!(stateController.getCurrentUser() instanceof SystemAdmin)) throw new UserIsNotAdmin();
+
+        if((!stateController.getCurrentUser().isSu())) throw new UserIsNotAdmin();
+
         try {
             CHECKING.checkDates(startDate, endDate);
         } catch (InvalidDateInput e) {
