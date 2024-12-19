@@ -12,7 +12,7 @@ public class HomeAdminController {
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
-        userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
+        userEmail.setText(AppStateController.stateController.getCurrentUser().getName());
     }
     @FXML
     private void switchToEventRegister() throws IOException {
@@ -27,5 +27,9 @@ public class HomeAdminController {
     @FXML
     private void switchToEventList() throws IOException {
         App.setRoot("eventList");
+    }
+    @FXML
+    private void switchToUserProfile() throws IOException {
+        App.setRoot("userProfile");
     }
 }
