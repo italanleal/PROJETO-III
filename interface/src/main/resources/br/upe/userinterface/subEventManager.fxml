@@ -9,20 +9,19 @@
             <children>
                 <AnchorPane>
                     <children>
-                  <Hyperlink id="manageSubEventLink" fx:id="manageSubEventLink" onAction="#switchToSubEventManager" prefHeight="358.4" prefWidth="200.0" text="Manage Sub-event" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
                         <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
+
                         <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
+
                         <Hyperlink id="updateSubEventLink" fx:id="updateSubEventLink" layoutY="25.0" onAction="#switchToSubEventUpdater" prefHeight="24.0" prefWidth="200.0" text="Update Sub-event" />
+                        <Hyperlink id="newSubEventLink" fx:id="newSubEventLink" layoutY="49.0" onAction="#switchToSubEventRegister" text="New Sub-event" />
                         <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="73.0" onAction="#switchToSessionRegister" prefHeight="24.0" prefWidth="198.0" text="New Session" />
-                        <Hyperlink fx:id="listSessionLink" layoutX="-1.0" layoutY="97.0" onAction="#switchToSessionList" text="List Sessions" />
-                        <Hyperlink id="newSubEventLink" layoutY="49.0" text="New Sub-event" />
+                        <Hyperlink id="listSessionLink" fx:id="listSessionLink" layoutX="-1.0" layoutY="97.0" onAction="#switchToSessionList" text="List Sessions" />
+                        <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutX="-1.0" layoutY="121.0" onAction="#switchToEventManager" text="Manage Event" />
                     </children>
                 </AnchorPane>
-                <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                    <buttons>
-                        <Hyperlink id="logoutLink" fx:id="logoutLink" onAction="#logout" text="logout" />
-                    </buttons>
-                </ButtonBar>
+
             </children>
         </VBox>
         <VBox prefHeight="400.0" prefWidth="403.0">

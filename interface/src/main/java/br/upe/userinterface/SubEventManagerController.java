@@ -20,7 +20,6 @@ public class SubEventManagerController {
     @FXML
     Label sessionCount;
 
-
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
@@ -53,8 +52,12 @@ public class SubEventManagerController {
         App.setRoot("login");
     }
     @FXML
-    private void switchToSubEventManager() throws IOException {
-        App.setRoot("subEventManager");
+    private void switchToEventManager() throws IOException {
+        App.setRoot("eventManager");
+    }
+    @FXML
+    private void switchToSubEventRegister() throws IOException {
+        App.setRoot("subEventRegister");
     }
     @FXML
     private void switchToSessionList() throws IOException {
