@@ -7,11 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class SessionUpdaterController {
     @FXML
@@ -46,13 +42,10 @@ public class SessionUpdaterController {
     }
     @FXML
     private void updateSession() throws IOException {
-        LocalDate startDate = null;
-        LocalDate endDate = null;
+
         try {
-            startDate = (startDatePicker.getValue() != null) ? startDatePicker.getValue(): null;
-            endDate = (endDatePicker.getValue() != null) ? endDatePicker.getValue(): null;
-            AppStateController.sessionController.updateSessionStartDate(startDate);
-            AppStateController.sessionController.updateSessionEndDate(endDate);
+            if(startDatePicker.getValue() != null)AppStateController.sessionController.updateSessionStartDate(startDatePicker.getValue());
+            if(endDatePicker.getValue() != null) AppStateController.sessionController.updateSessionEndDate(endDatePicker.getValue());
         } catch (SystemException e) {
             warningLabel.setText(e.getMessage());
         }

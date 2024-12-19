@@ -11,7 +11,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="type", discriminatorType=DiscriminatorType.STRING)
 public abstract class BaseEvent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Id
@@ -29,7 +30,7 @@ public abstract class BaseEvent {
             mappedBy="event",
             cascade=CascadeType.ALL,
             orphanRemoval=true,
-            fetch=FetchType.LAZY
+            fetch=FetchType.EAGER
     )
     private @Setter(AccessLevel.PROTECTED) List<Session> sessions = new ArrayList<>();
 }

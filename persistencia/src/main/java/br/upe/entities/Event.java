@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity @Getter @Setter
+@DiscriminatorValue("Event")
 public class Event extends BaseEvent {
     @OneToMany(
             targetEntity=br.upe.entities.SubEvent.class,
             mappedBy="event",
             cascade=CascadeType.ALL,
             orphanRemoval=true,
-            fetch=FetchType.LAZY
+            fetch=FetchType.EAGER
     )
     private @Setter(AccessLevel.PROTECTED) List<SubEvent> subEvents = new ArrayList<>();
 
@@ -25,12 +26,12 @@ public class Event extends BaseEvent {
             mappedBy="event",
             cascade=CascadeType.ALL,
             orphanRemoval=true,
-            fetch=FetchType.LAZY
+            fetch=FetchType.EAGER
     )
     private @Setter(AccessLevel.PROTECTED) List<Submission> submissions = new ArrayList<>();
 
     @ManyToOne(
-            targetEntity=br.upe.entities.Event.class,
+            targetEntity=br.upe.entities.SystemAdmin.class,
             cascade=CascadeType.PERSIST,
             fetch=FetchType.LAZY,
             optional=true

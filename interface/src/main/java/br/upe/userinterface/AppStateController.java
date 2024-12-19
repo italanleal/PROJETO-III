@@ -26,5 +26,4 @@ public class AppStateController {
         subscriptionController = facade.subscriptionController;
         submissionController = facade.submissionController;
     }
-    private AppStateController() {}
 }
