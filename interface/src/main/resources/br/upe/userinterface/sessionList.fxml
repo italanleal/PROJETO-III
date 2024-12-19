@@ -11,8 +11,8 @@
                     <children>
                         <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
                         <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
-                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="25.0" onAction="#switchToSessionRegister" prefHeight="24.0" prefWidth="200.0" text="New Session" />
-                        <Hyperlink layoutY="49.0" prefHeight="24.0" prefWidth="198.0" text="List Sessions" />
+                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutX="-1.0" layoutY="52.0" onAction="#switchToSessionRegister" prefHeight="24.0" prefWidth="200.0" text="New Session" />
+                  <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutX="-1.0" layoutY="28.0" onAction="#switchToManageEvent" text="Manage Event" />
                     </children>
                 </AnchorPane>
                 <ButtonBar prefHeight="40.0" prefWidth="200.0">

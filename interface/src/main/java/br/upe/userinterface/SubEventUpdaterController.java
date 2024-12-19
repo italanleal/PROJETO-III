@@ -1,7 +1,6 @@
 package br.upe.userinterface;
 
 import br.upe.util.persistencia.SystemException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
@@ -13,20 +12,22 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EventUpdaterController{
+public class SubEventUpdaterController {
     public Hyperlink homeAdminLink;
     public Hyperlink manageEventLink;
     public Hyperlink updateEventLink;
     public Hyperlink newSessionLink;
     public Hyperlink logoutLink;
-    Logger logger = Logger.getLogger(EventUpdaterController.class.getName());
+    Logger logger = Logger.getLogger(SubEventUpdaterController.class.getName());
     @FXML
     Label eventDescritor;
+    @FXML
+    Label titleField;
 
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
-        eventDescritor.setText(AppStateController.stateController.getCurrentEvent().getDescription());
+        eventDescritor.setText(AppStateController.stateController.getCurrentSubEvent().getTitle());
     }
     @FXML
     TextField directorField;
@@ -36,6 +37,7 @@ public class EventUpdaterController{
     DatePicker endDatePicker;
     @FXML
     TextField descritorField;
+
     @FXML
     private void switchToHomeAdmin() throws IOException {
         App.setRoot("homeAdmin");
@@ -50,7 +52,7 @@ public class EventUpdaterController{
         App.setRoot("eventUpdater");
     }
     @FXML
-    private void updateEvent() throws IOException, SystemException {
+    private void updateSubEvent() throws IOException, SystemException {
         LocalDate startDate = null;
         LocalDate endDate = null;
         try {
@@ -59,17 +61,23 @@ public class EventUpdaterController{
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error parsing Date objects", e);
         }
-        if (startDate != null) AppStateController.eventController.updateEventStartDate(startDate);
-        if (endDate != null) AppStateController.eventController.updateEventEndDate(endDate);
+        if (startDate != null) AppStateController.subEventController.updateSubEventStartDate(startDate);
+        if (endDate != null) AppStateController.subEventController.updateSubEventEndDate(endDate);
         if (!directorField.getText().isEmpty())
-            AppStateController.eventController.updateEventDirector(directorField.getText());
+            AppStateController.subEventController.updateSubEventDirector(directorField.getText());
+        if (!titleField.getText().isEmpty())
+            AppStateController.subEventController.updateSubEventDescription(titleField.getText());
         if (!descritorField.getText().isEmpty())
-            AppStateController.eventController.updateEventDescription(descritorField.getText());
+            AppStateController.subEventController.updateSubEventDescription(descritorField.getText());
 
-        App.setRoot("eventManager");
+        App.setRoot("subEventManager");
     }
-
-    public void switchToManageEvent() throws IOException{
+    @FXML
+    private void switchToManageSubEvent() throws IOException{
+        App.setRoot("manageSubEvent");
+    }
+    @FXML
+    private void switchToManageEvent() throws IOException{
         App.setRoot("manageEvent");
     }
 }
