@@ -25,7 +25,7 @@ public class SessionListController {
     private void initialize() {
         // Set the label's text to the value of the variable
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
-        Collection<Session> sessions = AppStateController.sessionController.getAllEventSessions(AppStateController.stateController.getCurrentEvent());
+        Collection<Session> sessions = AppStateController.sessionController.getAllEventSessions();
 
         VBox mainContainer = new VBox();
 
@@ -36,8 +36,8 @@ public class SessionListController {
         sessions.forEach(session -> {
             VBox dataContainer = new VBox();
             Label descritor = new Label(session.getDescription());
-            Label startDate = new Label((session.getStartDate() != null) ? DateFormat.getDateInstance().format(session.getStartDate()): "Não Informado");
-            Label endDate = new Label((session.getEndDate() != null) ? DateFormat.getDateInstance().format(session.getEndDate()): "Não Informado");
+            Label startDate = new Label((session.getStartDate() != null) ? session.getStartDate().toString(): "Não Informado");
+            Label endDate = new Label((session.getEndDate() != null) ? session.getEndDate().toString(): "Não Informado");
             Label subscriptionsCount = new Label(String.valueOf(session.getSubscriptions().size()));
             dataContainer.getChildren().addAll(descritor, startDate, endDate, subscriptionsCount);
 

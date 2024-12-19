@@ -18,7 +18,7 @@ public class Certification {
 
     @ManyToOne(
             targetEntity=br.upe.entities.SystemUser.class,
-            cascade= CascadeType.PERSIST,
+            cascade=CascadeType.PERSIST,
             fetch= FetchType.LAZY,
             optional=true
     )
