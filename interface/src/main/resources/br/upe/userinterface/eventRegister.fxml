@@ -27,10 +27,12 @@
             <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
             <VBox prefHeight="182.0" prefWidth="400.0">
                <children>
-                  <Label text="Event's name" />
-                  <TextField id="descritorField" fx:id="descritorField" />
+                  <Label text="Event's title" />
+                  <TextField id="titleField" fx:id="titleField" />
                   <Label text="Director's name" />
                   <TextField id="directorField" fx:id="directorField" />
+                  <Label layoutX="10.0" layoutY="10.0" text="Description" />
+                  <TextField id="descriptionField" fx:id="descriptionField" layoutX="10.0" layoutY="28.0" />
                   <Label text="Start date" />
                   <DatePicker id="startDatePicker" fx:id="startDatePicker" />
                   <Label text="End date" />

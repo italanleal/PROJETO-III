@@ -42,24 +42,24 @@ public class JDBCGenericDAO<T, I> implements GenericDAO<T, I>{
     @Override
     public T update(T entity) {
         em.getTransaction().begin();
-        em.merge(entity);
+        T managedEntity = em.merge(entity);
         em.getTransaction().commit();
-        return entity;
+        return managedEntity;
     }
 
     @Override
     public void delete(T entity) {
+        entity = update(entity);
         em.getTransaction().begin();
         em.remove(entity);
         em.getTransaction().commit();
     }
 
+
     @Override
     public void deleteById(I id) {
-        em.getTransaction().begin();
-        T entity = em.find(entityClass, id);
-        em.remove(entity);
-        em.getTransaction().commit();
+        Optional<T> entity = findById(id);
+        entity.ifPresent(this::delete);
     }
 
     @Override
@@ -71,6 +71,13 @@ public class JDBCGenericDAO<T, I> implements GenericDAO<T, I>{
     @Override
     public void openEM(){
         em = createEntityManager.call();
+    }
+
+    @Override
+    public void detach(T entity) {
+        if (em.contains(entity)) {
+            em.detach(entity);
+        }
     }
 
 }

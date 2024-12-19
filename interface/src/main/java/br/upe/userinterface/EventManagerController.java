@@ -29,8 +29,8 @@ public class EventManagerController{
         LocalDate startDate = AppStateController.stateController.getCurrentEvent().getStartDate();
         LocalDate endDate = AppStateController.stateController.getCurrentEvent().getEndDate();
 
-        if (startDate != null) dataInicio.setText(DateFormat.getDateInstance().format(startDate));
-        if (endDate != null) dataFim.setText(DateFormat.getDateInstance().format(endDate));
+        if (startDate != null) dataInicio.setText(startDate.toString());
+        if (endDate != null) dataFim.setText(endDate.toString());
     }
 
     @FXML
