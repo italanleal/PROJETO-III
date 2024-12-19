@@ -45,8 +45,8 @@ public class EventListController {
             VBox dataContainer = new VBox();
             Label descritor = new Label(event.getDescription());
             Label director = new Label(event.getDirector());
-            Label startDate = new Label((event.getStartDate() != null) ? DateFormat.getDateInstance().format(event.getStartDate()) : "Não Informado");
-            Label endDate = new Label((event.getEndDate() != null) ? DateFormat.getDateInstance().format(event.getEndDate()) : "Não Informado");
+            Label startDate = new Label((event.getStartDate() != null) ? event.getStartDate().toString() : "Não Informado");
+            Label endDate = new Label((event.getEndDate() != null) ? event.getEndDate().toString() : "Não Informado");
             Label sessionCount = new Label(String.valueOf(event.getSessions().size()));
             dataContainer.getChildren().addAll(descritor, director, startDate, endDate, sessionCount);
 
