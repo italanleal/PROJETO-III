@@ -31,6 +31,7 @@ public class SubmissionController {
             submission.setContent(Files.readAllBytes(file.toPath()));
         } catch (IOException e) {
             throw new SystemIOException(e.getMessage(), e.getCause());
+
         }
         daoController.submissionDAO.save(submission);
         stateController.setCurrentSubmission(submission);
