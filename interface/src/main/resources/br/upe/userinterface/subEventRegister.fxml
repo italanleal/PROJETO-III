@@ -39,7 +39,7 @@
                         <Label text="End date" />
                         <DatePicker id="endDatePicker" fx:id="endDatePicker" />
                     </children></VBox>
-                <Button id="submitEventButton" fx:id="submitEventButton" mnemonicParsing="false" onAction="#registerEvent" text="Submit" />
+                <Button id="submitEventButton" fx:id="submitEventButton" mnemonicParsing="false" onAction="#registerSubEvent" text="Submit" />
                 <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;" />
             </children></VBox>
     </children>

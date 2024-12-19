@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 public class EventManagerController{
 
+
     @FXML
     Label eventoNome;
     @FXML
@@ -61,8 +62,13 @@ public class EventManagerController{
         App.setRoot("sessionList");
     }
 
-    public void switchToSubEventUpdater() throws IOException {
-        App.setRoot("subEventUpdater");
+    @FXML
+    private void switchToSubEventRegister() throws IOException {
+        App.setRoot("subEventRegister");
+    }
+    @FXML
+    private void switchToSubEventList() throws IOException {
+        App.setRoot("subEventList");
     }
 }
 

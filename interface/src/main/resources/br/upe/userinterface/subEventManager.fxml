@@ -7,8 +7,9 @@
     <children>
         <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
-                <AnchorPane prefHeight="358.0" prefWidth="200.0">
+                <AnchorPane>
                     <children>
+                  <Hyperlink id="manageSubEventLink" fx:id="manageSubEventLink" onAction="#switchToSubEventManager" prefHeight="358.4" prefWidth="200.0" text="Manage Sub-event" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
                         <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
                         <Hyperlink id="updateSubEventLink" fx:id="updateSubEventLink" layoutY="25.0" onAction="#switchToSubEventUpdater" prefHeight="24.0" prefWidth="200.0" text="Update Sub-event" />

@@ -1,5 +1,6 @@
 package br.upe.userinterface;
 
+import br.upe.entities.SubEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -7,6 +8,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 public class SubEventManagerController {
+    public Label subEventoNome;
     @FXML
     Label eventoNome;
     @FXML
@@ -22,12 +24,15 @@ public class SubEventManagerController {
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
-        eventoNome.setText(AppStateController.stateController.getCurrentSubEvent().getDescription());
-        eventoDiretor.setText(AppStateController.stateController.getCurrentSubEvent().getDirector());
-        sessionCount.setText(String.valueOf(AppStateController.stateController.getCurrentSubEvent().getSessions().size()));
+        SubEvent subEvent = AppStateController.stateController.getCurrentSubEvent();
 
-        LocalDate startDate = AppStateController.stateController.getCurrentSubEvent().getStartDate();
-        LocalDate endDate = AppStateController.stateController.getCurrentSubEvent().getEndDate();
+        eventoNome.setText(subEvent.getEvent().getTitle());
+        subEventoNome.setText(subEvent.getDescription());
+        eventoDiretor.setText(subEvent.getDirector());
+        sessionCount.setText(String.valueOf(subEvent.getSessions().size()));
+
+        LocalDate startDate = subEvent.getStartDate();
+        LocalDate endDate = subEvent.getEndDate();
 
         if (startDate != null) dataInicio.setText(startDate.toString());
         if (endDate != null) dataFim.setText(endDate.toString());
@@ -48,8 +53,8 @@ public class SubEventManagerController {
         App.setRoot("login");
     }
     @FXML
-    private void switchToEventUpdater() throws IOException {
-        App.setRoot("eventUpdater");
+    private void switchToSubEventManager() throws IOException {
+        App.setRoot("subEventManager");
     }
     @FXML
     private void switchToSessionList() throws IOException {

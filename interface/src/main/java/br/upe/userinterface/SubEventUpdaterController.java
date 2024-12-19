@@ -3,7 +3,6 @@ package br.upe.userinterface;
 import br.upe.util.persistencia.SystemException;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -13,11 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SubEventUpdaterController {
-    public Hyperlink homeAdminLink;
-    public Hyperlink manageEventLink;
-    public Hyperlink updateEventLink;
-    public Hyperlink newSessionLink;
-    public Hyperlink logoutLink;
     Logger logger = Logger.getLogger(SubEventUpdaterController.class.getName());
     @FXML
     Label eventDescritor;

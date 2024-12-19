@@ -14,20 +14,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class EventUpdaterController{
-    public Hyperlink homeAdminLink;
-    public Hyperlink manageEventLink;
-    public Hyperlink updateEventLink;
-    public Hyperlink newSessionLink;
-    public Hyperlink logoutLink;
-    Logger logger = Logger.getLogger(EventUpdaterController.class.getName());
+
     @FXML
-    Label eventDescritor;
+    private Label userName;
+    Logger logger = Logger.getLogger(EventUpdaterController.class.getName());
+
 
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
-        eventDescritor.setText(AppStateController.stateController.getCurrentEvent().getDescription());
+        userName.setText(AppStateController.stateController.getCurrentUser().getName());
     }
+
+    @FXML
+    TextField titleField;
     @FXML
     TextField directorField;
     @FXML
@@ -35,7 +35,8 @@ public class EventUpdaterController{
     @FXML
     DatePicker endDatePicker;
     @FXML
-    TextField descritorField;
+    TextField descriptionField;
+
     @FXML
     private void switchToHomeAdmin() throws IOException {
         App.setRoot("homeAdmin");
@@ -59,17 +60,31 @@ public class EventUpdaterController{
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error parsing Date objects", e);
         }
-        if (startDate != null) AppStateController.eventController.updateEventStartDate(startDate);
-        if (endDate != null) AppStateController.eventController.updateEventEndDate(endDate);
+        if (startDate != null)
+            AppStateController.eventController.updateEventStartDate(startDate);
+        if (endDate != null)
+            AppStateController.eventController.updateEventEndDate(endDate);
         if (!directorField.getText().isEmpty())
             AppStateController.eventController.updateEventDirector(directorField.getText());
-        if (!descritorField.getText().isEmpty())
-            AppStateController.eventController.updateEventDescription(descritorField.getText());
+        if (!descriptionField.getText().isEmpty())
+            AppStateController.eventController.updateEventDescription(descriptionField.getText());
+        if(!titleField.getText().isEmpty())
+            AppStateController.eventController.updateEventTitle(titleField.getText());
 
         App.setRoot("eventManager");
     }
 
-    public void switchToManageEvent() throws IOException{
+    @FXML
+    private void switchToManageEvent() throws IOException{
         App.setRoot("manageEvent");
     }
+    @FXML
+    private void switchToSubEventRegister() throws IOException{
+        App.setRoot("subEventRegister");
+    }
+    @FXML
+    private void switchToSubEventList() throws IOException{
+        App.setRoot("subEventList");
+    }
+
 }

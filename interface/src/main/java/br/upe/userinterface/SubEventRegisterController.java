@@ -30,7 +30,7 @@ public class SubEventRegisterController {
     @FXML
     DatePicker endDatePicker;
     @FXML
-    private void registerEvent() throws IOException, SystemException {
+    private void registerSubEvent() throws IOException, SystemException {
         LocalDate startDate = null;
         LocalDate endDate = null;
 
@@ -49,7 +49,7 @@ public class SubEventRegisterController {
                     directorField.getText(),
                     startDate,
                     endDate);
-            App.setRoot("eventManager");
+            App.setRoot("subEventManager");
         }
     }
 
