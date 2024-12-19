@@ -9,6 +9,20 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:latest  # Substitua por sua imagem de banco de dados, se for diferente
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: teste-jpa
+        options: >-
+          --health-cmd="pg_isready -U testuser" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=5
     steps:
     - uses: actions/checkout@v4
       with: 
@@ -25,9 +39,9 @@ jobs:
     - name: Create dotenv File
       run: |
         touch /home/runner/work/PROJETO-III/PROJETO-III/.env
-        echo DB_URL="${{ secrets.DB_URL }}" >> /home/runner/work/PROJETO-III/PROJETO-III/.env
-        echo DB_USER="${{ secrets.DB_USER }}" >> /home/runner/work/PROJETO-III/PROJETO-III/.env
-        echo DB_PASSWORD="${{ secrets.DB_PASSWORD }}" >> /home/runner/work/PROJETO-III/PROJETO-III/.env
+        echo DB_URL="jdbc:postgresql://localhost:5432/teste-jpa" >> /home/runner/work/PROJETO-III/PROJETO-III/.env
+        echo DB_USER="testuser" >> /home/runner/work/PROJETO-III/PROJETO-III/.env
+        echo DB_PASSWORD="testpassword" >> /home/runner/work/PROJETO-III/PROJETO-III/.env
         cat /home/runner/work/PROJETO-III/PROJETO-III/.env
 
     - name: Cache SonarCloud packages
