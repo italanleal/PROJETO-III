@@ -37,7 +37,7 @@ public class Session {
             mappedBy="session",
             cascade=CascadeType.ALL,
             orphanRemoval=true,
-            fetch=FetchType.LAZY
+            fetch=FetchType.EAGER
     )
     private @Setter(AccessLevel.PROTECTED) List<Subscription> subscriptions = new ArrayList<>();
 

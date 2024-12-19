@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.HomeUserController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.ListaDeEventosUSController">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0">
          <children>
@@ -89,32 +89,8 @@
       </VBox>
       <VBox prefHeight="400.0" prefWidth="403.0">
          <children>
-            <VBox prefHeight="384.0" prefWidth="400.0">
-               <children>
-                  <Label id="userEmail" fx:id="userEmail" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="39.0" prefWidth="402.0" textAlignment="CENTER">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets right="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label prefHeight="29.0" prefWidth="41.0" text="Home">
-                     <VBox.margin>
-                        <Insets left="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Separator opacity="0.74" prefWidth="200.0" style="-fx-background-color: #666;">
-                     <effect>
-                        <ColorAdjust />
-                     </effect>
-                  </Separator>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="289.0" prefWidth="407.0" text="Welcome!">
-                     <font>
-                        <Font name="System Bold" size="35.0" />
-                     </font>
-                  </Label>
-               </children></VBox>
+            <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
+            <ScrollPane id="scrollPane" fx:id="scrollPane" prefHeight="381.0" prefWidth="400.0" />
          </children></VBox>
    </children>
 </HBox>

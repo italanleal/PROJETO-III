@@ -18,4 +18,5 @@ public interface GenericDAO<T, I> {
 
     void closeEM(); // Closes EntityManager
     void openEM(); // Opens EntityManager
+    void detach(T entity);
 }

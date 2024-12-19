@@ -1,8 +1,8 @@
 package br.upe.userinterface;
 
 import br.upe.entities.Event;
-import br.upe.util.controllers.UserIsNotAdmin;
 import br.upe.util.persistencia.SystemException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,37 +16,32 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class EventListController {
-    Logger logger = Logger.getLogger(EventListController.class.getName());
-    @FXML
-    ScrollPane scrollPane;
+public class ListaDeEventosUSController {
+    Logger logger = Logger.getLogger(ListaDeEventosUSController.class.getName());
     @FXML
     Label userEmail;
 
     @FXML
+    ScrollPane scrollPane;
+
+    @FXML
     private void initialize() throws SystemException {
         // Set the label's text to the value of the variable
-        userEmail.setText(AppStateController.stateController.getCurrentUser().getName());
-
-        Collection<Event> events;
-
-        try {
-            events = AppStateController.eventController.getAllEventsByUser();
-        } catch (UserIsNotAdmin e) {
-            return;
-        }
+        userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
+        Collection<Event> events = AppStateController.eventController.getAllEvents();
 
         VBox mainContainer = new VBox();
 
         mainContainer.getChildren().clear();
         mainContainer.setSpacing(10);
 
+
         events.forEach(event -> {
             VBox dataContainer = new VBox();
             Label descritor = new Label(event.getDescription());
             Label director = new Label(event.getDirector());
-            Label startDate = new Label((event.getStartDate() != null) ? event.getStartDate().toString() : "Não Informado");
-            Label endDate = new Label((event.getEndDate() != null) ? event.getEndDate().toString() : "Não Informado");
+            Label startDate = new Label((event.getStartDate() != null) ? event.getStartDate().toString(): "Não Informado");
+            Label endDate = new Label((event.getEndDate() != null) ? event.getEndDate().toString(): "Não Informado");
             Label sessionCount = new Label(String.valueOf(event.getSessions().size()));
             dataContainer.getChildren().addAll(descritor, director, startDate, endDate, sessionCount);
 
@@ -56,8 +51,8 @@ public class EventListController {
             Button manageButton = new Button("manage");
             manageButton.setOnAction(a -> {
                 try {
-                    manageEvent(event);
-                } catch (IOException e) {
+                    goToEventHome(event);
+                } catch (IOException e){
                     logger.log(Level.SEVERE, "Error attaching event uuid to callback", e);
                 }
             });
@@ -81,21 +76,22 @@ public class EventListController {
         scrollPane.setFitToHeight(true);
     }
     @FXML
-    private void switchToEventRegister() throws IOException {
-        App.setRoot("eventRegister");
+    void goToHomeUser() throws IOException {
+        App.setRoot("homeUser");
     }
     @FXML
-    private void switchToHomeAdmin() throws IOException {
-        App.setRoot("homeAdmin");
+    void goToEventHome(Event event) throws IOException {
+        AppStateController.eventController.changeCurrentEvent(event);
+        App.setRoot("eventHome");
     }
     @FXML
-    private void logout() throws IOException {
+    void logout() throws IOException {
         AppStateController.authController.logout();
         App.setRoot("login");
     }
 
-    @FXML private void manageEvent(Event event) throws IOException {
-        AppStateController.eventController.changeCurrentEvent(event);
-        App.setRoot("eventManager");
+    public void goToListaDeEventos() throws IOException {
+
     }
 }
+

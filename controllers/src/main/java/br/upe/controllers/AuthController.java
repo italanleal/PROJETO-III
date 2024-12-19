@@ -2,12 +2,14 @@ package br.upe.controllers;
 
 import br.upe.entities.SystemAdmin;
 import br.upe.entities.SystemUser;
-import br.upe.entities.User;
+import br.upe.entities.Userd;
 import br.upe.util.persistencia.PersistenciaInterface;
 import br.upe.util.persistencia.SystemException;
 import br.upe.util.controllers.UserAlreadyExistsException;
 import br.upe.util.persistencia.UserNotFoundException;
 import br.upe.util.controllers.IncorrectPasswordException;
+
+import java.util.Optional;
 
 public class AuthController {
     public AuthController(StateController stateController, DAOController daoController) {
@@ -19,14 +21,14 @@ public class AuthController {
 
     public void createNewUser(String name, String surname, String cpf, String email, String password) throws SystemException {
         // Check if a user with the same email already exists
-        SystemUser newUser = null;
+        Userd qUser = null;
         try {
-            newUser = daoController.systemUserDAO.findByEmail(email);
+            qUser = daoController.userDAO.findByEmail(email);
         } catch (SystemException ignored){}
 
-        if(newUser != null) throw new UserAlreadyExistsException("User with the following email already exists: " + email, null);
+        if(qUser != null) throw new UserAlreadyExistsException("Userd with the following email already exists: " + email, null);
 
-        newUser = PersistenciaInterface.createSystemUser();
+        SystemUser newUser = PersistenciaInterface.createSystemUser();
         newUser.setName(name);
         newUser.setSurname(surname);
         newUser.setCpf(cpf);
@@ -37,14 +39,14 @@ public class AuthController {
 
     public void createNewAdmin(String name, String surname, String cpf, String email, String password) throws SystemException{
         // Check if a user with the same email already exists
-        SystemAdmin newUser = null;
+        Userd qUser = null;
         try {
-            newUser = daoController.systemAdminDAO.findByEmail(email);
+            qUser = daoController.userDAO.findByEmail(email);
         } catch (SystemException ignored){}
 
-        if(newUser != null) throw new UserAlreadyExistsException("User with the following email already exists: " + email, null);
+        if(qUser != null) throw new UserAlreadyExistsException("Userd with the following email already exists: " + email, null);
 
-        newUser = PersistenciaInterface.createSystemAdmin();
+        SystemAdmin newUser = PersistenciaInterface.createSystemAdmin();
         newUser.setName(name);
         newUser.setSurname(surname);
         newUser.setCpf(cpf);
@@ -54,22 +56,23 @@ public class AuthController {
     }
 
     public void login(String email, String password) throws SystemException {
-        User user = null;
+        Userd qUser = null;
         try {
-            user = daoController.systemAdminDAO.findByEmail(email);
-        } catch(SystemException ignored) {
+            qUser = daoController.userDAO.findByEmail(email);
+        } catch (SystemException e){
+            throw new UserNotFoundException(e.getMessage(), e.getCause());
         }
-        if(user == null ){
-            try {
-                user = daoController.systemUserDAO.findByEmail(email);
-            } catch(SystemException e) {
-                throw new UserNotFoundException(e.getMessage(), e.getCause());
-            }
+
+        if(!(password.equals(qUser.getPassword()))) throw new IncorrectPasswordException("Incorrect Password", null);
+
+        if(qUser instanceof SystemAdmin admin){
+            Optional<SystemAdmin> fUser = daoController.systemAdminDAO.findById(admin.getId());
+            fUser.ifPresent(stateController::setCurrentUser);
+            return;
         }
-        if(password.equals(user.getPassword())) {
-            stateController.setCurrentUser(user);
-        } else {
-            throw new IncorrectPasswordException("Incorrect Password", null);
+        if(qUser instanceof SystemUser user){
+            Optional<SystemUser> fUser = daoController.systemUserDAO.findById(user.getId());
+            fUser.ifPresent(stateController::setCurrentUser);
         }
     }
 
