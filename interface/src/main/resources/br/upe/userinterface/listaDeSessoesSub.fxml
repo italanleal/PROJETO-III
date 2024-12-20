@@ -4,10 +4,7 @@
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-      prefHeight="400.0" prefWidth="600.0"
-      xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="br.upe.userinterface.ListaDeSessoesSubController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.ListaDeSessoesSubController">
 
     <children>
         <!-- Sidebar -->
@@ -16,49 +13,40 @@
                 <AnchorPane prefHeight="400.0" prefWidth="200.0">
                     <children>
                         <!-- Home Link -->
-                        <Hyperlink fx:id="homeUser" layoutX="56.0" layoutY="39.0"
-                                   onAction="#goToHomeUser" prefHeight="29.0" prefWidth="130.0"
-                                   text="Home" style="-fx-text-fill: #FFFFFF; -fx-font-size: 14px;" />
+                        <Hyperlink fx:id="homeUser" layoutX="56.0" layoutY="39.0" onAction="#goToHomeUser" prefHeight="29.0" prefWidth="130.0" style="-fx-text-fill: #FFFFFF; -fx-font-size: 14px;" text="Home" />
 
                         <!-- Separator Below Home -->
-                        <Separator layoutX="0.0" layoutY="69.0" prefWidth="200.0" opacity="0.74"
-                                   style="-fx-background-color: #F2F2F2;">
+                        <Separator layoutX="0.0" layoutY="69.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: #F2F2F2;">
                             <effect>
                                 <ColorAdjust />
                             </effect>
                         </Separator>
 
                         <!-- Manage Event Link -->
-                        <Hyperlink fx:id="manageEventLink" layoutX="56.0" layoutY="97.0"
-                                   onAction="#goToSubEventHome" prefHeight="29.0" prefWidth="130.0"
-                                   text="Voltar para Sub-evento" style="-fx-text-fill: #FFFFFF; -fx-font-size: 14px;" />
+                        <Hyperlink fx:id="manageEventLink" layoutY="72.0" onAction="#goToSubEventHome" prefHeight="29.0" prefWidth="130.0" style="-fx-text-fill: #FFFFFF; -fx-font-size: 14px;" text="Voltar para Sub-evento" />
                     </children>
                 </AnchorPane>
 
                 <!-- Button Bar for Logout -->
                 <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                        <Hyperlink fx:id="logoutLink" onAction="#logout" text="Logout"
-                                   style="-fx-text-fill: #FFFFFF; -fx-font-size: 14px;"/>
+                        <Hyperlink fx:id="logoutLink" onAction="#logout" style="-fx-text-fill: #FFFFFF; -fx-font-size: 14px;" text="Logout" />
 
                     </buttons>
                 </ButtonBar>
             </children>
         </VBox>
         <!-- Main Content -->
-        <VBox prefHeight="400.0" prefWidth="400.0"
-              style="-fx-padding: 20; -fx-background-color: #FFFFFF;">
+        <VBox prefHeight="400.0" prefWidth="400.0" style="-fx-padding: 20; -fx-background-color: #FFFFFF;">
             <children>
                 <!-- User Email Label -->
-                <Label fx:id="userEmail" alignment="CENTER" prefHeight="30.0" prefWidth="400.0"
-                       style="-fx-text-fill: #394159; -fx-font-size: 14px;" />
+                <Label fx:id="userEmail" alignment="CENTER" prefHeight="30.0" prefWidth="400.0" style="-fx-text-fill: #394159; -fx-font-size: 14px;" />
 
                 <!-- ScrollPane for Content -->
-                <ScrollPane fx:id="scrollPane" prefHeight="370.0" prefWidth="400.0"
-                            style="-fx-background-color: #FFFFFF; -fx-padding: 10;">
+                <ScrollPane fx:id="scrollPane" prefHeight="370.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF; -fx-padding: 10;">
                     <content>
                         <!-- Placeholder for dynamic content -->
-                        <VBox spacing="10" alignment="TOP_LEFT" style="-fx-padding: 10;">
+                        <VBox alignment="TOP_LEFT" spacing="10" style="-fx-padding: 10;">
                             <!-- Add dynamic items here -->
                         </VBox>
                     </content>

@@ -3,6 +3,7 @@ package br.upe.userinterface;
 import br.upe.entities.Session;
 import br.upe.entities.Subscription;
 import br.upe.entities.SystemUser;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -106,7 +107,7 @@ public class ListaDeInscricoesController {
 
     private void unsubscripeToSession(Subscription subscription) throws IOException{
         AppStateController.userController.removeSubscriptionFromUser(subscription);
-        App.setRoot("listaDeIncricoes");
+        App.setRoot("listaDeInscricoes");
     }
 
     @FXML
@@ -119,4 +120,5 @@ public class ListaDeInscricoesController {
         AppStateController.authController.logout();
         App.setRoot("login");
     }
+
 }
