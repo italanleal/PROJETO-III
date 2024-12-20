@@ -1,6 +1,7 @@
 package br.upe.userinterface;
 
 import br.upe.entities.Event;
+import br.upe.entities.SubEvent;
 import br.upe.util.persistencia.SystemException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,13 +12,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ListaDeEventosUSController {
-    Logger logger = Logger.getLogger(ListaDeEventosUSController.class.getName());
+public class ListaDeSubEventosController {
+    Logger logger = Logger.getLogger(ListaDeSubEventosController.class.getName());
     @FXML
     Label userEmail;
 
@@ -28,7 +28,7 @@ public class ListaDeEventosUSController {
     private void initialize() throws SystemException {
         // Set the label's text to the value of the variable
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
-        Collection<Event> events = AppStateController.eventController.getAllEvents();
+        Collection<SubEvent> events = AppStateController.subEventController.getAllSubEvents();
 
         VBox mainContainer = new VBox();
 
@@ -80,9 +80,9 @@ public class ListaDeEventosUSController {
         App.setRoot("homeUser");
     }
     @FXML
-    public void goToEventHome(Event event) throws IOException {
-        AppStateController.eventController.changeCurrentEvent(event);
-        App.setRoot("eventHome");
+    public void goToEventHome(SubEvent event) throws IOException {
+        AppStateController.subEventController.changeCurrentSubEvent(event);
+        App.setRoot("subEventHome");
     }
     @FXML
     void logout() throws IOException {
@@ -90,8 +90,7 @@ public class ListaDeEventosUSController {
         App.setRoot("login");
     }
 
-    public void goToListaDeEventos() throws IOException {
-
+    public void goToEventHome() throws IOException {
+        App.setRoot("eventHome");
     }
 }
-
