@@ -3,7 +3,6 @@ package br.upe.userinterface;
 import br.upe.entities.Event;
 import br.upe.util.controllers.UserIsNotAdmin;
 import br.upe.util.persistencia.SystemException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +11,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +42,7 @@ public class EventListController {
 
         events.forEach(event -> {
             VBox dataContainer = new VBox();
+            Label title = new Label(event.getTitle());
             Label descritor = new Label(event.getDescription());
             Label director = new Label(event.getDirector());
 
@@ -51,10 +50,15 @@ public class EventListController {
             Label endDate = new Label((event.getEndDate() != null) ? event.getEndDate().toString() : "Não Informado");
 
             Label sessionCount = new Label(String.valueOf(event.getSessions().size()));
-            dataContainer.getChildren().addAll(descritor, director, startDate, endDate, sessionCount);
+            dataContainer.getChildren().addAll(title, director, startDate, endDate, sessionCount, descritor);
 
             VBox labelsContainer = new VBox();
-            labelsContainer.getChildren().addAll(new Label("Nome do Evento"), new Label("Diretor do Evento"), new Label("Data de início"), new Label("Data de término"), new Label("Número de Sessões"));
+            labelsContainer.getChildren().addAll(new Label("Nome do Evento"),
+                    new Label("Diretor do Evento"),
+                    new Label("Data de início"),
+                    new Label("Data de término"),
+                    new Label("Número de Sessões"),
+                    new Label("Descrição do Evento"));
 
             Button manageButton = new Button("manage");
             manageButton.setOnAction(a -> {
@@ -64,25 +68,38 @@ public class EventListController {
                     logger.log(Level.SEVERE, "Error attaching event uuid to callback", e);
                 }
             });
-
+            Button deleteButton = new Button("delete");
+            deleteButton.setOnAction(a -> {
+                try {
+                    deleteEvent(event);
+                } catch (IOException | SystemException e){
+                    logger.log(Level.SEVERE, "Error deleting event", e);
+                }
+            });
             VBox buttonContainer = new VBox();
-            buttonContainer.getChildren().add(manageButton);
 
+            buttonContainer.getChildren().addAll(manageButton, deleteButton);
             HBox eventContainer = new HBox();
             eventContainer.setSpacing(25);
             labelsContainer.setPrefWidth(100);
             dataContainer.setPrefWidth(100);
             buttonContainer.setPrefWidth(100);
+            buttonContainer.setSpacing(15);
 
             eventContainer.getChildren().addAll(labelsContainer, dataContainer, buttonContainer);
             mainContainer.getChildren().add(eventContainer);
-
         });
 
         scrollPane.setContent(mainContainer);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
     }
+
+    private void deleteEvent(Event event) throws IOException, SystemException {
+        AppStateController.eventController.deleteEvent(event);
+        App.setRoot("eventList");
+    }
+
     @FXML
     private void switchToEventRegister() throws IOException {
         App.setRoot("eventRegister");

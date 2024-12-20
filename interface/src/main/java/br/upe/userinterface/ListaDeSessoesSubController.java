@@ -9,13 +9,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SessionListController {
-    Logger logger = Logger.getLogger(SessionListController.class.getName());
+public class ListaDeSessoesSubController {
+
+    Logger logger = Logger.getLogger(br.upe.userinterface.ListaDeSessoesController.class.getName());
     @FXML
     ScrollPane scrollPane;
     @FXML
@@ -25,7 +25,7 @@ public class SessionListController {
     private void initialize() {
         // Set the label's text to the value of the variable
         userEmail.setText(AppStateController.stateController.getCurrentUser().getName());
-        Collection<Session> sessions = AppStateController.sessionController.getAllEventSessions();
+        Collection<Session> sessions = AppStateController.subEventController.getSubEventSessions();
 
         VBox mainContainer = new VBox();
 
@@ -53,33 +53,28 @@ public class SessionListController {
                     new Label("Número de inscritos"),
                     new Label("Descrição"));
 
-            Button manageButton = new Button("manage");
+
+            Button manageButton = new Button("Inscrever-se");
             manageButton.setOnAction(a -> {
                 try {
-                    manageSession(session);
-                } catch (IOException e){
-                    logger.log(Level.SEVERE, "Error attaching session uuid to callback", e);
-                }
-            });
-            Button deleteButton = new Button("delete");
-            deleteButton.setOnAction(a -> {
-                try {
-                    deleteSession(session);
-                } catch (IOException e){
-                    logger.log(Level.SEVERE, "Error deleting session", e);
+                    subscripeToSession(session);
+                } catch (IOException e) {
+                    logger.log(Level.INFO, e.getMessage());
                 }
             });
 
+            if(AppStateController.sessionController.userIsSubscribed(session)) {
+                manageButton.setDisable(true);
+            }
+
             VBox buttonContainer = new VBox();
-            buttonContainer.getChildren().addAll(manageButton, deleteButton);
+            buttonContainer.getChildren().add(manageButton);
 
             HBox sessionContainer = new HBox();
             sessionContainer.setSpacing(25);
             labelsContainer.setPrefWidth(100);
             dataContainer.setPrefWidth(100);
             buttonContainer.setPrefWidth(100);
-            buttonContainer.setSpacing(15);
-
 
             sessionContainer.getChildren().addAll(labelsContainer, dataContainer, buttonContainer);
             mainContainer.getChildren().add(sessionContainer);
@@ -91,31 +86,23 @@ public class SessionListController {
         scrollPane.setFitToHeight(true);
     }
 
-    private void deleteSession(Session session) throws IOException {
-        AppStateController.sessionController.deleteSession(session);
-        App.setRoot("sessionList");
+    private void subscripeToSession(Session session) throws IOException{
+        AppStateController.sessionController.changeCurrentSession(session);
+        AppStateController.sessionController.addSubscriptionToSession();
+        App.setRoot("listaDeSessoes");
     }
 
     @FXML
-    private void switchToSessionRegister() throws IOException {
-        App.setRoot("sessionRegister");
+    void goToHomeUser() throws IOException {
+        App.setRoot("homeUser");
     }
     @FXML
-    private void switchToManageEvent() throws IOException {
-        App.setRoot("eventManager");
-    }
-    @FXML
-    private void switchToHomeAdmin() throws IOException {
-        App.setRoot("homeAdmin");
-    }
-    @FXML
-    private void logout() throws IOException {
+    void logout() throws IOException {
         AppStateController.authController.logout();
         App.setRoot("login");
     }
 
-    @FXML private void manageSession(Session session) throws IOException {
-        AppStateController.sessionController.changeCurrentSession(session);
-        App.setRoot("sessionManager");
+    public void goToSubEventHome() throws IOException {
+        App.setRoot("subEventHome");
     }
 }

@@ -16,11 +16,12 @@
 
                         <Hyperlink id="updateSubEventLink" fx:id="updateSubEventLink" layoutY="25.0" onAction="#switchToSubEventUpdater" prefHeight="24.0" prefWidth="200.0" text="Update Sub-event" />
                         <Hyperlink id="newSubEventLink" fx:id="newSubEventLink" layoutY="49.0" onAction="#switchToSubEventRegister" text="New Sub-event" />
-                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="73.0" onAction="#switchToSessionRegister" prefHeight="24.0" prefWidth="198.0" text="New Session" />
-                        <Hyperlink id="listSessionLink" fx:id="listSessionLink" layoutX="-1.0" layoutY="97.0" onAction="#switchToSessionList" text="List Sessions" />
-                        <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutX="-1.0" layoutY="121.0" onAction="#switchToEventManager" text="Manage Event" />
                     </children>
                 </AnchorPane>
+            <Hyperlink onAction="#switchToSubEventList" text="List Sub-Events" />
+                  <Hyperlink id="newSessionLink" fx:id="newSessionLink" onAction="#switchToSessionRegister" prefHeight="24.0" prefWidth="198.0" text="New Session" />
+                  <Hyperlink id="listSessionLink" fx:id="listSessionLink" onAction="#switchToSessionList" text="List Sessions" />
+                  <Hyperlink id="manageEventLink" fx:id="manageEventLink" onAction="#switchToEventManager" text="Manage Event" />
 
             </children>
         </VBox>
@@ -35,7 +36,8 @@
                                     <children>
                                         <Label text="Nome do Evento pai" />
                                         <Label text="Nome do Sub-evento" />
-                                        <Label text="Diretor do Sub-evento" />
+                                        <Label text="Diretor" />
+                                        <Label text="Descrição" />
                                         <Label text="Data de início" />
                                         <Label text="Data de término" />
                                         <Label text="Número de Sessões" />
@@ -46,6 +48,7 @@
                                         <Label id="eventoNome" fx:id="eventoNome" />
                                         <Label id="subEventoNome" fx:id="subEventoNome" />
                                         <Label id="eventoDiretor" fx:id="eventoDiretor" />
+                                        <Label id="description" fx:id="description" />
                                         <Label id="dataInicio" fx:id="dataInicio" text="Não Informado" />
                                         <Label id="dataFim" fx:id="dataFim" text="Não Informado" />
                                         <Label id="sessionCount" fx:id="sessionCount" />

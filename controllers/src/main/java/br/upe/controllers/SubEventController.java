@@ -37,6 +37,7 @@ public class SubEventController {
         subEvent.setStartDate(startDate);
         subEvent.setEndDate(endDate);
         subEvent.setEvent(stateController.getCurrentEvent());
+
         stateController.setCurrentSubEvent(daoController.subEventDAO.save(subEvent));
         stateController.refresh();
     }

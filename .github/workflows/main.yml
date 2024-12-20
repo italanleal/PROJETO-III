@@ -31,7 +31,7 @@ jobs:
         cat /home/runner/work/PROJETO-III/PROJETO-III/.env
 
     - name: SmokeTest
-      run: mvn -Dtest=SmokeTest -B package --file pom.xml
+      run: mvn -Dgroups=smoke -B package --file pom.xml
 
   release:
     runs-on: windows-latest

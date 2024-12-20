@@ -8,7 +8,10 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 public class SubEventManagerController {
-    public Label subEventoNome;
+    @FXML
+    Label subEventoNome;
+    @FXML
+    Label description;
     @FXML
     Label eventoNome;
     @FXML
@@ -25,9 +28,10 @@ public class SubEventManagerController {
         // Set the label's text to the value of the variable
         SubEvent subEvent = AppStateController.stateController.getCurrentSubEvent();
 
-        eventoNome.setText(subEvent.getEvent().getTitle());
-        subEventoNome.setText(subEvent.getDescription());
+        eventoNome.setText(AppStateController.stateController.getCurrentEvent().getTitle());
+        subEventoNome.setText(subEvent.getTitle());
         eventoDiretor.setText(subEvent.getDirector());
+        description.setText(subEvent.getDescription());
         sessionCount.setText(String.valueOf(subEvent.getSessions().size()));
 
         LocalDate startDate = subEvent.getStartDate();
@@ -66,5 +70,9 @@ public class SubEventManagerController {
     @FXML
     private void switchToSubEventUpdater() throws IOException{
         App.setRoot("subEventUpdater");
+    }
+    @FXML
+    private void switchToSubEventList() throws IOException {
+        App.setRoot("subEventList");
     }
 }
