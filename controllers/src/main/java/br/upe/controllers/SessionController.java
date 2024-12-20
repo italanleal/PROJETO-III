@@ -27,7 +27,6 @@ public class SessionController {
             throw new InvalidDateInput(e.getMessage(), e.getCause());
         }
 
-
         Session session = PersistenciaInterface.createSession();
         session.setTitle(title);
         session.setDescription(description);

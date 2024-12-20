@@ -12,14 +12,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class EventUpdaterController{
-    Logger logger = Logger.getLogger(EventUpdaterController.class.getName());
+
     @FXML
-    Label eventDescritor;
+    private Label userName;
+    Logger logger = Logger.getLogger(EventUpdaterController.class.getName());
+
 
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
-        eventDescritor.setText(AppStateController.stateController.getCurrentEvent().getDescription());
+        userName.setText(AppStateController.stateController.getCurrentUser().getName());
     }
 
     @FXML
