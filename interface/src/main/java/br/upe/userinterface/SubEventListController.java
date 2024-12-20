@@ -92,14 +92,6 @@ public class SubEventListController {
                     logger.log(Level.SEVERE, "Error deleting event", e);
                 }
             });
-            Button deleteButton = new Button("delete");
-            deleteButton.setOnAction(a -> {
-                try {
-                    deleteSubEvent(subEvent);
-                } catch (IOException | SystemException e){
-                    logger.log(Level.SEVERE, "Error deleting event", e);
-                }
-            });
 
             VBox buttonContainer = new VBox();
             buttonContainer.getChildren().addAll(manageButton, deleteButton);
