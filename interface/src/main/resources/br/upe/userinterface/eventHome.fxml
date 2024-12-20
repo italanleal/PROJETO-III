@@ -17,7 +17,7 @@
 
                   <Hyperlink id="subevents" fx:id="subevents" layoutY="49.0" onAction="#goToListaDeSubEventos" prefHeight="24.0" prefWidth="200.0" text="Sub-eventos" />
                   <Hyperlink id="sessions" fx:id="sessions" layoutY="73.0" onAction="#goToListaDeSessoes" prefHeight="24.0" prefWidth="200.0" text="Sessões" />
-                  <Hyperlink id="submission" fx:id="submission" layoutY="97.0" onAction="#goToListaDeSessoes" prefHeight="24.0" prefWidth="207.0" text="Submeter Artigo" />
+                  <Hyperlink id="submission" fx:id="submission" layoutY="97.0" onAction="#goToSubmeterArtigo" prefHeight="24.0" prefWidth="207.0" text="Submeter Artigo" />
 
                </children>
             </AnchorPane>
