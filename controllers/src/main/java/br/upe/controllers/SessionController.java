@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
-
 public class SessionController {
     private final StateController stateController;
     private final DAOController daoController;
@@ -46,7 +45,6 @@ public class SessionController {
         }
         stateController.setCurrentSession(daoController.sessionDAO.save(session));
         stateController.refresh();
-
     }
 
     public void updateSessionDescription(String description) {
