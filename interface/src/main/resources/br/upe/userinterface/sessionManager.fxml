@@ -12,8 +12,8 @@
                         <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
                         <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
                         <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutY="28.0" onAction="#switchToManageEvent" text="Manage Event" />
-                        <Hyperlink id="updateSessionLink" fx:id="updateSessionLink" layoutY="49.0" onAction="#switchToSessionUpdater" prefHeight="24.0" prefWidth="200.0" text="Update Event" />
-                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="73.0" onAction="#switchToSessionRegister" prefHeight="24.0" prefWidth="198.0" text="New Session" />
+                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="78.0" onAction="#switchToSessionRegister" prefHeight="24.0" prefWidth="198.0" text="New Session" />
+                        <Hyperlink layoutY="55.0" onAction="#switchToSessionList" text="List Sessions" />
                     </children>
                 </AnchorPane>
                 <ButtonBar prefHeight="40.0" prefWidth="200.0">
@@ -33,6 +33,8 @@
                                 <VBox id="sessionData" prefHeight="100.0" prefWidth="163.0">
                                     <children>
                                         <Label text="Nome da Sessão" />
+                                        <Label text="Nome do convidado" />
+                                        <Label text="Local" />
                                         <Label text="Data de início" />
                                         <Label text="Data de término" />
                                         <Label text="Número de inscritos" />
@@ -42,6 +44,8 @@
                                 <VBox id="sessionData" prefHeight="200.0" prefWidth="100.0">
                                     <children>
                                         <Label id="descritor" fx:id="sessaoNome" />
+                                        <Label id="guest" fx:id="sessionGuest" />
+                                        <Label id="local" fx:id="sessionLocal" />
                                         <Label id="dataInicio" fx:id="dataInicio" text="Não Informado" />
                                         <Label id="dataFim" fx:id="dataFim" text="Não Informado" />
                                         <Label id="subscriptionCount" fx:id="subscriptionCount" />

@@ -9,6 +9,7 @@ import br.upe.util.persistencia.SystemException;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 public class SessionController {
     private final StateController stateController;
@@ -45,7 +46,6 @@ public class SessionController {
         }
         stateController.setCurrentSession(daoController.sessionDAO.save(session));
         stateController.refresh();
-
     }
 
     public void updateSessionDescription(String description) {
@@ -134,6 +134,13 @@ public class SessionController {
         stateController.setCurrentSubscription(subscription);
         stateController.refresh();
     }
+    public boolean userIsSubscribed(Session session){
+        List<Subscription> subs = session.getSubscriptions();
+        for(Subscription sub : subs){
+            if(sub.getUser().getId().equals(stateController.getCurrentUser().getId())) return true;
+        }
+        return false;
+    }
     public void changeCurrentSession(Session session){
         stateController.setCurrentSession(session);
     }
@@ -145,5 +152,15 @@ public class SessionController {
     public Collection<Session> getAllEventSessions() {
         if(stateController.getCurrentSubEvent() instanceof SubEvent subEvent) return subEvent.getSessions();
         return stateController.getCurrentEvent().getSessions();
+    }
+
+    public void deleteSession(Session session) {
+        if(stateController.getCurrentSubEvent() instanceof SubEvent subEvent){
+            subEvent.getSessions().remove(session);
+        } else {
+            stateController.getCurrentEvent().getSessions().remove(session);
+        }
+        daoController.sessionDAO.delete(session);
+        stateController.setCurrentSession(null);
     }
 }

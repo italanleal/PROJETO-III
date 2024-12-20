@@ -26,10 +26,12 @@ public class FacadeTest extends TestingFeatures {
     LocalDate endDate1 = LocalDate.parse("2024-12-30");
 
     @Nested
+
     @DisplayName("StateController tests")
     class StateControllerTest{
         //----------------------------------StateController tests----------------------------------
         @Test
+        @Tag("smoke")
         @DisplayName("State: currentUser != null")
         void currentUserNotNullTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
@@ -45,6 +47,7 @@ public class FacadeTest extends TestingFeatures {
         }
 
         @Test
+        @Tag("smoke")
         @DisplayName("State: CurrentEvent != null")
         void currentEventNotNullTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
@@ -61,6 +64,7 @@ public class FacadeTest extends TestingFeatures {
             Assertions.assertEquals(eventDirector1, facade.stateController.getCurrentEvent().getDirector());
         }
         @Test
+        @Tag("smoke")
         @DisplayName("State: CurrentSubEvent != null")
         void currentSubEventNotNullTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
@@ -82,6 +86,7 @@ public class FacadeTest extends TestingFeatures {
         }
 
         @Test
+        @Tag("smoke")
         @DisplayName("State: currentSession != null")
         void currentSessionNotNullTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
@@ -103,6 +108,7 @@ public class FacadeTest extends TestingFeatures {
         }
 
         @Test
+        @Tag("smoke")
         @DisplayName("State: currentSubscription != null")
         void currentSubscriptionNotNullTest() throws SystemException {
             String name = "name#" + randomAlphaDecimalText(11);
@@ -139,6 +145,7 @@ public class FacadeTest extends TestingFeatures {
         }
 
         @Test
+        @Tag("smoke")
         @DisplayName("State: currentSubscription != null")
         void currentSubmissionNotNullTest() throws SystemException, IOException {
             String name = "name#" + randomAlphaDecimalText(11);

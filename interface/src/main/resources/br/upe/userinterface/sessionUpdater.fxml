@@ -12,8 +12,7 @@
                         <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
                         <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
                         <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutY="28.0" onAction="#switchToManageEvent" text="Manage Event" />
-                        <Hyperlink id="updateSessionLink" fx:id="updateSessionLink" layoutY="25.0" prefHeight="24.0" prefWidth="200.0" text="Update Session" />
-                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="49.0" onAction="#updateSession" prefHeight="24.0" prefWidth="198.0" text="New Session" />
+                        <Hyperlink id="sessionListLink" fx:id="sessionListLink" layoutY="49.0" onAction="#switchToSessionList" prefHeight="24.0" prefWidth="198.0" text="Session List" />
                     </children>
                 </AnchorPane>
                 <ButtonBar prefHeight="40.0" prefWidth="200.0">

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.text.*?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.UserProfileController">
@@ -26,11 +24,16 @@
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </padding></Hyperlink>
+                  <Label id="warningField" fx:id="warningLabel" layoutX="14.0" layoutY="369.0" text="warning" textFill="#e7e36b" visible="false">
+                     <font>
+                        <Font name="System Bold Italic" size="14.0" />
+                     </font>
+                  </Label>
                     </children>
                 </AnchorPane>
             </children>
         </VBox>
-        <VBox alignment="CENTER" spacing="35.0">
+        <VBox alignment="CENTER" spacing="15.0">
             <children>
             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
@@ -103,6 +106,55 @@
                </padding>
             </HBox>
             <Separator layoutX="10.0" layoutY="98.0" prefHeight="0.0" prefWidth="350.0" style="-fx-background-color: #394159;" />
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label id="emailField" alignment="CENTER" text="Senha atual" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <PasswordField id="currentPassword" fx:id="currentPassword" prefHeight="26.0" prefWidth="181.0" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label id="emailField" alignment="CENTER" text="Nova senha" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <PasswordField id="newPassword" fx:id="newPassword" prefHeight="26.0" prefWidth="178.0" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="316.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <Label id="emailField" alignment="CENTER" text="Confirme" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <PasswordField id="confirmNewPassword" fx:id="confirmNewPassword" prefHeight="26.0" prefWidth="198.0" />
+                  <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#updateUserPassword" text="Edit" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
                 <VBox alignment="CENTER" prefHeight="353.0" prefWidth="350.0" />
             </children>
          <opaqueInsets>

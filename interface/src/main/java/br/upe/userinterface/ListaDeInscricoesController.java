@@ -1,6 +1,8 @@
 package br.upe.userinterface;
 
 import br.upe.entities.Session;
+import br.upe.entities.Subscription;
+import br.upe.entities.SystemUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,13 +11,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SessionListController {
-    Logger logger = Logger.getLogger(SessionListController.class.getName());
+public class ListaDeInscricoesController {
+
+    Logger logger = Logger.getLogger(br.upe.userinterface.ListaDeSessoesController.class.getName());
     @FXML
     ScrollPane scrollPane;
     @FXML
@@ -24,20 +26,21 @@ public class SessionListController {
     @FXML
     private void initialize() {
         // Set the label's text to the value of the variable
-        userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
-        Collection<Session> sessions = AppStateController.sessionController.getAllEventSessions();
+        userEmail.setText(AppStateController.stateController.getCurrentUser().getName());
+        Collection<Subscription> subscriptions = ((SystemUser) AppStateController.stateController.getCurrentUser()).getSubscriptions();
 
         VBox mainContainer = new VBox();
 
         mainContainer.getChildren().clear();
         mainContainer.setSpacing(10);
 
-
-        sessions.forEach(session -> {
+        subscriptions.forEach(subscription -> {
+            Session session = subscription.getSession();
             VBox dataContainer = new VBox();
             Label title = new Label(session.getTitle());
             Label guest = new Label(session.getGuest());
             Label local = new Label(session.getLocal());
+
             Label startDate = new Label((session.getStartDate() != null) ? session.getStartDate().toString(): "Não Informado");
             Label endDate = new Label((session.getEndDate() != null) ? session.getEndDate().toString(): "Não Informado");
             Label subscriptionsCount = new Label(String.valueOf(session.getSubscriptions().size()));
@@ -53,33 +56,25 @@ public class SessionListController {
                     new Label("Número de inscritos"),
                     new Label("Descrição"));
 
-            Button manageButton = new Button("manage");
+
+            Button manageButton = new Button("Cancelar Inscrição");
             manageButton.setOnAction(a -> {
                 try {
-                    manageSession(session);
-                } catch (IOException e){
-                    logger.log(Level.SEVERE, "Error attaching session uuid to callback", e);
-                }
-            });
-            Button deleteButton = new Button("delete");
-            deleteButton.setOnAction(a -> {
-                try {
-                    deleteSession(session);
-                } catch (IOException e){
-                    logger.log(Level.SEVERE, "Error deleting session", e);
+                    unsubscripeToSession(subscription);
+                } catch (IOException e) {
+                    logger.log(Level.INFO, e.getMessage());
                 }
             });
 
+
             VBox buttonContainer = new VBox();
-            buttonContainer.getChildren().addAll(manageButton, deleteButton);
+            buttonContainer.getChildren().add(manageButton);
 
             HBox sessionContainer = new HBox();
             sessionContainer.setSpacing(25);
             labelsContainer.setPrefWidth(100);
             dataContainer.setPrefWidth(100);
             buttonContainer.setPrefWidth(100);
-            buttonContainer.setSpacing(15);
-
 
             sessionContainer.getChildren().addAll(labelsContainer, dataContainer, buttonContainer);
             mainContainer.getChildren().add(sessionContainer);
@@ -91,31 +86,19 @@ public class SessionListController {
         scrollPane.setFitToHeight(true);
     }
 
-    private void deleteSession(Session session) throws IOException {
-        AppStateController.sessionController.deleteSession(session);
-        App.setRoot("sessionList");
+    private void unsubscripeToSession(Subscription subscription) throws IOException{
+        AppStateController.userController.removeSubscriptionFromUser(subscription);
+        App.setRoot("listaDeIncricoes");
     }
 
     @FXML
-    private void switchToSessionRegister() throws IOException {
-        App.setRoot("sessionRegister");
+    void goToHomeUser() throws IOException {
+        App.setRoot("homeUser");
     }
+
     @FXML
-    private void switchToManageEvent() throws IOException {
-        App.setRoot("eventManager");
-    }
-    @FXML
-    private void switchToHomeAdmin() throws IOException {
-        App.setRoot("homeAdmin");
-    }
-    @FXML
-    private void logout() throws IOException {
+    void logout() throws IOException {
         AppStateController.authController.logout();
         App.setRoot("login");
-    }
-
-    @FXML private void manageSession(Session session) throws IOException {
-        AppStateController.sessionController.changeCurrentSession(session);
-        App.setRoot("sessionManager");
     }
 }
