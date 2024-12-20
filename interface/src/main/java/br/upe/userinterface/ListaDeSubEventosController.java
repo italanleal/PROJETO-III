@@ -1,9 +1,7 @@
 package br.upe.userinterface;
 
-import br.upe.entities.Event;
 import br.upe.entities.SubEvent;
 import br.upe.util.persistencia.SystemException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -25,7 +23,7 @@ public class ListaDeSubEventosController {
     ScrollPane scrollPane;
 
     @FXML
-    private void initialize() throws SystemException {
+    private void initialize() {
         // Set the label's text to the value of the variable
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
         Collection<SubEvent> events = AppStateController.subEventController.getAllSubEvents();

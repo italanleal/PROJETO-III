@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.SubmissionListController">
+    <children>
+        <VBox prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #394159;">
+            <children>
+                <AnchorPane prefHeight="358.0" prefWidth="200.0">
+                    <children>
+                        <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutX="25.0" layoutY="25.0" onAction="#switchToHomeAdmin" prefHeight="35.0" prefWidth="150.0" text="Home" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Hyperlink>
+                        <Separator layoutX="10.0" layoutY="70.0" prefWidth="180.0" style="-fx-background-color: #f2f2f2;" />
+                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutX="25.0" layoutY="90.0" onAction="#switchToSessionRegister" prefHeight="35.0" prefWidth="150.0" text="New Session" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Hyperlink>
+                        <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutX="25.0" layoutY="130.0" onAction="#switchToManageEvent" prefHeight="35.0" prefWidth="150.0" text="Manage Event" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Hyperlink>
+                        <Separator layoutX="10.0" layoutY="175.0" prefWidth="180.0" style="-fx-background-color: #f2f2f2;" />
+                    </children>
+                </AnchorPane>
+                <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                    <buttons>
+                        <Hyperlink id="logoutLink" fx:id="logoutLink" layoutX="25.0" onAction="#logout" text="Logout" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Hyperlink>
+                    </buttons>
+                </ButtonBar>
+            </children>
+        </VBox>
+        <ScrollPane fitToWidth="true" prefHeight="400.0" prefWidth="403.0">
+            <content>
+                <VBox prefHeight="400.0" prefWidth="403.0" spacing="15" style="-fx-padding: 20;">
+                    <children>
+                        <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" style="-fx-font-size: 14px; -fx-text-fill: #394159;" />
+                        <ScrollPane id="scrollPane" fx:id="scrollPane" prefHeight="350.0" prefWidth="400.0" style="-fx-background-color: #f9f9f9; -fx-border-color: #394159;" />
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</HBox>

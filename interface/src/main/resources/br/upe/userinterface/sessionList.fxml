@@ -2,30 +2,52 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.SessionListController">
     <children>
         <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
-                <AnchorPane prefHeight="358.0" prefWidth="200.0">
+                <AnchorPane prefHeight="358.0" prefWidth="200.0" style="-fx-background-color: #394159;">
                     <children>
-                        <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
-                        <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
-                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutX="-1.0" layoutY="52.0" onAction="#switchToSessionRegister" prefHeight="24.0" prefWidth="200.0" text="New Session" />
-                  <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutX="-1.0" layoutY="28.0" onAction="#switchToManageEvent" text="Manage Event" />
+                        <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="15.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Hyperlink>
+                        <Separator layoutX="-1.0" layoutY="50.0" prefWidth="200.0" style="-fx-background-color: F2F2F2;" />
+                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="65.0" onAction="#switchToSessionRegister" prefHeight="24.0" prefWidth="200.0" text="New Session" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Hyperlink>
+                        <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutY="110.0" onAction="#switchToManageEvent" prefHeight="24.0" prefWidth="198.0" text="Manage Event" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Hyperlink>
                     </children>
                 </AnchorPane>
-                <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                <ButtonBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #394159;">
                     <buttons>
-                        <Hyperlink id="logoutLink" fx:id="logoutLink" onAction="#logout" text="logout" />
+                        <Hyperlink id="logoutLink" fx:id="logoutLink" onAction="#logout" text="logout" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Hyperlink>
                     </buttons>
                 </ButtonBar>
             </children>
         </VBox>
         <VBox prefHeight="400.0" prefWidth="403.0">
             <children>
-                <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
-                <ScrollPane id="scrollPane" fx:id="scrollPane" prefHeight="381.0" prefWidth="400.0" />
-            </children></VBox>
+                <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="50.0" prefWidth="401.0" textAlignment="CENTER" textFill="#38393d" style="-fx-font-size: 18;">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <ScrollPane id="scrollPane" fx:id="scrollPane" prefHeight="381.0" prefWidth="400.0" style="-fx-background-color: transparent;" />
+            </children>
+        </VBox>
     </children>
 </HBox>

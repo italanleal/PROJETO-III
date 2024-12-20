@@ -1,59 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.SessionManagerController">
+<HBox xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="br.upe.userinterface.SessionManagerController"
+      prefHeight="400.0" prefWidth="600.0">
     <children>
-        <VBox prefHeight="200.0" prefWidth="100.0">
+        <!-- Sidebar Navigation -->
+        <VBox prefWidth="200.0" style="-fx-background-color: #394159;">
             <children>
-                <AnchorPane prefHeight="358.0" prefWidth="200.0">
+                <AnchorPane prefHeight="358.0">
                     <children>
-                        <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
-                        <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
-                        <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutY="28.0" onAction="#switchToManageEvent" text="Manage Event" />
-                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="78.0" onAction="#switchToSessionRegister" prefHeight="24.0" prefWidth="198.0" text="New Session" />
-                        <Hyperlink layoutY="55.0" onAction="#switchToSessionList" text="List Sessions" />
+                        <Hyperlink fx:id="homeAdminLink"
+                                   layoutX="25.0" layoutY="25.0"
+                                   onAction="#switchToHomeAdmin"
+                                   text="Home" textFill="#f2f2f2"
+                                   style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                        <Separator layoutY="74.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
+                        <Hyperlink fx:id="manageEventLink"
+                                   layoutX="25.0" layoutY="85.0"
+                                   onAction="#switchToManageEvent"
+                                   text="Manage Event" textFill="#f2f2f2"
+                                   style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                        <Separator layoutY="130.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: F2F2F2;" />
+                        <Hyperlink fx:id="newSessionLink"
+                                   layoutX="25.0" layoutY="141.0"
+                                   onAction="#switchToSessionRegister"
+                                   text="New Session" textFill="#f2f2f2"
+                                   style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                        <Hyperlink fx:id="listSessionLink"
+                                   layoutX="25.0" layoutY="197.0"
+                                   onAction="#switchToSessionList"
+                                   text="List Sessions" textFill="#f2f2f2"
+                                   style="-fx-font-weight: bold; -fx-font-size: 16px;" />
+                        <Hyperlink fx:id="logoutLink"
+                                   layoutX="25.0" layoutY="253.0"
+                                   onAction="#logout"
+                                   text="Logout" textFill="#d9534f"
+                                   style="-fx-font-weight: bold; -fx-font-size: 16px;" />
                     </children>
                 </AnchorPane>
-                <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                    <buttons>
-                        <Hyperlink id="logoutLink" fx:id="logoutLink" onAction="#logout" text="logout" />
-                    </buttons>
-                </ButtonBar>
             </children>
         </VBox>
-        <VBox prefHeight="400.0" prefWidth="403.0">
+
+        <!-- Main Content Area -->
+        <VBox prefWidth="403.0" style="-fx-padding: 10; -fx-background-color: #ffffff;">
             <children>
-                <Label alignment="CENTER" prefHeight="18.0" prefWidth="401.0" text="Painel da Sessão" textAlignment="CENTER" />
-                <VBox prefHeight="384.0" prefWidth="400.0">
+                <Label text="Painel da Sessão"
+                       alignment="CENTER"
+                       prefHeight="50.0" prefWidth="350.0"
+                       style="-fx-font-size: 24; -fx-font-weight: bold; -fx-text-fill: #394159;" />
+                <Separator layoutY="60.0" prefHeight="3.0" prefWidth="350.0" style="-fx-background-color: #394159;" />
+                <VBox alignment="TOP_CENTER" prefHeight="353.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="CENTER" spacing="20" style="-fx-padding: 10; -fx-border-color: #cccccc; -fx-border-width: 1; -fx-background-color: #f9f9f9;">
                             <children>
-                                <VBox id="sessionData" prefHeight="100.0" prefWidth="163.0">
+                                <!-- Labels Column -->
+                                <VBox alignment="TOP_LEFT" prefWidth="163.0" spacing="10">
                                     <children>
-                                        <Label text="Nome da Sessão" />
-                                        <Label text="Nome do convidado" />
-                                        <Label text="Local" />
-                                        <Label text="Data de início" />
-                                        <Label text="Data de término" />
-                                        <Label text="Número de inscritos" />
-                                        <Hyperlink fx:id="updateSessionLink" onAction="#switchToSessionUpdater" text="Update Session" />
+                                        <Label text="Nome da Sessão" style="-fx-font-size: 14; -fx-text-fill: #555555;" />
+                                        <Label text="Nome do Convidado" style="-fx-font-size: 14; -fx-text-fill: #555555;" />
+                                        <Label text="Local" style="-fx-font-size: 14; -fx-text-fill: #555555;" />
+                                        <Label text="Data de Início" style="-fx-font-size: 14; -fx-text-fill: #555555;" />
+                                        <Label text="Data de Término" style="-fx-font-size: 14; -fx-text-fill: #555555;" />
+                                        <Label text="Número de Inscritos" style="-fx-font-size: 14; -fx-text-fill: #555555;" />
+                                        <Hyperlink fx:id="updateSessionLink"
+                                                   onAction="#switchToSessionUpdater"
+                                                   text="Update Session"
+                                                   style="-fx-text-fill: #337ab7;" />
+
                                     </children>
                                 </VBox>
-                                <VBox id="sessionData" prefHeight="200.0" prefWidth="100.0">
+                                <!-- Data Column -->
+                                <VBox alignment="TOP_LEFT" prefWidth="200.0" spacing="10">
                                     <children>
-                                        <Label id="descritor" fx:id="sessaoNome" />
-                                        <Label id="guest" fx:id="sessionGuest" />
-                                        <Label id="local" fx:id="sessionLocal" />
-                                        <Label id="dataInicio" fx:id="dataInicio" text="Não Informado" />
-                                        <Label id="dataFim" fx:id="dataFim" text="Não Informado" />
-                                        <Label id="subscriptionCount" fx:id="subscriptionCount" />
+                                        <Label fx:id="sessaoNome" text="-" style="-fx-font-size: 14; -fx-text-fill: #000000;" />
+                                        <Label fx:id="sessionGuest" text="-" style="-fx-font-size: 14; -fx-text-fill: #000000;" />
+                                        <Label fx:id="sessionLocal" text="-" style="-fx-font-size: 14; -fx-text-fill: #000000;" />
+                                        <Label fx:id="dataInicio" text="Não Informado" style="-fx-font-size: 14; -fx-text-fill: #000000;" />
+                                        <Label fx:id="dataFim" text="Não Informado" style="-fx-font-size: 14; -fx-text-fill: #000000;" />
+                                        <Label fx:id="subscriptionCount" text="-" style="-fx-font-size: 14; -fx-text-fill: #000000;" />
+
                                     </children>
                                 </VBox>
                             </children>
                         </HBox>
-                    </children></VBox>
-            </children></VBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
     </children>
 </HBox>
