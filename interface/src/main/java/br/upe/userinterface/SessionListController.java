@@ -78,14 +78,6 @@ public class SessionListController {
                     logger.log(Level.SEVERE, "Error attaching session uuid to callback", e);
                 }
             });
-            Button deleteButton = new Button("delete");
-            deleteButton.setOnAction(a -> {
-                try {
-                    deleteSession(session);
-                } catch (IOException e){
-                    logger.log(Level.SEVERE, "Error deleting session", e);
-                }
-            });
 
             deleteButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
             deleteButton.setOnAction(a -> {
@@ -95,6 +87,7 @@ public class SessionListController {
                     logger.log(Level.SEVERE, "Error deleting session", e);
                 }
             });
+
 
             VBox buttonContainer = new VBox();
             buttonContainer.getChildren().addAll(manageButton, deleteButton);

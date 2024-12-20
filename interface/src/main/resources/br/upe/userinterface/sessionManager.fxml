@@ -14,7 +14,6 @@
             <children>
                 <AnchorPane prefHeight="358.0">
                     <children>
-
                         <Hyperlink fx:id="homeAdminLink"
                                    layoutX="25.0" layoutY="25.0"
                                    onAction="#switchToHomeAdmin"
@@ -62,7 +61,6 @@
                                 <!-- Labels Column -->
                                 <VBox alignment="TOP_LEFT" prefWidth="163.0" spacing="10">
                                     <children>
-
                                         <Label text="Nome da Sessão" style="-fx-font-size: 14; -fx-text-fill: #555555;" />
                                         <Label text="Nome do Convidado" style="-fx-font-size: 14; -fx-text-fill: #555555;" />
                                         <Label text="Local" style="-fx-font-size: 14; -fx-text-fill: #555555;" />
@@ -79,13 +77,13 @@
                                 <!-- Data Column -->
                                 <VBox alignment="TOP_LEFT" prefWidth="200.0" spacing="10">
                                     <children>
-
                                         <Label fx:id="sessaoNome" text="-" style="-fx-font-size: 14; -fx-text-fill: #000000;" />
                                         <Label fx:id="sessionGuest" text="-" style="-fx-font-size: 14; -fx-text-fill: #000000;" />
                                         <Label fx:id="sessionLocal" text="-" style="-fx-font-size: 14; -fx-text-fill: #000000;" />
                                         <Label fx:id="dataInicio" text="Não Informado" style="-fx-font-size: 14; -fx-text-fill: #000000;" />
                                         <Label fx:id="dataFim" text="Não Informado" style="-fx-font-size: 14; -fx-text-fill: #000000;" />
                                         <Label fx:id="subscriptionCount" text="-" style="-fx-font-size: 14; -fx-text-fill: #000000;" />
+
                                     </children>
                                 </VBox>
                             </children>

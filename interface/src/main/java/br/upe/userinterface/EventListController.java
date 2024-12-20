@@ -42,8 +42,8 @@ public class EventListController {
 
         events.forEach(event -> {
             VBox dataContainer = new VBox();
-
             dataContainer.setSpacing(5);
+
 
             Label title = new Label(event.getTitle());
             Label descritor = new Label(event.getDescription());
@@ -65,15 +65,16 @@ public class EventListController {
             VBox labelsContainer = new VBox();
             labelsContainer.getChildren().addAll(
                     new Label("Nome do Evento"),
+
                     new Label("Diretor do Evento"),
                     new Label("Data de início"),
                     new Label("Data de término"),
                     new Label("Número de Sessões"),
-
                     new Label("Descrição do Evento")
             );
             labelsContainer.setSpacing(5);
             labelsContainer.setStyle("-fx-text-fill: #f2f2f2; -fx-font-size: 16;");
+
 
             Button manageButton = new Button("manage");
             manageButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
@@ -84,8 +85,6 @@ public class EventListController {
                     logger.log(Level.SEVERE, "Error attaching event uuid to callback", e);
                 }
             });
-
-
             Button deleteButton = new Button("delete");
             deleteButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
             deleteButton.setOnAction(a -> {
@@ -99,6 +98,7 @@ public class EventListController {
             VBox buttonContainer = new VBox();
             buttonContainer.getChildren().addAll(manageButton, deleteButton);
             buttonContainer.setSpacing(15);
+
 
             buttonContainer.getChildren().addAll(manageButton, deleteButton);
             HBox eventContainer = new HBox();

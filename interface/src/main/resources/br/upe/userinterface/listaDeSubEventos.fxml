@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
+
 <?import javafx.scene.layout.*?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.ListaDeSubEventosController">
@@ -24,20 +25,20 @@
 
                   <!-- Separator Below Home -->
                   <Separator layoutY="69.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: #F2F2F2;">
+
                      <effect>
                         <ColorAdjust />
                      </effect>
                   </Separator>
-
                   <!-- Manage Event Link -->
                   <Hyperlink fx:id="manageEventLink" layoutY="74.0" onAction="#goToEventHome" prefHeight="24.0" prefWidth="200.0" style="-fx-text-fill: #FFFFFF; -fx-font-size: 14px;" text="Voltar para Evento" />
                   <!-- Logout Link -->
                   <Hyperlink fx:id="logoutLink" layoutX="56.0" layoutY="254.0" onAction="#logout" prefHeight="29.0" prefWidth="130.0" style="-fx-text-fill: #FFFFFF; -fx-font-size: 14px;" text="Logout" />
+
                </children>
             </AnchorPane>
          </children>
       </VBox>
-
       <!-- Main Content -->
       <VBox prefHeight="400.0" prefWidth="400.0" style="-fx-padding: 20; -fx-background-color: #FFFFFF;">
          <children>
@@ -55,5 +56,6 @@
             </ScrollPane>
          </children>
       </VBox>
+
    </children>
 </HBox>
