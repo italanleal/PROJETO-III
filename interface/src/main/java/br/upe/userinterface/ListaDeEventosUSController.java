@@ -59,6 +59,8 @@ public class ListaDeEventosUSController {
 
             dataContainer.getChildren().addAll(descriptor, director, startDate, endDate, sessionCount);
 
+
+            Button manageButton = new Button("saiba mais");
             VBox labelsContainer = new VBox();
             labelsContainer.getChildren().addAll(
                     new Label("Nome do Evento"),
@@ -70,8 +72,9 @@ public class ListaDeEventosUSController {
             labelsContainer.setSpacing(5);
             labelsContainer.setStyle("-fx-text-fill: #f2f2f2; -fx-font-size: 16;");
 
-            Button manageButton = new Button("Manage");
+
             manageButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
+
             manageButton.setOnAction(a -> {
                 try {
                     goToEventHome(event);
@@ -110,7 +113,7 @@ public class ListaDeEventosUSController {
         App.setRoot("homeUser");
     }
     @FXML
-    void goToEventHome(Event event) throws IOException {
+    public void goToEventHome(Event event) throws IOException {
         AppStateController.eventController.changeCurrentEvent(event);
         App.setRoot("eventHome");
     }

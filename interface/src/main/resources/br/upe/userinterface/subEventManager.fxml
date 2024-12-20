@@ -32,6 +32,7 @@
                             </font>
                         </Hyperlink>
 
+
                         <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutX="39.0" layoutY="253.0" onAction="#switchToSessionRegister" text="New Session" textFill="#f2f2f2">
                             <font>
                                 <Font name="System Bold" size="18.0" />
@@ -66,6 +67,7 @@
                             <children>
                                 <VBox id="subEventDataLabels" alignment="TOP_LEFT" prefHeight="100.0" prefWidth="163.0" spacing="10">
                                     <children>
+
                                         <Label text="Nome do Evento Pai" textFill="#394159">
                                             <font>
                                                 <Font name="System Bold" size="14.0" />
@@ -101,10 +103,12 @@
                                                 <Font name="System Bold" size="14.0" />
                                             </font>
                                         </Label>
+
                                     </children>
                                 </VBox>
                                 <VBox id="subEventDataValues" alignment="TOP_LEFT" prefHeight="200.0" prefWidth="150.0" spacing="10">
                                     <children>
+
                                         <Label id="eventoNome" fx:id="eventoNome" textFill="#38393d">
                                             <font>
                                                 <Font name="System" size="14.0" />

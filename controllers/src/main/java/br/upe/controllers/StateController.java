@@ -49,10 +49,12 @@ public class StateController {
 
     public void refreshCurrentUser() {
         if(currentUser instanceof SystemAdmin systemAdmin) {
-            setCurrentUser(daoController.systemAdminDAO.findById(systemAdmin.getId()).get());
+            daoController.systemAdminDAO.findById(systemAdmin.getId())
+                    .ifPresent(this::setCurrentUser);
         }
         if(currentUser instanceof SystemUser systemUser) {
-            setCurrentUser(daoController.systemUserDAO.findById(systemUser.getId()).get());
+            daoController.systemUserDAO.findById(systemUser.getId())
+                    .ifPresent(this::setCurrentUser);
         }
     }
 
@@ -68,7 +70,8 @@ public class StateController {
 
     public void refreshCurrentEvent() {
         if (currentEvent != null) {
-            setCurrentEvent(daoController.eventDAO.findById(currentEvent.getId()).get());
+            daoController.eventDAO.findById(currentEvent.getId())
+                    .ifPresent(this::setCurrentEvent);
         }
     }
 
@@ -83,7 +86,8 @@ public class StateController {
 
     public void refreshCurrentSession() {
         if (currentSession != null) {
-            setCurrentSession(daoController.sessionDAO.findById(currentSession.getId()).get());
+            daoController.sessionDAO.findById(currentSession.getId())
+                    .ifPresent(this::setCurrentSession);
         }
     }
 
@@ -98,7 +102,8 @@ public class StateController {
 
     public void refreshCurrentSubmission() {
         if (currentSubmission != null) {
-            setCurrentSubmission(daoController.submissionDAO.findById(currentSubmission.getId()).get());
+            daoController.submissionDAO.findById(currentSubmission.getId())
+                    .ifPresent(this::setCurrentSubmission);
         }
     }
 
@@ -113,7 +118,8 @@ public class StateController {
 
     public void refreshCurrentCertification() {
         if (currentCertification != null) {
-            setCurrentCertification(daoController.certificationDAO.findById(currentCertification.getId()).get());
+            daoController.certificationDAO.findById(currentCertification.getId())
+                    .ifPresent(this::setCurrentCertification);
         }
     }
 
@@ -128,7 +134,8 @@ public class StateController {
 
     public void refreshCurrentSubscription() {
         if (currentSubscription != null) {
-            setCurrentSubscription(daoController.subscriptionDAO.findById(currentSubscription.getId()).get());
+            daoController.subscriptionDAO.findById(currentSubscription.getId())
+                    .ifPresent(this::setCurrentSubscription);
         }
     }
 
@@ -143,8 +150,11 @@ public class StateController {
 
     public void refreshCurrentSubEvent() {
         if (currentSubEvent != null) {
-            setCurrentSubEvent(daoController.subEventDAO.findById(currentSubEvent.getId()).get());
-            daoController.subEventDAO.detach(currentSubEvent);
+            daoController.subEventDAO.findById(currentSubEvent.getId())
+                    .ifPresent(subEvent -> {
+                        setCurrentSubEvent(subEvent);
+                        daoController.subEventDAO.detach(subEvent);
+                    });
         }
     }
 
@@ -178,6 +188,5 @@ public class StateController {
         if(currentSession != null) refreshCurrentSession();
     }
 
-   
-}
 
+}

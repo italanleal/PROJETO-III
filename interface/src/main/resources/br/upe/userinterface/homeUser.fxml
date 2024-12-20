@@ -17,6 +17,7 @@
                         <Image url="@/resources/images/logo.png" />
                      </image>
                   </ImageView>
+
                   <Separator layoutY="70.0" prefWidth="200.0" style="-fx-background-color: #F2F2F2;" />
 
                   <!-- Menu Items -->

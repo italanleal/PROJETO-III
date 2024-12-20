@@ -78,6 +78,14 @@ public class SessionListController {
                     logger.log(Level.SEVERE, "Error attaching session uuid to callback", e);
                 }
             });
+            Button deleteButton = new Button("delete");
+            deleteButton.setOnAction(a -> {
+                try {
+                    deleteSession(session);
+                } catch (IOException e){
+                    logger.log(Level.SEVERE, "Error deleting session", e);
+                }
+            });
 
             Button deleteButton = new Button("Delete");
             deleteButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
@@ -91,8 +99,9 @@ public class SessionListController {
 
             VBox buttonContainer = new VBox();
             buttonContainer.getChildren().addAll(manageButton, deleteButton);
-            buttonContainer.setSpacing(15);
 
+            buttonContainer.setSpacing(15);
+          
             HBox sessionContainer = new HBox();
             sessionContainer.setSpacing(25);
             sessionContainer.setStyle("-fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: #ffffff; -fx-border-width: 1;");
@@ -100,6 +109,8 @@ public class SessionListController {
             labelsContainer.setPrefWidth(100);
             dataContainer.setPrefWidth(100);
             buttonContainer.setPrefWidth(100);
+            buttonContainer.setSpacing(15);
+
 
             sessionContainer.getChildren().addAll(labelsContainer, dataContainer, buttonContainer);
             mainContainer.getChildren().add(sessionContainer);
@@ -111,6 +122,11 @@ public class SessionListController {
         scrollPane.setStyle("-fx-background-color: transparent;");
     }
 
+
+    private void deleteSession(Session session) throws IOException {
+        AppStateController.sessionController.deleteSession(session);
+        App.setRoot("sessionList");
+    }
 
     private void deleteSession(Session session) throws IOException {
         AppStateController.sessionController.deleteSession(session);

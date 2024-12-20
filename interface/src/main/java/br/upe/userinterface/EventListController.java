@@ -42,6 +42,7 @@ public class EventListController {
 
         events.forEach(event -> {
             VBox dataContainer = new VBox();
+
             dataContainer.setSpacing(5);
 
             Label title = new Label(event.getTitle());
@@ -68,6 +69,7 @@ public class EventListController {
                     new Label("Data de início"),
                     new Label("Data de término"),
                     new Label("Número de Sessões"),
+
                     new Label("Descrição do Evento")
             );
             labelsContainer.setSpacing(5);
@@ -83,6 +85,7 @@ public class EventListController {
                 }
             });
 
+
             Button deleteButton = new Button("delete");
             deleteButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
             deleteButton.setOnAction(a -> {
@@ -97,6 +100,7 @@ public class EventListController {
             buttonContainer.getChildren().addAll(manageButton, deleteButton);
             buttonContainer.setSpacing(15);
 
+            buttonContainer.getChildren().addAll(manageButton, deleteButton);
             HBox eventContainer = new HBox();
             eventContainer.setSpacing(25);
             eventContainer.setStyle("-fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: #ffffff; -fx-border-width: 1;");
@@ -104,6 +108,7 @@ public class EventListController {
             labelsContainer.setPrefWidth(100);
             dataContainer.setPrefWidth(100);
             buttonContainer.setPrefWidth(100);
+            buttonContainer.setSpacing(15);
 
             eventContainer.getChildren().addAll(labelsContainer, dataContainer, buttonContainer);
             mainContainer.getChildren().add(eventContainer);
@@ -114,7 +119,6 @@ public class EventListController {
         scrollPane.setFitToHeight(true);
         scrollPane.setStyle("-fx-background-color: transparent;");
     }
-
 
     private void deleteEvent(Event event) throws IOException, SystemException {
         AppStateController.eventController.deleteEvent(event);

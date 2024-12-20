@@ -10,6 +10,7 @@ import br.upe.util.controllers.UnauthenticatedUserException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDate;
 
 public class SubmissionController {
     private final StateController stateController;
@@ -33,6 +34,7 @@ public class SubmissionController {
             throw new SystemIOException(e.getMessage(), e.getCause());
 
         }
+        submission.setDate(LocalDate.now());
         daoController.submissionDAO.save(submission);
         stateController.setCurrentSubmission(submission);
         stateController.refresh();

@@ -61,6 +61,7 @@ public class SessionRegisterController {
     private void switchToSessionManager() throws IOException{
         App.setRoot("sessionManager");
     }
+
     @FXML
     private void switchToHomeAdmin() throws IOException {
         App.setRoot("homeAdmin");

@@ -10,6 +10,7 @@
             <children>
                 <AnchorPane prefHeight="358.0" prefWidth="200.0">
                     <children>
+
                         <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutX="25.0" layoutY="25.0" onAction="#switchToHomeAdmin" prefHeight="35.0" prefWidth="150.0" text="Home" textFill="#f2f2f2">
                             <font>
                                 <Font name="System Bold" size="16.0" />

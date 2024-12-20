@@ -9,6 +9,7 @@ import br.upe.util.persistencia.SystemException;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 public class SessionController {
     private final StateController stateController;
@@ -134,6 +135,13 @@ public class SessionController {
         daoController.subscriptionDAO.save(subscription);
         stateController.setCurrentSubscription(subscription);
         stateController.refresh();
+    }
+    public boolean userIsSubscribed(Session session){
+        List<Subscription> subs = session.getSubscriptions();
+        for(Subscription sub : subs){
+            if(sub.getUser().getId().equals(stateController.getCurrentUser().getId())) return true;
+        }
+        return false;
     }
     public void changeCurrentSession(Session session){
         stateController.setCurrentSession(session);

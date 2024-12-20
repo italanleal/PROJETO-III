@@ -36,6 +36,7 @@ public class SubEventListController {
 
         subEvents.forEach(subEvent -> {
             VBox dataContainer = new VBox();
+
             dataContainer.setSpacing(5);
 
             Label eventTitle = new Label(AppStateController.stateController.getCurrentEvent().getTitle());
@@ -45,6 +46,7 @@ public class SubEventListController {
             Label startDate = new Label((subEvent.getStartDate() != null) ? subEvent.getStartDate().toString() : "Não Informado");
             Label endDate = new Label((subEvent.getEndDate() != null) ? subEvent.getEndDate().toString() : "Não Informado");
             Label sessionCount = new Label(String.valueOf(subEvent.getSessions().size()));
+
 
             // Apply styles to labels
             String labelStyle = "-fx-text-fill: #394159; -fx-font-size: 16;";
@@ -61,11 +63,13 @@ public class SubEventListController {
             VBox labelsContainer = new VBox();
             labelsContainer.getChildren().addAll(
                     new Label("Nome do Evento pai"),
+
                     new Label("Nome do SubEvento"),
                     new Label("Diretor do SubEvento"),
                     new Label("Data de início"),
                     new Label("Data de término"),
                     new Label("Descrição"),
+
                     new Label("Número de Sessões")
             );
             labelsContainer.setSpacing(5);
@@ -90,9 +94,18 @@ public class SubEventListController {
                     logger.log(Level.SEVERE, "Error deleting sub-event", e);
                 }
             });
+            Button deleteButton = new Button("delete");
+            deleteButton.setOnAction(a -> {
+                try {
+                    deleteSubEvent(subEvent);
+                } catch (IOException | SystemException e){
+                    logger.log(Level.SEVERE, "Error deleting event", e);
+                }
+            });
 
             VBox buttonContainer = new VBox();
             buttonContainer.getChildren().addAll(manageButton, deleteButton);
+
             buttonContainer.setSpacing(15);
 
             HBox eventContainer = new HBox();
@@ -116,6 +129,12 @@ public class SubEventListController {
         AppStateController.subEventController.deleteSubEvent(subEvent);
         App.setRoot("subEventList");
     }
+
+    private void deleteSubEvent(SubEvent subEvent) throws SystemException, IOException {
+        AppStateController.subEventController.deleteSubEvent(subEvent);
+        App.setRoot("subEventList");
+    }
+
 
     @FXML
     private void manageSubEvent(SubEvent subEvent) throws IOException {
