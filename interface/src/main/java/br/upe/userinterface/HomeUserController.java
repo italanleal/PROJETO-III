@@ -48,5 +48,9 @@ public class HomeUserController {
     public void goToListaDeEventos() throws IOException {
         App.setRoot("listaDeEventosUS");
     }
+    @FXML
+    public void goToProfile() throws IOException {
+        App.setRoot("userProfile");
+    }
 }
 

@@ -2,82 +2,63 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.ListaDeEventosUSController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0"
+      xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="br.upe.userinterface.ListaDeEventosUSController">
+
    <children>
       <!-- Sidebar -->
       <VBox prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #394159;">
          <children>
             <AnchorPane prefHeight="400.0" prefWidth="200.0">
                <children>
-                  <!-- Logo -->
-                  <ImageView fitHeight="50.0" fitWidth="150.0" layoutX="25.0" layoutY="10.0">
-                     <image>
-                        <Image url="@/resources/images/logo.png" />
-                     </image>
-                  </ImageView>
-
-                  <Separator layoutX="-1.0" layoutY="25.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
-                     <effect>
-                        <ColorAdjust />
-                     </effect></Separator>
-                  <ImageView layoutX="12.0" layoutY="41.0">
-                     <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/home.png" />
-                     </image>
-                  </ImageView>
-                  <Hyperlink fx:id="homeUserLink" layoutX="56.0" layoutY="39.0" onAction="#goToHomeUser" prefHeight="29.0" prefWidth="130.0" text="Home" />
-                  <Separator layoutX="-1.0" layoutY="69.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
+                  <!-- Separator and Navigation Links -->
+                  <Separator layoutX="0.0" layoutY="25.0" prefWidth="200.0" opacity="0.74"
+                             style="-fx-background-color: #F2F2F2;">
                      <effect>
                         <ColorAdjust />
                      </effect>
                   </Separator>
-                  <ImageView layoutX="12.0" layoutY="78.0">
-                     <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/balloon-sharp.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView layoutX="12.0" layoutY="127.0">
-                     <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/pencil-sharp.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView layoutX="12.0" layoutY="174.0">
-                     <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/trash-outline.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView layoutX="12.0" layoutY="212.0">
-                     <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/reader-outline.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView layoutX="12.0" layoutY="256.0">
-                     <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/arrow-undo-sharp.png" />
-                     </image>
-                  </ImageView>
-                  <Hyperlink fx:id="logoutLink" layoutX="56.0" layoutY="254.0" onAction="#logout" prefHeight="29.0" prefWidth="130.0" text="Logout" />
 
+                  <Hyperlink fx:id="homeUserLink" layoutX="56.0" layoutY="39.0" onAction="#goToHomeUser"
+                             prefHeight="29.0" prefWidth="130.0"
+                             text="Home" style="-fx-text-fill: #FFFFFF; -fx-font-size: 14px;" />
+
+                  <Separator layoutX="0.0" layoutY="69.0" prefWidth="200.0" opacity="0.74"
+                             style="-fx-background-color: #F2F2F2;">
+                     <effect>
+                        <ColorAdjust />
+                     </effect>
+                  </Separator>
+
+                  <Hyperlink fx:id="logoutLink" layoutX="56.0" layoutY="254.0" onAction="#logout"
+                             prefHeight="29.0" prefWidth="130.0"
+                             text="Logout" style="-fx-text-fill: #FFFFFF; -fx-font-size: 14px;" />
                </children>
             </AnchorPane>
          </children>
       </VBox>
 
       <!-- Main Content -->
-      <VBox prefHeight="400.0" prefWidth="400.0" style="-fx-padding: 20; -fx-background-color: #FFFFFF;">
+      <VBox prefHeight="400.0" prefWidth="400.0"
+            style="-fx-padding: 20; -fx-background-color: #FFFFFF;">
          <children>
             <!-- User Email -->
-            <Label fx:id="userEmail" alignment="CENTER" prefHeight="30.0" prefWidth="400.0" style="-fx-text-fill: #394159; -fx-font-size: 14px;" />
+            <Label fx:id="userEmail" alignment="CENTER" prefHeight="30.0" prefWidth="400.0"
+                   style="-fx-text-fill: #394159; -fx-font-size: 14px;" />
 
             <!-- Scroll Pane for Event List -->
-            <ScrollPane fx:id="scrollPane" prefHeight="370.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF;">
-               <!-- Content Inside ScrollPane -->
-               <VBox spacing="10" alignment="TOP_LEFT" style="-fx-padding: 10;">
-                  <!-- Add dynamic event items here -->
-               </VBox>
+            <ScrollPane fx:id="scrollPane" prefHeight="370.0" prefWidth="400.0"
+                        style="-fx-background-color: #FFFFFF; -fx-padding: 10;">
+               <content>
+                  <!-- Content Inside ScrollPane -->
+                  <VBox spacing="10" alignment="TOP_LEFT" style="-fx-padding: 10;">
+                     <!-- Add dynamic event items here -->
+                  </VBox>
+               </content>
             </ScrollPane>
          </children>
       </VBox>

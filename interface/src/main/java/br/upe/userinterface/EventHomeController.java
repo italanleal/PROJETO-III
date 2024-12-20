@@ -37,35 +37,9 @@ public class EventHomeController {
     }
 
     @FXML
-    private void switchToSessionRegister() throws IOException {
-        App.setRoot("sessionRegister");
-    }
-
-    @FXML
-    private void switchToHomeAdmin() throws IOException {
-        App.setRoot("homeAdmin");
-    }
-    @FXML
     private void logout() throws IOException {
         AppStateController.authController.logout();
         App.setRoot("login");
-    }
-    @FXML
-    private void switchToEventUpdater() throws IOException {
-        App.setRoot("eventUpdater");
-    }
-    @FXML
-    private void switchToSessionList() throws IOException {
-        App.setRoot("sessionList");
-    }
-
-    @FXML
-    private void switchToSubEventRegister() throws IOException {
-        App.setRoot("subEventRegister");
-    }
-    @FXML
-    private void switchToSubEventList() throws IOException {
-        App.setRoot("subEventList");
     }
 
     public void goToListaDeEventos() throws IOException{
@@ -78,6 +52,7 @@ public class EventHomeController {
     public void goToListaDeSubEventos() throws IOException{
         App.setRoot("listaDeSubEventos");
     }
+
     public void goToHomeUser() throws IOException {
         App.setRoot("homeUser");
 

@@ -90,14 +90,6 @@ public class SubEventListController {
             deleteButton.setOnAction(a -> {
                 try {
                     deleteSubEvent(subEvent);
-                } catch (IOException | SystemException e) {
-                    logger.log(Level.SEVERE, "Error deleting sub-event", e);
-                }
-            });
-            Button deleteButton = new Button("delete");
-            deleteButton.setOnAction(a -> {
-                try {
-                    deleteSubEvent(subEvent);
                 } catch (IOException | SystemException e){
                     logger.log(Level.SEVERE, "Error deleting event", e);
                 }
@@ -123,11 +115,6 @@ public class SubEventListController {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
         scrollPane.setStyle("-fx-background-color: transparent;");
-    }
-
-    private void deleteSubEvent(SubEvent subEvent) throws SystemException, IOException {
-        AppStateController.subEventController.deleteSubEvent(subEvent);
-        App.setRoot("subEventList");
     }
 
     private void deleteSubEvent(SubEvent subEvent) throws SystemException, IOException {

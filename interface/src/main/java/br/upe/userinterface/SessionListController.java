@@ -87,7 +87,6 @@ public class SessionListController {
                 }
             });
 
-            Button deleteButton = new Button("Delete");
             deleteButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
             deleteButton.setOnAction(a -> {
                 try {
@@ -122,12 +121,7 @@ public class SessionListController {
         scrollPane.setStyle("-fx-background-color: transparent;");
     }
 
-
-    private void deleteSession(Session session) throws IOException {
-        AppStateController.sessionController.deleteSession(session);
-        App.setRoot("sessionList");
-    }
-
+    @FXML
     private void deleteSession(Session session) throws IOException {
         AppStateController.sessionController.deleteSession(session);
         App.setRoot("sessionList");
