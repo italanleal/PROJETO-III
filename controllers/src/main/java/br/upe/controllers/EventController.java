@@ -124,10 +124,10 @@ public class EventController {
 
     }
     public Collection<SubEvent> getAllSubEvents() throws SystemException {
-        if (stateController.getCurrentUser() instanceof SystemAdmin) {
-            return stateController.getCurrentEvent().getSubEvents();
-        }  else throw new UserIsNotAdmin();
-
+        if (!(stateController.getCurrentUser() instanceof SystemAdmin user)) {
+            throw new UserIsNotAdmin();
+        }
+        return stateController.getCurrentEvent().getSubEvents();
     }
     public void changeCurrentEvent(Event event){
         stateController.setCurrentEvent(event);

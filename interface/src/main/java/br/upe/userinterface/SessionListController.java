@@ -23,9 +23,8 @@ public class SessionListController {
 
     @FXML
     private void initialize() {
-        // Set the label's text to the current user's name
+        // Set the label's text to the value of the variable
         userEmail.setText(AppStateController.stateController.getCurrentUser().getName());
-
         Collection<Session> sessions = AppStateController.sessionController.getAllEventSessions();
 
         VBox mainContainer = new VBox();
@@ -53,7 +52,6 @@ public class SessionListController {
             endDate.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
             subscriptionsCount.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
             descritor.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
-
             dataContainer.getChildren().addAll(title, guest, local, startDate, endDate, subscriptionsCount, descritor);
 
             VBox labelsContainer = new VBox();
