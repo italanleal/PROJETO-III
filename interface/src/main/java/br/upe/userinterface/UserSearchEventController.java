@@ -1,14 +1,15 @@
 package br.upe.userinterface;
 
+import br.upe.entities.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.InputMethodEvent;
-
+import javafx.scene.control.Button;
 import java.io.IOException;
+import java.util.List;
 
 public class UserSearchEventController {
 
@@ -38,7 +39,10 @@ public class UserSearchEventController {
     private TextField userSearchEvenTypeBox;
 
     @FXML
-    private ListView<?> userSearchEventList;
+    private ListView<List<Event>> userSearchEventList;
+
+    @FXML
+    private Button searchButton;
 
     @FXML
     void goToHomeUser(MouseEvent event) throws IOException {
@@ -62,6 +66,14 @@ public class UserSearchEventController {
     }
 
     @FXML
-    void updateTheEventsShown(InputMethodEvent event) {
+    String getThisEventNameToSearch() {
+        return  userSearchEvenTypeBox.getText();
+    }
+
+    @FXML
+    void updateTheEventshown(Button searchButton) {
+        List<Event> totalEvents = AppStateController.eventController.getAllEvents();
+        List<Event> eventWanted = totalEvents.stream().filter(item ->item.getTitle().equals(getThisEventNameToSearch()))
+        userSearchEventList.getItems().addAll(eventWanted);
     }
 }

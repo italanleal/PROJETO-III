@@ -25,15 +25,15 @@ public class SubscriptionController {
 
         daoController.subscriptionDAO.delete(subscription);
     }
-
     public void addSubscription(Subscription subscription){
-        SystemUser newUser = subscription.getUser();
-        Session newSession = subscription.getSession();
+        if(subscription.getSession().getId() != null) {
+            SystemUser newUser = subscription.getUser();
+            Session newSession = subscription.getSession();
 
-        newUser.getSubscriptions().addIf(subscription1 -> subscription.getId().equals(subscription1.getId()));
-        newSession.getSubscriptions().addIf(subscription1 -> subscription.getId().equals(subscription1.getId()));
-        stateController.setCurrentUser(newUser);
-        stateController.setCurrentSession(newSession);
-        daoController.subscriptionDAO.save(subscription);
+            stateController.setCurrentUser(newUser);
+            stateController.setCurrentSession(newSession);
+
+            daoController.subscriptionDAO.save(subscription);
+        }
     }
 }
