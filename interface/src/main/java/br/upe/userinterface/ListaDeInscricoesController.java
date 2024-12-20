@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 
 public class ListaDeInscricoesController {
 
-    Logger logger = Logger.getLogger(br.upe.userinterface.ListaDeSessoesController.class.getName());
+    Logger logger = Logger.getLogger(br.upe.userinterface.ListaDeInscricoesController.class.getName());
     @FXML
     ScrollPane scrollPane;
     @FXML

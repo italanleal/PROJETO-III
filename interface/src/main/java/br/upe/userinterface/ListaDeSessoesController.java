@@ -1,6 +1,6 @@
 package br.upe.userinterface;
 
-import br.upe.entities.Event;
+
 import br.upe.entities.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,19 +14,7 @@ import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import br.upe.entities.Session;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 public class ListaDeSessoesController {
 
     Logger logger = Logger.getLogger(br.upe.userinterface.ListaDeSessoesController.class.getName());

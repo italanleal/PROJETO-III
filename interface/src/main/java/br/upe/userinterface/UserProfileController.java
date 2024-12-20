@@ -37,7 +37,7 @@ public class UserProfileController {
         surnameField.appendText(AppStateController.stateController.getCurrentUser().getSurname());
         emailField.appendText(AppStateController.stateController.getCurrentUser().getEmail());
         cpfField.appendText(AppStateController.stateController.getCurrentUser().getCpf());
-        currentPassword.appendText(AppStateController.stateController.getCurrentUser().getPassword());
+        currentPassword.appendText("");
     }
 
     @FXML

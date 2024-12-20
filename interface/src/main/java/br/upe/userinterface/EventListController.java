@@ -100,7 +100,6 @@ public class EventListController {
             buttonContainer.getChildren().addAll(manageButton, deleteButton);
             buttonContainer.setSpacing(15);
 
-            buttonContainer.getChildren().addAll(manageButton, deleteButton);
             HBox eventContainer = new HBox();
             eventContainer.setSpacing(25);
             eventContainer.setStyle("-fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: #ffffff; -fx-border-width: 1;");
