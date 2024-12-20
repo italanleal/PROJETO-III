@@ -1,115 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.EventHomeController">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0">
+         <children>
+            <AnchorPane prefHeight="358.0" prefWidth="200.0">
+               <children>
+                  <Hyperlink id="home" fx:id="home" layoutY="3.0" onAction="#goToHomeUser" prefHeight="24.0" prefWidth="198.0" text="Home" />
 
-    <children>
-        <!-- Sidebar with Hyperlinks -->
-        <VBox prefHeight="200.0" prefWidth="100.0">
-            <children>
-                <AnchorPane prefHeight="445.0" prefWidth="200.0" style="-fx-background-color: #394159;">
-                    <children>
-                        <Hyperlink fx:id="homeAdminLink" layoutX="25.0" layoutY="25.0" onAction="#goToHomeUser" prefHeight="35.0" prefWidth="150.0" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Home" textFill="#f2f2f2" />
+                  <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
 
-                        <Separator layoutY="74.0" prefHeight="3.0" prefWidth="250.0" style="-fx-background-color: #f2f2f2;" />
+                  <Hyperlink id="updateEventLink" fx:id="updateEventLink" layoutY="25.0" onAction="#goToListaDeEventos" prefHeight="24.0" prefWidth="200.0" text="Voltar para Eventos" />
 
-                        <Hyperlink fx:id="submission" layoutX="25.0" layoutY="97.0" onAction="#goToSubmeterArtigo" prefHeight="35.0" prefWidth="150.0" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Submeter Artigo" textFill="#f2f2f2" />
+                  <Hyperlink id="subevents" fx:id="subevents" layoutY="49.0" onAction="#goToListaDeSubEventos" prefHeight="24.0" prefWidth="200.0" text="Sub-eventos" />
+                  <Hyperlink id="sessions" fx:id="sessions" layoutY="73.0" onAction="#goToListaDeSessoes" prefHeight="24.0" prefWidth="200.0" text="Sessões" />
+                  <Hyperlink id="submission" fx:id="submission" layoutY="97.0" onAction="#goToListaDeSessoes" prefHeight="24.0" prefWidth="207.0" text="Submeter Artigo" />
 
-                        <Hyperlink layoutX="25.0" layoutY="135.0" onAction="#goToListaDeEventos" prefHeight="35.0" prefWidth="150.0" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Lista Eventos" textFill="#f2f2f2" />
-
-                        <Hyperlink layoutX="25.0" layoutY="179.0" onAction="#goToListaDeSubEventos" prefHeight="35.0" prefWidth="150.0" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Lista Sub-eventos" textFill="#f2f2f2" />
-
-                        <Hyperlink layoutX="25.0" layoutY="214.0" onAction="#goToListaDeSessoes" prefHeight="35.0" prefWidth="150.0" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Lista Sessões" textFill="#f2f2f2" />
-
-                        <Hyperlink fx:id="logoutLink" layoutX="25.0" layoutY="369.0" onAction="#logout" prefHeight="35.0" prefWidth="150.0" style="-fx-font-weight: bold; -fx-font-size: 16px;" text="Logout" textFill="#f2f2f2">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Hyperlink>
-                    </children>
-                </AnchorPane>
-            </children>
-        </VBox>
-
-        <!-- Main Content Area -->
-        <VBox prefHeight="400.0" prefWidth="403.0">
-            <children>
-                <!-- Header Label -->
-                <Label alignment="CENTER" prefHeight="50.0" prefWidth="350.0" text="Painel do Evento" textAlignment="CENTER" textFill="#394159">
-                    <font>
-                        <Font name="System Bold" size="24.0" />
-                    </font>
-                </Label>
-
-                <!-- Separator Below Header -->
-                <Separator layoutY="60.0" prefHeight="3.0" prefWidth="350.0" style="-fx-background-color: #394159;" />
-
-                <!-- Event Details Section -->
-                <VBox alignment="TOP_CENTER" prefHeight="353.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
-                    <children>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20">
-                            <children>
-                                <!-- Event Data Labels -->
-                                <VBox fx:id="eventDataLabels" alignment="TOP_LEFT" prefHeight="100.0" prefWidth="163.0" spacing="10">
-                                    <children>
-                                        <Label text="Nome do Evento" textFill="#394159">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <Label text="Diretor do Evento" textFill="#394159">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <Label text="Data de início" textFill="#394159">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <Label text="Data de término" textFill="#394159">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <Label text="Número de Sessões" textFill="#394159">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <Label text="Número de Sub-eventos" textFill="#394159">
-                                            <font>
-                                                <Font name="System Bold" size="14.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </VBox>
-
-                                <!-- Event Data Values -->
-                                <VBox fx:id="eventDataValues" alignment="TOP_LEFT" prefHeight="200.0" prefWidth="150.0" spacing="10">
-                                    <children>
-                                        <Label fx:id="eventoNome" text="Éh" textFill="#38393d" />
-                                        <Label fx:id="eventoDiretor" text="Tarcinho" textFill="#38393d" />
-                                        <Label fx:id="dataInicio" text="2024-12-20" textFill="#38393d" />
-                                        <Label fx:id="dataFim" text="2024-12-24" textFill="#38393d" />
-                                        <Label fx:id="sessionCount" text="0" textFill="#38393d" />
-                                        <Label fx:id="subEventCount" text="1" textFill="#38393d" />
-                                    </children>
-                                </VBox>
-                            </children>
-                        </HBox>
-                    </children>
-
-                    <!-- Padding Around VBox -->
-                    <opaqueInsets>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                    </opaqueInsets>
-                </VBox>
-            </children>
-        </VBox>
-    </children>
+               </children>
+            </AnchorPane>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+              <buttons>
+                  <Hyperlink id="logoutLink" fx:id="logoutLink" onAction="#logout" text="logout" />
+              </buttons>
+            </ButtonBar>
+         </children>
+      </VBox>
+      <VBox prefHeight="400.0" prefWidth="403.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="18.0" prefWidth="401.0" text="Painel do Evento" textAlignment="CENTER" />
+            <VBox prefHeight="384.0" prefWidth="400.0">
+               <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <VBox id="eventData" prefHeight="100.0" prefWidth="163.0">
+                           <children>
+                              <Label text="Nome do Evento" />
+                              <Label text="Diretor do Evento" />
+                              <Label text="Data de início" />
+                              <Label text="Data de término" />
+                              <Label text="Número de Sessões" />
+                              <Label text="Número de Sub-eventos" />
+                           </children>
+                        </VBox>
+                        <VBox id="eventData" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label id="eventoNome" fx:id="eventoNome" />
+                              <Label id="eventoDiretor" fx:id="eventoDiretor" />
+                              <Label id="dataInicio" fx:id="dataInicio" text="Não Informado" />
+                              <Label id="dataFim" fx:id="dataFim" text="Não Informado" />
+                              <Label id="sessionCount" fx:id="sessionCount" />
+                              <Label id="subEventCount" fx:id="subEventCount" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children></VBox>
+         </children></VBox>
+   </children>
 </HBox>

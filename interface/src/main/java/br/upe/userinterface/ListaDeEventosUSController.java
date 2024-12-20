@@ -73,7 +73,6 @@ public class ListaDeEventosUSController {
 
 
             manageButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
-
             manageButton.setOnAction(a -> {
                 try {
                     goToEventHome(event);

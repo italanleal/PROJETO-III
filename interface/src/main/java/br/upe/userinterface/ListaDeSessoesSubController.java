@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 public class ListaDeSessoesSubController {
 
     Logger logger = Logger.getLogger(br.upe.userinterface.ListaDeSessoesSubController.class.getName());
+
     @FXML
     ScrollPane scrollPane;
     @FXML
@@ -23,7 +24,6 @@ public class ListaDeSessoesSubController {
 
     @FXML
     private void initialize() {
-        // Define o texto do rótulo com o nome do usuário atual
         userEmail.setText(AppStateController.stateController.getCurrentUser().getName());
         Collection<Session> sessions = AppStateController.subEventController.getSubEventSessions();
 
@@ -79,11 +79,13 @@ public class ListaDeSessoesSubController {
             });
 
             if (AppStateController.sessionController.userIsSubscribed(session)) {
+
                 manageButton.setDisable(true);
             }
 
             VBox buttonContainer = new VBox();
             buttonContainer.setSpacing(15);
+
             buttonContainer.getChildren().add(manageButton);
 
             HBox sessionContainer = new HBox();
@@ -92,6 +94,7 @@ public class ListaDeSessoesSubController {
 
             labelsContainer.setPrefWidth(100);
             dataContainer.setPrefWidth(200);
+
             buttonContainer.setPrefWidth(100);
 
             sessionContainer.getChildren().addAll(labelsContainer, dataContainer, buttonContainer);
@@ -103,7 +106,6 @@ public class ListaDeSessoesSubController {
         scrollPane.setFitToHeight(true);
         scrollPane.setStyle("-fx-background-color: transparent;");
     }
-
 
     private void subscripeToSession(Session session) throws IOException{
         AppStateController.sessionController.changeCurrentSession(session);

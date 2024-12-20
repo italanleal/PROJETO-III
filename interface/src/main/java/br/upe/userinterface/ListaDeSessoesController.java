@@ -25,7 +25,6 @@ public class ListaDeSessoesController {
 
     @FXML
     private void initialize() {
-        // Define o texto do rótulo com o nome do usuário atual
         userEmail.setText(AppStateController.stateController.getCurrentUser().getName());
         Collection<Session> sessions = AppStateController.sessionController.getAllEventSessions();
 
@@ -72,6 +71,7 @@ public class ListaDeSessoesController {
 
             Button manageButton = new Button("Inscrever-se");
             manageButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
+
             manageButton.setOnAction(a -> {
                 try {
                     subscripeToSession(session);
@@ -80,12 +80,15 @@ public class ListaDeSessoesController {
                 }
             });
 
+
             if (AppStateController.sessionController.userIsSubscribed(session)) {
                 manageButton.setDisable(true);
             }
 
             VBox buttonContainer = new VBox();
+
             buttonContainer.setSpacing(15);
+
             buttonContainer.getChildren().add(manageButton);
 
             HBox sessionContainer = new HBox();
@@ -94,6 +97,7 @@ public class ListaDeSessoesController {
 
             labelsContainer.setPrefWidth(100);
             dataContainer.setPrefWidth(200);
+
             buttonContainer.setPrefWidth(100);
 
             sessionContainer.getChildren().addAll(labelsContainer, dataContainer, buttonContainer);
@@ -103,6 +107,7 @@ public class ListaDeSessoesController {
         scrollPane.setContent(mainContainer);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
+
         scrollPane.setStyle("-fx-background-color: transparent;");
     }
 

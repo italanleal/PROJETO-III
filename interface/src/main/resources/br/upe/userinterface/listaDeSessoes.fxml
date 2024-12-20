@@ -38,7 +38,6 @@
                 </ButtonBar>
             </children>
         </VBox>
-
         <!-- Main Content -->
         <VBox prefHeight="400.0" prefWidth="400.0"
               style="-fx-padding: 20; -fx-background-color: #FFFFFF;">

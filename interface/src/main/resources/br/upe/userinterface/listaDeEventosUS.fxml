@@ -33,10 +33,10 @@
                         <ColorAdjust />
                      </effect>
                   </Separator>
-
                   <Hyperlink fx:id="logoutLink" layoutX="56.0" layoutY="254.0" onAction="#logout"
                              prefHeight="29.0" prefWidth="130.0"
                              text="Logout" style="-fx-text-fill: #FFFFFF; -fx-font-size: 14px;" />
+
                </children>
             </AnchorPane>
          </children>

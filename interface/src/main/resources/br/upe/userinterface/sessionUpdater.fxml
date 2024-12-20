@@ -10,7 +10,6 @@
             <children>
                 <AnchorPane prefHeight="358.0" prefWidth="200.0">
                     <children>
-
                         <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutX="25.0" layoutY="25.0" onAction="#switchToHomeAdmin" prefHeight="35.0" prefWidth="150.0" text="Home" textFill="#f2f2f2">
                             <font>
                                 <Font name="System Bold" size="16.0" />
@@ -28,6 +27,7 @@
                             </font>
                         </Hyperlink>
                         <Separator layoutX="10.0" layoutY="175.0" prefWidth="180.0" style="-fx-background-color: #f2f2f2;" />
+
                     </children>
                 </AnchorPane>
                 <ButtonBar prefHeight="40.0" prefWidth="200.0">

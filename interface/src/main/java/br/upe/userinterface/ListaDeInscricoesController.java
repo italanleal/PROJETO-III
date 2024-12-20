@@ -25,7 +25,6 @@ public class ListaDeInscricoesController {
 
     @FXML
     private void initialize() {
-        // Define o texto do rótulo com o valor da variável
         userEmail.setText(AppStateController.stateController.getCurrentUser().getName());
         Collection<Subscription> subscriptions = ((SystemUser) AppStateController.stateController.getCurrentUser()).getSubscriptions();
 
@@ -33,6 +32,7 @@ public class ListaDeInscricoesController {
         mainContainer.getChildren().clear();
         mainContainer.setSpacing(10);
         mainContainer.setStyle("-fx-background-color: #ffffff;"); // Define o fundo do container principal
+
 
         subscriptions.forEach(subscription -> {
             Session session = subscription.getSession();
@@ -101,6 +101,7 @@ public class ListaDeInscricoesController {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
         scrollPane.setStyle("-fx-background-color: transparent;");
+
     }
 
     private void unsubscripeToSession(Subscription subscription) throws IOException{
