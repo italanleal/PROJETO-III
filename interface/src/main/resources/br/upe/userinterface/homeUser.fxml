@@ -1,120 +1,98 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.HomeUserController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <!-- Sidebar -->
+      <VBox prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #394159;">
          <children>
-            <AnchorPane prefHeight="399.0" prefWidth="200.0" style="-fx-background-color: #394159;">
+            <AnchorPane prefHeight="400.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="26.0" fitWidth="200.0">
+                  <!-- Logo -->
+                  <ImageView fitHeight="50.0" fitWidth="150.0" layoutX="25.0" layoutY="10.0">
                      <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/logo.png" />
+                        <Image url="@/resources/images/logo.png" />
                      </image>
                   </ImageView>
-                  <Separator layoutX="-1.0" layoutY="25.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
-                     <effect>
-                        <ColorAdjust />
-                     </effect></Separator>
-                  <ImageView layoutX="12.0" layoutY="41.0">
-                     <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/home.png" />
-                     </image>
-                  </ImageView>
-                  <Hyperlink fx:id="homeUserLink" layoutX="56.0" layoutY="39.0" onAction="#goToHomeUser" prefHeight="29.0" prefWidth="130.0" text="Home" />
-                  <Separator layoutX="-1.0" layoutY="69.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
-                     <effect>
-                        <ColorAdjust />
-                     </effect>
-                  </Separator>
-                  <ImageView layoutX="12.0" layoutY="78.0">
-                     <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/balloon-sharp.png" />
-                     </image>
-                  </ImageView>
-                  <Hyperlink fx:id="listarEventos" layoutX="56.0" layoutY="76.0" onAction="#goToListaDeEventos" prefHeight="29.0" prefWidth="130.0" text="Eventos" />
-                  <Separator layoutX="-1.0" layoutY="111.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
-                     <effect>
-                        <ColorAdjust />
-                     </effect>
-                  </Separator>
-                  <ImageView layoutX="12.0" layoutY="127.0">
-                     <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/pencil-sharp.png" />
-                     </image>
-                  </ImageView>
-                  <Hyperlink fx:id="userEditSubscriptionLink" layoutX="56.0" layoutY="125.0" prefHeight="29.0" prefWidth="130.0" text="Edit subscriptions" />
-                  <Separator layoutX="-1.0" layoutY="160.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
-                     <effect>
-                        <ColorAdjust />
-                     </effect>
-                  </Separator>
-                  <ImageView layoutX="12.0" layoutY="174.0">
-                     <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/trash-outline.png" />
-                     </image>
-                  </ImageView>
-                  <Hyperlink fx:id="userRemoveSubscriptionsLink" layoutX="56.0" layoutY="172.0" prefHeight="29.0" prefWidth="130.0" text="Remove subscription" />
-                  <Separator layoutX="-1.0" layoutY="206.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
-                     <effect>
-                        <ColorAdjust />
-                     </effect>
-                  </Separator>
-                  <ImageView layoutX="12.0" layoutY="212.0">
-                     <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/reader-outline.png" />
-                     </image>
-                  </ImageView>
-                  <Hyperlink fx:id="userListSubscriptionLink" layoutX="56.0" layoutY="210.0" prefHeight="29.0" prefWidth="130.0" text="List subscriptions" />
-                  <Separator layoutY="245.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
-                     <effect>
-                        <ColorAdjust />
-                     </effect>
-                  </Separator>
-                  <ImageView layoutX="12.0" layoutY="256.0">
-                     <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/arrow-undo-sharp.png" />
-                     </image>
-                  </ImageView>
-                  <Hyperlink fx:id="logoutLink" layoutX="56.0" layoutY="254.0" onAction="#logout" prefHeight="29.0" prefWidth="130.0" text="Logout" />
+                  <Separator layoutY="70.0" prefWidth="200.0" style="-fx-background-color: #F2F2F2;" />
+
+                  <!-- Menu Items -->
+                  <VBox alignment="TOP_LEFT" layoutY="80.0" spacing="15.0" style="-fx-padding: 10;">
+                     <!-- Home -->
+                     <HBox spacing="10">
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                           <image>
+                              <Image url="@/resources/images/home.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink fx:id="homeUserLink" onAction="#goToHomeUser" style="-fx-text-fill: #F2F2F2; -fx-font-size: 14px;" text="Home" />
+                     </HBox>
+                     <!-- Events -->
+                     <HBox spacing="10">
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                           <image>
+                              <Image url="@/resources/images/balloon.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink fx:id="listarEventos" onAction="#goToListaDeEventos" style="-fx-text-fill: #F2F2F2; -fx-font-size: 14px;" text="Events" />
+                     </HBox>
+                     <!-- Edit Subscriptions -->
+                     <HBox spacing="10">
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                           <image>
+                              <Image url="@/resources/images/pencil.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink fx:id="userEditSubscriptionLink" style="-fx-text-fill: #F2F2F2; -fx-font-size: 14px;" text="Edit Subscriptions" />
+                     </HBox>
+                     <!-- Remove Subscriptions -->
+                     <HBox spacing="10">
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                           <image>
+                              <Image url="@/resources/images/trash.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink fx:id="userRemoveSubscriptionsLink" style="-fx-text-fill: #F2F2F2; -fx-font-size: 14px;" text="Remove Subscriptions" />
+                     </HBox>
+                     <!-- List Subscriptions -->
+                     <HBox spacing="10">
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                           <image>
+                              <Image url="@/resources/images/reader.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink fx:id="userListSubscriptionLink" style="-fx-text-fill: #F2F2F2; -fx-font-size: 14px;" text="List Subscriptions" />
+                     </HBox>
+                     <!-- Logout -->
+                     <HBox spacing="10">
+                        <ImageView fitHeight="20.0" fitWidth="20.0">
+                           <image>
+                              <Image url="@/resources/images/logout.png" />
+                           </image>
+                        </ImageView>
+                        <Hyperlink fx:id="logoutLink" onAction="#logout" style="-fx-text-fill: #F2F2F2; -fx-font-size: 14px;" text="Logout" />
+                     </HBox>
+                  </VBox>
                </children>
             </AnchorPane>
          </children>
       </VBox>
-      <VBox prefHeight="400.0" prefWidth="403.0">
+
+      <!-- Main Content -->
+      <VBox prefHeight="400.0" prefWidth="400.0" style="-fx-padding: 20; -fx-background-color: #FFFFFF;">
          <children>
-            <VBox prefHeight="384.0" prefWidth="400.0">
-               <children>
-                  <Label id="userEmail" fx:id="userEmail" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="39.0" prefWidth="402.0" textAlignment="CENTER">
-                     <font>
-                        <Font size="12.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets right="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label prefHeight="29.0" prefWidth="41.0" text="Home">
-                     <VBox.margin>
-                        <Insets left="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Separator opacity="0.74" prefWidth="200.0" style="-fx-background-color: #666;">
-                     <effect>
-                        <ColorAdjust />
-                     </effect>
-                  </Separator>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="289.0" prefWidth="407.0" text="Welcome!">
-                     <font>
-                        <Font name="System Bold" size="35.0" />
-                     </font>
-                  </Label>
-               </children></VBox>
-         </children></VBox>
+            <!-- User Email -->
+            <Label fx:id="userEmail" alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="400.0" style="-fx-text-fill: #394159; -fx-font-size: 14px;" />
+
+            <!-- Separator -->
+            <Separator prefWidth="400.0" style="-fx-background-color: #666666;" />
+
+            <!-- Welcome Message -->
+            <Label alignment="CENTER" style="-fx-text-fill: #394159; -fx-font-size: 35px; -fx-font-weight: bold;" text="Welcome!" />
+         </children>
+      </VBox>
    </children>
 </HBox>

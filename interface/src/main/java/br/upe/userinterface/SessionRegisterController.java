@@ -61,12 +61,6 @@ public class SessionRegisterController {
     private void switchToSessionManager() throws IOException{
         App.setRoot("sessionManager");
     }
-
-    @FXML
-    private void initialize() {
-        // Set the label's text to the value of the variable
-        userEmail.setText(AppStateController.stateController.getCurrentUser().getName());
-    }
     @FXML
     private void switchToHomeAdmin() throws IOException {
         App.setRoot("homeAdmin");

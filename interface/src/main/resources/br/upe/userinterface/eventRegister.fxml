@@ -2,44 +2,71 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.EventRegisterController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <!-- Sidebar -->
+      <VBox prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #394159;">
          <children>
             <AnchorPane prefHeight="358.0" prefWidth="200.0">
                <children>
-                  <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
-                  <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
-                  <Hyperlink id="newEventLink" fx:id="newEventLink" layoutY="25.0" prefHeight="24.0" prefWidth="200.0" text="New Event" />
-                  <Hyperlink layoutY="49.0" onAction="#switchToEventList" prefHeight="24.0" prefWidth="198.0" text="List Events" />
+                  <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutX="25.0" layoutY="25.0" onAction="#switchToHomeAdmin" prefHeight="35.0" prefWidth="150.0" text="Home" textFill="#f2f2f2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Hyperlink>
+                  <Separator layoutX="10.0" layoutY="70.0" prefWidth="180.0" style="-fx-background-color: #f2f2f2;" />
+                  <Hyperlink id="newEventLink" fx:id="newEventLink" layoutX="25.0" layoutY="90.0" prefHeight="35.0" prefWidth="150.0" text="New Event" textFill="#f2f2f2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink layoutX="25.0" layoutY="130.0" onAction="#switchToEventList" prefHeight="35.0" prefWidth="150.0" text="List Events" textFill="#f2f2f2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Hyperlink>
+                  <Separator layoutX="10.0" layoutY="175.0" prefWidth="180.0" style="-fx-background-color: #f2f2f2;" />
                </children>
             </AnchorPane>
             <ButtonBar prefHeight="40.0" prefWidth="200.0">
-              <buttons>
-                  <Hyperlink id="logoutLink" fx:id="logoutLink" onAction="#logout" text="logout" />
-              </buttons>
+               <buttons>
+                  <Hyperlink id="logoutLink" fx:id="logoutLink" layoutX="25.0" onAction="#logout" text="Logout" textFill="#f2f2f2">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Hyperlink>
+               </buttons>
             </ButtonBar>
          </children>
       </VBox>
-      <VBox prefHeight="400.0" prefWidth="403.0">
-         <children>
-            <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
-            <VBox prefHeight="182.0" prefWidth="400.0">
+
+      <!-- Main Content in ScrollPane -->
+      <ScrollPane fitToWidth="true" prefHeight="400.0" prefWidth="400.0">
+         <content>
+            <VBox alignment="CENTER" prefHeight="373.0" prefWidth="385.0" spacing="15" style="-fx-padding: 20;">
                <children>
-                  <Label text="Event's title" />
-                  <TextField id="titleField" fx:id="titleField" />
-                  <Label text="Director's name" />
-                  <TextField id="directorField" fx:id="directorField" />
-                  <Label layoutX="10.0" layoutY="10.0" text="Description" />
-                  <TextField id="descriptionField" fx:id="descriptionField" layoutX="10.0" layoutY="28.0" />
-                  <Label text="Start date" />
-                  <DatePicker id="startDatePicker" fx:id="startDatePicker" />
-                  <Label text="End date" />
-                  <DatePicker id="endDatePicker" fx:id="endDatePicker" />
-               </children></VBox>
-            <Button id="submitEventButton" fx:id="submitEventButton" mnemonicParsing="false" onAction="#registerEvent" text="Submit" />
-            <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;" />
-         </children></VBox>
+                  <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
+                  <VBox alignment="CENTER_LEFT" spacing="10.0">
+                     <children>
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #394159;" text="Event's Title" />
+                        <TextField id="titleField" fx:id="titleField" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #394159;" text="Director's Name" />
+                        <TextField id="directorField" fx:id="directorField" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #394159;" text="Description" />
+                        <TextField id="descriptionField" fx:id="descriptionField" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #394159;" text="Start Date" />
+                        <DatePicker id="startDatePicker" fx:id="startDatePicker" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #394159;" text="End Date" />
+                        <DatePicker id="endDatePicker" fx:id="endDatePicker" />
+                     </children>
+                  </VBox>
+                  <Button id="submitEventButton" fx:id="submitEventButton" mnemonicParsing="false" onAction="#registerEvent" style="-fx-background-color: #394159; -fx-text-fill: white; -fx-font-size: 14px;" text="Submit" />
+                  <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;" />
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </HBox>

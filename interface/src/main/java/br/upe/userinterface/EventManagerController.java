@@ -1,15 +1,12 @@
 package br.upe.userinterface;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.time.LocalDate;
 
 public class EventManagerController{
-
 
     @FXML
     Label eventoNome;
@@ -69,6 +66,10 @@ public class EventManagerController{
     @FXML
     private void switchToSubEventList() throws IOException {
         App.setRoot("subEventList");
+    }
+    @FXML
+    private void switchToSubmissionList() throws IOException {
+        App.setRoot("submissionList");
     }
 }
 

@@ -76,7 +76,7 @@ public class EventUpdaterController{
 
     @FXML
     private void switchToManageEvent() throws IOException{
-        App.setRoot("manageEvent");
+        App.setRoot("eventManager");
     }
     @FXML
     private void switchToSubEventRegister() throws IOException{

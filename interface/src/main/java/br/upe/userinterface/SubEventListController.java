@@ -1,6 +1,5 @@
 package br.upe.userinterface;
 
-import br.upe.entities.Event;
 import br.upe.entities.SubEvent;
 import br.upe.util.persistencia.SystemException;
 import javafx.fxml.FXML;
@@ -28,16 +27,17 @@ public class SubEventListController {
         userEmail.setText(AppStateController.stateController.getCurrentUser().getName());
 
         Collection<SubEvent> subEvents;
-
         subEvents = AppStateController.subEventController.getAllSubEvents();
 
         VBox mainContainer = new VBox();
-
         mainContainer.getChildren().clear();
         mainContainer.setSpacing(10);
+        mainContainer.setStyle("-fx-background-color: #f2f2f2;"); // Background color
 
         subEvents.forEach(subEvent -> {
             VBox dataContainer = new VBox();
+            dataContainer.setSpacing(5);
+
             Label eventTitle = new Label(AppStateController.stateController.getCurrentEvent().getTitle());
             Label descritor = new Label(subEvent.getTitle());
             Label director = new Label(subEvent.getDirector());
@@ -45,52 +45,71 @@ public class SubEventListController {
             Label startDate = new Label((subEvent.getStartDate() != null) ? subEvent.getStartDate().toString() : "Não Informado");
             Label endDate = new Label((subEvent.getEndDate() != null) ? subEvent.getEndDate().toString() : "Não Informado");
             Label sessionCount = new Label(String.valueOf(subEvent.getSessions().size()));
+
+            // Apply styles to labels
+            String labelStyle = "-fx-text-fill: #394159; -fx-font-size: 16;";
+            eventTitle.setStyle("-fx-text-fill: #394159; -fx-font-size: 18; -fx-font-family: 'System';");
+            descritor.setStyle(labelStyle);
+            director.setStyle(labelStyle);
+            description.setStyle(labelStyle);
+            startDate.setStyle(labelStyle);
+            endDate.setStyle(labelStyle);
+            sessionCount.setStyle(labelStyle);
+
             dataContainer.getChildren().addAll(eventTitle, descritor, director, startDate, endDate, description, sessionCount);
 
             VBox labelsContainer = new VBox();
-            labelsContainer.getChildren().addAll(new Label("Nome do Evento pai"),
+            labelsContainer.getChildren().addAll(
+                    new Label("Nome do Evento pai"),
                     new Label("Nome do SubEvento"),
                     new Label("Diretor do SubEvento"),
                     new Label("Data de início"),
                     new Label("Data de término"),
                     new Label("Descrição"),
-                    new Label("Número de Sessões"));
+                    new Label("Número de Sessões")
+            );
+            labelsContainer.setSpacing(5);
+            labelsContainer.setStyle(labelStyle);
 
             Button manageButton = new Button("manage");
+            manageButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
             manageButton.setOnAction(a -> {
                 try {
                     manageSubEvent(subEvent);
                 } catch (IOException e) {
-                    logger.log(Level.SEVERE, "Error attaching event uuid to callback", e);
+                    logger.log(Level.SEVERE, "Error attaching sub-event uuid to callback", e);
                 }
             });
+
             Button deleteButton = new Button("delete");
+            deleteButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
             deleteButton.setOnAction(a -> {
                 try {
                     deleteSubEvent(subEvent);
-                } catch (IOException | SystemException e){
-                    logger.log(Level.SEVERE, "Error deleting event", e);
+                } catch (IOException | SystemException e) {
+                    logger.log(Level.SEVERE, "Error deleting sub-event", e);
                 }
             });
 
             VBox buttonContainer = new VBox();
             buttonContainer.getChildren().addAll(manageButton, deleteButton);
+            buttonContainer.setSpacing(15);
 
             HBox eventContainer = new HBox();
             eventContainer.setSpacing(25);
-            labelsContainer.setPrefWidth(100);
-            dataContainer.setPrefWidth(100);
-            buttonContainer.setPrefWidth(100);
-            buttonContainer.setSpacing(15);
+            eventContainer.setStyle("-fx-background-color: #f2f2f2; -fx-padding: 10; -fx-border-color: #f2f2f2; -fx-border-width: 1;");
+            labelsContainer.setPrefWidth(150);
+            dataContainer.setPrefWidth(200);
+            buttonContainer.setPrefWidth(150);
 
             eventContainer.getChildren().addAll(labelsContainer, dataContainer, buttonContainer);
             mainContainer.getChildren().add(eventContainer);
-
         });
 
         scrollPane.setContent(mainContainer);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
+        scrollPane.setStyle("-fx-background-color: transparent;");
     }
 
     private void deleteSubEvent(SubEvent subEvent) throws SystemException, IOException {
@@ -108,18 +127,15 @@ public class SubEventListController {
     private void switchToHomeAdmin() throws IOException {
         App.setRoot("homeAdmin");
     }
+
     @FXML
     private void logout() throws IOException {
         AppStateController.authController.logout();
         App.setRoot("login");
     }
 
-    @FXML private void manageEvent(Event event) throws IOException {
-        AppStateController.eventController.changeCurrentEvent(event);
-        App.setRoot("eventManager");
-    }
     @FXML
-    private void switchToSubEventRegister() throws IOException{
+    private void switchToSubEventRegister() throws IOException {
         App.setRoot("subEventRegister");
     }
 

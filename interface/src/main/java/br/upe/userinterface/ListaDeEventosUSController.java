@@ -2,7 +2,6 @@ package br.upe.userinterface;
 
 import br.upe.entities.Event;
 import br.upe.util.persistencia.SystemException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,55 +24,87 @@ public class ListaDeEventosUSController {
 
     @FXML
     private void initialize() throws SystemException {
-        // Set the label's text to the value of the variable
+        // Set the label's text to the current user's email
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
-        Collection<Event> events = AppStateController.eventController.getAllEvents();
+
+        Collection<Event> events;
+
+        events = AppStateController.eventController.getAllEvents();
 
         VBox mainContainer = new VBox();
-
         mainContainer.getChildren().clear();
         mainContainer.setSpacing(10);
-
+        mainContainer.setStyle("-fx-background-color: #ffffff;"); // Background for the main container
 
         events.forEach(event -> {
             VBox dataContainer = new VBox();
-            Label descritor = new Label(event.getDescription());
+            dataContainer.setSpacing(5);
+
+            Label descriptor = new Label(event.getDescription());
             Label director = new Label(event.getDirector());
-            Label startDate = new Label((event.getStartDate() != null) ? event.getStartDate().toString(): "Não Informado");
-            Label endDate = new Label((event.getEndDate() != null) ? event.getEndDate().toString(): "Não Informado");
+            Label startDate = new Label(
+                    (event.getStartDate() != null) ? event.getStartDate().toString() : "Não Informado"
+            );
+            Label endDate = new Label(
+                    (event.getEndDate() != null) ? event.getEndDate().toString() : "Não Informado"
+            );
             Label sessionCount = new Label(String.valueOf(event.getSessions().size()));
-            dataContainer.getChildren().addAll(descritor, director, startDate, endDate, sessionCount);
+
+            // Apply styles to data labels
+            descriptor.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
+            director.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
+            startDate.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
+            endDate.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
+            sessionCount.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
+
+            dataContainer.getChildren().addAll(descriptor, director, startDate, endDate, sessionCount);
 
             VBox labelsContainer = new VBox();
-            labelsContainer.getChildren().addAll(new Label("Nome do Evento"), new Label("Diretor do Evento"), new Label("Data de início"), new Label("Data de término"), new Label("Número de Sessões"));
+            labelsContainer.getChildren().addAll(
+                    new Label("Nome do Evento"),
+                    new Label("Diretor do Evento"),
+                    new Label("Data de início"),
+                    new Label("Data de término"),
+                    new Label("Número de Sessões")
+            );
+            labelsContainer.setSpacing(5);
+            labelsContainer.setStyle("-fx-text-fill: #f2f2f2; -fx-font-size: 16;");
 
-            Button manageButton = new Button("manage");
+            Button manageButton = new Button("Manage");
+            manageButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
             manageButton.setOnAction(a -> {
                 try {
                     goToEventHome(event);
-                } catch (IOException e){
-                    logger.log(Level.SEVERE, "Error attaching event uuid to callback", e);
+                } catch (IOException e) {
+                    logger.log(Level.SEVERE, "Error attaching event UUID to callback", e);
                 }
             });
 
+
             VBox buttonContainer = new VBox();
-            buttonContainer.getChildren().add(manageButton);
+            buttonContainer.getChildren().addAll(manageButton);
+            buttonContainer.setSpacing(15);
 
             HBox eventContainer = new HBox();
             eventContainer.setSpacing(25);
+            eventContainer.setStyle("-fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: #ffffff; -fx-border-width: 1;");
+
             labelsContainer.setPrefWidth(100);
             dataContainer.setPrefWidth(100);
             buttonContainer.setPrefWidth(100);
 
             eventContainer.getChildren().addAll(labelsContainer, dataContainer, buttonContainer);
             mainContainer.getChildren().add(eventContainer);
-
         });
 
         scrollPane.setContent(mainContainer);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
+        scrollPane.setStyle("-fx-background-color: transparent;");
     }
+
+
+
     @FXML
     void goToHomeUser() throws IOException {
         App.setRoot("homeUser");

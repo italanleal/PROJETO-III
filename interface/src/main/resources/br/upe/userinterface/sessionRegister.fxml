@@ -1,47 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.SessionRegisterController">
     <children>
-        <VBox prefHeight="200.0" prefWidth="100.0">
+        <!-- Sidebar -->
+        <VBox prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #394159;">
             <children>
-                <AnchorPane prefHeight="358.0" prefWidth="200.0">
+                <!-- Sidebar -->
+                <VBox prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #394159;">
                     <children>
-                        <Hyperlink id="homeSessionLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
-                        <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
-                        <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutY="25.0" prefHeight="24.0" prefWidth="200.0" text="New Session" />
-                        <Hyperlink layoutY="49.0" onAction="#switchToSessionList" prefHeight="24.0" prefWidth="198.0" text="List Sessions" />
+                        <AnchorPane prefHeight="358.0" prefWidth="200.0">
+                            <children>
+                                <Hyperlink id="homeSessionLink" fx:id="homeAdminLink" layoutX="25.0" layoutY="25.0" onAction="#switchToHomeAdmin" prefHeight="35.0" prefWidth="150.0" text="Home" textFill="#f2f2f2" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                                <Separator layoutX="10.0" layoutY="70.0" prefWidth="180.0" style="-fx-background-color: #f2f2f2;" />
+                                <Hyperlink id="newSessionLink" fx:id="newSessionLink" layoutX="25.0" layoutY="90.0" prefHeight="35.0" prefWidth="150.0" text="New Session" textFill="#f2f2f2" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                                <Hyperlink layoutX="25.0" layoutY="130.0" onAction="#switchToSessionList" prefHeight="35.0" prefWidth="150.0" text="List Sessions" textFill="#f2f2f2" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                                <Separator layoutX="10.0" layoutY="175.0" prefWidth="180.0" style="-fx-background-color: #f2f2f2;" />
+                            </children>
+                        </AnchorPane>
+                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
+                            <buttons>
+                                <Hyperlink id="logoutLink" fx:id="logoutLink" layoutX="25.0" onAction="#logout" text="Logout" textFill="#f2f2f2" style="-fx-font-size: 14px; -fx-font-weight: bold;" />
+                            </buttons>
+                        </ButtonBar>
                     </children>
-                </AnchorPane>
-                <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                    <buttons>
-                        <Hyperlink id="logoutLink" fx:id="logoutLink" onAction="#logout" text="logout" />
-                    </buttons>
-                </ButtonBar>
+                </VBox>
             </children>
         </VBox>
-        <VBox prefHeight="400.0" prefWidth="403.0">
-            <children>
-                <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
-                <VBox prefHeight="182.0" prefWidth="400.0">
+
+        <!-- Main Form with ScrollPane -->
+        <ScrollPane fitToWidth="true" prefHeight="400.0" prefWidth="400.0">
+            <content>
+                <VBox alignment="CENTER" spacing="10.0" style="-fx-padding: 20;">
                     <children>
-                        <Label text="Session Title" />
+                        <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #394159;" text="Session Title" />
                         <TextField id="titleField" fx:id="titleField" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Guest" />
-                        <TextField id="guestField" fx:id="guestField" layoutX="10.0" layoutY="28.0" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Local" />
-                        <TextField id="localField" fx:id="localField" layoutX="10.0" layoutY="28.0" />
-                        <Label text="Start date" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #394159;" text="Guest" />
+                        <TextField id="guestField" fx:id="guestField" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #394159;" text="Local" />
+                        <TextField id="localField" fx:id="localField" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #394159;" text="Start Date" />
                         <DatePicker id="startDatePicker" fx:id="startDatePicker" />
-                        <Label text="End date" />
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #394159;" text="End Date" />
                         <DatePicker id="endDatePicker" fx:id="endDatePicker" />
-                          <Label layoutX="10.0" layoutY="10.0" text="Description" />
-                          <TextField id="descritorField" fx:id="descritorField" layoutX="10.0" layoutY="28.0" />
-                    </children></VBox>
-                <Button id="submitSessionButton" fx:id="submitSessionButton" mnemonicParsing="false" onAction="#registerSession" text="Submit" />
-                <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;" />
-            </children></VBox>
+                        <Label style="-fx-font-size: 14px; -fx-text-fill: #394159;" text="Description" />
+                        <TextField id="descritorField" fx:id="descritorField" />
+                        <Button id="submitSessionButton" fx:id="submitSessionButton" mnemonicParsing="false" onAction="#registerSession" style="-fx-background-color: #394159; -fx-text-fill: white; -fx-font-size: 14px;" text="Submit" />
+                        <Label id="warningLabel" fx:id="warningLabel" style="-fx-text-fill: red;" />
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
     </children>
 </HBox>
