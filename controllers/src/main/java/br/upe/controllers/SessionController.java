@@ -148,4 +148,14 @@ public class SessionController {
         if(stateController.getCurrentSubEvent() instanceof SubEvent subEvent) return subEvent.getSessions();
         return stateController.getCurrentEvent().getSessions();
     }
+
+    public void deleteSession(Session session) {
+        if(stateController.getCurrentSubEvent() instanceof SubEvent subEvent){
+            subEvent.getSessions().remove(session);
+        } else {
+            stateController.getCurrentEvent().getSessions().remove(session);
+        }
+        daoController.sessionDAO.delete(session);
+        stateController.setCurrentSession(null);
+    }
 }

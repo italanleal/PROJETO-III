@@ -61,15 +61,25 @@ public class SessionListController {
                     logger.log(Level.SEVERE, "Error attaching session uuid to callback", e);
                 }
             });
+            Button deleteButton = new Button("delete");
+            deleteButton.setOnAction(a -> {
+                try {
+                    deleteSession(session);
+                } catch (IOException e){
+                    logger.log(Level.SEVERE, "Error deleting session", e);
+                }
+            });
 
             VBox buttonContainer = new VBox();
-            buttonContainer.getChildren().add(manageButton);
+            buttonContainer.getChildren().addAll(manageButton, deleteButton);
 
             HBox sessionContainer = new HBox();
             sessionContainer.setSpacing(25);
             labelsContainer.setPrefWidth(100);
             dataContainer.setPrefWidth(100);
             buttonContainer.setPrefWidth(100);
+            buttonContainer.setSpacing(15);
+
 
             sessionContainer.getChildren().addAll(labelsContainer, dataContainer, buttonContainer);
             mainContainer.getChildren().add(sessionContainer);
@@ -80,6 +90,12 @@ public class SessionListController {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
     }
+
+    private void deleteSession(Session session) throws IOException {
+        AppStateController.sessionController.deleteSession(session);
+        App.setRoot("sessionList");
+    }
+
     @FXML
     private void switchToSessionRegister() throws IOException {
         App.setRoot("sessionRegister");

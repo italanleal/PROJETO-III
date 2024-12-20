@@ -1,10 +1,8 @@
 package br.upe.userinterface;
 
 import br.upe.util.persistencia.SystemException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -12,11 +10,6 @@ import java.io.IOException;
 
 
 public class SessionUpdaterController {
-    public Hyperlink homeAdminLink;
-    public Hyperlink manageEventLink;
-    public Hyperlink updateSessionLink;
-    public Hyperlink newSessionLink;
-    public Hyperlink logoutLink;
     @FXML
     Label warningLabel;
     @FXML
@@ -70,8 +63,12 @@ public class SessionUpdaterController {
 
         App.setRoot("sessionManager");
     }
-
-    public void switchToManageEvent() throws IOException{
-        App.setRoot("manageEvent");
+    @FXML
+    private void switchToManageEvent() throws IOException{
+        App.setRoot("eventManager");
+    }
+    @FXML
+    private void switchToSessionList() throws IOException {
+        App.setRoot("sessionList");
     }
 }

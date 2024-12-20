@@ -2,9 +2,7 @@ package br.upe.userinterface;
 
 import br.upe.entities.Event;
 import br.upe.entities.SubEvent;
-import br.upe.util.controllers.UserIsNotAdmin;
 import br.upe.util.persistencia.SystemException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -40,16 +38,23 @@ public class SubEventListController {
 
         subEvents.forEach(subEvent -> {
             VBox dataContainer = new VBox();
-            Label eventTitle = new Label(subEvent.getEvent().getTitle());
-            Label descritor = new Label(subEvent.getDescription());
+            Label eventTitle = new Label(AppStateController.stateController.getCurrentEvent().getTitle());
+            Label descritor = new Label(subEvent.getTitle());
             Label director = new Label(subEvent.getDirector());
+            Label description = new Label(subEvent.getDescription());
             Label startDate = new Label((subEvent.getStartDate() != null) ? subEvent.getStartDate().toString() : "Não Informado");
             Label endDate = new Label((subEvent.getEndDate() != null) ? subEvent.getEndDate().toString() : "Não Informado");
             Label sessionCount = new Label(String.valueOf(subEvent.getSessions().size()));
-            dataContainer.getChildren().addAll(eventTitle, descritor, director, startDate, endDate, sessionCount);
+            dataContainer.getChildren().addAll(eventTitle, descritor, director, startDate, endDate, description, sessionCount);
 
             VBox labelsContainer = new VBox();
-            labelsContainer.getChildren().addAll(new Label("Nome do Evento pai"), new Label("Nome do SubEvento"), new Label("Diretor do SubEvento"), new Label("Data de início"), new Label("Data de término"), new Label("Número de Sessões"));
+            labelsContainer.getChildren().addAll(new Label("Nome do Evento pai"),
+                    new Label("Nome do SubEvento"),
+                    new Label("Diretor do SubEvento"),
+                    new Label("Data de início"),
+                    new Label("Data de término"),
+                    new Label("Descrição"),
+                    new Label("Número de Sessões"));
 
             Button manageButton = new Button("manage");
             manageButton.setOnAction(a -> {
@@ -59,15 +64,24 @@ public class SubEventListController {
                     logger.log(Level.SEVERE, "Error attaching event uuid to callback", e);
                 }
             });
+            Button deleteButton = new Button("delete");
+            deleteButton.setOnAction(a -> {
+                try {
+                    deleteSubEvent(subEvent);
+                } catch (IOException | SystemException e){
+                    logger.log(Level.SEVERE, "Error deleting event", e);
+                }
+            });
 
             VBox buttonContainer = new VBox();
-            buttonContainer.getChildren().add(manageButton);
+            buttonContainer.getChildren().addAll(manageButton, deleteButton);
 
             HBox eventContainer = new HBox();
             eventContainer.setSpacing(25);
             labelsContainer.setPrefWidth(100);
             dataContainer.setPrefWidth(100);
             buttonContainer.setPrefWidth(100);
+            buttonContainer.setSpacing(15);
 
             eventContainer.getChildren().addAll(labelsContainer, dataContainer, buttonContainer);
             mainContainer.getChildren().add(eventContainer);
@@ -78,6 +92,12 @@ public class SubEventListController {
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
     }
+
+    private void deleteSubEvent(SubEvent subEvent) throws SystemException, IOException {
+        AppStateController.subEventController.deleteSubEvent(subEvent);
+        App.setRoot("subEventList");
+    }
+
     @FXML
     private void manageSubEvent(SubEvent subEvent) throws IOException {
         AppStateController.subEventController.changeCurrentSubEvent(subEvent);
