@@ -82,6 +82,8 @@
                         <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/arrow-undo-sharp.png" />
                      </image>
                   </ImageView>
+                  <Button fx:id="issueCertificateButton" onAction="#issueCertificate" text="Issue Certificates" />
+
                   <Hyperlink fx:id="logoutLink" layoutX="56.0" layoutY="254.0" onAction="#logout" prefHeight="29.0" prefWidth="130.0" text="Logout" />
                </children>
             </AnchorPane>

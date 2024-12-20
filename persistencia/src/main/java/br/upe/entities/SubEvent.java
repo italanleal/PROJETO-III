@@ -18,4 +18,8 @@ public class SubEvent extends BaseEvent {
     )
     @JoinColumn(name="event_id", nullable=true, updatable=true)
     private Event event;
+
+    public String getName() {
+        return this.getTitle(); // Assuming title is the name field
+    }
 }

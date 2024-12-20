@@ -1,4 +1,5 @@
 package br.upe.userinterface;
+
 import br.upe.controllers.*;
 import br.upe.facade.Facade;
 import br.upe.util.controllers.ControllersInterface;
@@ -14,6 +15,8 @@ public class AppStateController {
     public static final SubEventController subEventController;
     public static final SubscriptionController subscriptionController;
     public static final SubmissionController submissionController;
+    public static final CertificationController certificationController;
+
     static {
         Facade facade = ControllersInterface.newFacade(PersistenciaInterface.getDefaultEMF_lambda());
         stateController = facade.stateController;
@@ -25,5 +28,6 @@ public class AppStateController {
         subEventController = facade.subEventController;
         subscriptionController = facade.subscriptionController;
         submissionController = facade.submissionController;
+        certificationController = new CertificationController(stateController, daoController);
     }
 }

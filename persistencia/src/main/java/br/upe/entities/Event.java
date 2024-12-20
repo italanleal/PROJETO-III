@@ -38,4 +38,8 @@ public class Event extends BaseEvent {
     )
     @JoinColumn(name="admin_id", nullable=true, updatable=true)
     private SystemAdmin admin;
+
+    public String getName() {
+        return this.getTitle(); // Assuming title is the name field
+    }
 }

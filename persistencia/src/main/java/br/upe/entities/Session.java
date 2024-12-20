@@ -41,4 +41,12 @@ public class Session {
     )
     private @Setter(AccessLevel.PROTECTED) List<Subscription> subscriptions = new ArrayList<>();
 
+    public String getName() {
+        return this.title; // Assuming title is the name field
+    }
+
+    public int getDuration() {
+        return (int) java.time.temporal.ChronoUnit.HOURS.between(startDate.atStartOfDay(), endDate.atStartOfDay());
+    }
+
 }
