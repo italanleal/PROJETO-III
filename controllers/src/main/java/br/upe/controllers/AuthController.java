@@ -56,6 +56,7 @@ public class AuthController {
     }
 
     public void login(String email, String password) throws SystemException {
+
         Userd qUser = null;
         try {
             qUser = daoController.userDAO.findByEmail(email);
@@ -63,16 +64,20 @@ public class AuthController {
             throw new UserNotFoundException(e.getMessage(), e.getCause());
         }
 
-        if(!(password.equals(qUser.getPassword()))) throw new IncorrectPasswordException("Incorrect Password", null);
-
         if(qUser instanceof SystemAdmin admin){
-            Optional<SystemAdmin> fUser = daoController.systemAdminDAO.findById(admin.getId());
-            fUser.ifPresent(stateController::setCurrentUser);
+            Optional<SystemAdmin> systemAdmin = daoController.systemAdminDAO.findById(qUser.getId());
+            if(!(password.equals(systemAdmin.get().getPassword()))) throw new IncorrectPasswordException("Incorrect Password", null);
+            systemAdmin.ifPresent(stateController::setCurrentUser);
+            daoController.systemAdminDAO.detach(admin);
+            stateController.refresh();
             return;
         }
         if(qUser instanceof SystemUser user){
             Optional<SystemUser> fUser = daoController.systemUserDAO.findById(user.getId());
+            if(!(password.equals(fUser.get().getPassword()))) throw new IncorrectPasswordException("Incorrect Password", null);
             fUser.ifPresent(stateController::setCurrentUser);
+            daoController.systemUserDAO.detach(user);
+            stateController.refresh();
         }
     }
 

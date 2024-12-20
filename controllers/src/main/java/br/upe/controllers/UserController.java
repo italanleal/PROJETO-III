@@ -6,6 +6,7 @@ import br.upe.entities.SystemUser;
 
 import br.upe.entities.Userd;
 import br.upe.util.controllers.EmailAlreadyInUse;
+import br.upe.util.controllers.PasswordDoesNotMatch;
 import br.upe.util.persistencia.SystemException;
 
 
@@ -53,18 +54,22 @@ public class UserController {
 
     }
 
-    public void updateUserPassword(String password){
+    public void updateUserPassword(String newPassword) throws SystemException {
         if(stateController.getCurrentUser() instanceof SystemAdmin admin){
-            admin.setPassword(password);
+            admin.setPassword(newPassword);
             stateController.setCurrentUser(daoController.systemAdminDAO.update(admin));
+            stateController.refresh();
             return;
         }
-
         if(stateController.getCurrentUser() instanceof SystemUser user) {
-            user.setPassword(password);
+            user.setPassword(newPassword);
             stateController.setCurrentUser(daoController.systemUserDAO.update(user));
+            stateController.refresh();
+            return;
         }
+        throw new PasswordDoesNotMatch("Password does not match current user password", null);
     }
+
     public void updateUserSurname(String surname){
         if(stateController.getCurrentUser() instanceof SystemAdmin admin){
             admin.setSurname(surname);

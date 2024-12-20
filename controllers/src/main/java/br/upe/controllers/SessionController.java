@@ -47,7 +47,6 @@ public class SessionController {
         }
         stateController.setCurrentSession(daoController.sessionDAO.save(session));
         stateController.refresh();
-
     }
 
     public void updateSessionDescription(String description) {

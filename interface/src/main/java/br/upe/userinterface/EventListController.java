@@ -42,6 +42,7 @@ public class EventListController {
 
         events.forEach(event -> {
             VBox dataContainer = new VBox();
+            Label title = new Label(event.getTitle());
             Label descritor = new Label(event.getDescription());
             Label director = new Label(event.getDirector());
 
@@ -49,10 +50,15 @@ public class EventListController {
             Label endDate = new Label((event.getEndDate() != null) ? event.getEndDate().toString() : "Não Informado");
 
             Label sessionCount = new Label(String.valueOf(event.getSessions().size()));
-            dataContainer.getChildren().addAll(descritor, director, startDate, endDate, sessionCount);
+            dataContainer.getChildren().addAll(title, director, startDate, endDate, sessionCount, descritor);
 
             VBox labelsContainer = new VBox();
-            labelsContainer.getChildren().addAll(new Label("Nome do Evento"), new Label("Diretor do Evento"), new Label("Data de início"), new Label("Data de término"), new Label("Número de Sessões"));
+            labelsContainer.getChildren().addAll(new Label("Nome do Evento"),
+                    new Label("Diretor do Evento"),
+                    new Label("Data de início"),
+                    new Label("Data de término"),
+                    new Label("Número de Sessões"),
+                    new Label("Descrição do Evento"));
 
             Button manageButton = new Button("manage");
             manageButton.setOnAction(a -> {
@@ -82,7 +88,6 @@ public class EventListController {
 
             eventContainer.getChildren().addAll(labelsContainer, dataContainer, buttonContainer);
             mainContainer.getChildren().add(eventContainer);
-
         });
 
         scrollPane.setContent(mainContainer);
