@@ -7,15 +7,18 @@
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.ListaDeEventosUSController">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <!-- Sidebar -->
+      <VBox prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #394159;">
          <children>
-            <AnchorPane prefHeight="399.0" prefWidth="200.0" style="-fx-background-color: #394159;">
+            <AnchorPane prefHeight="400.0" prefWidth="200.0">
                <children>
-                  <ImageView fitHeight="26.0" fitWidth="200.0">
+                  <!-- Logo -->
+                  <ImageView fitHeight="50.0" fitWidth="150.0" layoutX="25.0" layoutY="10.0">
                      <image>
-                        <Image url="@../../../../../../../../../Downloads/imports%20para%20o%20scenebuilder/logo.png" />
+                        <Image url="@/resources/images/logo.png" />
                      </image>
                   </ImageView>
+
                   <Separator layoutX="-1.0" layoutY="25.0" opacity="0.74" prefWidth="200.0" style="-fx-background-color: F2F2F2;">
                      <effect>
                         <ColorAdjust />
@@ -57,14 +60,26 @@
                      </image>
                   </ImageView>
                   <Hyperlink fx:id="logoutLink" layoutX="56.0" layoutY="254.0" onAction="#logout" prefHeight="29.0" prefWidth="130.0" text="Logout" />
+
                </children>
             </AnchorPane>
          </children>
       </VBox>
-      <VBox prefHeight="400.0" prefWidth="403.0">
+
+      <!-- Main Content -->
+      <VBox prefHeight="400.0" prefWidth="400.0" style="-fx-padding: 20; -fx-background-color: #FFFFFF;">
          <children>
-            <Label id="userEmail" fx:id="userEmail" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
-            <ScrollPane id="scrollPane" fx:id="scrollPane" prefHeight="381.0" prefWidth="400.0" />
-         </children></VBox>
+            <!-- User Email -->
+            <Label fx:id="userEmail" alignment="CENTER" prefHeight="30.0" prefWidth="400.0" style="-fx-text-fill: #394159; -fx-font-size: 14px;" />
+
+            <!-- Scroll Pane for Event List -->
+            <ScrollPane fx:id="scrollPane" prefHeight="370.0" prefWidth="400.0" style="-fx-background-color: #FFFFFF;">
+               <!-- Content Inside ScrollPane -->
+               <VBox spacing="10" alignment="TOP_LEFT" style="-fx-padding: 10;">
+                  <!-- Add dynamic event items here -->
+               </VBox>
+            </ScrollPane>
+         </children>
+      </VBox>
    </children>
 </HBox>

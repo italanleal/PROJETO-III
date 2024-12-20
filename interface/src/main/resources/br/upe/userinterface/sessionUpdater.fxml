@@ -2,45 +2,75 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.upe.userinterface.SessionUpdaterController">
     <children>
-        <VBox prefHeight="200.0" prefWidth="100.0">
+        <VBox prefHeight="400.0" prefWidth="200.0" style="-fx-background-color: #394159;">
             <children>
                 <AnchorPane prefHeight="358.0" prefWidth="200.0">
                     <children>
-                        <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutY="3.0" onAction="#switchToHomeAdmin" prefHeight="24.0" prefWidth="198.0" text="Home" />
-                        <Separator layoutX="-1.0" layoutY="25.0" prefWidth="200.0" />
-                        <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutY="28.0" onAction="#switchToManageEvent" text="Manage Event" />
-                        <Hyperlink id="sessionListLink" fx:id="sessionListLink" layoutY="49.0" onAction="#switchToSessionList" prefHeight="24.0" prefWidth="198.0" text="Session List" />
+
+                        <Hyperlink id="homeAdminLink" fx:id="homeAdminLink" layoutX="25.0" layoutY="25.0" onAction="#switchToHomeAdmin" prefHeight="35.0" prefWidth="150.0" text="Home" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Hyperlink>
+                        <Separator layoutX="10.0" layoutY="70.0" prefWidth="180.0" style="-fx-background-color: #f2f2f2;" />
+                        <Hyperlink id="manageEventLink" fx:id="manageEventLink" layoutX="25.0" layoutY="90.0" onAction="#switchToManageEvent" prefHeight="35.0" prefWidth="150.0" text="Manage Event" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Hyperlink>
+                        <Hyperlink id="sessionListLink" fx:id="sessionListLink" layoutX="25.0" layoutY="130.0" onAction="#switchToSessionList" prefHeight="35.0" prefWidth="150.0" text="Session List" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Hyperlink>
+                        <Separator layoutX="10.0" layoutY="175.0" prefWidth="180.0" style="-fx-background-color: #f2f2f2;" />
                     </children>
                 </AnchorPane>
                 <ButtonBar prefHeight="40.0" prefWidth="200.0">
                     <buttons>
-                        <Hyperlink id="logoutLink" fx:id="logoutLink" onAction="#logout" text="logout" />
+                        <Hyperlink id="logoutLink" fx:id="logoutLink" layoutX="25.0" onAction="#logout" text="Logout" textFill="#f2f2f2">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Hyperlink>
                     </buttons>
                 </ButtonBar>
             </children>
         </VBox>
-        <VBox prefHeight="400.0" prefWidth="403.0">
-            <children>
-                <Label id="eventDescritor" fx:id="eventDescritor" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" />
-                <VBox prefHeight="182.0" prefWidth="400.0">
+        <ScrollPane fitToWidth="true" prefHeight="400.0" prefWidth="403.0">
+            <content>
+                <VBox prefHeight="400.0" prefWidth="403.0" spacing="15" style="-fx-padding: 20;">
                     <children>
-                        <Label text="Session Title" />
-                        <TextField id="titleField" fx:id="titleField" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Guest" />
-                        <TextField id="guestField" fx:id="guestField" layoutX="10.0" layoutY="28.0" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Local" />
-                        <TextField id="localField" fx:id="localField" layoutX="10.0" layoutY="28.0" />
-                        <Label text="Start date" />
-                        <DatePicker id="startDatePicker" fx:id="startDatePicker" />
-                        <Label text="End date" />
-                        <DatePicker id="endDatePicker" fx:id="endDatePicker" />
-                        <Label layoutX="10.0" layoutY="10.0" text="Description" />
-                        <TextField id="descritorField" fx:id="descritorField" layoutX="10.0" layoutY="28.0" />
-                    </children></VBox>
-                <Button id="submitEventButton" fx:id="submitEventButton" mnemonicParsing="false" onAction="#updateSession" text="Submit" />
-            </children></VBox>
+                        <Label id="eventDescritor" fx:id="eventDescritor" alignment="CENTER" prefHeight="18.0" prefWidth="401.0" textAlignment="CENTER" style="-fx-font-size: 14px; -fx-text-fill: #394159;" />
+                        <VBox spacing="10.0">
+                            <children>
+                                <Label text="Session Title" style="-fx-font-size: 14px; -fx-text-fill: #394159;" />
+                                <TextField id="titleField" fx:id="titleField" />
+
+                                <Label text="Guest" style="-fx-font-size: 14px; -fx-text-fill: #394159;" />
+                                <TextField id="guestField" fx:id="guestField" />
+
+                                <Label text="Local" style="-fx-font-size: 14px; -fx-text-fill: #394159;" />
+                                <TextField id="localField" fx:id="localField" />
+
+                                <Label text="Start date" style="-fx-font-size: 14px; -fx-text-fill: #394159;" />
+                                <DatePicker id="startDatePicker" fx:id="startDatePicker" />
+
+                                <Label text="End date" style="-fx-font-size: 14px; -fx-text-fill: #394159;" />
+                                <DatePicker id="endDatePicker" fx:id="endDatePicker" />
+
+                                <Label text="Description" style="-fx-font-size: 14px; -fx-text-fill: #394159;" />
+                                <TextField id="descritorField" fx:id="descritorField" />
+                            </children>
+                        </VBox>
+                        <Button id="submitEventButton" fx:id="submitEventButton" mnemonicParsing="false" onAction="#updateSession" text="Submit" style="-fx-background-color: #394159; -fx-text-fill: white; -fx-font-size: 14px;" />
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
     </children>
 </HBox>

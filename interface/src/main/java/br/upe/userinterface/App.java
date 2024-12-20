@@ -31,7 +31,7 @@ public class App extends Application {
     }
 
     private static void initScene(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("login"), 640, 480);
+        scene = new Scene(loadFXML("login"), 640, 400);
         stage.setScene(scene);
         stage.setTitle("AcademicEvents");
 
