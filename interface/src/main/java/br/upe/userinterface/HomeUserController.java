@@ -21,8 +21,8 @@ public class HomeUserController {
     }
 
     @FXML
-    void goToUserListSubscription() throws IOException {
-        App.setRoot("userSearchEvent");
+    void goToListaDeInscricoes() throws IOException {
+        App.setRoot("listaDeInscricoes");
 
     }
 
