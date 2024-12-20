@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
+
 public class SessionController {
     private final StateController stateController;
     private final DAOController daoController;
@@ -21,7 +22,6 @@ public class SessionController {
 
     public void createNewSession(String title, String description, String guest, String local, LocalDate startDate, LocalDate endDate) throws SystemException {
         if((!stateController.getCurrentUser().isSu())) throw new UserIsNotAdmin();
-
         try {
             CHECKING.checkDates(startDate, endDate);
         } catch (InvalidDateInput e) {
@@ -47,6 +47,7 @@ public class SessionController {
         }
         stateController.setCurrentSession(daoController.sessionDAO.save(session));
         stateController.refresh();
+
     }
 
     public void updateSessionDescription(String description) {
