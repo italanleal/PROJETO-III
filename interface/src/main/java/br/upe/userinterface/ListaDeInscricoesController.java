@@ -106,7 +106,7 @@ public class ListaDeInscricoesController {
 
     private void unsubscripeToSession(Subscription subscription) throws IOException{
         AppStateController.userController.removeSubscriptionFromUser(subscription);
-        App.setRoot("listaDeInscricoes");
+        App.setRoot("listaDeIncricoes");
     }
 
     @FXML
