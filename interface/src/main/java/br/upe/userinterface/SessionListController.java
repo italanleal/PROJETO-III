@@ -52,7 +52,6 @@ public class SessionListController {
             endDate.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
             subscriptionsCount.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
             descritor.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
-
             dataContainer.getChildren().addAll(title, guest, local, startDate, endDate, subscriptionsCount, descritor);
 
             VBox labelsContainer = new VBox();
@@ -91,7 +90,7 @@ public class SessionListController {
             buttonContainer.getChildren().addAll(manageButton, deleteButton);
 
             buttonContainer.setSpacing(15);
-
+          
             HBox sessionContainer = new HBox();
             sessionContainer.setSpacing(25);
             sessionContainer.setStyle("-fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: #ffffff; -fx-border-width: 1;");
