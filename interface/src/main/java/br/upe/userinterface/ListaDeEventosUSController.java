@@ -23,7 +23,7 @@ public class ListaDeEventosUSController {
     ScrollPane scrollPane;
 
     @FXML
-    private void initialize() throws SystemException {
+    private void initialize() {
         // Set the label's text to the current user's email
         userEmail.setText(AppStateController.stateController.getCurrentUser().getEmail());
 
@@ -83,7 +83,6 @@ public class ListaDeEventosUSController {
                 }
             });
 
-
             VBox buttonContainer = new VBox();
             buttonContainer.getChildren().addAll(manageButton);
             buttonContainer.setSpacing(15);
@@ -106,8 +105,6 @@ public class ListaDeEventosUSController {
         scrollPane.setStyle("-fx-background-color: transparent;");
     }
 
-
-
     @FXML
     void goToHomeUser() throws IOException {
         App.setRoot("homeUser");
@@ -115,7 +112,7 @@ public class ListaDeEventosUSController {
     @FXML
     public void goToEventHome(Event event) throws IOException {
         AppStateController.eventController.changeCurrentEvent(event);
-        App.setRoot("eventHome");
+        App.setRoot("eventHomeUS");
     }
     @FXML
     void logout() throws IOException {
@@ -123,8 +120,5 @@ public class ListaDeEventosUSController {
         App.setRoot("login");
     }
 
-    public void goToListaDeEventos() throws IOException {
-
-    }
 }
 

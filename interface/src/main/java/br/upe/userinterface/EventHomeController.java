@@ -57,7 +57,6 @@ public class EventHomeController {
         App.setRoot("homeUser");
 
     }
-
     public void goToSubmeterArtigo() throws IOException {
         App.setRoot("submissaoArtigo");
     }
