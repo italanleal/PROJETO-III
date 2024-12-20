@@ -69,7 +69,7 @@ public class SubmissaoArtigoController {
     }
     @FXML
     public void goToEventHome() throws IOException {
-        App.setRoot("eventHomeUS");
+        App.setRoot("eventHome");
     }
 
     @FXML

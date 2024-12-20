@@ -112,7 +112,7 @@ public class ListaDeEventosUSController {
     @FXML
     public void goToEventHome(Event event) throws IOException {
         AppStateController.eventController.changeCurrentEvent(event);
-        App.setRoot("eventHomeUS");
+        App.setRoot("eventHome");
     }
     @FXML
     void logout() throws IOException {

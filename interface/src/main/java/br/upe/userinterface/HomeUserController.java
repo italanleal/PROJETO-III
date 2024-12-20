@@ -35,7 +35,6 @@ public class HomeUserController {
 
     void goToUserRemoveSubscription() throws IOException {
         App.setRoot("userRemoveSubscription");
-
     }
 
     @FXML
