@@ -1,6 +1,5 @@
 package br.upe.userinterface;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -37,19 +36,11 @@ public class EventHomeController {
     }
 
     @FXML
-    private void switchToSessionRegister() throws IOException {
-        App.setRoot("sessionRegister");
-    }
-
-    @FXML
-    private void switchToHomeAdmin() throws IOException {
-        App.setRoot("homeAdmin");
-    }
-    @FXML
     private void logout() throws IOException {
         AppStateController.authController.logout();
         App.setRoot("login");
     }
+
     @FXML
     private void switchToEventUpdater() throws IOException {
         App.setRoot("eventUpdater");
@@ -68,6 +59,7 @@ public class EventHomeController {
         App.setRoot("subEventList");
     }
 
+
     public void goToListaDeEventos() throws IOException{
         App.setRoot("listaDeEventosUS");
     }
@@ -78,8 +70,14 @@ public class EventHomeController {
     public void goToListaDeSubEventos() throws IOException{
         App.setRoot("listaDeSubEventos");
     }
+
     public void goToHomeUser() throws IOException {
         App.setRoot("homeUser");
 
     }
+
+    public void goToSubmeterArtigo() throws IOException {
+        App.setRoot("submissaoArtigo");
+    }
+
 }

@@ -28,7 +28,7 @@ public class Submission {
     @ManyToOne(
             targetEntity=br.upe.entities.SystemUser.class,
             cascade=CascadeType.PERSIST,
-            fetch=FetchType.LAZY,
+            fetch=FetchType.EAGER,
             optional=true
     )
     @JoinColumn(name="user_id", nullable=true, updatable=true)

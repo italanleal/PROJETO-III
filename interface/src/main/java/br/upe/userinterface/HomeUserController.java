@@ -1,10 +1,7 @@
 package br.upe.userinterface;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 
 public class HomeUserController {
@@ -35,7 +32,6 @@ public class HomeUserController {
 
     void goToUserRemoveSubscription() throws IOException {
         App.setRoot("userRemoveSubscription");
-
     }
 
     @FXML
@@ -47,6 +43,10 @@ public class HomeUserController {
 
     public void goToListaDeEventos() throws IOException {
         App.setRoot("listaDeEventosUS");
+    }
+    @FXML
+    public void goToProfile() throws IOException {
+        App.setRoot("userProfile");
     }
 }
 

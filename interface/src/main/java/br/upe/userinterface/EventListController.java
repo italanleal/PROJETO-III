@@ -36,29 +36,48 @@ public class EventListController {
         }
 
         VBox mainContainer = new VBox();
-
         mainContainer.getChildren().clear();
         mainContainer.setSpacing(10);
+        mainContainer.setStyle("-fx-background-color: #ffffff;"); // Background for the main container
 
         events.forEach(event -> {
             VBox dataContainer = new VBox();
+            dataContainer.setSpacing(5);
+
+
             Label title = new Label(event.getTitle());
             Label descritor = new Label(event.getDescription());
             Label director = new Label(event.getDirector());
             Label startDate = new Label((event.getStartDate() != null) ? event.getStartDate().toString() : "Não Informado");
             Label endDate = new Label((event.getEndDate() != null) ? event.getEndDate().toString() : "Não Informado");
             Label sessionCount = new Label(String.valueOf(event.getSessions().size()));
+
+            // Apply styles to data labels
+            title.setStyle("-fx-text-fill: #394159; -fx-font-size: 18; -fx-font-family: 'System Bold';");
+            descritor.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
+            director.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
+            startDate.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
+            endDate.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
+            sessionCount.setStyle("-fx-text-fill: #394159; -fx-font-size: 16;");
+
             dataContainer.getChildren().addAll(title, director, startDate, endDate, sessionCount, descritor);
 
             VBox labelsContainer = new VBox();
-            labelsContainer.getChildren().addAll(new Label("Nome do Evento"),
+            labelsContainer.getChildren().addAll(
+                    new Label("Nome do Evento"),
+
                     new Label("Diretor do Evento"),
                     new Label("Data de início"),
                     new Label("Data de término"),
                     new Label("Número de Sessões"),
-                    new Label("Descrição do Evento"));
+                    new Label("Descrição do Evento")
+            );
+            labelsContainer.setSpacing(5);
+            labelsContainer.setStyle("-fx-text-fill: #f2f2f2; -fx-font-size: 16;");
+
 
             Button manageButton = new Button("manage");
+            manageButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
             manageButton.setOnAction(a -> {
                 try {
                     manageEvent(event);
@@ -67,18 +86,25 @@ public class EventListController {
                 }
             });
             Button deleteButton = new Button("delete");
+            deleteButton.setStyle("-fx-background-color: #394159; -fx-text-fill: #f2f2f2; -fx-font-size: 14;");
             deleteButton.setOnAction(a -> {
                 try {
                     deleteEvent(event);
-                } catch (IOException | SystemException e){
+                } catch (IOException | SystemException e) {
                     logger.log(Level.SEVERE, "Error deleting event", e);
                 }
             });
+
             VBox buttonContainer = new VBox();
+            buttonContainer.getChildren().addAll(manageButton, deleteButton);
+            buttonContainer.setSpacing(15);
+
 
             buttonContainer.getChildren().addAll(manageButton, deleteButton);
             HBox eventContainer = new HBox();
             eventContainer.setSpacing(25);
+            eventContainer.setStyle("-fx-background-color: #ffffff; -fx-padding: 10; -fx-border-color: #ffffff; -fx-border-width: 1;");
+
             labelsContainer.setPrefWidth(100);
             dataContainer.setPrefWidth(100);
             buttonContainer.setPrefWidth(100);
@@ -91,6 +117,7 @@ public class EventListController {
         scrollPane.setContent(mainContainer);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(true);
+        scrollPane.setStyle("-fx-background-color: transparent;");
     }
 
     private void deleteEvent(Event event) throws IOException, SystemException {
