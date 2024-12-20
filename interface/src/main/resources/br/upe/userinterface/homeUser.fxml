@@ -25,16 +25,12 @@
                      </HBox>
                      <!-- Edit Subscriptions -->
                      <HBox spacing="10">
-                        <Hyperlink fx:id="userEditSubscriptionLink" style="-fx-text-fill: #F2F2F2; -fx-font-size: 14px;" text="Edit Subscriptions" />
+                        <Hyperlink fx:id="userEditSubscriptionLink" onAction="#goToListaDeInscricoes" style="-fx-text-fill: #F2F2F2; -fx-font-size: 14px;" text="List Subscriptions" />
                      </HBox>
                      <!-- Remove Subscriptions -->
-                     <HBox spacing="10">
-                        <Hyperlink fx:id="userRemoveSubscriptionsLink" style="-fx-text-fill: #F2F2F2; -fx-font-size: 14px;" text="Remove Subscriptions" />
-                     </HBox>
+                     <HBox spacing="10" />
                      <!-- List Subscriptions -->
-                     <HBox spacing="10">
-                        <Hyperlink fx:id="userListSubscriptionLink" style="-fx-text-fill: #F2F2F2; -fx-font-size: 14px;" text="List Subscriptions" />
-                     </HBox>
+                     <HBox spacing="10" />
                      <!-- Logout -->
                      <HBox spacing="10">
                         <Hyperlink fx:id="logoutLink" onAction="#logout" style="-fx-text-fill: #F2F2F2; -fx-font-size: 14px;" text="Logout" />
